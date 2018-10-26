@@ -25,8 +25,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepository.findByUserName(username);
+	public UserDetails loadUserByUsername(String usernameOrMobileNumber) throws UsernameNotFoundException {
+		User user = userRepository.findByUserName(usernameOrMobileNumber);
+		
+		if(user == null){
+			user = userRepository.findByMobileNumber(usernameOrMobileNumber);
+		}
 
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 		for (Role role : user.getRoles()) {
@@ -40,6 +44,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public User getCurrentUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userRepository.findByUserName(auth.getName());
+		if (user == null) {
+			user = userRepository.findByMobileNumber(auth.getName());
+		}
 		return user;
 	}
 

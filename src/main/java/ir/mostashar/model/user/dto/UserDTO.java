@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import ir.mostashar.model.role.Role;
@@ -27,6 +25,9 @@ public class UserDTO {
 	@JsonProperty
 	private String userName;
 
+	@JsonProperty
+	private String mobileNumber;
+	
 	@JsonProperty
 	private String uid;
 
@@ -81,6 +82,7 @@ public class UserDTO {
 		this.firstName = user.getFirstName();
 		this.lastName = user.getLastName();
 		this.userName = user.getUserName();
+		this.mobileNumber = user.getMobileNumber();
 //		this.uid = user.getUid().toString();
 
 		Set<Role> roleSet = user.getRoles();
@@ -101,6 +103,7 @@ public class UserDTO {
 		user.setLastName(this.lastName);
 		user.setUserName(this.userName);
 		user.setPassword(this.password);
+		user.setMobileNumber(this.mobileNumber);
 
 		Set<Role> roleSet = new HashSet<Role>();
 		if (this.roles != null && !this.roles.isEmpty()) {

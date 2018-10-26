@@ -15,7 +15,7 @@ import ir.mostashar.model.user.dto.UserDTO;
 import ir.mostashar.model.user.logic.UserMgr;
 
 @RestController
-@RequestMapping("/IranPopulation/api/user")
+@RequestMapping("/Mostashar/api/user")
 public class UserService {
 
 	@Autowired

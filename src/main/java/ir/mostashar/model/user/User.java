@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
 import ir.mostashar.model.AuditModel;
 import ir.mostashar.model.AssignDiscount.AssignDiscounts;
 import ir.mostashar.model.InvitedUser.InvitedUsers;
-import ir.mostashar.model.device.Devices;
+import ir.mostashar.model.device.Device;
 import ir.mostashar.model.reminder.Reminders;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.setting.Setting;
@@ -86,7 +86,7 @@ public class User extends AuditModel {
     private Set<AssignDiscounts> assignDiscounts = new HashSet<AssignDiscounts>();
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Devices> devices = new HashSet<Devices>();
+    private Set<Device> devices = new HashSet<Device>();
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Reminders> reminders = new HashSet<Reminders>();
@@ -190,11 +190,11 @@ public class User extends AuditModel {
 		this.assignDiscounts = assignDiscounts;
 	}
 
-	public Set<Devices> getDevices() {
+	public Set<Device> getDevices() {
 		return devices;
 	}
 
-	public void setDevices(Set<Devices> devices) {
+	public void setDevices(Set<Device> devices) {
 		this.devices = devices;
 	}
 
