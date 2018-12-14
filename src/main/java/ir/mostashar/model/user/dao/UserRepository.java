@@ -8,7 +8,7 @@ import ir.mostashar.model.user.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
-	User findByUserName(String userName);
+	User findByUsername(String username);
 	
 	User findByMobileNumber(String mobileNumber);
 }

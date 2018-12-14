@@ -32,7 +32,7 @@ public class Role extends AuditModel {
 	@Column(unique = true)
 	private UUID uid;
 
-	@Column(name = "name")
+	@Column(unique = true)
 	private String name;
 
 	@Column(name = "description")
@@ -52,7 +52,7 @@ public class Role extends AuditModel {
 	// inverseJoinColumns = { @JoinColumn(name = "feature_id") })
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "role_feature", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "feature_id", referencedColumnName = "id"))
+	@JoinTable(name = "role_features", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "feature_id", referencedColumnName = "id"))
 	private Set<Feature> features = new HashSet<>();
 
 	public Long getId() {

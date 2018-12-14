@@ -57,7 +57,7 @@ public class UserMgr {
     }
 
     public User findByUsername(String username) {
-        return userRepository.findByUserName(username);
+        return userRepository.findByUsername(username);
     }
 
 	public List<User> findAll() {

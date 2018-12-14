@@ -17,8 +17,9 @@ import ir.mostashar.model.role.logic.RoleMgr;
 import ir.mostashar.model.user.User;
 import ir.mostashar.model.user.logic.UserMgr;
 
-@Component
-public class DataSuit implements ApplicationRunner {
+//@Component
+public class DataSuit{
+//implements ApplicationRunner {
 
 	private UserMgr userMgr;
 
@@ -82,9 +83,9 @@ public class DataSuit implements ApplicationRunner {
 
 	}
 
-	@Override
-	public void run(ApplicationArguments args) throws Exception {
-		initalAdminUser();
-	}
+//	@Override
+//	public void run(ApplicationArguments args) throws Exception {
+//		initalAdminUser();
+//	}
 
 }

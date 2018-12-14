@@ -28,7 +28,7 @@ public class Feature extends AuditModel {
 	@Column(unique = true)
 	private UUID uid;
 
-	@Column(name = "name")
+	@Column(unique = true)
 	private String name;
 
 	@Column(name = "description")

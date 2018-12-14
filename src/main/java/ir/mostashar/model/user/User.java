@@ -19,7 +19,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import ir.mostashar.model.AuditModel;
 import ir.mostashar.model.AssignDiscount.AssignDiscounts;
@@ -45,14 +44,14 @@ public class User extends AuditModel {
 	@Column(unique = true)
 	private UUID uid;
 	
-	@Column(name = "firstName")
+	@Column(name = "firstname")
 	private String firstName;
 
-	@Column(name = "lastName")
+	@Column(name = "lastname")
 	private String lastName;
 
 	@Column(unique = true)
-	private String userName;
+	private String username;
 
 	@Column(name = "password")
 	private String password;
@@ -66,7 +65,7 @@ public class User extends AuditModel {
 //                CascadeType.PERSIST,
 //                CascadeType.MERGE
 //            })
-    @JoinTable(name = "user_role",
+    @JoinTable(name = "user_roles",
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "role_id") })
     private Set<Role> roles = new HashSet<>();
@@ -127,11 +126,11 @@ public class User extends AuditModel {
 	}
 
 	public String getUserName() {
-		return userName;
+		return username;
 	}
 
 	public void setUserName(String userName) {
-		this.userName = userName;
+		this.username = userName;
 	}
 
 	public String getPassword() {

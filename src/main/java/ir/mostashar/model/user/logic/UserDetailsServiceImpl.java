@@ -26,7 +26,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String usernameOrMobileNumber) throws UsernameNotFoundException {
-		User user = userRepository.findByUserName(usernameOrMobileNumber);
+		User user = userRepository.findByUsername(usernameOrMobileNumber);
 		
 		if(user == null){
 			user = userRepository.findByMobileNumber(usernameOrMobileNumber);
@@ -43,7 +43,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	public User getCurrentUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userRepository.findByUserName(auth.getName());
+		User user = userRepository.findByUsername(auth.getName());
 		if (user == null) {
 			user = userRepository.findByMobileNumber(auth.getName());
 		}
