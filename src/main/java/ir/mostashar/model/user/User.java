@@ -50,21 +50,37 @@ public class User extends AuditModel {
 	@Column(name = "lastname")
 	private String lastName;
 
+	@Column(name = "fathername")
+	private String fatherName;
+
 	@Column(unique = true)
 	private String username;
 
 	@Column(name = "password")
 	private String password;
-	
-//	@NotNull
+
+	@Column(name = "nationalid")
+	private String nationalId;
+
+	@Column(name = "birthdate")
+	private Long birthDate;
+
+	@Column(name = "isonline")
+	private boolean isOnline = false;
+
+	@Column(name = "score")
+	private int score;
+
+	@Column(name = "avatarhashcode")
+	private String avatarHashCode;
+
+	@Column(name = "isactive")
+	private boolean isActive = false;
+
 	@Column(unique = true)
 	private String mobileNumber;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-//           , cascade = {
-//                CascadeType.PERSIST,
-//                CascadeType.MERGE
-//            })
     @JoinTable(name = "user_roles",
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "role_id") })

@@ -29,6 +29,12 @@ public class Setting {
 
 	@Column(unique = true)
 	private UUID uid;
+
+	@Column(name = "description")
+	private String description;
+
+    @Column(name = "userdefined")
+    private boolean userDefined =false;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "userId", nullable = false)

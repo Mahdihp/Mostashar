@@ -1,11 +1,21 @@
-CREATE TABLE USERS (id bigint NOT null, uid UUID, username varchar(255), firstname varchar(255), password Text, lastname varchar(255), created_at timestamp, updated_at timestamp, mobile_number varchar(255), PRIMARY KEY (id));
+CREATE TABLE USERS (id bigint NOT null, uid UUID, username varchar(255), firstname varchar(255),fathername varchar(255),nationalid varchar(10),birthdate bigint, password Text, lastname varchar(255),email varchar(255),score integer,avatarhashcode varchar(255) ,isonline boolean,isactive boolean, creationdate timestamp, modificationdate timestamp, mobile_number varchar(255), PRIMARY KEY (id));
 ALTER TABLE USERS ADD CONSTRAINT UK_46kvy05nqwkhpefsagvg5samv  UNIQUE (username);
 ALTER TABLE USERS ADD CONSTRAINT UK_k3gm4drnorissx5s1hmnk99cj  UNIQUE (uid);
 ALTER TABLE USERS ADD CONSTRAINT UK_68tlf4oult9ywhvk6dfmvf1r2  UNIQUE (mobile_number);
 
-CREATE TABLE ROLES (id bigint NOT null, uid UUID, name varchar(255), description varchar(255), created_at timestamp, updated_at timestamp, PRIMARY KEY (id));
+CREATE TABLE ROLES (id bigint NOT null, uid UUID, name varchar(255),userdefined boolean, description varchar(255), created_at timestamp, updated_at timestamp, PRIMARY KEY (id));
 ALTER TABLE ROLES ADD CONSTRAINT UK_hffrgdy49ff56f4w6t6pmj288  UNIQUE (uid);
 ALTER TABLE ROLES ADD CONSTRAINT UK_1s6p3xpt8owdb603jky0mo815  UNIQUE (name);
+
+CREATE TABLE wallet(id bigint NOT null, uid UUID,value integer,bankAccountName varchar(255),bankAccountNumber varchar(255),bankAccountSheba  varchar(255));
+
+CREATE TABLE Setting(id bigint NOT null, uid UUID,description varchar(255),userdefined boolean);
+
+CREATE TABLE AccessEntry(id bigint NOT null, uid UUID,type integer ,name varchar(255),description varchar(255),creationdate timestamp,modificationdate timestamp,expirydate timestamp  );
+
+CREATE TABLE InvitedUser(id bigint NOT null, uid UUID,invitedusername varchar(255),creationdate timestamp);
+
+CREATE TABLE AssignDiscounts(id bigint NOT null, uid UUID,isactive boolean,creationdate timestamp,modificationdate timestamp,expirydate timestamp) ;
 
 CREATE TABLE FEATURES (id bigint NOT null, uid UUID, name varchar(255), description varchar(255), created_at timestamp, updated_at timestamp, PRIMARY KEY (id));
 ALTER TABLE FEATURES ADD CONSTRAINT UK_c8pkbrgxfl8ghr7b75hqr8eqv  UNIQUE (uid);

@@ -24,6 +24,18 @@ public class Wallet {
 
 	@Column(unique = true)
 	private UUID uid;
+
+	@Column(name = "value")
+	private int value;
+
+	@Column(name = "bankaccountname")
+	private String bankAccountName;
+
+	@Column(name = "bankaccountnumber")
+	private String bankAccountNumber;
+
+	@Column(name = "bankaccountsheba")
+	private String bankAccountSheba;
 	
 	@OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)

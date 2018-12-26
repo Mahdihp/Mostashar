@@ -38,6 +38,10 @@ public class Role extends AuditModel {
 	@Column(name = "description")
 	private String description;
 
+
+	@Column(name = "userdefined")
+	private boolean userDefined;
+
 //	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "roles")
 	@ManyToMany(mappedBy = "roles")
 	private Set<User> users = new HashSet<>();
