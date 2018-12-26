@@ -7,15 +7,25 @@ CREATE TABLE ROLES (id bigint NOT null, uid UUID, name varchar(255),userdefined 
 ALTER TABLE ROLES ADD CONSTRAINT UK_hffrgdy49ff56f4w6t6pmj288  UNIQUE (uid);
 ALTER TABLE ROLES ADD CONSTRAINT UK_1s6p3xpt8owdb603jky0mo815  UNIQUE (name);
 
-CREATE TABLE wallet(id bigint NOT null, uid UUID,value integer,bankAccountName varchar(255),bankAccountNumber varchar(255),bankAccountSheba  varchar(255));
+CREATE TABLE wallets(id bigint NOT null, uid UUID,value integer,bankAccountName varchar(255),bankAccountNumber varchar(255),bankAccountSheba  varchar(255));
 
-CREATE TABLE Setting(id bigint NOT null, uid UUID,description varchar(255),userdefined boolean);
+CREATE TABLE Settings(id bigint NOT null, uid UUID,description varchar(255),userdefined boolean);
 
-CREATE TABLE AccessEntry(id bigint NOT null, uid UUID,type integer ,name varchar(255),description varchar(255),creationdate timestamp,modificationdate timestamp,expirydate timestamp  );
+CREATE TABLE AccessEntrys(id bigint NOT null, uid UUID,type integer ,name varchar(255),description varchar(255),creationdate timestamp,modificationdate timestamp,expirydate timestamp  );
 
-CREATE TABLE InvitedUser(id bigint NOT null, uid UUID,invitedusername varchar(255),creationdate timestamp);
+CREATE TABLE InvitedUsers(id bigint NOT null, uid UUID,invitedusername varchar(255),creationdate timestamp);
 
 CREATE TABLE AssignDiscounts(id bigint NOT null, uid UUID,isactive boolean,creationdate timestamp,modificationdate timestamp,expirydate timestamp) ;
+
+CREATE TABLE Devices(id bigint NOT null, uid UUID,ipaddress varchar(15),model varchar(255),imei varchar(20));
+
+CREATE TABLE Reminders(id bigint NOT null, uid UUID,read varchar(255));
+
+CREATE TABLE SharingPerspectives(id bigint NOT null, uid UUID, membershiptype varchar(255),creationdate timestamp,modificationdate timestamp,expirydate timestamp);
+
+CREATE TABLE Lawyers(id bigint NOT null, uid UUID,isavailable boolean,level integer);
+
+CREATE TABLE Clients(id bigint NOT null, uid UUID,jobtitle varchar(255),address varchar(255),postalcode varchar(255),fieldofstudy varchar(255),telephone varchar(255));
 
 CREATE TABLE FEATURES (id bigint NOT null, uid UUID, name varchar(255), description varchar(255), created_at timestamp, updated_at timestamp, PRIMARY KEY (id));
 ALTER TABLE FEATURES ADD CONSTRAINT UK_c8pkbrgxfl8ghr7b75hqr8eqv  UNIQUE (uid);
