@@ -27,7 +27,7 @@ public class Setting {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
 	private UUID uid;
 
 	@Column(name = "description")

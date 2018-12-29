@@ -29,7 +29,7 @@ public class Role extends AuditModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
 	private UUID uid;
 
 	@Column(unique = true)

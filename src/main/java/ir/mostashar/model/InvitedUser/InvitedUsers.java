@@ -29,7 +29,7 @@ public class InvitedUsers {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
 	private UUID uid;
 
 	@Column(name = "invitedusername")
@@ -37,7 +37,7 @@ public class InvitedUsers {
 
 	@Column(name = "creationdate")
 	@CreatedDate
-	private Date creationDate;
+	private Long  creationDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "userId", nullable = false)
@@ -48,7 +48,7 @@ public class InvitedUsers {
 	public InvitedUsers() {
 	}
 
-	public InvitedUsers(UUID uid, String invitedUserName, Date creationDate, User user) {
+	public InvitedUsers(UUID uid, String invitedUserName, Long  creationDate, User user) {
 		this.uid = uid;
 		this.invitedUserName = invitedUserName;
 		this.creationDate = creationDate;
@@ -79,11 +79,11 @@ public class InvitedUsers {
 		this.invitedUserName = invitedUserName;
 	}
 
-	public Date getCreationDate() {
+	public Long  getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(Date creationDate) {
+	public void setCreationDate(Long creationDate) {
 		this.creationDate = creationDate;
 	}
 

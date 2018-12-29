@@ -19,19 +19,20 @@ import java.util.Date;
 )
 public abstract class AuditModel implements Serializable {
     /**
-	 * 
+	 * //	@NotNull
+
 	 */
 	private static final long serialVersionUID = 1L;
 
 	@Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creationdate", nullable = false, updatable = false)
     @CreatedDate
-    private Date creationDate;
+    private Long creationDate;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modificationdate", nullable = false)
     @LastModifiedDate
-    private Date modificationDate;
+    private Long modificationDate;
 
 //    @CreatedBy
 //    @Column(name = "created_by", nullable = false, length = 50, updatable = false)

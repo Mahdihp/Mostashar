@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -28,19 +27,17 @@ public class Device {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
 	private UUID uid;
 	
-//	@NotNull
 	@Column(unique = true,name = "imei")
 	private String imei;
 
-//	@NotNull
 	@Column(unique = true)
 	private String fireBaseRegId ;
 
 	@Column(name = "ipaddress")
-	private String ipaAdress;
+	private String ipAddress;
 
 	@Column(name = "model")
 	private String model;
@@ -87,12 +84,12 @@ public class Device {
 		this.fireBaseRegId = fireBaseRegId;
 	}
 
-	public String getIpaAdress() {
-		return ipaAdress;
+	public String getIpAddress() {
+		return ipAddress;
 	}
 
-	public void setIpaAdress(String ipaAdress) {
-		this.ipaAdress = ipaAdress;
+	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
 	}
 
 	public String getModel() {

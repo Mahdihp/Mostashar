@@ -29,7 +29,7 @@ public class AssignDiscounts {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(unique = true)
+	@Column(unique = true , nullable = false)
 	private UUID uid;
 
 	@Column(name = "isactive")
@@ -37,15 +37,15 @@ public class AssignDiscounts {
 
 	@Column(name = "creationdate")
 	@CreatedDate
-	private Date creationDate;
+	private Long creationDate;
 
 	@Column(name = "modificationdate")
 	@CreatedDate
-	private Date modificationDate;
+	private Long modificationDate;
 
 	@Column(name = "expirydate")
 	@CreatedDate
-	private Date expiryDate;
+	private Long expiryDate;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "userId", nullable = false)
@@ -56,7 +56,7 @@ public class AssignDiscounts {
 	public AssignDiscounts() {
 	}
 
-	public AssignDiscounts(UUID uid, boolean isActive, Date creationDate, Date modificationDate, Date expiryDate, User user) {
+	public AssignDiscounts(UUID uid, boolean isActive,Long creationDate,Long modificationDate,Long expiryDate, User user) {
 		this.uid = uid;
 		this.isActive = isActive;
 		this.creationDate = creationDate;
@@ -89,27 +89,27 @@ public class AssignDiscounts {
 		isActive = active;
 	}
 
-	public Date getCreationDate() {
+	public Long getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(Date creationDate) {
+	public void setCreationDate(Long creationDate) {
 		this.creationDate = creationDate;
 	}
 
-	public Date getModificationDate() {
+	public Long getModificationDate() {
 		return modificationDate;
 	}
 
-	public void setModificationDate(Date modificationDate) {
+	public void setModificationDate(Long modificationDate) {
 		this.modificationDate = modificationDate;
 	}
 
-	public Date getExpiryDate() {
+	public Long getExpiryDate() {
 		return expiryDate;
 	}
 
-	public void setExpiryDate(Date expiryDate) {
+	public void setExpiryDate(Long expiryDate) {
 		this.expiryDate = expiryDate;
 	}
 

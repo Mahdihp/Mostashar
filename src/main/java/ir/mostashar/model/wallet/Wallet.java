@@ -22,7 +22,7 @@ public class Wallet {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
 	private UUID uid;
 
 	@Column(name = "value")
@@ -40,5 +40,60 @@ public class Wallet {
 	@OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public UUID getUid() {
+		return uid;
+	}
+
+	public void setUid(UUID uid) {
+		this.uid = uid;
+	}
+
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
+	}
+
+	public String getBankAccountName() {
+		return bankAccountName;
+	}
+
+	public void setBankAccountName(String bankAccountName) {
+		this.bankAccountName = bankAccountName;
+	}
+
+	public String getBankAccountNumber() {
+		return bankAccountNumber;
+	}
+
+	public void setBankAccountNumber(String bankAccountNumber) {
+		this.bankAccountNumber = bankAccountNumber;
+	}
+
+	public String getBankAccountSheba() {
+		return bankAccountSheba;
+	}
+
+	public void setBankAccountSheba(String bankAccountSheba) {
+		this.bankAccountSheba = bankAccountSheba;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 }

@@ -8,13 +8,13 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "accessentry")
-public class AccessEntry {
+public class AccessEntries {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true , nullable = false)
     private UUID uid;
 
     @Column(name = "type")
@@ -28,15 +28,15 @@ public class AccessEntry {
 
     @Column(name = "creationdate")
     @CreatedDate
-    private Date creationDate;
+    private Long creationDate;
 
     @Column(name = "modificationdate")
     @CreatedDate
-    private Date modificationDate;
+    private Long modificationDate;
 
     @Column(name = "expirydate")
     @CreatedDate
-    private Date expiryDate;
+    private Long expiryDate;
 
 
 
