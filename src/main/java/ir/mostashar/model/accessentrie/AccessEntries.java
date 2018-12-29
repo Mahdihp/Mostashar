@@ -1,13 +1,12 @@
-package ir.mostashar.model.accessentry;
+package ir.mostashar.model.accessentrie;
 
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name = "accessentry")
+@Table(name = "accessentrie")
 public class AccessEntries {
 
     @Id

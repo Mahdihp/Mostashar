@@ -1,4 +1,4 @@
-package ir.mostashar.model.clients;
+package ir.mostashar.model.client;
 
 import ir.mostashar.model.AuditModel;
 
@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Table(name = "clients")
+@Table(name = "client")
 public class Client extends AuditModel {
     private static final long serialVersionUID = 1L;
 
@@ -31,8 +31,8 @@ public class Client extends AuditModel {
     @Column(name = "fieldofstudy")
     private String fieldOfStudy;
 
-    @Column(name = "telephone")
-    private String telephone;
+    @Column(name = "tel")
+    private String tel;
 
     public Client() {
     }
@@ -89,11 +89,11 @@ public class Client extends AuditModel {
         this.fieldOfStudy = fieldOfStudy;
     }
 
-    public String getTelephone() {
-        return telephone;
+    public String getTel() {
+        return tel;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setTel(String tel) {
+        this.tel = tel;
     }
 }

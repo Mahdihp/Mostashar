@@ -25,4 +25,7 @@ public class Lawyer extends AuditModel {
 
     @Column(name = "level")
     private int level = 1;
+
+    @Column(name = "verified")
+    private boolean verified = false;
 }

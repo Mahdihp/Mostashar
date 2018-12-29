@@ -1,6 +1,5 @@
 package ir.mostashar.model.AssignDiscount;
 
-import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.Column;

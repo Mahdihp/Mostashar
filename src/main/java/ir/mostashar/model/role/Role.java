@@ -42,22 +42,16 @@ public class Role extends AuditModel {
 	@Column(name = "userdefined")
 	private boolean userDefined;
 
-//	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "roles")
 	@ManyToMany(mappedBy = "roles")
 	private Set<User> users = new HashSet<>();
-
-	// @ManyToMany(fetch = FetchType.LAZY,
-	// cascade = {
-	// CascadeType.PERSIST,
-	// CascadeType.MERGE
-	// })
-	// @JoinTable(name = "role_feature",
-	// joinColumns = { @JoinColumn(name = "role_id") },
-	// inverseJoinColumns = { @JoinColumn(name = "feature_id") })
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "role_features", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "feature_id", referencedColumnName = "id"))
 	private Set<Feature> features = new HashSet<>();
+
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
+	}
 
 	public Long getId() {
 		return id;
@@ -91,6 +85,14 @@ public class Role extends AuditModel {
 		this.description = description;
 	}
 
+	public boolean isUserDefined() {
+		return userDefined;
+	}
+
+	public void setUserDefined(boolean userDefined) {
+		this.userDefined = userDefined;
+	}
+
 	public Set<User> getUsers() {
 		return users;
 	}
@@ -106,5 +108,4 @@ public class Role extends AuditModel {
 	public void setFeatures(Set<Feature> features) {
 		this.features = features;
 	}
-
 }

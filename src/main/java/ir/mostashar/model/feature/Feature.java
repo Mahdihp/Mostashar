@@ -21,28 +21,39 @@ public class Feature extends AuditModel {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(unique = true, nullable = false)
 	private UUID uid;
 
-	@Column(unique = true)
+	@Column(name = "name")
 	private String name;
 
 	@Column(name = "description")
 	private String description;
 
-//	@ManyToMany(fetch = FetchType.LAZY,
-//            cascade = {
-//                CascadeType.PERSIST,
-//                CascadeType.MERGE
-//            },
-//            mappedBy = "features")
+	@Column(name = "groupkey")
+	private String groupKey;
+
 	@ManyToMany(mappedBy = "features")
     private Set<Role> roles = new HashSet<>();
-	
+
+	public Feature() {
+	}
+
+	public Feature(UUID uid, String name, String description, String groupKey, Set<Role> roles) {
+		this.uid = uid;
+		this.name = name;
+		this.description = description;
+		this.groupKey = groupKey;
+		this.roles = roles;
+	}
+
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -75,6 +86,14 @@ public class Feature extends AuditModel {
 		this.description = description;
 	}
 
+	public String getGroupKey() {
+		return groupKey;
+	}
+
+	public void setGroupKey(String groupKey) {
+		this.groupKey = groupKey;
+	}
+
 	public Set<Role> getRoles() {
 		return roles;
 	}
@@ -82,7 +101,4 @@ public class Feature extends AuditModel {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-	
-	
-	
 }
