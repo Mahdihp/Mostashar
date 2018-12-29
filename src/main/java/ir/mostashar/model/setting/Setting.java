@@ -41,5 +41,4 @@ public class Setting {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private User user;
-
 }
