@@ -1,11 +1,11 @@
-package ir.mostashar.model.expertise;
+package ir.mostashar.model.feedback;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "expertise")
-public class Expertise {
+@Table(name = "feedbacks")
+public class Feedback {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,19 +14,23 @@ public class Expertise {
     @Column(unique = true, nullable = false)
     private UUID uid;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "creationdate")
+    private Long creationDate;
 
     @Column(name = "description")
     private String description;
 
-    public Expertise() {
+    @Column(name = "read")
+    private boolean read ;
+
+    public Feedback() {
     }
 
-    public Expertise(UUID uid, String name, String description) {
+    public Feedback(UUID uid, Long creationDate, String description, boolean read) {
         this.uid = uid;
-        this.name = name;
+        this.creationDate = creationDate;
         this.description = description;
+        this.read = read;
     }
 
     public Long getId() {
@@ -45,12 +49,12 @@ public class Expertise {
         this.uid = uid;
     }
 
-    public String getName() {
-        return name;
+    public Long getCreationDate() {
+        return creationDate;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCreationDate(Long creationDate) {
+        this.creationDate = creationDate;
     }
 
     public String getDescription() {
@@ -59,5 +63,13 @@ public class Expertise {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
     }
 }

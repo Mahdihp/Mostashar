@@ -1,13 +1,11 @@
-package ir.mostashar.model.bills;
+package ir.mostashar.model.bill;
 
-
-import lombok.extern.apachecommons.CommonsLog;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "bills")
+@Table(name = "bill")
 public class Bill {
 
     @Id

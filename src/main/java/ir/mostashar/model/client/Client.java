@@ -32,13 +32,18 @@ public class Client extends AuditModel {
     private String fieldOfStudy;
 
     @Column(name = "tel")
-    private String tel;
+    private Long tel;
 
     public Client() {
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public Client(UUID uid, String jobTitle, String address, String postalCode, String fieldOfStudy, Long tel) {
+        this.uid = uid;
+        this.jobTitle = jobTitle;
+        this.address = address;
+        this.postalCode = postalCode;
+        this.fieldOfStudy = fieldOfStudy;
+        this.tel = tel;
     }
 
     public Long getId() {
@@ -89,11 +94,11 @@ public class Client extends AuditModel {
         this.fieldOfStudy = fieldOfStudy;
     }
 
-    public String getTel() {
+    public Long getTel() {
         return tel;
     }
 
-    public void setTel(String tel) {
+    public void setTel(Long tel) {
         this.tel = tel;
     }
 }

@@ -25,7 +25,7 @@ CREATE TABLE SharingPerspectives(id bigint NOT null, uid UUID NOT null, membersh
 
 CREATE TABLE Lawyers(id bigint NOT null, uid UUID NOT null,isavailable boolean,level integer);
 
-CREATE TABLE Clients(id bigint NOT null, uid UUID NOT null,jobtitle varchar(255),address varchar(255),postalcode varchar(255),fieldofstudy varchar(255),tel varchar(255));
+CREATE TABLE Clients(id bigint NOT null, uid UUID NOT null,jobtitle varchar(255),address varchar(255),postalcode varchar(255),fieldofstudy varchar(255),tel bigint);
 
 CREATE TABLE SettingTypes(id bigint NOT null, uid UUID NOT null,name varchar(255),description varchar(255),type integer);
 
@@ -35,11 +35,11 @@ CREATE TABLE Notifications(id bigint NOT null, uid UUID NOT null,content varchar
 
 CREATE TABLE Bills(id bigint NOT null, uid UUID NOT null,transactionnumber varchar(255),trackingnumber varchar(255),transactiondate bigint,status varchar(255),value bigint,orgUid varchar(255) );
 
-CREATE TABLE Features(id bigint NOT null, uid UUID NOT null,name varchar(255),description varchar(255),groupkey varchar(255) );
+-- CREATE TABLE Features(id bigint NOT null, uid UUID NOT null,name varchar(255),description varchar(255),groupkey varchar(255) );
 
 CREATE TABLE Files(id bigint NOT null, uid UUID NOT null,fileNumber varchar(255),title varchar(255),description text,creationdate bigint,modificationdate bigint);
 
-CREATE TABLE OfficesAddress(id bigint NOT null, uid UUID NOT null,title varchar(255),address varchar(255),tel varchar(255 ),description varchar(255) );
+CREATE TABLE OfficesAddress(id bigint NOT null, uid UUID NOT null,title varchar(255),address varchar(255),tel bigint,description varchar(255) );
 
 CREATE TABLE PresenceSchedules(id bigint NOT null, uid UUID NOT null,description varchar(255),specialdate bigint,time bigint,weekday integer);
 
@@ -58,6 +58,36 @@ CREATE TABLE Organizations(id bigint NOT null, uid UUID NOT null,name varchar(25
 CREATE TABLE FailRequests(id bigint NOT null, uid UUID NOT null,creationdate bigint,description varchar(255));
 
 CREATE TABLE Requests(id bigint NOT null, uid UUID NOT null,requestnumber varchar(255),description varchar(255),deleted boolean );
+
+CREATE TABLE AdviceTypes(id bigint NOT null, uid UUID NOT null,parent bigint ,name varchar(255),description varchar(255),type varchar(255));
+
+CREATE TABLE Packs(id bigint NOT null, uid UUID NOT null,name varchar(255),description varchar(255),value bigint ,isactive boolean);
+
+CREATE TABLE ConsumptionPacks(id bigint NOT null, uid UUID NOT null,consumptiontime bigint,value bigint ,type integer ,firstinstallmentdate bigint,lastinstallmentdate bigint);
+
+CREATE TABLE Installments(id bigint NOT null, uid UUID NOT null,installmentnumber integer, installmenttotalnumber integerm, creationdate bigint,value bigint);
+
+CREATE TABLE Factors(id bigint NOT null, uid UUID NOT null,servicedescription varchar(255), clientname varchar(255),clientcode varchar(255),address varchar(255),tel bigint,postalcode varchar(255),factornumber varchar(255),creationdate bigint,value bigint,deleted boolean );
+
+CREATE TABLE Questions(id bigint NOT null, uid UUID NOT null,title varchar(255),description varchar(255),type integer,creationdate bigint, edited boolean,modificationdate bigint);
+
+CREATE TABLE Answers(id bigint NOT null, uid UUID NOT null,description varchar(255),creationdate bigint,edited boolean,modificationdate bigint);
+
+CREATE TABLE Feedbacks(id bigint NOT null, uid UUID NOT null,creationdate bigint, description varchar(255),read boolean);
+
+CREATE TABLE AdminConfirmations(id bigint NOT null, uid UUID NOT null,title varchar(255),description varchar(255),targetuid varchar(255), targettype integer ,verified boolean,deleted boolean,creationDate bigint);
+
+CREATE TABLE Constants(id bigint NOT null, uid UUID NOT null,key varchar(255),value varchar(255),type varchar(255),description varchar(255));
+
+CREATE TABLE RightMessages(id bigint NOT null, uid UUID NOT null,title varchar(255),description varchar (255),creationdate bigint,expirydate bigint,isactive boolean);
+
+CREATE TABLE UserFeedbacks(id bigint NOT null, uid UUID NOT null,type integer ,title varchar(255),description varchar(255),creationdate bigint,read boolean );
+
+CREATE TABLE Complains(id bigint NOT null, uid UUID NOT null,title varchar(255),description varchar(255),creationdate bigint,read boolean );
+
+CREATE TABLE BlackLists(id bigint NOT null, uid UUID NOT null,creationdate bigint,sourceuid varchar(255),expirydate bigint,description varchar(255));
+
+CREATE TABLE Logs(id bigint NOT null, uid UUID NOT null,creationdate bigint,message varchar(255),details varchar(255),sourceuid varchar(255),sourcetype integer ,targetuid varchar(255),targettype integer);
 
 CREATE TABLE FEATURES (id bigint NOT null, uid UUID NOT null, name varchar(255), description varchar(255), created_at bigint, updated_at bigint, PRIMARY KEY (id));
 ALTER TABLE FEATURES ADD CONSTRAINT UK_c8pkbrgxfl8ghr7b75hqr8eqv  UNIQUE (uid);

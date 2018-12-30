@@ -1,11 +1,11 @@
-package ir.mostashar.model.officesaddre;
+package ir.mostashar.model.complain;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "officesaddress")
-public class OfficesAddress {
+@Table(name = "complains")
+public class Complain {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,24 +17,24 @@ public class OfficesAddress {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "address")
-    private String address;
-
-    @Column(name = "tel")
-    private Long tel;
-
     @Column(name = "description")
     private String description;
 
-    public OfficesAddress() {
+    @Column(name = "creationdate")
+    private Long creationDate;
+
+    @Column(name = "read")
+    private boolean read;
+
+    public Complain() {
     }
 
-    public OfficesAddress(UUID uid, String title, String address, Long tel, String description) {
+    public Complain(UUID uid, String title, String description, Long creationDate, boolean read) {
         this.uid = uid;
         this.title = title;
-        this.address = address;
-        this.tel = tel;
         this.description = description;
+        this.creationDate = creationDate;
+        this.read = read;
     }
 
     public Long getId() {
@@ -61,27 +61,27 @@ public class OfficesAddress {
         this.title = title;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Long getTel() {
-        return tel;
-    }
-
-    public void setTel(Long tel) {
-        this.tel = tel;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Long getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Long creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
     }
 }
