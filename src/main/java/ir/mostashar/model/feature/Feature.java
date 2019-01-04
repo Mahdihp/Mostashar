@@ -19,7 +19,6 @@ import ir.mostashar.model.role.Role;
 @Table(name = "features")
 public class Feature extends AuditModel {
 
-	private static final long serialVersionUID = 1L;
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -42,16 +41,13 @@ public class Feature extends AuditModel {
 	public Feature() {
 	}
 
+
 	public Feature(UUID uid, String name, String description, String groupKey, Set<Role> roles) {
 		this.uid = uid;
 		this.name = name;
 		this.description = description;
 		this.groupKey = groupKey;
 		this.roles = roles;
-	}
-
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
 	}
 
 	public Long getId() {

@@ -41,14 +41,6 @@ CREATE TABLE Questions(id bigint NOT NULL, uid UUID NOT NULL,ClientId bigint,tit
 
 CREATE TABLE Answers(id bigint NOT NULL, uid UUID NOT NULL,QuestionId bigint,LawyerId bigint,description varchar(255),creationdate bigint,edited boolean,modificationdate bigint,PRIMARY KEY (id));
 
--- -----------------------------Relation Table--------------------------------
-CREATE TABLE User_Role(UserId bigint ,RoleId bigint);
-CREATE TABLE Role_Feature(RoleId bigint,FeatureId bigint);
-CREATE TABLE Client_Lawyer(ClientId bigint,LawyerId bigint);
-CREATE TABLE Expertise_Lawyer(ExpertiseId bigint,LawyerId bigint);
-
-
-
 -- ------------------------------------Other Table--------------------------------
 CREATE TABLE AdminConfirmations(id bigint NOT NULL, uid UUID NOT NULL,title varchar(255),description varchar(255),targetuid varchar(255), targettype integer ,verified boolean,deleted boolean,creationDate bigint,PRIMARY KEY (id));
 CREATE TABLE Constants(id bigint NOT NULL, uid UUID NOT NULL,key varchar(255),value varchar(255),type varchar(255),description varchar(255),PRIMARY KEY (id));
@@ -56,6 +48,14 @@ CREATE TABLE RightMessages(id bigint NOT NULL, uid UUID NOT NULL,title varchar(2
 CREATE TABLE UserFeedbacks(id bigint NOT NULL, uid UUID NOT NULL,type integer ,title varchar(255),description varchar(255),creationdate bigint,read boolean ,PRIMARY KEY (id));
 CREATE TABLE BlackLists(id bigint NOT NULL, uid UUID NOT NULL,creationdate bigint,sourceuid varchar(255),expirydate bigint,description varchar(255),PRIMARY KEY (id));
 CREATE TABLE Logs(id bigint NOT NULL, uid UUID NOT NULL,creationdate bigint,message varchar(255),details varchar(255),sourceuid varchar(255),sourcetype integer ,targetuid varchar(255),targettype integer,PRIMARY KEY (id));
+
+-- -----------------------------Relation Table--------------------------------
+CREATE TABLE User_Role(UserId bigint ,RoleId bigint);
+CREATE TABLE Role_Feature(RoleId bigint,FeatureId bigint);
+CREATE TABLE Client_Lawyer(ClientId bigint,LawyerId bigint);
+CREATE TABLE Expertise_Lawyer(ExpertiseId bigint,LawyerId bigint);
+
+
 
 
 -- ---------------------Alter table foreign key ----------------------
@@ -145,3 +145,4 @@ ALTER TABLE Questions ADD FOREIGN KEY (ClientId) REFERENCES Clients(id);
 
 ALTER TABLE Answers ADD FOREIGN KEY (QuestionId) REFERENCES Questions(id);
 ALTER TABLE Answers ADD FOREIGN KEY (LawyerId) REFERENCES Lawyers(id);
+
