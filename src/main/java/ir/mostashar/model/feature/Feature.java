@@ -19,7 +19,7 @@ import ir.mostashar.model.role.Role;
 @Table(name = "features")
 public class Feature extends AuditModel {
 
-
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 

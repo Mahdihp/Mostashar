@@ -17,7 +17,7 @@ public class Call {
     @Column(name = "failedretriescount")
     private int failedRetriesCount;
 
-    @Column(name = "failedretriescount")
+    @Column(name = "status")
     private String status;
 
     @Column(name = "calltype")
