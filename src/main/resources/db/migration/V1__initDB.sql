@@ -1,10 +1,6 @@
-
-CREATE TABLE Users (id bigint NOT NULL , uid UUID NOT NULL,WalletId bigint, username varchar(255), firstname varchar(255),fathername varchar(255),nationalid varchar(10),birthdate bigint, password Text, lastname varchar(255),email varchar(255),score integer,avatarhashcode varchar(255) ,isonline boolean,isactive boolean,creationdate bigint, modificationdate bigint, mobile_number varchar(255),UNIQUE(username),UNIQUE(uid),UNIQUE(mobile_number),PRIMARY KEY (id));
-
+CREATE TABLE Users (id bigint NOT NULL, uid UUID NOT NULL,WalletId bigint, username varchar(255) NOT NULL, firstname varchar(255),fathername varchar(255), nationalid varchar(10), birthdate bigint, password Text, lastname varchar(255), email varchar(255), score integer, avatarhashcode varchar(255), isonline boolean, isactive boolean, creationdate bigint, modificationdate bigint, mobile_number bigint NOT NULL, UNIQUE(username), UNIQUE(uid), UNIQUE(mobile_number), PRIMARY KEY (id));
 CREATE TABLE Roles (id bigint NOT NULL, uid UUID NOT NULL, name varchar(255),userdefined boolean,description varchar(255),UNIQUE(uid),UNIQUE(name),PRIMARY KEY (id));
-
 CREATE TABLE Features(id bigint NOT NULL, uid UUID NOT NULL,name varchar(255),description varchar(255),groupkey varchar(255),PRIMARY KEY (id));
-
 CREATE TABLE InvitedUsers(id bigint NOT NULL,UserId bigint, uid UUID NOT NULL,invitedusername varchar(255),creationdate bigint,PRIMARY KEY (id));
 CREATE TABLE Devices(id bigint NOT NULL, uid UUID NOT NULL,UserId bigint,ipaddress varchar(15),model varchar(255),imei varchar(20),PRIMARY KEY (id));
 CREATE TABLE AccessEntries(id bigint NOT NULL, uid UUID NOT NULL,UserId bigint,type integer ,name varchar(255),description varchar(255),creationdate bigint,modificationdate bigint,expirydate bigint ,PRIMARY KEY (id));
@@ -38,7 +34,6 @@ CREATE TABLE PresenceSchedules(id bigint NOT NULL, uid UUID NOT NULL,OfficesAddr
 CREATE TABLE Organizations(id bigint NOT NULL, uid UUID NOT NULL,WalletId bigint,name varchar(255),description varchar(255),address varchar(255),tel bigint,terminalid bigint,username varchar(255),userPassword varchar(255),creationdate bigint,expirydate bigint,orgstock bigint,appstock bigint,verified boolean ,PRIMARY KEY (id));
 CREATE TABLE Feedbacks(id bigint NOT NULL, uid UUID NOT NULL,ClientId bigint,RequestId bigint,creationdate bigint, description varchar(255),read boolean,PRIMARY KEY (id));
 CREATE TABLE Questions(id bigint NOT NULL, uid UUID NOT NULL,ClientId bigint,title varchar(255),description varchar(255),type integer,creationdate bigint, edited boolean,modificationdate bigint,PRIMARY KEY (id));
-
 CREATE TABLE Answers(id bigint NOT NULL, uid UUID NOT NULL,QuestionId bigint,LawyerId bigint,description varchar(255),creationdate bigint,edited boolean,modificationdate bigint,PRIMARY KEY (id));
 
 -- ------------------------------------Other Table--------------------------------
@@ -50,13 +45,10 @@ CREATE TABLE BlackLists(id bigint NOT NULL, uid UUID NOT NULL,creationdate bigin
 CREATE TABLE Logs(id bigint NOT NULL, uid UUID NOT NULL,creationdate bigint,message varchar(255),details varchar(255),sourceuid varchar(255),sourcetype integer ,targetuid varchar(255),targettype integer,PRIMARY KEY (id));
 
 -- -----------------------------Relation Table--------------------------------
-CREATE TABLE User_Role(UserId bigint ,RoleId bigint);
-CREATE TABLE Role_Feature(RoleId bigint,FeatureId bigint);
-CREATE TABLE Client_Lawyer(ClientId bigint,LawyerId bigint);
-CREATE TABLE Expertise_Lawyer(ExpertiseId bigint,LawyerId bigint);
-
-
-
+CREATE TABLE User_Role(UserId bigint ,RoleId bigint ,UNIQUE(UserId),UNIQUE(RoleId));
+CREATE TABLE Role_Feature(RoleId bigint,FeatureId bigint ,UNIQUE(RoleId),UNIQUE(FeatureId));
+CREATE TABLE Client_Lawyer(ClientId bigint,LawyerId bigint,UNIQUE(ClientId),UNIQUE(LawyerId));
+CREATE TABLE Expertise_Lawyer(ExpertiseId bigint,LawyerId bigint,UNIQUE(ExpertiseId),UNIQUE(LawyerId));
 
 -- ---------------------Alter table foreign key ----------------------
 ALTER TABLE User_Role ADD FOREIGN KEY (UserId) REFERENCES Users(id);
@@ -71,8 +63,7 @@ ALTER TABLE Client_Lawyer ADD FOREIGN KEY (LawyerId) REFERENCES Lawyers(id);
 ALTER TABLE Expertise_Lawyer ADD FOREIGN KEY (ExpertiseId) REFERENCES Expertises(id);
 ALTER TABLE Expertise_Lawyer ADD FOREIGN KEY (LawyerId) REFERENCES Lawyers(id);
 
-
--- -----------------------------------
+-- -----------------Alter table add foreign key------------------
 
 ALTER TABLE Users ADD FOREIGN KEY (WalletId) REFERENCES Wallets(id);
 ALTER TABLE InvitedUsers ADD FOREIGN KEY (UserId) REFERENCES Users(id);
@@ -145,4 +136,3 @@ ALTER TABLE Questions ADD FOREIGN KEY (ClientId) REFERENCES Clients(id);
 
 ALTER TABLE Answers ADD FOREIGN KEY (QuestionId) REFERENCES Questions(id);
 ALTER TABLE Answers ADD FOREIGN KEY (LawyerId) REFERENCES Lawyers(id);
-
