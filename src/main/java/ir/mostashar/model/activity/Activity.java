@@ -1,10 +1,10 @@
-package ir.mostashar.model.activitie;
+package ir.mostashar.model.activity;
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
 @Table(name = "activities")
-public class Activitie {
+public class Activity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +25,10 @@ public class Activitie {
     @Column(name = "creationdate")
     private Long creationDate;
 
-    public Activitie() {
+    public Activity() {
     }
 
-    public Activitie(UUID uid, int type, String title, String description, Long creationDate) {
+    public Activity(UUID uid, int type, String title, String description, Long creationDate) {
         this.uid = uid;
         this.type = type;
         this.title = title;
