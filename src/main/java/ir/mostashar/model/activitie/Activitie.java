@@ -22,7 +22,7 @@ public class Activitie {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "creationDate")
+    @Column(name = "creationdate")
     private Long creationDate;
 
     public Activitie() {

@@ -1,11 +1,11 @@
-package ir.mostashar.model.officesaddre;
+package ir.mostashar.model.officeAddress;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
 @Table(name = "officesaddress")
-public class OfficesAddress {
+public class OfficeAddress {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,10 +26,10 @@ public class OfficesAddress {
     @Column(name = "description")
     private String description;
 
-    public OfficesAddress() {
+    public OfficeAddress() {
     }
 
-    public OfficesAddress(UUID uid, String title, String address, Long tel, String description) {
+    public OfficeAddress(UUID uid, String title, String address, Long tel, String description) {
         this.uid = uid;
         this.title = title;
         this.address = address;

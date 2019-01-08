@@ -1,11 +1,12 @@
-package ir.mostashar.model.expert;
+package ir.mostashar.model.adviceType;
+
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "expert")
-public class Expertise {
+@Table(name = "advicetypes")
+public class AdviceType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,19 +15,27 @@ public class Expertise {
     @Column(unique = true, nullable = false)
     private UUID uid;
 
+    @Column(name = "parent")
+    private Long parent;
+
     @Column(name = "name")
     private String name;
 
     @Column(name = "description")
     private String description;
 
-    public Expertise() {
+    @Column(name = "type")
+    private String type;
+
+    public AdviceType() {
     }
 
-    public Expertise(UUID uid, String name, String description) {
+    public AdviceType(UUID uid, Long parent, String name, String description, String type) {
         this.uid = uid;
+        this.parent = parent;
         this.name = name;
         this.description = description;
+        this.type = type;
     }
 
     public Long getId() {
@@ -45,6 +54,14 @@ public class Expertise {
         this.uid = uid;
     }
 
+    public Long getParent() {
+        return parent;
+    }
+
+    public void setParent(Long parent) {
+        this.parent = parent;
+    }
+
     public String getName() {
         return name;
     }
@@ -59,5 +76,13 @@ public class Expertise {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

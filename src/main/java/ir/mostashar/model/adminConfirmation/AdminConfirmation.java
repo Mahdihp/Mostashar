@@ -1,4 +1,4 @@
-package ir.mostashar.model.adminconfirmation;
+package ir.mostashar.model.adminConfirmation;
 
 import javax.persistence.*;
 import java.util.UUID;

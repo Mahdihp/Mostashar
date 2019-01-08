@@ -1,12 +1,12 @@
-package ir.mostashar.model.advicetype;
+package ir.mostashar.model.settingType;
 
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "advicetypes")
-public class AdviceType {
+@Table(name = "settingtypes")
+public class SettingTypes {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,9 +15,6 @@ public class AdviceType {
     @Column(unique = true, nullable = false)
     private UUID uid;
 
-    @Column(name = "parent")
-    private Long parent;
-
     @Column(name = "name")
     private String name;
 
@@ -25,14 +22,13 @@ public class AdviceType {
     private String description;
 
     @Column(name = "type")
-    private String type;
+    private int type;
 
-    public AdviceType() {
+    public SettingTypes() {
     }
 
-    public AdviceType(UUID uid, Long parent, String name, String description, String type) {
+    public SettingTypes(UUID uid, String name, String description, int type) {
         this.uid = uid;
-        this.parent = parent;
         this.name = name;
         this.description = description;
         this.type = type;
@@ -54,14 +50,6 @@ public class AdviceType {
         this.uid = uid;
     }
 
-    public Long getParent() {
-        return parent;
-    }
-
-    public void setParent(Long parent) {
-        this.parent = parent;
-    }
-
     public String getName() {
         return name;
     }
@@ -78,11 +66,11 @@ public class AdviceType {
         this.description = description;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 }

@@ -41,4 +41,45 @@ public class Setting {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private User user;
+
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public UUID getUid() {
+		return uid;
+	}
+
+	public void setUid(UUID uid) {
+		this.uid = uid;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public boolean isUserDefined() {
+		return userDefined;
+	}
+
+	public void setUserDefined(boolean userDefined) {
+		this.userDefined = userDefined;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 }

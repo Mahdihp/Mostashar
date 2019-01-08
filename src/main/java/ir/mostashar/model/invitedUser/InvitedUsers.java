@@ -1,4 +1,4 @@
-package ir.mostashar.model.AssignDiscount;
+package ir.mostashar.model.invitedUser;
 
 import java.util.UUID;
 
@@ -21,46 +21,36 @@ import ir.mostashar.model.user.User;
 import org.springframework.data.annotation.CreatedDate;
 
 @Entity
-@Table(name = "assignDiscounts")
-public class AssignDiscounts {
+@Table(name = "invitedUsers")
+public class InvitedUsers {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(unique = true , nullable = false)
+	@Column(unique = true, nullable = false)
 	private UUID uid;
 
-	@Column(name = "isactive")
-	private boolean isActive = false;
+	@Column(name = "invitedusername")
+	private String invitedUsername;
 
 	@Column(name = "creationdate")
 	@CreatedDate
-	private Long creationDate;
-
-	@Column(name = "modificationdate")
-	@CreatedDate
-	private Long modificationDate;
-
-	@Column(name = "expirydate")
-	@CreatedDate
-	private Long expiryDate;
-
+	private Long  creationDate;
+	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "userId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private User user;
 
-	public AssignDiscounts() {
+	public InvitedUsers() {
 	}
 
-	public AssignDiscounts(UUID uid, boolean isActive,Long creationDate,Long modificationDate,Long expiryDate, User user) {
+	public InvitedUsers(UUID uid, String invitedUsername, Long  creationDate, User user) {
 		this.uid = uid;
-		this.isActive = isActive;
+		this.invitedUsername = invitedUsername;
 		this.creationDate = creationDate;
-		this.modificationDate = modificationDate;
-		this.expiryDate = expiryDate;
 		this.user = user;
 	}
 
@@ -80,36 +70,20 @@ public class AssignDiscounts {
 		this.uid = uid;
 	}
 
-	public boolean isActive() {
-		return isActive;
+	public String getInvitedUsername() {
+		return invitedUsername;
 	}
 
-	public void setActive(boolean active) {
-		isActive = active;
+	public void setInvitedUsername(String invitedUsername) {
+		this.invitedUsername = invitedUsername;
 	}
 
-	public Long getCreationDate() {
+	public Long  getCreationDate() {
 		return creationDate;
 	}
 
 	public void setCreationDate(Long creationDate) {
 		this.creationDate = creationDate;
-	}
-
-	public Long getModificationDate() {
-		return modificationDate;
-	}
-
-	public void setModificationDate(Long modificationDate) {
-		this.modificationDate = modificationDate;
-	}
-
-	public Long getExpiryDate() {
-		return expiryDate;
-	}
-
-	public void setExpiryDate(Long expiryDate) {
-		this.expiryDate = expiryDate;
 	}
 
 	public User getUser() {

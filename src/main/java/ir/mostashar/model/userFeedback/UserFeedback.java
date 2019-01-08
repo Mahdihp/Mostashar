@@ -1,4 +1,4 @@
-package ir.mostashar.model.userfeedback;
+package ir.mostashar.model.userFeedback;
 
 import javax.persistence.*;
 import java.util.UUID;

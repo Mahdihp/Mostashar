@@ -21,7 +21,7 @@ import ir.mostashar.model.user.User;
 
 @Entity
 @Table(name = "reminders")
-public class Reminders {
+public class Reminder {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +39,7 @@ public class Reminders {
     @JsonIgnore
     private User user;
 
-	public Reminders() {
+	public Reminder() {
 	}
 
 	public Long getId() {

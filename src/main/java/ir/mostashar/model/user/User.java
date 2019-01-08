@@ -21,10 +21,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import ir.mostashar.model.AuditModel;
-import ir.mostashar.model.AssignDiscount.AssignDiscounts;
-import ir.mostashar.model.InvitedUser.InvitedUsers;
+import ir.mostashar.model.assignDiscount.AssignDiscounts;
+import ir.mostashar.model.invitedUser.InvitedUsers;
 import ir.mostashar.model.device.Device;
-import ir.mostashar.model.reminder.Reminders;
+import ir.mostashar.model.reminder.Reminder;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.setting.Setting;
 import ir.mostashar.model.sharingPerspective.SharingPerspectives;
@@ -72,7 +72,7 @@ public class User extends AuditModel {
 	private int score;
 
 	@Column(name = "avatarhashcode")
-	private String avatarHashCode;
+	private String avatarHashcode;
 
 	@Column(name = "isactive")
 	private boolean isActive = false;
@@ -104,7 +104,7 @@ public class User extends AuditModel {
     private Set<Device> devices = new HashSet<Device>();
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Reminders> reminders = new HashSet<Reminders>();
+    private Set<Reminder> reminders = new HashSet<Reminder>();
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<SharingPerspectives> sharingPerspectives = new HashSet<SharingPerspectives>();
@@ -141,12 +141,12 @@ public class User extends AuditModel {
 		this.lastName = lastName;
 	}
 
-	public String getUserName() {
+	public String getUsername() {
 		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.username = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -213,11 +213,11 @@ public class User extends AuditModel {
 		this.devices = devices;
 	}
 
-	public Set<Reminders> getReminders() {
+	public Set<Reminder> getReminders() {
 		return reminders;
 	}
 
-	public void setReminders(Set<Reminders> reminders) {
+	public void setReminders(Set<Reminder> reminders) {
 		this.reminders = reminders;
 	}
 
@@ -228,5 +228,60 @@ public class User extends AuditModel {
 	public void setSharingPerspectives(Set<SharingPerspectives> sharingPerspectives) {
 		this.sharingPerspectives = sharingPerspectives;
 	}
-	
+
+	public String getFatherName() {
+		return fatherName;
+	}
+
+	public void setFatherName(String fatherName) {
+		this.fatherName = fatherName;
+	}
+
+	public String getNationalId() {
+		return nationalId;
+	}
+
+	public void setNationalId(String nationalId) {
+		this.nationalId = nationalId;
+	}
+
+	public Long getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Long birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public boolean isOnline() {
+		return isOnline;
+	}
+
+	public void setOnline(boolean online) {
+		isOnline = online;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public String getAvatarHashcode() {
+		return avatarHashcode;
+	}
+
+	public void setAvatarHashcode(String avatarHashcode) {
+		this.avatarHashcode = avatarHashcode;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean active) {
+		isActive = active;
+	}
 }

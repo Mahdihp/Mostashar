@@ -5,8 +5,8 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "notification")
-public class Notifications {
+@Table(name = "notifications")
+public class Notification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,22 +15,28 @@ public class Notifications {
     @Column(unique = true, nullable = false)
     private UUID uid;
 
+    @Column(name = "content")
     private String content;
 
+    @Column(name = "targetuid")
     private String targetUid;
 
+    @Column(name = "type")
     private int type;
 
+    @Column(name = "pushdate")
     private Long pushDate;
 
+    @Column(name = "notifParentuid")
     private String notifParentUid;
 
+    @Column(name = "deleted")
     private boolean deleted = false;
 
-    public Notifications() {
+    public Notification() {
     }
 
-    public Notifications(UUID uid, String content, String targetUid, int type, Long pushDate, String notifParentUid, boolean deleted) {
+    public Notification(UUID uid, String content, String targetUid, int type, Long pushDate, String notifParentUid, boolean deleted) {
         this.uid = uid;
         this.content = content;
         this.targetUid = targetUid;

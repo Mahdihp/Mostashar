@@ -1,4 +1,4 @@
-package ir.mostashar.model.failrequest;
+package ir.mostashar.model.failRequest;
 
 import javax.persistence.*;
 import java.util.UUID;

@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Table(name = "client")
+@Table(name = "clients")
 public class Client extends AuditModel {
     private static final long serialVersionUID = 1L;
 

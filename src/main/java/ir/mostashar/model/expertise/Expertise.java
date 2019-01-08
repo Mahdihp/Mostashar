@@ -1,11 +1,11 @@
-package ir.mostashar.model.discountpack;
+package ir.mostashar.model.expertise;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "discountpack")
-public class DiscountPacks {
+@Table(name = "expertises")
+public class Expertise {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,20 +17,16 @@ public class DiscountPacks {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "value")
-    private long value;
+    @Column(name = "description")
+    private String description;
 
-    @Column(name = "type")
-    private int type;
-
-    public DiscountPacks() {
+    public Expertise() {
     }
 
-    public DiscountPacks(UUID uid, String name, long value, int type) {
+    public Expertise(UUID uid, String name, String description) {
         this.uid = uid;
         this.name = name;
-        this.value = value;
-        this.type = type;
+        this.description = description;
     }
 
     public Long getId() {
@@ -57,19 +53,11 @@ public class DiscountPacks {
         this.name = name;
     }
 
-    public long getValue() {
-        return value;
+    public String getDescription() {
+        return description;
     }
 
-    public void setValue(long value) {
-        this.value = value;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

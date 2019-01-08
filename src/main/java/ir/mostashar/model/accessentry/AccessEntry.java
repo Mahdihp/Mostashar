@@ -1,4 +1,4 @@
-package ir.mostashar.model.accessentrie;
+package ir.mostashar.model.accessentry;
 
 import org.springframework.data.annotation.CreatedDate;
 
@@ -6,8 +6,8 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "accessentrie")
-public class AccessEntries {
+@Table(name = "accessentries")
+public class AccessEntry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

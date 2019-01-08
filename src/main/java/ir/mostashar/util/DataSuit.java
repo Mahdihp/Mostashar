@@ -5,9 +5,6 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
-import org.springframework.stereotype.Component;
 
 import ir.mostashar.model.feature.Feature;
 import ir.mostashar.model.feature.FeatureNames;
@@ -75,7 +72,7 @@ public class DataSuit{
 		adminUser.setFirstName("admin");
 		adminUser.setLastName("admin");
 		adminUser.setPassword("admin");
-		adminUser.setUserName("admin");
+		adminUser.setUsername("admin");
 		adminUser.setMobileNumber("09135189683");
 		adminUser.setUid(UUID.randomUUID());
 		adminUser.setRoles(roles);

@@ -1,12 +1,12 @@
-package ir.mostashar.model.rightmessage;
-
+package ir.mostashar.model.presenceSchedule;
 
 import javax.persistence.*;
 import java.util.UUID;
 
+
 @Entity
-@Table(name = "rightmessages")
-public class RightMessage {
+@Table(name = "presenceschedules")
+public class PresenceSchedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,25 +21,25 @@ public class RightMessage {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "creationdate")
-    private Long creationDate;
+    @Column(name = "specialdate")
+    private Long specialDate;
 
-    @Column(name = "expirydate")
-    private Long expiryDate;
+    @Column(name = "time")
+    private Long time;
 
-    @Column(name = "isactive")
-    private boolean isActive;
+    @Column(name = "weekday")
+    private int weekDay;
 
-    public RightMessage() {
+    public PresenceSchedule() {
     }
 
-    public RightMessage(UUID uid, String title, String description, Long creationDate, Long expiryDate, boolean isActive) {
+    public PresenceSchedule(UUID uid, String title, String description, Long specialDate, Long time, int weekDay) {
         this.uid = uid;
         this.title = title;
         this.description = description;
-        this.creationDate = creationDate;
-        this.expiryDate = expiryDate;
-        this.isActive = isActive;
+        this.specialDate = specialDate;
+        this.time = time;
+        this.weekDay = weekDay;
     }
 
     public Long getId() {
@@ -74,27 +74,27 @@ public class RightMessage {
         this.description = description;
     }
 
-    public Long getCreationDate() {
-        return creationDate;
+    public Long getSpecialDate() {
+        return specialDate;
     }
 
-    public void setCreationDate(Long creationDate) {
-        this.creationDate = creationDate;
+    public void setSpecialDate(Long specialDate) {
+        this.specialDate = specialDate;
     }
 
-    public Long getExpiryDate() {
-        return expiryDate;
+    public Long getTime() {
+        return time;
     }
 
-    public void setExpiryDate(Long expiryDate) {
-        this.expiryDate = expiryDate;
+    public void setTime(Long time) {
+        this.time = time;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public int getWeekDay() {
+        return weekDay;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setWeekDay(int weekDay) {
+        this.weekDay = weekDay;
     }
 }

@@ -81,7 +81,7 @@ public class UserDTO {
 	public void loadFrom(User user) {
 		this.firstName = user.getFirstName();
 		this.lastName = user.getLastName();
-		this.userName = user.getUserName();
+		this.userName = user.getUsername();
 		this.mobileNumber = user.getMobileNumber();
 //		this.uid = user.getUid().toString();
 
@@ -101,7 +101,7 @@ public class UserDTO {
 
 		user.setFirstName(this.firstName);
 		user.setLastName(this.lastName);
-		user.setUserName(this.userName);
+		user.setUsername(this.userName);
 		user.setPassword(this.password);
 		user.setMobileNumber(this.mobileNumber);
 

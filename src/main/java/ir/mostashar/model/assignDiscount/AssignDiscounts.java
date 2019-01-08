@@ -1,6 +1,5 @@
-package ir.mostashar.model.InvitedUser;
+package ir.mostashar.model.assignDiscount;
 
-import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -22,36 +21,46 @@ import ir.mostashar.model.user.User;
 import org.springframework.data.annotation.CreatedDate;
 
 @Entity
-@Table(name = "invitedUsers")
-public class InvitedUsers {
+@Table(name = "assignDiscounts")
+public class AssignDiscounts {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(unique = true, nullable = false)
+	@Column(unique = true , nullable = false)
 	private UUID uid;
 
-	@Column(name = "invitedusername")
-	private String invitedUserName;
+	@Column(name = "isactive")
+	private boolean isActive = false;
 
 	@Column(name = "creationdate")
 	@CreatedDate
-	private Long  creationDate;
-	
+	private Long creationDate;
+
+	@Column(name = "modificationdate")
+	@CreatedDate
+	private Long modificationDate;
+
+	@Column(name = "expirydate")
+	@CreatedDate
+	private Long expiryDate;
+
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "userId", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private User user;
 
-	public InvitedUsers() {
+	public AssignDiscounts() {
 	}
 
-	public InvitedUsers(UUID uid, String invitedUserName, Long  creationDate, User user) {
+	public AssignDiscounts(UUID uid, boolean isActive,Long creationDate,Long modificationDate,Long expiryDate, User user) {
 		this.uid = uid;
-		this.invitedUserName = invitedUserName;
+		this.isActive = isActive;
 		this.creationDate = creationDate;
+		this.modificationDate = modificationDate;
+		this.expiryDate = expiryDate;
 		this.user = user;
 	}
 
@@ -71,20 +80,36 @@ public class InvitedUsers {
 		this.uid = uid;
 	}
 
-	public String getInvitedUserName() {
-		return invitedUserName;
+	public boolean isActive() {
+		return isActive;
 	}
 
-	public void setInvitedUserName(String invitedUserName) {
-		this.invitedUserName = invitedUserName;
+	public void setActive(boolean active) {
+		isActive = active;
 	}
 
-	public Long  getCreationDate() {
+	public Long getCreationDate() {
 		return creationDate;
 	}
 
 	public void setCreationDate(Long creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	public Long getModificationDate() {
+		return modificationDate;
+	}
+
+	public void setModificationDate(Long modificationDate) {
+		this.modificationDate = modificationDate;
+	}
+
+	public Long getExpiryDate() {
+		return expiryDate;
+	}
+
+	public void setExpiryDate(Long expiryDate) {
+		this.expiryDate = expiryDate;
 	}
 
 	public User getUser() {

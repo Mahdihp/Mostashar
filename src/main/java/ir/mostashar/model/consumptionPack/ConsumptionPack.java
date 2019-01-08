@@ -1,4 +1,4 @@
-package ir.mostashar.model.consumptionpack;
+package ir.mostashar.model.consumptionPack;
 
 import javax.persistence.*;
 import java.util.UUID;
