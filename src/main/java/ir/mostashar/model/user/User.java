@@ -21,6 +21,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import ir.mostashar.model.AuditModel;
+import ir.mostashar.model.accessentry.AccessEntry;
 import ir.mostashar.model.assignDiscount.AssignDiscounts;
 import ir.mostashar.model.invitedUser.InvitedUsers;
 import ir.mostashar.model.device.Device;
@@ -79,11 +80,14 @@ public class User extends AuditModel {
 
 	@Column(unique = true)
 	private String mobileNumber;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<AccessEntry> accessEntries = new HashSet<>();
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "role_id") })
+    @JoinTable(name = "user_role",
+            joinColumns = { @JoinColumn(name = "userid") },
+            inverseJoinColumns = { @JoinColumn(name = "roleid") })
     private Set<Role> roles = new HashSet<>();
 	
 	@OneToOne(fetch = FetchType.LAZY,

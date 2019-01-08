@@ -46,8 +46,8 @@ public class AssignDiscounts {
 	@CreatedDate
 	private Long expiryDate;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "userId", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private User user;

@@ -1,7 +1,11 @@
 package ir.mostashar.model.settingType;
 
 
+import ir.mostashar.model.setting.Setting;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -23,6 +27,9 @@ public class SettingTypes {
 
     @Column(name = "type")
     private int type;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "setting")
+    private Set<Setting> settings =new HashSet<>();
 
     public SettingTypes() {
     }

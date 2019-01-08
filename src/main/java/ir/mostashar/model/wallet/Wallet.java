@@ -38,7 +38,7 @@ public class Wallet {
 	private String bankAccountSheba;
 	
 	@OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(nullable = false)
     private User user;
 
 	public Long getId() {
