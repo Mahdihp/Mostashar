@@ -1,11 +1,14 @@
 package ir.mostashar.model.discountPack;
 
+import ir.mostashar.model.assignDiscount.AssignDiscount;
+
 import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name = "discountpacks")
-public class DiscountPacks {
+public class DiscountPack {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,14 +26,29 @@ public class DiscountPacks {
     @Column(name = "type")
     private int type;
 
-    public DiscountPacks() {
+    @OneToMany
+    @JoinColumn(name = "id")
+    private Set<AssignDiscount> assignDiscount;
+
+
+    public DiscountPack() {
     }
 
-    public DiscountPacks(UUID uid, String name, long value, int type) {
+
+
+    public DiscountPack(UUID uid, String name, long value, int type) {
         this.uid = uid;
         this.name = name;
         this.value = value;
         this.type = type;
+    }
+
+    public Set<AssignDiscount> getAssignDiscount() {
+        return assignDiscount;
+    }
+
+    public void setAssignDiscount(Set<AssignDiscount> assignDiscount) {
+        this.assignDiscount = assignDiscount;
     }
 
     public Long getId() {

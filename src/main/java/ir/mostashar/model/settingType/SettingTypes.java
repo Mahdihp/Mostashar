@@ -28,8 +28,9 @@ public class SettingTypes {
     @Column(name = "type")
     private int type;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "setting")
-    private Set<Setting> settings =new HashSet<>();
+    @OneToMany
+    @JoinColumn(name = "id")
+    private Set<Setting> setting;
 
     public SettingTypes() {
     }
@@ -39,6 +40,14 @@ public class SettingTypes {
         this.name = name;
         this.description = description;
         this.type = type;
+    }
+
+    public Set<Setting> getSetting() {
+        return setting;
+    }
+
+    public void setSetting(Set<Setting> setting) {
+        this.setting = setting;
     }
 
     public Long getId() {

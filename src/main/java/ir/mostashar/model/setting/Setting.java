@@ -38,15 +38,22 @@ public class Setting {
     private boolean userDefined =false;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "userid", nullable = false)
     @JsonIgnore
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", nullable = false)
-	private SettingTypes settingTypes;
+	@ManyToOne
+    @JoinColumn(name = "settingtypeid",nullable = false)
+	private SettingTypes settingType;
 
+
+	public SettingTypes getSettingType() {
+		return settingType;
+	}
+
+	public void setSettingType(SettingTypes settingType) {
+		this.settingType = settingType;
+	}
 
 	public Long getId() {
 		return id;

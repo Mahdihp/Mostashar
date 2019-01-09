@@ -1,5 +1,7 @@
 package ir.mostashar.model.factor;
 
+import ir.mostashar.model.bill.Bill;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -44,6 +46,10 @@ public class Factor {
     @Column(name = "deleted")
     private boolean deleted = false;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "billid", referencedColumnName = "id")
+    private Bill bill;
+
     public Factor() {
     }
 
@@ -63,6 +69,14 @@ public class Factor {
 
     public Long getId() {
         return id;
+    }
+
+    public Bill getBill() {
+        return bill;
+    }
+
+    public void setBill(Bill bill) {
+        this.bill = bill;
     }
 
     public void setId(Long id) {

@@ -22,7 +22,8 @@ import javax.persistence.Table;
 
 import ir.mostashar.model.AuditModel;
 import ir.mostashar.model.accessentry.AccessEntry;
-import ir.mostashar.model.assignDiscount.AssignDiscounts;
+import ir.mostashar.model.assignDiscount.AssignDiscount;
+import ir.mostashar.model.complain.Complain;
 import ir.mostashar.model.invitedUser.InvitedUsers;
 import ir.mostashar.model.device.Device;
 import ir.mostashar.model.reminder.Reminder;
@@ -82,6 +83,9 @@ public class User extends AuditModel {
 	private String mobileNumber;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<Complain> complains;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<AccessEntry> accessEntries = new HashSet<>();
 	
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -94,24 +98,24 @@ public class User extends AuditModel {
             cascade =  CascadeType.ALL,
             mappedBy = "user")
     private Wallet wallet;
+
+	@OneToMany(mappedBy = "user")
+    private Set<Setting> settings = new HashSet<>();
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Setting> settings = new HashSet<Setting>();
+	@OneToMany(mappedBy = "user")
+    private Set<InvitedUsers> invitedUsers = new HashSet<>();
+
+	@OneToMany(mappedBy="user")
+    private Set<AssignDiscount> assignDiscounts;
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<InvitedUsers> invitedUsers = new HashSet<InvitedUsers>();
+	@OneToMany(mappedBy = "user")
+    private Set<Device> devices = new HashSet<>();
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<AssignDiscounts> assignDiscounts = new HashSet<AssignDiscounts>();
+	@OneToMany(mappedBy = "user")
+    private Set<Reminder> reminders = new HashSet<>();
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Device> devices = new HashSet<Device>();
-	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Reminder> reminders = new HashSet<Reminder>();
-	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<SharingPerspectives> sharingPerspectives = new HashSet<SharingPerspectives>();
+	@OneToMany(mappedBy = "user")
+    private Set<SharingPerspectives> sharingPerspectives = new HashSet<>();
 	
 	public UUID getUid() {
 		return uid;
@@ -201,11 +205,11 @@ public class User extends AuditModel {
 		this.invitedUsers = invitedUsers;
 	}
 
-	public Set<AssignDiscounts> getAssignDiscounts() {
+	public Set<AssignDiscount> getAssignDiscounts() {
 		return assignDiscounts;
 	}
 
-	public void setAssignDiscounts(Set<AssignDiscounts> assignDiscounts) {
+	public void setAssignDiscounts(Set<AssignDiscount> assignDiscounts) {
 		this.assignDiscounts = assignDiscounts;
 	}
 

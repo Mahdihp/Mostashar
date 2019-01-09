@@ -45,8 +45,7 @@ public class SharingPerspectives {
 	private Long expiryDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "userId", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "userid", nullable = false)
     @JsonIgnore
     private User user;
 

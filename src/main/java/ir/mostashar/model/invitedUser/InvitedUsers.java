@@ -39,8 +39,7 @@ public class InvitedUsers {
 	private Long  creationDate;
 	
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "userid", nullable = false)
     @JsonIgnore
     private User user;
 

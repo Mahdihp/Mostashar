@@ -1,5 +1,7 @@
 package ir.mostashar.model.complain;
 
+import ir.mostashar.model.user.User;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -25,6 +27,10 @@ public class Complain {
 
     @Column(name = "read")
     private boolean read;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "userid", nullable = false)
+    private User user;
 
     public Complain() {
     }

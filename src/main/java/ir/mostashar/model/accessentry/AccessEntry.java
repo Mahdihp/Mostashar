@@ -40,7 +40,7 @@ public class AccessEntry {
 
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id", nullable = false)
+    @JoinColumn(name = "userid", nullable = false)
     private User user;
 
     public Long getId() {

@@ -1,17 +1,12 @@
 package ir.mostashar.model.wallet;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import ir.mostashar.model.bill.Bill;
 import ir.mostashar.model.user.User;
 
 @Entity
@@ -36,7 +31,10 @@ public class Wallet {
 
 	@Column(name = "bankaccountsheba")
 	private String bankAccountSheba;
-	
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "wallet")
+	private Set<Bill> bills=new HashSet<>();
+
 	@OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(nullable = false)
     private User user;

@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,8 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import ir.mostashar.model.discountPack.DiscountPack;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,8 +19,8 @@ import ir.mostashar.model.user.User;
 import org.springframework.data.annotation.CreatedDate;
 
 @Entity
-@Table(name = "assignDiscounts")
-public class AssignDiscounts {
+@Table(name = "assigndiscounts")
+public class AssignDiscount {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,16 +44,19 @@ public class AssignDiscounts {
 	@CreatedDate
 	private Long expiryDate;
 
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+	@ManyToOne
+	@JoinColumn( nullable=false)
     @JsonIgnore
     private User user;
 
-	public AssignDiscounts() {
+	@ManyToOne
+    @JoinColumn(name="discountpackid", nullable=false)
+    private DiscountPack discountPack;
+
+	public AssignDiscount() {
 	}
 
-	public AssignDiscounts(UUID uid, boolean isActive,Long creationDate,Long modificationDate,Long expiryDate, User user) {
+	public AssignDiscount(UUID uid, boolean isActive, Long creationDate, Long modificationDate, Long expiryDate, User user) {
 		this.uid = uid;
 		this.isActive = isActive;
 		this.creationDate = creationDate;
@@ -64,7 +65,15 @@ public class AssignDiscounts {
 		this.user = user;
 	}
 
-	public Long getId() {
+    public DiscountPack getDiscountPack() {
+        return discountPack;
+    }
+
+    public void setDiscountPack(DiscountPack discountPack) {
+        this.discountPack = discountPack;
+    }
+
+    public Long getId() {
 		return id;
 	}
 

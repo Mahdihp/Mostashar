@@ -1,6 +1,9 @@
 package ir.mostashar.model.bill;
 
 
+import ir.mostashar.model.factor.Factor;
+import ir.mostashar.model.wallet.Wallet;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -33,8 +36,15 @@ public class Bill {
     @Column(name = "orguid")
     private String orgUid;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "billid", nullable = false)
+    private Wallet wallet;
+
+
     public Bill() {
     }
+
+
 
     public Long getId() {
         return id;
@@ -98,5 +108,13 @@ public class Bill {
 
     public void setOrgUid(String orgUid) {
         this.orgUid = orgUid;
+    }
+
+    public Wallet getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
     }
 }

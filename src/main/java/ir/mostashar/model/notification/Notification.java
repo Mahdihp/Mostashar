@@ -1,7 +1,13 @@
 package ir.mostashar.model.notification;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import ir.mostashar.model.reminder.Reminder;
+import ir.mostashar.model.user.User;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -33,6 +39,10 @@ public class Notification {
     @Column(name = "deleted")
     private boolean deleted = false;
 
+
+    @OneToMany(mappedBy = "notification")
+    private Set<Reminder> reminders = new HashSet<>();
+
     public Notification() {
     }
 
@@ -44,6 +54,14 @@ public class Notification {
         this.pushDate = pushDate;
         this.notifParentUid = notifParentUid;
         this.deleted = deleted;
+    }
+
+    public Set<Reminder> getReminders() {
+        return reminders;
+    }
+
+    public void setReminders(Set<Reminder> reminders) {
+        this.reminders = reminders;
     }
 
     public Long getId() {
