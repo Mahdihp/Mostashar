@@ -1,5 +1,7 @@
 package ir.mostashar.model.request;
 
+import ir.mostashar.model.client.Client;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -22,6 +24,10 @@ public class Request {
 
     @Column(name = "deleted")
     private boolean deleted = false;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "clientid", nullable = false)
+    private Client client;
 
     public Request() {
     }

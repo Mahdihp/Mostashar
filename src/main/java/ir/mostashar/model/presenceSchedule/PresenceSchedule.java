@@ -1,5 +1,8 @@
 package ir.mostashar.model.presenceSchedule;
 
+import ir.mostashar.model.lawyer.Lawyer;
+import ir.mostashar.model.officeAddress.OfficeAddress;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -30,16 +33,23 @@ public class PresenceSchedule {
     @Column(name = "weekday")
     private int weekDay;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "officesaddressid",nullable = false)
+    private OfficeAddress officesaddress;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lawyerid",nullable = false)
+    private Lawyer lawyer;
+
     public PresenceSchedule() {
     }
 
-    public PresenceSchedule(UUID uid, String title, String description, Long specialDate, Long time, int weekDay) {
-        this.uid = uid;
-        this.title = title;
-        this.description = description;
-        this.specialDate = specialDate;
-        this.time = time;
-        this.weekDay = weekDay;
+    public Lawyer getLawyer() {
+        return lawyer;
+    }
+
+    public void setLawyer(Lawyer lawyer) {
+        this.lawyer = lawyer;
     }
 
     public Long getId() {
@@ -96,5 +106,13 @@ public class PresenceSchedule {
 
     public void setWeekDay(int weekDay) {
         this.weekDay = weekDay;
+    }
+
+    public OfficeAddress getOfficesaddress() {
+        return officesaddress;
+    }
+
+    public void setOfficesaddress(OfficeAddress officesaddress) {
+        this.officesaddress = officesaddress;
     }
 }

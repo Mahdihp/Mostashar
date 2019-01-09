@@ -1,5 +1,8 @@
 package ir.mostashar.model.answer;
 
+import ir.mostashar.model.lawyer.Lawyer;
+import ir.mostashar.model.question.Question;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -26,6 +29,14 @@ public class Answer {
     @Column(name = "modificationdate")
     private Long modificationDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "questionid", nullable = false)
+    private Question question;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lawyerid", nullable = false)
+    private Lawyer lawyer;
+
     public Answer() {
     }
 
@@ -35,6 +46,14 @@ public class Answer {
         this.creationDate = creationDate;
         this.edited = edited;
         this.modificationDate = modificationDate;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 
     public Long getId() {

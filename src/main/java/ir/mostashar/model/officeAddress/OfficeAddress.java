@@ -1,6 +1,11 @@
 package ir.mostashar.model.officeAddress;
 
+import ir.mostashar.model.lawyer.Lawyer;
+import ir.mostashar.model.presenceSchedule.PresenceSchedule;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -26,15 +31,14 @@ public class OfficeAddress {
     @Column(name = "description")
     private String description;
 
-    public OfficeAddress() {
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lawyerid", nullable = false)
+    private Lawyer lawyer;
 
-    public OfficeAddress(UUID uid, String title, String address, Long tel, String description) {
-        this.uid = uid;
-        this.title = title;
-        this.address = address;
-        this.tel = tel;
-        this.description = description;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "officesaddress")
+    private Set<PresenceSchedule> presenceSchedule = new HashSet<>();
+
+    public OfficeAddress() {
     }
 
     public Long getId() {
@@ -83,5 +87,21 @@ public class OfficeAddress {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Lawyer getLawyer() {
+        return lawyer;
+    }
+
+    public void setLawyer(Lawyer lawyer) {
+        this.lawyer = lawyer;
+    }
+
+    public Set<PresenceSchedule> getPresenceSchedule() {
+        return presenceSchedule;
+    }
+
+    public void setPresenceSchedule(Set<PresenceSchedule> presenceSchedule) {
+        this.presenceSchedule = presenceSchedule;
     }
 }

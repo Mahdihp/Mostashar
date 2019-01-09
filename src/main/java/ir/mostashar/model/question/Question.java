@@ -1,6 +1,11 @@
 package ir.mostashar.model.question;
 
+import ir.mostashar.model.answer.Answer;
+import ir.mostashar.model.client.Client;
+import ir.mostashar.model.user.User;
+
 import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -32,6 +37,13 @@ public class Question {
     @Column(name = "modificationdate")
     private Long modificationDate;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "clientid", nullable = false)
+    private Client client;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "question")
+    private Set<Answer> answers;
+
     public Question() {
     }
 
@@ -43,6 +55,14 @@ public class Question {
         this.creationDate = creationDate;
         this.edited = edited;
         this.modificationDate = modificationDate;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public Long getId() {

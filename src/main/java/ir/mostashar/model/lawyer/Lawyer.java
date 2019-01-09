@@ -1,8 +1,14 @@
 package ir.mostashar.model.lawyer;
 
 import ir.mostashar.model.AuditModel;
+import ir.mostashar.model.answer.Answer;
+import ir.mostashar.model.client.Client;
+import ir.mostashar.model.officeAddress.OfficeAddress;
+import ir.mostashar.model.presenceSchedule.PresenceSchedule;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 
@@ -28,4 +34,93 @@ public class Lawyer extends AuditModel {
 
     @Column(name = "verified")
     private boolean verified = false;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    private Set<Answer> answer;
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "lawyers")
+    private Set<Client> client =new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    private Set<OfficeAddress> officeAddresses=new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    private Set<PresenceSchedule> presenceSchedules=new HashSet<>();
+
+
+    public Lawyer() {
+    }
+
+
+    public Set<PresenceSchedule> getPresenceSchedules() {
+        return presenceSchedules;
+    }
+
+    public void setPresenceSchedules(Set<PresenceSchedule> presenceSchedules) {
+        this.presenceSchedules = presenceSchedules;
+    }
+
+    public Set<OfficeAddress> getOfficeAddresses() {
+        return officeAddresses;
+    }
+
+    public void setOfficeAddresses(Set<OfficeAddress> officeAddresses) {
+        this.officeAddresses = officeAddresses;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public UUID getUid() {
+        return uid;
+    }
+
+    public void setUid(UUID uid) {
+        this.uid = uid;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
+    public Set<Answer> getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Set<Answer> answer) {
+        this.answer = answer;
+    }
+
+    public Set<Client> getClient() {
+        return client;
+    }
+
+    public void setClient(Set<Client> client) {
+        this.client = client;
+    }
 }

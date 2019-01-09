@@ -1,5 +1,7 @@
 package ir.mostashar.model.file;
 
+import ir.mostashar.model.client.Client;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -28,6 +30,10 @@ public class File {
 
     @Column(name = "modificationdate")
     private Long modificationDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "clientid",nullable = false)
+    private Client client;
 
     public File() {
     }

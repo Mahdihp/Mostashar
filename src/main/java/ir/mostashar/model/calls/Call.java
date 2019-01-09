@@ -1,5 +1,7 @@
 package ir.mostashar.model.calls;
 
+import ir.mostashar.model.client.Client;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -32,17 +34,19 @@ public class Call {
     @Column(name = "creationdate")
     private Long creationDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "clientid",nullable = false)
+    private Client client;
+
     public Call() {
     }
 
-    public Call(UUID uid, int failedRetriesCount, String status, int callType, Long startTime, Long endTime, Long creationDate) {
-        this.uid = uid;
-        this.failedRetriesCount = failedRetriesCount;
-        this.status = status;
-        this.callType = callType;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.creationDate = creationDate;
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public Long getId() {
