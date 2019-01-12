@@ -48,7 +48,7 @@ CREATE TABLE Logs(id bigint NOT NULL, uid UUID NOT NULL, creationdate bigint, me
 CREATE TABLE User_Role(UserId bigint, RoleId bigint, UNIQUE(UserId), UNIQUE(RoleId));
 CREATE TABLE Role_Feature(RoleId bigint, FeatureId bigint, UNIQUE(RoleId), UNIQUE(FeatureId));
 CREATE TABLE Client_Lawyer(ClientId bigint, LawyerId bigint, UNIQUE(ClientId), UNIQUE(LawyerId));
-CREATE TABLE Expertise_Lawyer(ExpertiseId bigint, LawyerId bigint, UNIQUE(ExpertiseId), UNIQUE(LawyerId));
+CREATE TABLE Lawyer_Expertise(LawyerId bigint,ExpertiseId bigint, UNIQUE(ExpertiseId), UNIQUE(LawyerId));
 
 -- ---------------------Alter table foreign key ----------------------
 ALTER TABLE User_Role ADD FOREIGN KEY(UserId) REFERENCES Users(id);
@@ -60,8 +60,8 @@ ALTER TABLE Role_Feature ADD FOREIGN KEY(FeatureId) REFERENCES Features(id);
 ALTER TABLE Client_Lawyer ADD FOREIGN KEY(ClientId) REFERENCES Clients(id);
 ALTER TABLE Client_Lawyer ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(id);
 
-ALTER TABLE Expertise_Lawyer ADD FOREIGN KEY(ExpertiseId) REFERENCES Expertises(id);
-ALTER TABLE Expertise_Lawyer ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(id);
+ALTER TABLE Lawyer_Expertise ADD FOREIGN KEY(ExpertiseId) REFERENCES Expertises(id);
+ALTER TABLE Lawyer_Expertise ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(id);
 
 -- -----------------Alter table add foreign key------------------
 ALTER TABLE Users ADD FOREIGN KEY(WalletId) REFERENCES Wallets(id);

@@ -3,6 +3,8 @@ package ir.mostashar.model.lawyer;
 import ir.mostashar.model.AuditModel;
 import ir.mostashar.model.answer.Answer;
 import ir.mostashar.model.client.Client;
+import ir.mostashar.model.expertise.Expertise;
+import ir.mostashar.model.failRequest.FailRequest;
 import ir.mostashar.model.officeAddress.OfficeAddress;
 import ir.mostashar.model.presenceSchedule.PresenceSchedule;
 
@@ -48,9 +50,35 @@ public class Lawyer extends AuditModel {
     private Set<PresenceSchedule> presenceSchedules=new HashSet<>();
 
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "lawyer_expertise",
+            joinColumns = { @JoinColumn(name = "lawyerid") },
+            inverseJoinColumns = { @JoinColumn(name = "expertiseid") })
+    private Set<Expertise> expertises =new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="failrequestid", nullable=false)
+    private FailRequest failRequest;
+
     public Lawyer() {
     }
 
+
+    public FailRequest getFailRequest() {
+        return failRequest;
+    }
+
+    public void setFailRequest(FailRequest failRequest) {
+        this.failRequest = failRequest;
+    }
+
+    public Set<Expertise> getExpertises() {
+        return expertises;
+    }
+
+    public void setExpertises(Set<Expertise> expertises) {
+        this.expertises = expertises;
+    }
 
     public Set<PresenceSchedule> getPresenceSchedules() {
         return presenceSchedules;

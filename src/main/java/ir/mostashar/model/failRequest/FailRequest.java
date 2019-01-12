@@ -1,6 +1,9 @@
 package ir.mostashar.model.failRequest;
 
+import ir.mostashar.model.lawyer.Lawyer;
+
 import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -20,13 +23,18 @@ public class FailRequest {
     @Column(name = "description")
     private String description;
 
+    @OneToMany(mappedBy = "failrequest")
+    private Set<Lawyer> lawyer;
+
     public FailRequest() {
     }
 
-    public FailRequest(UUID uid, Long creationDate, String description) {
-        this.uid = uid;
-        this.creationDate = creationDate;
-        this.description = description;
+    public Set<Lawyer> getLawyer() {
+        return lawyer;
+    }
+
+    public void setLawyer(Set<Lawyer> lawyer) {
+        this.lawyer = lawyer;
     }
 
     public Long getId() {

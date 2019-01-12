@@ -1,6 +1,10 @@
 package ir.mostashar.model.expertise;
 
+import ir.mostashar.model.lawyer.Lawyer;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -20,13 +24,18 @@ public class Expertise {
     @Column(name = "description")
     private String description;
 
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "expertises")
+    private Set<Lawyer> lawyer =new HashSet<>();
+
     public Expertise() {
     }
 
-    public Expertise(UUID uid, String name, String description) {
-        this.uid = uid;
-        this.name = name;
-        this.description = description;
+    public Set<Lawyer> getLawyer() {
+        return lawyer;
+    }
+
+    public void setLawyer(Set<Lawyer> lawyer) {
+        this.lawyer = lawyer;
     }
 
     public Long getId() {
