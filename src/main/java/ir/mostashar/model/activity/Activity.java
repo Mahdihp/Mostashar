@@ -1,4 +1,6 @@
 package ir.mostashar.model.activity;
+import ir.mostashar.model.lawyer.Lawyer;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -25,16 +27,13 @@ public class Activity {
     @Column(name = "creationdate")
     private Long creationDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lawyerid",nullable = false)
+    private Lawyer lawyer;
+
     public Activity() {
     }
 
-    public Activity(UUID uid, int type, String title, String description, Long creationDate) {
-        this.uid = uid;
-        this.type = type;
-        this.title = title;
-        this.description = description;
-        this.creationDate = creationDate;
-    }
 
     public Long getId() {
         return id;

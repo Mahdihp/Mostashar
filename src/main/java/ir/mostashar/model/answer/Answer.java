@@ -37,6 +37,7 @@ public class Answer {
     @JoinColumn(name = "lawyerid", nullable = false)
     private Lawyer lawyer;
 
+
     public Answer() {
     }
 

@@ -1,7 +1,10 @@
 package ir.mostashar.model.adviceType;
 
 
+import ir.mostashar.model.lawyer.Lawyer;
+
 import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -26,6 +29,9 @@ public class AdviceType {
 
     @Column(name = "type")
     private String type;
+
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "advicetype")
+//    private Set<Lawyer> lawyers;
 
     public AdviceType() {
     }

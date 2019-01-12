@@ -1,8 +1,10 @@
 package ir.mostashar.model.request;
 
+import ir.mostashar.model.calls.Call;
 import ir.mostashar.model.client.Client;
 
 import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -28,6 +30,9 @@ public class Request {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clientid", nullable = false)
     private Client client;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "request")
+    private Set<Call> calls;
 
     public Request() {
     }

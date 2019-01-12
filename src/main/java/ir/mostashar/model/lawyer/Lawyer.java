@@ -1,12 +1,20 @@
 package ir.mostashar.model.lawyer;
 
 import ir.mostashar.model.AuditModel;
+import ir.mostashar.model.acceptRequest.AcceptRequest;
+import ir.mostashar.model.accessentry.AccessEntry;
+import ir.mostashar.model.activity.Activity;
+import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.answer.Answer;
+import ir.mostashar.model.calls.Call;
 import ir.mostashar.model.client.Client;
+import ir.mostashar.model.doc.Doc;
 import ir.mostashar.model.expertise.Expertise;
 import ir.mostashar.model.failRequest.FailRequest;
 import ir.mostashar.model.officeAddress.OfficeAddress;
+import ir.mostashar.model.organization.Organization;
 import ir.mostashar.model.presenceSchedule.PresenceSchedule;
+import ir.mostashar.model.wallet.Wallet;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -56,21 +64,36 @@ public class Lawyer extends AuditModel {
             inverseJoinColumns = { @JoinColumn(name = "expertiseid") })
     private Set<Expertise> expertises =new HashSet<>();
 
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name="failrequestid", nullable=false)
+//    private FailRequest failRequest;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="failrequestid", nullable=false)
-    private FailRequest failRequest;
+    @JoinColumn(name = "organizationid",nullable = false)
+    private Organization organization;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    private Set<AcceptRequest> acceptRequests;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    private Set<Activity> activities;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    private Set<Call> calls;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    private Set<Doc> docs;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    private Set<Answer> answers;
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "advicetypeid",nullable = false)
+//    private AdviceType adviceType;
 
     public Lawyer() {
     }
 
-
-    public FailRequest getFailRequest() {
-        return failRequest;
-    }
-
-    public void setFailRequest(FailRequest failRequest) {
-        this.failRequest = failRequest;
-    }
 
     public Set<Expertise> getExpertises() {
         return expertises;

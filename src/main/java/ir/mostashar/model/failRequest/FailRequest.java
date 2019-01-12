@@ -3,6 +3,7 @@ package ir.mostashar.model.failRequest;
 import ir.mostashar.model.lawyer.Lawyer;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -23,18 +24,10 @@ public class FailRequest {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "failrequest")
-    private Set<Lawyer> lawyer;
+//    @OneToMany(mappedBy = "failrequest")
+//    private Set<Lawyer> lawyers=new HashSet<>();
 
     public FailRequest() {
-    }
-
-    public Set<Lawyer> getLawyer() {
-        return lawyer;
-    }
-
-    public void setLawyer(Set<Lawyer> lawyer) {
-        this.lawyer = lawyer;
     }
 
     public Long getId() {

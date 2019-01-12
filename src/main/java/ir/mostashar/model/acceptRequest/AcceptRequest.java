@@ -1,5 +1,7 @@
 package ir.mostashar.model.acceptRequest;
 
+import ir.mostashar.model.lawyer.Lawyer;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -22,6 +24,10 @@ public class AcceptRequest {
 
     @Column(name = "finished")
     private Long finished;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lawyerid",nullable = false)
+    private Lawyer lawyer;
 
     public AcceptRequest() {
     }

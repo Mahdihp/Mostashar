@@ -1,5 +1,9 @@
 package ir.mostashar.model.doc;
 
+import ir.mostashar.model.calls.Call;
+import ir.mostashar.model.lawyer.Lawyer;
+import ir.mostashar.model.user.User;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -26,16 +30,17 @@ public class Doc {
     @Column(name = "creationdate")
     private Long creationDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lawyerid",nullable = false)
+    private Lawyer lawyer;
+
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(nullable = false)
+    private Call call;
+
     public Doc() {
     }
 
-    public Doc(UUID uid, String checksum, String hashCode, String docType, Long creationDate) {
-        this.uid = uid;
-        this.checksum = checksum;
-        this.hashCode = hashCode;
-        this.docType = docType;
-        this.creationDate = creationDate;
-    }
 
     public Long getId() {
         return id;

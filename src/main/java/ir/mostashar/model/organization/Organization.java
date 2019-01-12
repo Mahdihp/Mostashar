@@ -1,6 +1,11 @@
 package ir.mostashar.model.organization;
 
+import ir.mostashar.model.lawyer.Lawyer;
+import ir.mostashar.model.wallet.Wallet;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -49,6 +54,14 @@ public class Organization {
 
     @Column(name = "verified")
     private boolean verified = false;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "organization")
+    private Set<Lawyer> lawyers=new HashSet<>();
+
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "organization")
+    private Wallet wallet;
 
     public Organization() {
     }

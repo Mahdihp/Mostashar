@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.persistence.*;
 
 import ir.mostashar.model.bill.Bill;
+import ir.mostashar.model.organization.Organization;
 import ir.mostashar.model.user.User;
 
 @Entity
@@ -38,6 +39,13 @@ public class Wallet {
 	@OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(nullable = false)
     private User user;
+
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(nullable = false)
+	private Organization organization;
+
+	public Wallet() {
+	}
 
 	public Long getId() {
 		return id;
