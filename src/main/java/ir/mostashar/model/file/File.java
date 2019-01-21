@@ -1,10 +1,17 @@
 package ir.mostashar.model.file;
 
 import ir.mostashar.model.client.Client;
+import ir.mostashar.model.doc.Doc;
+import ir.mostashar.model.request.Request;
+import ir.mostashar.model.sharingPerspective.SharingPerspectives;
+import lombok.Data;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "files")
 public class File {
@@ -35,71 +42,33 @@ public class File {
     @JoinColumn(name = "clientid",nullable = false)
     private Client client;
 
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "file")
+    private Set<Request> requests = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "file")
+    private Set<Doc> docs = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "file")
+    private Set<SharingPerspectives> sharingPerspectives = new HashSet<>();
+
     public File() {
     }
 
-    public File(UUID uid, String fileNumber, String title, String description, Long creationDate, Long modificationDate) {
-        this.uid = uid;
+    public File(UUID uid, String fileNumber, String title, String description, Long creationDate, Long modificationDate, Client client, Set<Request> requests, Set<Doc> docs, Set<SharingPerspectives> sharingPerspectives) {        this.uid = uid;
         this.fileNumber = fileNumber;
         this.title = title;
         this.description = description;
         this.creationDate = creationDate;
         this.modificationDate = modificationDate;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UUID getUid() {
-        return uid;
-    }
-
-    public void setUid(UUID uid) {
-        this.uid = uid;
-    }
-
-    public String getFileNumber() {
-        return fileNumber;
-    }
-
-    public void setFileNumber(String fileNumber) {
-        this.fileNumber = fileNumber;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Long getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Long creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public Long getModificationDate() {
-        return modificationDate;
-    }
-
-    public void setModificationDate(Long modificationDate) {
-        this.modificationDate = modificationDate;
+        this.client = client;
+        this.requests = requests;
+        this.docs = docs;
+        this.sharingPerspectives = sharingPerspectives;
     }
 }

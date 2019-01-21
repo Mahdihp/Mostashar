@@ -1,10 +1,12 @@
 package ir.mostashar.model.complain;
 
 import ir.mostashar.model.user.User;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "complains")
 public class Complain {
@@ -35,59 +37,12 @@ public class Complain {
     public Complain() {
     }
 
-    public Complain(UUID uid, String title, String description, Long creationDate, boolean read) {
+    public Complain(UUID uid, String title, String description, Long creationDate, boolean read, User user) {
         this.uid = uid;
         this.title = title;
         this.description = description;
         this.creationDate = creationDate;
         this.read = read;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UUID getUid() {
-        return uid;
-    }
-
-    public void setUid(UUID uid) {
-        this.uid = uid;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Long getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Long creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public boolean isRead() {
-        return read;
-    }
-
-    public void setRead(boolean read) {
-        this.read = read;
+        this.user = user;
     }
 }

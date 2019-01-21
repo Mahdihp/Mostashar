@@ -2,12 +2,14 @@ package ir.mostashar.model.officeAddress;
 
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.presenceSchedule.PresenceSchedule;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "officesaddress")
 public class OfficeAddress {
@@ -41,67 +43,13 @@ public class OfficeAddress {
     public OfficeAddress() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UUID getUid() {
-        return uid;
-    }
-
-    public void setUid(UUID uid) {
+    public OfficeAddress(UUID uid, String title, String address, Long tel, String description, Lawyer lawyer, Set<PresenceSchedule> presenceSchedule) {
         this.uid = uid;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
         this.address = address;
-    }
-
-    public Long getTel() {
-        return tel;
-    }
-
-    public void setTel(Long tel) {
         this.tel = tel;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Lawyer getLawyer() {
-        return lawyer;
-    }
-
-    public void setLawyer(Lawyer lawyer) {
         this.lawyer = lawyer;
-    }
-
-    public Set<PresenceSchedule> getPresenceSchedule() {
-        return presenceSchedule;
-    }
-
-    public void setPresenceSchedule(Set<PresenceSchedule> presenceSchedule) {
         this.presenceSchedule = presenceSchedule;
     }
 }

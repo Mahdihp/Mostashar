@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -20,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import ir.mostashar.model.user.User;
 import org.springframework.data.annotation.CreatedDate;
 
+@Data
 @Entity
 @Table(name = "invitedUsers")
 public class InvitedUsers {
@@ -46,50 +48,10 @@ public class InvitedUsers {
 	public InvitedUsers() {
 	}
 
-	public InvitedUsers(UUID uid, String invitedUsername, Long  creationDate, User user) {
+	public InvitedUsers(UUID uid, String invitedUsername, Long creationDate, User user) {
 		this.uid = uid;
 		this.invitedUsername = invitedUsername;
 		this.creationDate = creationDate;
-		this.user = user;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public UUID getUid() {
-		return uid;
-	}
-
-	public void setUid(UUID uid) {
-		this.uid = uid;
-	}
-
-	public String getInvitedUsername() {
-		return invitedUsername;
-	}
-
-	public void setInvitedUsername(String invitedUsername) {
-		this.invitedUsername = invitedUsername;
-	}
-
-	public Long  getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(Long creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
 		this.user = user;
 	}
 }

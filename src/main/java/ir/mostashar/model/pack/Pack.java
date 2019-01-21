@@ -1,6 +1,11 @@
 package ir.mostashar.model.pack;
 
+import ir.mostashar.model.adviceType.AdviceType;
+import ir.mostashar.model.consumptionPack.ConsumptionPack;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 
@@ -26,6 +31,16 @@ public class Pack {
 
     @Column(name = "isactive")
     private boolean isActive = false;
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "pack")
+    private Set<ConsumptionPack> comments = new HashSet<>();
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "advicetypeid", nullable = false)
+    private AdviceType post;
 
     public Pack() {
     }

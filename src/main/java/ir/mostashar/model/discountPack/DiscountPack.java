@@ -1,11 +1,13 @@
 package ir.mostashar.model.discountPack;
 
 import ir.mostashar.model.assignDiscount.AssignDiscount;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Set;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "discountpacks")
 public class DiscountPack {
@@ -27,67 +29,18 @@ public class DiscountPack {
     private int type;
 
     @OneToMany
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "discountpack")
     private Set<AssignDiscount> assignDiscount;
 
 
     public DiscountPack() {
     }
 
-
-
-    public DiscountPack(UUID uid, String name, long value, int type) {
+    public DiscountPack(UUID uid, String name, long value, int type, Set<AssignDiscount> assignDiscount) {
         this.uid = uid;
         this.name = name;
         this.value = value;
         this.type = type;
-    }
-
-    public Set<AssignDiscount> getAssignDiscount() {
-        return assignDiscount;
-    }
-
-    public void setAssignDiscount(Set<AssignDiscount> assignDiscount) {
         this.assignDiscount = assignDiscount;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UUID getUid() {
-        return uid;
-    }
-
-    public void setUid(UUID uid) {
-        this.uid = uid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public long getValue() {
-        return value;
-    }
-
-    public void setValue(long value) {
-        this.value = value;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
     }
 }

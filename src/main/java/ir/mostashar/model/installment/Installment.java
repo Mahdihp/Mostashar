@@ -1,8 +1,13 @@
 package ir.mostashar.model.installment;
 
+import ir.mostashar.model.consumptionPack.ConsumptionPack;
+import ir.mostashar.model.factor.Factor;
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "installments")
 public class Installment {
@@ -26,62 +31,17 @@ public class Installment {
     @Column(name = "value")
     private long value;
 
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "consumptionpackid", nullable = false)
+    private ConsumptionPack consumptionPack;
+
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "installment")
+    private Factor userProfile;
+
+
     public Installment() {
-    }
-
-    public Installment(UUID uid, Integer installmentNumber, Integer installmentTotalNumber, Long creationDate, long value) {
-        this.uid = uid;
-        this.installmentNumber = installmentNumber;
-        this.installmentTotalNumber = installmentTotalNumber;
-        this.creationDate = creationDate;
-        this.value = value;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UUID getUid() {
-        return uid;
-    }
-
-    public void setUid(UUID uid) {
-        this.uid = uid;
-    }
-
-    public Integer getInstallmentNumber() {
-        return installmentNumber;
-    }
-
-    public void setInstallmentNumber(Integer installmentNumber) {
-        this.installmentNumber = installmentNumber;
-    }
-
-    public Integer getInstallmentTotalNumber() {
-        return installmentTotalNumber;
-    }
-
-    public void setInstallmentTotalNumber(Integer installmentTotalNumber) {
-        this.installmentTotalNumber = installmentTotalNumber;
-    }
-
-    public Long getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Long creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public long getValue() {
-        return value;
-    }
-
-    public void setValue(long value) {
-        this.value = value;
     }
 }

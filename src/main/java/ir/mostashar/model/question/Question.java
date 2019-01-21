@@ -3,11 +3,13 @@ package ir.mostashar.model.question;
 import ir.mostashar.model.answer.Answer;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.user.User;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Set;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "questions")
 public class Question {
@@ -47,85 +49,4 @@ public class Question {
     public Question() {
     }
 
-    public Question(UUID uid, String title, String description, int type, Long creationDate, boolean edited, Long modificationDate) {
-        this.uid = uid;
-        this.title = title;
-        this.description = description;
-        this.type = type;
-        this.creationDate = creationDate;
-        this.edited = edited;
-        this.modificationDate = modificationDate;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UUID getUid() {
-        return uid;
-    }
-
-    public void setUid(UUID uid) {
-        this.uid = uid;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public Long getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Long creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public boolean isEdited() {
-        return edited;
-    }
-
-    public void setEdited(boolean edited) {
-        this.edited = edited;
-    }
-
-    public Long getModificationDate() {
-        return modificationDate;
-    }
-
-    public void setModificationDate(Long modificationDate) {
-        this.modificationDate = modificationDate;
-    }
 }

@@ -1,9 +1,12 @@
 package ir.mostashar.model.activity;
+import ir.mostashar.model.doc.Doc;
 import ir.mostashar.model.lawyer.Lawyer;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "activities")
 public class Activity {
@@ -31,55 +34,12 @@ public class Activity {
     @JoinColumn(name = "lawyerid",nullable = false)
     private Lawyer lawyer;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "docid", nullable = true)
+    private Doc doc;
+
     public Activity() {
     }
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UUID getUid() {
-        return uid;
-    }
-
-    public void setUid(UUID uid) {
-        this.uid = uid;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Long getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Long creationDate) {
-        this.creationDate = creationDate;
-    }
 }

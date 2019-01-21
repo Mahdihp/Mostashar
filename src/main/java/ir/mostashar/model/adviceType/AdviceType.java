@@ -1,12 +1,13 @@
 package ir.mostashar.model.adviceType;
 
 
-import ir.mostashar.model.lawyer.Lawyer;
+import ir.mostashar.model.request.Request;
+import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Set;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "advicetypes")
 public class AdviceType {
@@ -30,65 +31,21 @@ public class AdviceType {
     @Column(name = "type")
     private String type;
 
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "advicetype")
-//    private Set<Lawyer> lawyers;
+
+
+
+
+//    @OneToMany(cascade = CascadeType.ALL,
+//            fetch = FetchType.LAZY,
+//            mappedBy = "advicetype")
+//    private Set<Pack> packs= new HashSet<>();
+
+//    @OneToMany(cascade = CascadeType.ALL,
+//            fetch = FetchType.LAZY,
+//            mappedBy = "advicetype")
+//    private Set<Lawyer> lawyers = new HashSet<>();
 
     public AdviceType() {
     }
 
-    public AdviceType(UUID uid, Long parent, String name, String description, String type) {
-        this.uid = uid;
-        this.parent = parent;
-        this.name = name;
-        this.description = description;
-        this.type = type;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UUID getUid() {
-        return uid;
-    }
-
-    public void setUid(UUID uid) {
-        this.uid = uid;
-    }
-
-    public Long getParent() {
-        return parent;
-    }
-
-    public void setParent(Long parent) {
-        this.parent = parent;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 }

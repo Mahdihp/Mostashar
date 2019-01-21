@@ -1,6 +1,7 @@
 package ir.mostashar.model.failRequest;
 
 import ir.mostashar.model.lawyer.Lawyer;
+import ir.mostashar.model.request.Request;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -24,8 +25,14 @@ public class FailRequest {
     @Column(name = "description")
     private String description;
 
-//    @OneToMany(mappedBy = "failrequest")
-//    private Set<Lawyer> lawyers=new HashSet<>();
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(nullable = false)
+    private Request request;
+
+//    @OneToMany(cascade = CascadeType.ALL,
+//            fetch = FetchType.LAZY,
+//            mappedBy = "failrequest")
+//    private Set<Lawyer> lawyers= new HashSet<>();
 
     public FailRequest() {
     }

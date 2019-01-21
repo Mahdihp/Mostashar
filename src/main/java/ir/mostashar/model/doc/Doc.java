@@ -1,12 +1,18 @@
 package ir.mostashar.model.doc;
 
+import ir.mostashar.model.activity.Activity;
 import ir.mostashar.model.calls.Call;
+import ir.mostashar.model.file.File;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.user.User;
+import lombok.Data;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "docs")
 public class Doc {
@@ -38,55 +44,16 @@ public class Doc {
     @JoinColumn(nullable = false)
     private Call call;
 
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "doc")
+    private Set<Activity> activities = new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fileid", nullable = true)
+    private File file;
+
     public Doc() {
     }
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UUID getUid() {
-        return uid;
-    }
-
-    public void setUid(UUID uid) {
-        this.uid = uid;
-    }
-
-    public String getChecksum() {
-        return checksum;
-    }
-
-    public void setChecksum(String checksum) {
-        this.checksum = checksum;
-    }
-
-    public String getHashCode() {
-        return hashCode;
-    }
-
-    public void setHashCode(String hashCode) {
-        this.hashCode = hashCode;
-    }
-
-    public String getDocType() {
-        return docType;
-    }
-
-    public void setDocType(String docType) {
-        this.docType = docType;
-    }
-
-    public Long getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Long creationDate) {
-        this.creationDate = creationDate;
-    }
 }

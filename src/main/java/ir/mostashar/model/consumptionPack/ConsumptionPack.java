@@ -1,6 +1,12 @@
 package ir.mostashar.model.consumptionPack;
 
+import ir.mostashar.model.installment.Installment;
+import ir.mostashar.model.pack.Pack;
+import ir.mostashar.model.request.Request;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -28,6 +34,19 @@ public class ConsumptionPack {
 
     @Column(name = "lastinstallmentdate")
     private Long lastInstallmentDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "packid", nullable = false)
+    private Pack pack;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "requestid", nullable = false)
+    private Request request;
+
+//    @OneToMany(cascade = CascadeType.ALL,
+//            fetch = FetchType.LAZY,
+//            mappedBy = "consumptionpack")
+//    private Set<Installment> comments = new HashSet<>();
 
     public ConsumptionPack() {
     }

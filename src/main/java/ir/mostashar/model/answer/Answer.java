@@ -2,10 +2,12 @@ package ir.mostashar.model.answer;
 
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.question.Question;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "answers")
 public class Answer {
@@ -41,67 +43,4 @@ public class Answer {
     public Answer() {
     }
 
-    public Answer(UUID uid, String description, Long creationDate, boolean edited, Long modificationDate) {
-        this.uid = uid;
-        this.description = description;
-        this.creationDate = creationDate;
-        this.edited = edited;
-        this.modificationDate = modificationDate;
-    }
-
-    public Question getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UUID getUid() {
-        return uid;
-    }
-
-    public void setUid(UUID uid) {
-        this.uid = uid;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Long getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Long creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public boolean isEdited() {
-        return edited;
-    }
-
-    public void setEdited(boolean edited) {
-        this.edited = edited;
-    }
-
-    public Long getModificationDate() {
-        return modificationDate;
-    }
-
-    public void setModificationDate(Long modificationDate) {
-        this.modificationDate = modificationDate;
-    }
 }

@@ -1,6 +1,7 @@
 package ir.mostashar.model.feedback;
 
 import ir.mostashar.model.client.Client;
+import ir.mostashar.model.request.Request;
 import org.aspectj.apache.bcel.generic.InstructionConstants;
 
 import javax.persistence.*;
@@ -29,6 +30,10 @@ public class Feedback {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clientid", nullable = false)
     private Client client;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "requestid", nullable = false)
+    private Request request;
 
     public Feedback() {
     }

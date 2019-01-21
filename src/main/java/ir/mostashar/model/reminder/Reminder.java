@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.persistence.*;
 
 import ir.mostashar.model.notification.Notification;
+import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -14,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import ir.mostashar.model.user.User;
 
+@Data
 @Entity
 @Table(name = "reminders")
 public class Reminder {
@@ -42,44 +44,10 @@ public class Reminder {
 	public Reminder() {
 	}
 
-
-	public Notification getNotification() {
-		return notification;
-	}
-
-	public void setNotification(Notification notification) {
-		this.notification = notification;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public UUID getUid() {
-		return uid;
-	}
-
-	public void setUid(UUID uid) {
+	public Reminder(UUID uid, String read, User user, Notification notification) {
 		this.uid = uid;
-	}
-
-	public String getRead() {
-		return read;
-	}
-
-	public void setRead(String read) {
 		this.read = read;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
 		this.user = user;
+		this.notification = notification;
 	}
 }

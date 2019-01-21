@@ -2,12 +2,14 @@ package ir.mostashar.model.settingType;
 
 
 import ir.mostashar.model.setting.Setting;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "settingtypes")
 public class SettingTypes {
@@ -35,58 +37,4 @@ public class SettingTypes {
     public SettingTypes() {
     }
 
-    public SettingTypes(UUID uid, String name, String description, int type) {
-        this.uid = uid;
-        this.name = name;
-        this.description = description;
-        this.type = type;
-    }
-
-    public Set<Setting> getSetting() {
-        return setting;
-    }
-
-    public void setSetting(Set<Setting> setting) {
-        this.setting = setting;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UUID getUid() {
-        return uid;
-    }
-
-    public void setUid(UUID uid) {
-        this.uid = uid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
 }

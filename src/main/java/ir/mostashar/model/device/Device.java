@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -19,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import ir.mostashar.model.user.User;
 
+@Data
 @Entity
 @Table(name = "devices")
 public class Device {
@@ -29,12 +31,12 @@ public class Device {
 
 	@Column(unique = true, nullable = false)
 	private UUID uid;
-	
-	@Column(unique = true,name = "imei")
+
+	@Column(unique = true, name = "imei")
 	private String imei;
 
 	@Column(unique = true)
-	private String fireBaseRegId ;
+	private String fireBaseRegId;
 
 	@Column(name = "ipaddress")
 	private String ipAddress;
@@ -42,68 +44,21 @@ public class Device {
 	@Column(name = "model")
 	private String model;
 
-	
+
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "userId", nullable = false)
-    @JsonIgnore
-    private User user;
+	@JoinColumn(name = "userId", nullable = false)
+	@JsonIgnore
+	private User user;
 
 	public Device() {
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public UUID getUid() {
-		return uid;
-	}
-
-	public void setUid(UUID uid) {
+	public Device(UUID uid, String imei, String fireBaseRegId, String ipAddress, String model, User user) {
 		this.uid = uid;
-	}
-
-	public String getImei() {
-		return imei;
-	}
-
-	public void setImei(String imei) {
 		this.imei = imei;
-	}
-
-	public String getFireBaseRegId() {
-		return fireBaseRegId;
-	}
-
-	public void setFireBaseRegId(String fireBaseRegId) {
 		this.fireBaseRegId = fireBaseRegId;
-	}
-
-	public String getIpAddress() {
-		return ipAddress;
-	}
-
-	public void setIpAddress(String ipAddress) {
 		this.ipAddress = ipAddress;
-	}
-
-	public String getModel() {
-		return model;
-	}
-
-	public void setModel(String model) {
 		this.model = model;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
 		this.user = user;
 	}
 }

@@ -1,12 +1,21 @@
 package ir.mostashar.model.request;
 
+import ir.mostashar.model.acceptRequest.AcceptRequest;
+import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.calls.Call;
 import ir.mostashar.model.client.Client;
+import ir.mostashar.model.consumptionPack.ConsumptionPack;
+import ir.mostashar.model.failRequest.FailRequest;
+import ir.mostashar.model.feedback.Feedback;
+import ir.mostashar.model.file.File;
+import lombok.Data;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "requests")
 public class Request {
@@ -34,53 +43,35 @@ public class Request {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "request")
     private Set<Call> calls;
 
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "request")
+    private FailRequest  failRequest;
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "request")
+    private Set<ConsumptionPack> comments = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "request")
+    private Set<Feedback> feedbacks = new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fileid",nullable = true)
+    private File file;
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "request")
+    private Set<AcceptRequest> acceptRequests = new HashSet<>();
+
+
+
     public Request() {
     }
 
-    public Request(UUID uid, String requestNumber, String description, boolean deleted) {
-        this.uid = uid;
-        this.requestNumber = requestNumber;
-        this.description = description;
-        this.deleted = deleted;
-    }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UUID getUid() {
-        return uid;
-    }
-
-    public void setUid(UUID uid) {
-        this.uid = uid;
-    }
-
-    public String getRequestNumber() {
-        return requestNumber;
-    }
-
-    public void setRequestNumber(String requestNumber) {
-        this.requestNumber = requestNumber;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
 }

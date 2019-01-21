@@ -1,5 +1,6 @@
 package ir.mostashar.model.lawyer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ir.mostashar.model.AuditModel;
 import ir.mostashar.model.acceptRequest.AcceptRequest;
 import ir.mostashar.model.accessentry.AccessEntry;
@@ -15,13 +16,16 @@ import ir.mostashar.model.officeAddress.OfficeAddress;
 import ir.mostashar.model.organization.Organization;
 import ir.mostashar.model.presenceSchedule.PresenceSchedule;
 import ir.mostashar.model.wallet.Wallet;
+import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-
+@Data
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "lawyers")
@@ -49,27 +53,24 @@ public class Lawyer extends AuditModel {
     private Set<Answer> answer;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "lawyers")
-    private Set<Client> client =new HashSet<>();
+    private Set<Client> client = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-    private Set<OfficeAddress> officeAddresses=new HashSet<>();
+    private Set<OfficeAddress> officeAddresses = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-    private Set<PresenceSchedule> presenceSchedules=new HashSet<>();
+    private Set<PresenceSchedule> presenceSchedules = new HashSet<>();
 
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "lawyer_expertise",
-            joinColumns = { @JoinColumn(name = "lawyerid") },
-            inverseJoinColumns = { @JoinColumn(name = "expertiseid") })
-    private Set<Expertise> expertises =new HashSet<>();
+            joinColumns = {@JoinColumn(name = "lawyerid")},
+            inverseJoinColumns = {@JoinColumn(name = "expertiseid")})
+    private Set<Expertise> expertises = new HashSet<>();
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name="failrequestid", nullable=false)
-//    private FailRequest failRequest;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "organizationid",nullable = false)
+    @JoinColumn(name = "organizationid", nullable = false)
     private Organization organization;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
@@ -87,91 +88,40 @@ public class Lawyer extends AuditModel {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
     private Set<Answer> answers;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "advicetypeid",nullable = false)
-//    private AdviceType adviceType;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "advicetypeid", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private AdviceType adviceType;
+
+
+    // ارتباط یک طرفه با کلاس Lawyer
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "failrequestid", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private FailRequest failRequest;
 
     public Lawyer() {
     }
 
-
-    public Set<Expertise> getExpertises() {
-        return expertises;
-    }
-
-    public void setExpertises(Set<Expertise> expertises) {
-        this.expertises = expertises;
-    }
-
-    public Set<PresenceSchedule> getPresenceSchedules() {
-        return presenceSchedules;
-    }
-
-    public void setPresenceSchedules(Set<PresenceSchedule> presenceSchedules) {
-        this.presenceSchedules = presenceSchedules;
-    }
-
-    public Set<OfficeAddress> getOfficeAddresses() {
-        return officeAddresses;
-    }
-
-    public void setOfficeAddresses(Set<OfficeAddress> officeAddresses) {
-        this.officeAddresses = officeAddresses;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UUID getUid() {
-        return uid;
-    }
-
-    public void setUid(UUID uid) {
+    public Lawyer(UUID uid, boolean isAvailable, int level, boolean verified, Set<Answer> answer, Set<Client> client, Set<OfficeAddress> officeAddresses, Set<PresenceSchedule> presenceSchedules, Set<Expertise> expertises, Organization organization, Set<AcceptRequest> acceptRequests, Set<Activity> activities, Set<Call> calls, Set<Doc> docs, Set<Answer> answers, AdviceType adviceType, FailRequest failRequest) {
         this.uid = uid;
-    }
-
-    public boolean isAvailable() {
-        return isAvailable;
-    }
-
-    public void setAvailable(boolean available) {
-        isAvailable = available;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
+        this.isAvailable = isAvailable;
         this.level = level;
-    }
-
-    public boolean isVerified() {
-        return verified;
-    }
-
-    public void setVerified(boolean verified) {
         this.verified = verified;
-    }
-
-    public Set<Answer> getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(Set<Answer> answer) {
         this.answer = answer;
-    }
-
-    public Set<Client> getClient() {
-        return client;
-    }
-
-    public void setClient(Set<Client> client) {
         this.client = client;
+        this.officeAddresses = officeAddresses;
+        this.presenceSchedules = presenceSchedules;
+        this.expertises = expertises;
+        this.organization = organization;
+        this.acceptRequests = acceptRequests;
+        this.activities = activities;
+        this.calls = calls;
+        this.docs = docs;
+        this.answers = answers;
+        this.adviceType = adviceType;
+        this.failRequest = failRequest;
     }
 }

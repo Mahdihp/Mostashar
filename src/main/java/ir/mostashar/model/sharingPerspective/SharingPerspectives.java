@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import ir.mostashar.model.file.File;
+import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -21,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import ir.mostashar.model.user.User;
 import org.springframework.data.annotation.CreatedDate;
 
+@Data
 @Entity
 @Table(name = "sharingPerspectives")
 public class SharingPerspectives {
@@ -49,51 +52,21 @@ public class SharingPerspectives {
     @JsonIgnore
     private User user;
 
-	public Long getId() {
-		return id;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fileid", nullable = false)
+	private File file;
+
+	public SharingPerspectives() {
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 
-	public UUID getUid() {
-		return uid;
-	}
 
-	public void setUid(UUID uid) {
+	public SharingPerspectives(UUID uid, Long creationDate, Long modificationDate, Long expiryDate, User user, File file) {
 		this.uid = uid;
-	}
-
-	public Long getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(Long creationDate) {
 		this.creationDate = creationDate;
-	}
-
-	public Long getModificationDate() {
-		return modificationDate;
-	}
-
-	public void setModificationDate(Long modificationDate) {
 		this.modificationDate = modificationDate;
-	}
-
-	public Long getExpiryDate() {
-		return expiryDate;
-	}
-
-	public void setExpiryDate(Long expiryDate) {
 		this.expiryDate = expiryDate;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
 		this.user = user;
+		this.file = file;
 	}
 }

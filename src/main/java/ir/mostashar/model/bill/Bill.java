@@ -1,12 +1,13 @@
 package ir.mostashar.model.bill;
 
 
-import ir.mostashar.model.factor.Factor;
 import ir.mostashar.model.wallet.Wallet;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "bills")
 public class Bill {
@@ -42,79 +43,5 @@ public class Bill {
 
 
     public Bill() {
-    }
-
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UUID getUid() {
-        return uid;
-    }
-
-    public void setUid(UUID uid) {
-        this.uid = uid;
-    }
-
-    public String getTransactionNumber() {
-        return transactionNumber;
-    }
-
-    public void setTransactionNumber(String transactionNumber) {
-        this.transactionNumber = transactionNumber;
-    }
-
-    public String getTrackingNumber() {
-        return trackingNumber;
-    }
-
-    public void setTrackingNumber(String trackingNumber) {
-        this.trackingNumber = trackingNumber;
-    }
-
-    public Long getTransactionDate() {
-        return transactionDate;
-    }
-
-    public void setTransactionDate(Long transactionDate) {
-        this.transactionDate = transactionDate;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public long getValue() {
-        return value;
-    }
-
-    public void setValue(long value) {
-        this.value = value;
-    }
-
-    public String getOrgUid() {
-        return orgUid;
-    }
-
-    public void setOrgUid(String orgUid) {
-        this.orgUid = orgUid;
-    }
-
-    public Wallet getWallet() {
-        return wallet;
-    }
-
-    public void setWallet(Wallet wallet) {
-        this.wallet = wallet;
     }
 }
