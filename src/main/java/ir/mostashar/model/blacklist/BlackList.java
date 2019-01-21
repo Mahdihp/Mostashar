@@ -1,8 +1,11 @@
 package ir.mostashar.model.blacklist;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "blacklists")
 public class BlackList {
@@ -34,54 +37,6 @@ public class BlackList {
         this.creationDate = creationDate;
         this.sourceUid = sourceUid;
         this.expiryDate = expiryDate;
-        this.description = description;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UUID getUid() {
-        return uid;
-    }
-
-    public void setUid(UUID uid) {
-        this.uid = uid;
-    }
-
-    public Long getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Long creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public String getSourceUid() {
-        return sourceUid;
-    }
-
-    public void setSourceUid(String sourceUid) {
-        this.sourceUid = sourceUid;
-    }
-
-    public Long getExpiryDate() {
-        return expiryDate;
-    }
-
-    public void setExpiryDate(Long expiryDate) {
-        this.expiryDate = expiryDate;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
         this.description = description;
     }
 }

@@ -5,12 +5,14 @@ import ir.mostashar.model.calls.Call;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.user.User;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+
 
 @Data
 @Entity
@@ -56,4 +58,15 @@ public class Doc {
     public Doc() {
     }
 
+    public Doc(UUID uid, String checksum, String hashCode, String docType, Long creationDate, Lawyer lawyer, Call call, Set<Activity> activities, File file) {
+        this.uid = uid;
+        this.checksum = checksum;
+        this.hashCode = hashCode;
+        this.docType = docType;
+        this.creationDate = creationDate;
+        this.lawyer = lawyer;
+        this.call = call;
+        this.activities = activities;
+        this.file = file;
+    }
 }

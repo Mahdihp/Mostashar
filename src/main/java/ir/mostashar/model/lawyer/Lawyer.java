@@ -49,9 +49,6 @@ public class Lawyer extends AuditModel {
     @Column(name = "verified")
     private boolean verified = false;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-    private Set<Answer> answer;
-
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "lawyers")
     private Set<Client> client = new HashSet<>();
 
@@ -59,8 +56,10 @@ public class Lawyer extends AuditModel {
     private Set<OfficeAddress> officeAddresses = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-    private Set<PresenceSchedule> presenceSchedules = new HashSet<>();
+    private Set<Answer> answer;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    private Set<PresenceSchedule> presenceSchedules = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "lawyer_expertise",
@@ -68,6 +67,10 @@ public class Lawyer extends AuditModel {
             inverseJoinColumns = {@JoinColumn(name = "expertiseid")})
     private Set<Expertise> expertises = new HashSet<>();
 
+    // ارتباط یک طرفه با کلاس Lawyer
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "failRequestid", nullable = false)
+    private FailRequest failRequest;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organizationid", nullable = false)
@@ -88,19 +91,11 @@ public class Lawyer extends AuditModel {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
     private Set<Answer> answers;
 
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "advicetypeid", nullable = false)
+    @JoinColumn(name = "advicetypeid", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private AdviceType adviceType;
-
-
-    // ارتباط یک طرفه با کلاس Lawyer
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "failrequestid", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private FailRequest failRequest;
 
     public Lawyer() {
     }

@@ -3,12 +3,14 @@ package ir.mostashar.model.consumptionPack;
 import ir.mostashar.model.installment.Installment;
 import ir.mostashar.model.pack.Pack;
 import ir.mostashar.model.request.Request;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "consumptionpacks")
 public class ConsumptionPack {
@@ -51,68 +53,14 @@ public class ConsumptionPack {
     public ConsumptionPack() {
     }
 
-    public ConsumptionPack(UUID uid, Long consumptionTime, long value, int type, Long firstInstallmentDate, Long lastInstallmentDate) {
+    public ConsumptionPack(UUID uid, Long consumptionTime, long value, int type, Long firstInstallmentDate, Long lastInstallmentDate, Pack pack, Request request) {
         this.uid = uid;
         this.consumptionTime = consumptionTime;
         this.value = value;
         this.type = type;
         this.firstInstallmentDate = firstInstallmentDate;
         this.lastInstallmentDate = lastInstallmentDate;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UUID getUid() {
-        return uid;
-    }
-
-    public void setUid(UUID uid) {
-        this.uid = uid;
-    }
-
-    public Long getConsumptionTime() {
-        return consumptionTime;
-    }
-
-    public void setConsumptionTime(Long consumptionTime) {
-        this.consumptionTime = consumptionTime;
-    }
-
-    public long getValue() {
-        return value;
-    }
-
-    public void setValue(long value) {
-        this.value = value;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public Long getFirstInstallmentDate() {
-        return firstInstallmentDate;
-    }
-
-    public void setFirstInstallmentDate(Long firstInstallmentDate) {
-        this.firstInstallmentDate = firstInstallmentDate;
-    }
-
-    public Long getLastInstallmentDate() {
-        return lastInstallmentDate;
-    }
-
-    public void setLastInstallmentDate(Long lastInstallmentDate) {
-        this.lastInstallmentDate = lastInstallmentDate;
+        this.pack = pack;
+        this.request = request;
     }
 }

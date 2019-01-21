@@ -1,5 +1,6 @@
 package ir.mostashar.model.file;
 
+import ir.mostashar.model.activity.Activity;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.doc.Doc;
 import ir.mostashar.model.request.Request;
@@ -57,10 +58,17 @@ public class File {
             mappedBy = "file")
     private Set<SharingPerspectives> sharingPerspectives = new HashSet<>();
 
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "file")
+    private Set<Activity> activities = new HashSet<>();
+
     public File() {
     }
 
-    public File(UUID uid, String fileNumber, String title, String description, Long creationDate, Long modificationDate, Client client, Set<Request> requests, Set<Doc> docs, Set<SharingPerspectives> sharingPerspectives) {        this.uid = uid;
+    public File(UUID uid, String fileNumber, String title, String description, Long creationDate, Long modificationDate, Client client, Set<Request> requests, Set<Doc> docs, Set<SharingPerspectives> sharingPerspectives, Set<Activity> activities) {
+        this.uid = uid;
         this.fileNumber = fileNumber;
         this.title = title;
         this.description = description;
@@ -70,5 +78,6 @@ public class File {
         this.requests = requests;
         this.docs = docs;
         this.sharingPerspectives = sharingPerspectives;
+        this.activities = activities;
     }
 }

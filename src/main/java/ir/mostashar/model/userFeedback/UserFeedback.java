@@ -1,8 +1,11 @@
 package ir.mostashar.model.userFeedback;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "userfeedbacks")
 public class UserFeedback {
@@ -32,68 +35,4 @@ public class UserFeedback {
     public UserFeedback() {
     }
 
-    public UserFeedback(UUID uid, int type, String title, String description, Long creationDate, boolean read) {
-        this.uid = uid;
-        this.type = type;
-        this.title = title;
-        this.description = description;
-        this.creationDate = creationDate;
-        this.read = read;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UUID getUid() {
-        return uid;
-    }
-
-    public void setUid(UUID uid) {
-        this.uid = uid;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Long getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Long creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public boolean isRead() {
-        return read;
-    }
-
-    public void setRead(boolean read) {
-        this.read = read;
-    }
 }

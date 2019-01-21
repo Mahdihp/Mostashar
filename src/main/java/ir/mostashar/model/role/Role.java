@@ -18,7 +18,9 @@ import javax.persistence.Table;
 import ir.mostashar.model.AuditModel;
 import ir.mostashar.model.feature.Feature;
 import ir.mostashar.model.user.User;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "roles")
 public class Role extends AuditModel {
@@ -51,61 +53,5 @@ public class Role extends AuditModel {
 
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public UUID getUid() {
-		return uid;
-	}
-
-	public void setUid(UUID uid) {
-		this.uid = uid;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public boolean isUserDefined() {
-		return userDefined;
-	}
-
-	public void setUserDefined(boolean userDefined) {
-		this.userDefined = userDefined;
-	}
-
-	public Set<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(Set<User> users) {
-		this.users = users;
-	}
-
-	public Set<Feature> getFeatures() {
-		return features;
-	}
-
-	public void setFeatures(Set<Feature> features) {
-		this.features = features;
 	}
 }

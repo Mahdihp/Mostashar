@@ -1,19 +1,12 @@
 package ir.mostashar.model.reminder;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import ir.mostashar.model.notification.Notification;
+import ir.mostashar.model.user.User;
+import lombok.Data;
 
 import javax.persistence.*;
-
-import ir.mostashar.model.notification.Notification;
-import lombok.Data;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import ir.mostashar.model.user.User;
+import java.util.UUID;
 
 @Data
 @Entity

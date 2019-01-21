@@ -49,4 +49,15 @@ public class Question {
     public Question() {
     }
 
+    public Question(UUID uid, String title, String description, int type, Long creationDate, boolean edited, Long modificationDate, Client client, Set<Answer> answers) {
+        this.uid = uid;
+        this.title = title;
+        this.description = description;
+        this.type = type;
+        this.creationDate = creationDate;
+        this.edited = edited;
+        this.modificationDate = modificationDate;
+        this.client = client;
+        this.answers = answers;
+    }
 }

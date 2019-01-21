@@ -5,10 +5,12 @@ import ir.mostashar.model.doc.Doc;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.request.Request;
 import ir.mostashar.model.wallet.Wallet;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "calls")
 public class Call {
@@ -59,75 +61,17 @@ public class Call {
     public Call() {
     }
 
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UUID getUid() {
-        return uid;
-    }
-
-    public void setUid(UUID uid) {
+    public Call(UUID uid, int failedRetriesCount, String status, int callType, Long startTime, Long endTime, Long creationDate, Client client, Lawyer lawyer, Request request, Doc doc) {
         this.uid = uid;
-    }
-
-    public int getFailedRetriesCount() {
-        return failedRetriesCount;
-    }
-
-    public void setFailedRetriesCount(int failedRetriesCount) {
         this.failedRetriesCount = failedRetriesCount;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
         this.status = status;
-    }
-
-    public int getCallType() {
-        return callType;
-    }
-
-    public void setCallType(int callType) {
         this.callType = callType;
-    }
-
-    public Long getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Long startTime) {
         this.startTime = startTime;
-    }
-
-    public Long getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Long endTime) {
         this.endTime = endTime;
-    }
-
-    public Long getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Long creationDate) {
         this.creationDate = creationDate;
+        this.client = client;
+        this.lawyer = lawyer;
+        this.request = request;
+        this.doc = doc;
     }
 }

@@ -2,13 +2,14 @@ package ir.mostashar.model.pack;
 
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.consumptionPack.ConsumptionPack;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-
+@Data
 @Entity
 @Table(name = "packs")
 public class Pack {
@@ -45,59 +46,13 @@ public class Pack {
     public Pack() {
     }
 
-    public Pack(UUID uid, String name, String description, long value, boolean isActive) {
+    public Pack(UUID uid, String name, String description, long value, boolean isActive, Set<ConsumptionPack> comments, AdviceType post) {
         this.uid = uid;
         this.name = name;
         this.description = description;
         this.value = value;
         this.isActive = isActive;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UUID getUid() {
-        return uid;
-    }
-
-    public void setUid(UUID uid) {
-        this.uid = uid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public long getValue() {
-        return value;
-    }
-
-    public void setValue(long value) {
-        this.value = value;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
+        this.comments = comments;
+        this.post = post;
     }
 }

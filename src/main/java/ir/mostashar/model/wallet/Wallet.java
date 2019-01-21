@@ -9,7 +9,9 @@ import javax.persistence.*;
 import ir.mostashar.model.bill.Bill;
 import ir.mostashar.model.organization.Organization;
 import ir.mostashar.model.user.User;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "wallets")
 public class Wallet {
@@ -34,11 +36,11 @@ public class Wallet {
 	private String bankAccountSheba;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "wallet")
-	private Set<Bill> bills=new HashSet<>();
+	private Set<Bill> bills = new HashSet<>();
 
 	@OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(nullable = false)
-    private User user;
+	@JoinColumn(nullable = false)
+	private User user;
 
 	@OneToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(nullable = false)
@@ -47,59 +49,4 @@ public class Wallet {
 	public Wallet() {
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public UUID getUid() {
-		return uid;
-	}
-
-	public void setUid(UUID uid) {
-		this.uid = uid;
-	}
-
-	public int getValue() {
-		return value;
-	}
-
-	public void setValue(int value) {
-		this.value = value;
-	}
-
-	public String getBankAccountName() {
-		return bankAccountName;
-	}
-
-	public void setBankAccountName(String bankAccountName) {
-		this.bankAccountName = bankAccountName;
-	}
-
-	public String getBankAccountNumber() {
-		return bankAccountNumber;
-	}
-
-	public void setBankAccountNumber(String bankAccountNumber) {
-		this.bankAccountNumber = bankAccountNumber;
-	}
-
-	public String getBankAccountSheba() {
-		return bankAccountSheba;
-	}
-
-	public void setBankAccountSheba(String bankAccountSheba) {
-		this.bankAccountSheba = bankAccountSheba;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 }

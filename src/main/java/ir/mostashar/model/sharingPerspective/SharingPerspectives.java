@@ -1,27 +1,13 @@
 package ir.mostashar.model.sharingPerspective;
 
-import java.util.Date;
-import java.util.UUID;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import ir.mostashar.model.file.File;
-import lombok.Data;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import ir.mostashar.model.file.File;
 import ir.mostashar.model.user.User;
+import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
+
+import javax.persistence.*;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -59,14 +45,4 @@ public class SharingPerspectives {
 	public SharingPerspectives() {
 	}
 
-
-
-	public SharingPerspectives(UUID uid, Long creationDate, Long modificationDate, Long expiryDate, User user, File file) {
-		this.uid = uid;
-		this.creationDate = creationDate;
-		this.modificationDate = modificationDate;
-		this.expiryDate = expiryDate;
-		this.user = user;
-		this.file = file;
-	}
 }

@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import ir.mostashar.model.settingType.SettingTypes;
+import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -20,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import ir.mostashar.model.user.User;
 
+@Data
 @Entity
 @Table(name = "settings")
 public class Setting {
@@ -46,52 +48,6 @@ public class Setting {
     @JoinColumn(name = "settingtypeid",nullable = false)
 	private SettingTypes settingType;
 
-
-	public SettingTypes getSettingType() {
-		return settingType;
-	}
-
-	public void setSettingType(SettingTypes settingType) {
-		this.settingType = settingType;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public UUID getUid() {
-		return uid;
-	}
-
-	public void setUid(UUID uid) {
-		this.uid = uid;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public boolean isUserDefined() {
-		return userDefined;
-	}
-
-	public void setUserDefined(boolean userDefined) {
-		this.userDefined = userDefined;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
+	public Setting() {
 	}
 }

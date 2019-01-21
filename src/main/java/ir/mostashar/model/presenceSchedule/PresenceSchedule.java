@@ -2,11 +2,13 @@ package ir.mostashar.model.presenceSchedule;
 
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.officeAddress.OfficeAddress;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 
+@Data
 @Entity
 @Table(name = "presenceschedules")
 public class PresenceSchedule {
@@ -34,85 +36,24 @@ public class PresenceSchedule {
     private int weekDay;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "officesaddressid",nullable = false)
+    @JoinColumn(name = "officesaddressid", nullable = false)
     private OfficeAddress officesaddress;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lawyerid",nullable = false)
+    @JoinColumn(name = "lawyerid", nullable = false)
     private Lawyer lawyer;
 
     public PresenceSchedule() {
     }
 
-    public Lawyer getLawyer() {
-        return lawyer;
-    }
-
-    public void setLawyer(Lawyer lawyer) {
-        this.lawyer = lawyer;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UUID getUid() {
-        return uid;
-    }
-
-    public void setUid(UUID uid) {
+    public PresenceSchedule(UUID uid, String title, String description, Long specialDate, Long time, int weekDay, OfficeAddress officesaddress, Lawyer lawyer) {
         this.uid = uid;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Long getSpecialDate() {
-        return specialDate;
-    }
-
-    public void setSpecialDate(Long specialDate) {
         this.specialDate = specialDate;
-    }
-
-    public Long getTime() {
-        return time;
-    }
-
-    public void setTime(Long time) {
         this.time = time;
-    }
-
-    public int getWeekDay() {
-        return weekDay;
-    }
-
-    public void setWeekDay(int weekDay) {
         this.weekDay = weekDay;
-    }
-
-    public OfficeAddress getOfficesaddress() {
-        return officesaddress;
-    }
-
-    public void setOfficesaddress(OfficeAddress officesaddress) {
         this.officesaddress = officesaddress;
+        this.lawyer = lawyer;
     }
 }

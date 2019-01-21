@@ -32,7 +32,7 @@ public class User extends AuditModel {
 
 	@Column(unique = true, nullable = false)
 	private UUID uid;
-	
+
 	@Column(name = "firstname")
 	private String firstName;
 
@@ -74,209 +74,36 @@ public class User extends AuditModel {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<AccessEntry> accessEntries = new HashSet<>();
-	
+
 	@ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role",
-            joinColumns = { @JoinColumn(name = "userid") },
-            inverseJoinColumns = { @JoinColumn(name = "roleid") })
-    private Set<Role> roles = new HashSet<>();
-	
+	@JoinTable(name = "user_role",
+			joinColumns = {@JoinColumn(name = "userid")},
+			inverseJoinColumns = {@JoinColumn(name = "roleid")})
+	private Set<Role> roles = new HashSet<>();
+
 	@OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "user")
-    private Wallet wallet;
+			cascade = CascadeType.ALL,
+			mappedBy = "user")
+	private Wallet wallet;
 
 	@OneToMany(mappedBy = "user")
-    private Set<Setting> settings = new HashSet<>();
-	
+	private Set<Setting> settings = new HashSet<>();
+
 	@OneToMany(mappedBy = "user")
-    private Set<InvitedUsers> invitedUsers = new HashSet<>();
+	private Set<InvitedUsers> invitedUsers = new HashSet<>();
 
-	@OneToMany(mappedBy="user")
-    private Set<AssignDiscount> assignDiscounts;
-	
 	@OneToMany(mappedBy = "user")
-    private Set<Device> devices = new HashSet<>();
-	
+	private Set<AssignDiscount> assignDiscounts;
+
 	@OneToMany(mappedBy = "user")
-    private Set<Reminder> reminders = new HashSet<>();
-	
+	private Set<Device> devices = new HashSet<>();
+
 	@OneToMany(mappedBy = "user")
-    private Set<SharingPerspectives> sharingPerspectives = new HashSet<>();
-	
-	public UUID getUid() {
-		return uid;
-	}
+	private Set<Reminder> reminders = new HashSet<>();
 
-	public void setUid(UUID uid) {
-		this.uid = uid;
-	}
+	@OneToMany(mappedBy = "user")
+	private Set<SharingPerspectives> sharingPerspectives = new HashSet<>();
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
-
-	public String getMobileNumber() {
-		return mobileNumber;
-	}
-
-	public void setMobileNumber(String mobineNumber) {
-		this.mobileNumber = mobineNumber;
-	}
-
-	public Wallet getWallet() {
-		return wallet;
-	}
-
-	public void setWallet(Wallet wallet) {
-		this.wallet = wallet;
-	}
-
-	public Set<Setting> getSettings() {
-		return settings;
-	}
-
-	public void setSettings(Set<Setting> settings) {
-		this.settings = settings;
-	}
-
-	public Set<InvitedUsers> getInvitedUsers() {
-		return invitedUsers;
-	}
-
-	public void setInvitedUsers(Set<InvitedUsers> invitedUsers) {
-		this.invitedUsers = invitedUsers;
-	}
-
-	public Set<AssignDiscount> getAssignDiscounts() {
-		return assignDiscounts;
-	}
-
-	public void setAssignDiscounts(Set<AssignDiscount> assignDiscounts) {
-		this.assignDiscounts = assignDiscounts;
-	}
-
-	public Set<Device> getDevices() {
-		return devices;
-	}
-
-	public void setDevices(Set<Device> devices) {
-		this.devices = devices;
-	}
-
-	public Set<Reminder> getReminders() {
-		return reminders;
-	}
-
-	public void setReminders(Set<Reminder> reminders) {
-		this.reminders = reminders;
-	}
-
-	public Set<SharingPerspectives> getSharingPerspectives() {
-		return sharingPerspectives;
-	}
-
-	public void setSharingPerspectives(Set<SharingPerspectives> sharingPerspectives) {
-		this.sharingPerspectives = sharingPerspectives;
-	}
-
-	public String getFatherName() {
-		return fatherName;
-	}
-
-	public void setFatherName(String fatherName) {
-		this.fatherName = fatherName;
-	}
-
-	public String getNationalId() {
-		return nationalId;
-	}
-
-	public void setNationalId(String nationalId) {
-		this.nationalId = nationalId;
-	}
-
-	public Long getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(Long birthDate) {
-		this.birthDate = birthDate;
-	}
-
-	public boolean isOnline() {
-		return isOnline;
-	}
-
-	public void setOnline(boolean online) {
-		isOnline = online;
-	}
-
-	public int getScore() {
-		return score;
-	}
-
-	public void setScore(int score) {
-		this.score = score;
-	}
-
-	public String getAvatarHashcode() {
-		return avatarHashcode;
-	}
-
-	public void setAvatarHashcode(String avatarHashcode) {
-		this.avatarHashcode = avatarHashcode;
-	}
-
-	public boolean isActive() {
-		return isActive;
-	}
-
-	public void setActive(boolean active) {
-		isActive = active;
+	public User() {
 	}
 }

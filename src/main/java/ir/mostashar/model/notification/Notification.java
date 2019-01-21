@@ -1,9 +1,7 @@
 package ir.mostashar.model.notification;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import ir.mostashar.model.reminder.Reminder;
-import ir.mostashar.model.user.User;
 import lombok.Data;
 
 import javax.persistence.*;
