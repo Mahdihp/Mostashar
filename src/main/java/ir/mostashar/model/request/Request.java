@@ -53,10 +53,10 @@ public class Request {
             mappedBy = "request")
     private Set<ConsumptionPack> comments = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
             mappedBy = "request")
-    private Set<Feedback> feedbacks = new HashSet<>();
+    private Feedback feedback;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fileid",nullable = true)

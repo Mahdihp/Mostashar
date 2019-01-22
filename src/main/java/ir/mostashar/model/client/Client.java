@@ -44,18 +44,18 @@ public class Client extends AuditModel {
     @Column(name = "tel")
     private Long tel;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
-    private Set<Question> questions= new HashSet<>();
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
-    private Set<Feedback> feedbacks= new HashSet<>();
-
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "client_lawyer",
             joinColumns = { @JoinColumn(name = "clientid") },
             inverseJoinColumns = { @JoinColumn(name = "lawyerid") })
     private Set<Lawyer> lawyers= new HashSet<>();
 
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
+    private Set<Question> questions= new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
+    private Set<Feedback> feedbacks= new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
     private Set<Request> requests= new HashSet<>();

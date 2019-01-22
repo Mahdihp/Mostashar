@@ -33,7 +33,7 @@ public class Feedback {
     @JoinColumn(name = "clientid", nullable = false)
     private Client client;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "requestid", nullable = false)
     private Request request;
 
