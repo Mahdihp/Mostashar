@@ -45,10 +45,10 @@ public class ConsumptionPack {
     @JoinColumn(name = "requestid", nullable = false)
     private Request request;
 
-//    @OneToMany(cascade = CascadeType.ALL,
-//            fetch = FetchType.LAZY,
-//            mappedBy = "consumptionpack")
-//    private Set<Installment> comments = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "consumptionpack")
+    private Set<Installment> installments = new HashSet<>();
 
     public ConsumptionPack() {
     }

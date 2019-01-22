@@ -41,18 +41,10 @@ public class Pack {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "advicetypeid", nullable = false)
-    private AdviceType post;
+    private AdviceType advicetype;
 
     public Pack() {
     }
 
-    public Pack(UUID uid, String name, String description, long value, boolean isActive, Set<ConsumptionPack> comments, AdviceType post) {
-        this.uid = uid;
-        this.name = name;
-        this.description = description;
-        this.value = value;
-        this.isActive = isActive;
-        this.comments = comments;
-        this.post = post;
-    }
+
 }

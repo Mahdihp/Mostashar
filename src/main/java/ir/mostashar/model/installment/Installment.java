@@ -34,24 +34,15 @@ public class Installment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "consumptionpackid", nullable = false)
-    private ConsumptionPack consumptionPack;
+    private ConsumptionPack consumptionpack;
 
     @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
             mappedBy = "installment")
-    private Factor userProfile;
+    private Factor factor;
 
 
     public Installment() {
     }
 
-    public Installment(UUID uid, Integer installmentNumber, Integer installmentTotalNumber, Long creationDate, long value, ConsumptionPack consumptionPack, Factor userProfile) {
-        this.uid = uid;
-        this.installmentNumber = installmentNumber;
-        this.installmentTotalNumber = installmentTotalNumber;
-        this.creationDate = creationDate;
-        this.value = value;
-        this.consumptionPack = consumptionPack;
-        this.userProfile = userProfile;
-    }
 }

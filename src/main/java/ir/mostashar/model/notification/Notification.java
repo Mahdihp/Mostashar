@@ -39,7 +39,6 @@ public class Notification {
     @Column(name = "deleted")
     private boolean deleted = false;
 
-
     @OneToMany(mappedBy = "notification")
     private Set<Reminder> reminders = new HashSet<>();
 

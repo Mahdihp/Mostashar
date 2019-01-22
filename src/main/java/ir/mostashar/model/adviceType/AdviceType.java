@@ -1,6 +1,9 @@
 package ir.mostashar.model.adviceType;
 
 
+import ir.mostashar.model.lawyer.Lawyer;
+import ir.mostashar.model.pack.Pack;
+import ir.mostashar.model.request.Request;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -38,6 +41,21 @@ public class AdviceType {
 
     @OneToMany(mappedBy="adviceType")
     private Set<AdviceType> subordinates = new HashSet<>();
+
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "advicetype")
+    private Request request;
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "advicetype")
+    private Set<Pack> packs= new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "advicetype")
+    private Set<Lawyer> lawyers;
 
 
     public AdviceType() {

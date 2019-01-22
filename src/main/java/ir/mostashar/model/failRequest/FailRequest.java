@@ -1,9 +1,13 @@
 package ir.mostashar.model.failRequest;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.request.Request;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -27,6 +31,10 @@ public class FailRequest {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(nullable = false)
     private Request request;
+
+    @OneToMany(cascade = CascadeType.ALL,
+            mappedBy = "failrequest")
+    private Set<Lawyer> lawyers = new HashSet<>();
 
     public FailRequest() {
     }

@@ -67,6 +67,10 @@ public class Request {
             mappedBy = "request")
     private Set<AcceptRequest> acceptRequests = new HashSet<>();
 
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "advicetypeid", nullable = false)
+    private AdviceType advicetype;
+
 
 
     public Request() {

@@ -1,6 +1,7 @@
 package ir.mostashar.model.bill;
 
 
+import ir.mostashar.model.factor.Factor;
 import ir.mostashar.model.wallet.Wallet;
 import lombok.Data;
 
@@ -40,6 +41,11 @@ public class Bill {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "billid", nullable = false)
     private Wallet wallet;
+
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "bill")
+    private Factor factor;
 
 
     public Bill() {

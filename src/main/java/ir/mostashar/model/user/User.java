@@ -17,11 +17,12 @@ import ir.mostashar.model.role.Role;
 import ir.mostashar.model.setting.Setting;
 import ir.mostashar.model.sharingPerspective.SharingPerspectives;
 import ir.mostashar.model.wallet.Wallet;
+import lombok.Data;
 
+@Data
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "users")
-//@MappedSuperclass
 public class User extends AuditModel {
 
 	private static final long serialVersionUID = 1L;
@@ -69,17 +70,14 @@ public class User extends AuditModel {
 	@Column(unique = true)
 	private String mobileNumber;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	private Set<Complain> complains;
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	private Set<AccessEntry> accessEntries = new HashSet<>();
-
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role",
 			joinColumns = {@JoinColumn(name = "userid")},
 			inverseJoinColumns = {@JoinColumn(name = "roleid")})
 	private Set<Role> roles = new HashSet<>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<Complain> complains;
 
 	@OneToOne(fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL,
@@ -88,6 +86,9 @@ public class User extends AuditModel {
 
 	@OneToMany(mappedBy = "user")
 	private Set<Setting> settings = new HashSet<>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<AccessEntry> accessEntries = new HashSet<>();
 
 	@OneToMany(mappedBy = "user")
 	private Set<InvitedUsers> invitedUsers = new HashSet<>();

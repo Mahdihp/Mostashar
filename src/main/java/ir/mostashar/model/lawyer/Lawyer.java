@@ -69,8 +69,8 @@ public class Lawyer extends AuditModel {
 
     // ارتباط یک طرفه با کلاس Lawyer
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "failRequestid", nullable = false)
-    private FailRequest failRequest;
+    @JoinColumn(name = "failrequestid", nullable = true)
+    private FailRequest failrequest;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organizationid", nullable = false)
@@ -91,32 +91,11 @@ public class Lawyer extends AuditModel {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
     private Set<Answer> answers;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "advicetypeid", nullable = true)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private AdviceType adviceType;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "advicetype", nullable = false)
+    private AdviceType advicetype;
 
     public Lawyer() {
     }
 
-    public Lawyer(UUID uid, boolean isAvailable, int level, boolean verified, Set<Answer> answer, Set<Client> client, Set<OfficeAddress> officeAddresses, Set<PresenceSchedule> presenceSchedules, Set<Expertise> expertises, Organization organization, Set<AcceptRequest> acceptRequests, Set<Activity> activities, Set<Call> calls, Set<Doc> docs, Set<Answer> answers, AdviceType adviceType, FailRequest failRequest) {
-        this.uid = uid;
-        this.isAvailable = isAvailable;
-        this.level = level;
-        this.verified = verified;
-        this.answer = answer;
-        this.client = client;
-        this.officeAddresses = officeAddresses;
-        this.presenceSchedules = presenceSchedules;
-        this.expertises = expertises;
-        this.organization = organization;
-        this.acceptRequests = acceptRequests;
-        this.activities = activities;
-        this.calls = calls;
-        this.docs = docs;
-        this.answers = answers;
-        this.adviceType = adviceType;
-        this.failRequest = failRequest;
-    }
 }

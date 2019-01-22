@@ -49,8 +49,8 @@ public class Factor {
     @Column(name = "deleted")
     private boolean deleted = false;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "billid", referencedColumnName = "id")
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "billid", nullable = false)
     private Bill bill;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
