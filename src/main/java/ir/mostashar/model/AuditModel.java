@@ -24,12 +24,12 @@ public abstract class AuditModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 //	@Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "creationdate", nullable = false, updatable = false)
+    @Column(name = "creationdate", updatable = false)
     @CreatedDate
     private Long creationDate;
 
 //    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "modificationdate", nullable = false)
+    @Column(name = "modificationdate",updatable = true)
     @LastModifiedDate
     private Long modificationDate;
 

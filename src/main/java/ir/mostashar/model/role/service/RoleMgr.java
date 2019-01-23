@@ -1,4 +1,4 @@
-package ir.mostashar.model.role.logic;
+package ir.mostashar.model.role.service;
 
 import java.util.HashSet;
 import java.util.List;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import ir.mostashar.model.feature.Feature;
 import ir.mostashar.model.feature.dao.FeatureRepository;
 import ir.mostashar.model.role.Role;
-import ir.mostashar.model.role.dao.RoleRepository;
+import ir.mostashar.model.role.repository.RoleRepository;
 
 @Service
 public class RoleMgr {
@@ -53,7 +53,7 @@ public class RoleMgr {
 	}
 
 	public Role getByName(String name) {
-		return roleRepository.findByName(name);
+		return null;//roleRepository.findByName(name);
 	}
 
 }

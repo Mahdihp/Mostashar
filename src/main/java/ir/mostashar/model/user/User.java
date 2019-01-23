@@ -25,86 +25,94 @@ import lombok.Data;
 @Table(name = "users")
 public class User extends AuditModel {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column(unique = true, nullable = false)
-	private UUID uid;
+    @Column(unique = true, nullable = false)
+    private UUID uid;
 
-	@Column(name = "firstname")
-	private String firstName;
+    @Column(name = "firstname")
+    private String firstName;
 
-	@Column(name = "lastname")
-	private String lastName;
+    @Column(name = "lastname")
+    private String lastName;
 
-	@Column(name = "fathername")
-	private String fatherName;
+    @Column(name = "fathername")
+    private String fatherName;
 
-	@Column(unique = true)
-	private String username;
+    @Column(unique = true)
+    private String username;
 
-	@Column(name = "password")
-	private String password;
+    @Column(name = "password")
+    private String password;
 
-	@Column(name = "nationalid")
-	private String nationalId;
+    @Column(name = "nationalid")
+    private String nationalId;
 
-	@Column(name = "birthdate")
-	private Long birthDate;
+    @Column(name = "birthdate")
+    private Long birthDate;
 
-	@Column(name = "isonline")
-	private boolean isOnline = false;
+    @Column(name = "isonline")
+    private boolean isOnline = false;
 
-	@Column(name = "score")
-	private int score;
+    @Column(name = "score")
+    private int score;
 
-	@Column(name = "avatarhashcode")
-	private String avatarHashcode;
+    @Column(name = "avatarhashcode")
+    private String avatarHashcode;
 
-	@Column(name = "isactive")
-	private boolean isActive = false;
+    @Column(name = "isactive")
+    private boolean isActive = false;
 
-	@Column(unique = true)
-	private String mobileNumber;
+    @Column(unique = true)
+    private long mobileNumber;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "user_role",
-			joinColumns = {@JoinColumn(name = "userid")},
-			inverseJoinColumns = {@JoinColumn(name = "roleid")})
-	private Set<Role> roles = new HashSet<>();
+    @Column(name = "verificationcode")
+    private String verificationCode;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	private Set<Complain> complains;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role",
+            joinColumns = {@JoinColumn(name = "userid")},
+            inverseJoinColumns = {@JoinColumn(name = "roleid")})
+    private Set<Role> roles = new HashSet<>();
 
-	@OneToOne(fetch = FetchType.LAZY,
-			cascade = CascadeType.ALL,
-			mappedBy = "user")
-	private Wallet wallet;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<Complain> complains;
 
-	@OneToMany(mappedBy = "user")
-	private Set<Setting> settings = new HashSet<>();
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "user")
+    private Wallet wallet;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	private Set<AccessEntry> accessEntries = new HashSet<>();
+    @OneToMany(mappedBy = "user")
+    private Set<Setting> settings = new HashSet<>();
 
-	@OneToMany(mappedBy = "user")
-	private Set<InvitedUsers> invitedUsers = new HashSet<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<AccessEntry> accessEntries = new HashSet<>();
 
-	@OneToMany(mappedBy = "user")
-	private Set<AssignDiscount> assignDiscounts;
+    @OneToMany(mappedBy = "user")
+    private Set<InvitedUsers> invitedUsers = new HashSet<>();
 
-	@OneToMany(mappedBy = "user")
-	private Set<Device> devices = new HashSet<>();
+    @OneToMany(mappedBy = "user")
+    private Set<AssignDiscount> assignDiscounts;
 
-	@OneToMany(mappedBy = "user")
-	private Set<Reminder> reminders = new HashSet<>();
+    @OneToMany(mappedBy = "user")
+    private Set<Device> devices = new HashSet<>();
 
-	@OneToMany(mappedBy = "user")
-	private Set<SharingPerspectives> sharingPerspectives = new HashSet<>();
+    @OneToMany(mappedBy = "user")
+    private Set<Reminder> reminders = new HashSet<>();
 
-	public User() {
-	}
+    @OneToMany(mappedBy = "user")
+    private Set<SharingPerspectives> sharingPerspectives = new HashSet<>();
+
+    public User() {
+    }
+
+    public User(UUID uid, long mobileNumber) {
+        this.uid = uid;
+        this.mobileNumber = mobileNumber;
+    }
 }

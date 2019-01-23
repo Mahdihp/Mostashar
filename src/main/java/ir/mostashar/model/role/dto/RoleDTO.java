@@ -59,7 +59,7 @@ public class RoleDTO {
 
 	public void loadFrom(Role role) {
 		this.uid = role.getUid().toString();
-		this.name = role.getName();
+//		this.name = role.getName();
 		this.description = role.getDescription();
 
 		Set<Feature> featuresSet = role.getFeatures();
@@ -76,7 +76,7 @@ public class RoleDTO {
 	}
 
 	public void saveTo(Role role) {
-		role.setName(this.name);
+//		role.setName(this.name);
 		role.setDescription(this.description);
 
 		Set<Feature> featuresSet = new HashSet<Feature>();

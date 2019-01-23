@@ -10,9 +10,9 @@ import ir.mostashar.model.feature.Feature;
 import ir.mostashar.model.feature.FeatureNames;
 import ir.mostashar.model.feature.logic.FeatureMgr;
 import ir.mostashar.model.role.Role;
-import ir.mostashar.model.role.logic.RoleMgr;
+import ir.mostashar.model.role.service.RoleMgr;
 import ir.mostashar.model.user.User;
-import ir.mostashar.model.user.logic.UserMgr;
+import ir.mostashar.model.user.service.UserMgr;
 
 //@Component
 public class DataSuit{
@@ -34,7 +34,7 @@ public class DataSuit{
 
 	public void initalAdminUser() {
 
-		User user = userMgr.findByUsername("admin");
+		/*User user = userMgr.findByUsername("admin");
 		if (user != null)
 			return;
 
@@ -76,7 +76,7 @@ public class DataSuit{
 		adminUser.setMobileNumber("09135189683");
 		adminUser.setUid(UUID.randomUUID());
 		adminUser.setRoles(roles);
-		userMgr.save(adminUser);
+		userMgr.save(adminUser);*/
 
 	}
 

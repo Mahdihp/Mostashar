@@ -1,8 +1,11 @@
 
-INSERT INTO users(id,uid,username,firstname,password,lastname,creationdate, modificationdate,mobile_number) VALUES(1,'b5dc7528-1d44-4ae3-9dc0-c3b8213d45a6','admin','mahdi', '$2a$10$1.K8/YCYxkMGjJajQ8BSBuvu4aPWt1qR87zfOGGe9MN14XhAZNJb2','hp',1546426428489,1546426428489,0913452890);
+INSERT INTO users(id,uid,mobile_number) VALUES(1,'b5dc7528-1d44-4ae3-9dc0-c3b8213d45a6','9134528901');
+INSERT INTO users(id,uid,mobile_number) VALUES(2,'b6dc7528-1d44-4ae3-9dc0-c3b8213d45a6','9339466051');
+INSERT INTO users(id,uid,mobile_number) VALUES(3,'b7dc7528-1d44-4ae3-9dc0-c3b8213d45a6','9191544275');
 
-INSERT INTO roles(id,uid,name,userdefined,description)VALUES (1, 'b4482c30-b3a5-4401-a274-016bda28fdce', 'ADMIN', true, 'admin');
-INSERT INTO roles(id,uid,name,userdefined,description)VALUES (2, 'b4482c40-b3a5-4401-a274-016bda28fdce', 'GUEST', true, 'admin');
+INSERT INTO roles(id,uid,name,userdefined,description)VALUES (1, 'b4482c30-b3a5-4401-a274-016bda28fdce', 'ROLE_ADMIN',  true,  'admin');
+INSERT INTO roles(id,uid,name,userdefined,description)VALUES (2, 'b3482c40-b3a5-4401-a274-016bda28fdce', 'ROLE_LAWYER', true, 'lawyer');
+INSERT INTO roles(id,uid,name,userdefined,description)VALUES (3, 'b45482c0-b3a5-4401-a274-016ba28fdcee', 'ROLE_CLIENT', true, 'client');
 
 
 INSERT INTO features(id,description,name,uid) VALUES(1,'ACCESS_TO_UPDATE_ONE','ACCESS_TO_UPDATE_ONE','e6f9b9bd-9396-4b78-a5e8-569ff236d991');

@@ -1,4 +1,4 @@
-package ir.mostashar.model.role.controller;
+package ir.mostashar.model.role.controller.v1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.dto.RoleDTO;
-import ir.mostashar.model.role.logic.RoleMgr;
+import ir.mostashar.model.role.service.RoleMgr;
 
 @RestController
 @RequestMapping("/IranPopulation/api/role")

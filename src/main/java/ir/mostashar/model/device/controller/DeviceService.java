@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ir.mostashar.model.device.Device;
 import ir.mostashar.model.device.dto.DeviceDTO;
 import ir.mostashar.model.device.logic.DeviceMgr;
-import ir.mostashar.model.user.User;
-import ir.mostashar.model.user.dto.UserDTO;
-import ir.mostashar.model.user.logic.UserMgr;
 
 @RestController
 @RequestMapping("/Mostashar/api/device")

@@ -19,7 +19,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "features")
-public class Feature extends AuditModel {
+public class Feature {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
