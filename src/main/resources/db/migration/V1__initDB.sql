@@ -1,5 +1,6 @@
 -- --------------------------CREATE SEQUENCE----------------------------
 CREATE SEQUENCE USERS_ID_SEQ START 1;
+CREATE SEQUENCE USERPOPULARITY_ID_SEQ START 1;
 CREATE SEQUENCE ROLES_ID_SEQ START 1;
 CREATE SEQUENCE FEATURES_ID_SEQ START 1;
 CREATE SEQUENCE INVITEDUSERS_ID_SEQ START 1;
@@ -44,6 +45,12 @@ CREATE SEQUENCE BLACKLISTS_ID_SEQ START 1;
 CREATE SEQUENCE LOGS_ID_SEQ START 1;
 
 CREATE TABLE Users(id bigint NOT NULL DEFAULT nextval('USERS_ID_SEQ'::regclass), uid UUID NOT NULL, WalletId bigint, username varchar(255), firstname varchar(255), fathername varchar(255), nationalid varchar(10), birthdate bigint, password Text, lastname varchar(255), email varchar(255), score integer, avatarhashcode varchar(255), isonline boolean, isactive boolean, creationdate bigint, modificationdate bigint, mobile_number bigint NOT NULL,  verificationcode varchar(5), UNIQUE(username), UNIQUE(uid), UNIQUE(mobile_number), PRIMARY KEY(id));
+-- CREATE TABLE Clients(id bigint NOT NULL DEFAULT nextval('CLIENTS_ID_SEQ'::regclass), uid UUID NOT NULL, UserId bigint, jobtitle varchar(255), address varchar(255), postalcode varchar(255), fieldofstudy varchar(255), tel bigint, PRIMARY KEY(id));
+-- CREATE TABLE Lawyers(id bigint NOT NULL DEFAULT nextval('LAWYERS_ID_SEQ'::regclass), uid UUID NOT NULL, OrganizationId bigint, AdviceTypeId bigint, FailRequestId bigint, UserId bigint, isavailable boolean, level integer, PRIMARY KEY(id));
+CREATE TABLE UserPopularity(id bigint NOT NULL DEFAULT nextval('USERPOPULARITY_ID_SEQ'::regclass),UserId bigint NOT NULL,UserPopularId bigint NOT NULL);
+
+CREATE TABLE Clients(id bigint NOT NULL DEFAULT nextval('CLIENTS_ID_SEQ'::regclass), UserId bigint, jobtitle varchar(255), address varchar(255), postalcode varchar(255), fieldofstudy varchar(255), tel bigint, PRIMARY KEY(id));
+CREATE TABLE Lawyers(id bigint NOT NULL DEFAULT nextval('LAWYERS_ID_SEQ'::regclass), UserId bigint, OrganizationId bigint, AdviceTypeId bigint, FailRequestId bigint, isavailable boolean, level integer, PRIMARY KEY(id));
 CREATE TABLE Roles(id bigint NOT NULL DEFAULT nextval('ROLES_ID_SEQ'::regclass), uid UUID NOT NULL, name varchar(255), userdefined boolean, description varchar(255), UNIQUE(uid), UNIQUE(name), PRIMARY KEY(id));
 CREATE TABLE Features(id bigint NOT NULL DEFAULT nextval('FEATURES_ID_SEQ'::regclass), uid UUID NOT NULL, name varchar(255), description varchar(255), groupkey varchar(255), PRIMARY KEY(id));
 CREATE TABLE InvitedUsers(id bigint NOT NULL DEFAULT nextval('INVITEDUSERS_ID_SEQ'::regclass), UserId bigint, uid UUID NOT NULL, invitedusername varchar(255), creationdate bigint, PRIMARY KEY(id));
@@ -59,8 +66,6 @@ CREATE TABLE Reminders(id bigint NOT NULL DEFAULT nextval('REMINDERS_ID_SEQ'::re
 CREATE TABLE Wallets(id bigint NOT NULL DEFAULT nextval('WALLETS_ID_SEQ'::regclass), uid UUID NOT NULL, value integer, bankAccountName varchar(255), bankAccountNumber varchar(255), bankAccountSheba  varchar(255), PRIMARY KEY(id));
 CREATE TABLE Factors(id bigint NOT NULL DEFAULT nextval('FACTORS_ID_SEQ'::regclass), uid UUID NOT NULL, BillId bigint, servicedescription varchar(255), clientname varchar(255), clientcode varchar(255), address varchar(255), tel bigint, postalcode varchar(255), factornumber varchar(255), creationdate bigint, value bigint, deleted boolean, PRIMARY KEY(id));
 CREATE TABLE Bills(id bigint NOT NULL DEFAULT nextval('BILLS_ID_SEQ'::regclass), uid UUID NOT NULL, WalletId bigint, transactionnumber varchar(255), trackingnumber varchar(255), transactiondate bigint, status varchar(255), value bigint, orguid varchar(255), PRIMARY KEY(id));
-CREATE TABLE Clients(id bigint NOT NULL DEFAULT nextval('CLIENTS_ID_SEQ'::regclass), uid UUID NOT NULL, UserId bigint, jobtitle varchar(255), address varchar(255), postalcode varchar(255), fieldofstudy varchar(255), tel bigint, PRIMARY KEY(id));
-CREATE TABLE Lawyers(id bigint NOT NULL DEFAULT nextval('LAWYERS_ID_SEQ'::regclass), uid UUID NOT NULL, OrganizationId bigint, AdviceTypeId bigint, FailRequestId bigint, UserId bigint, isavailable boolean, level integer, PRIMARY KEY(id));
 CREATE TABLE SharingPerspectives(id bigint NOT NULL DEFAULT nextval('SHARINGPERSPECTIVES_ID_SEQ'::regclass), uid UUID NOT NULL, UserId bigint, FileId bigint, membershiptype varchar(255), creationdate bigint, modificationdate bigint, expirydate bigint, PRIMARY KEY(id));
 CREATE TABLE Calls(id bigint NOT NULL DEFAULT nextval('CALLS_ID_SEQ'::regclass), uid UUID NOT NULL, RequestId bigint, LawyerId bigint, ClientId bigint, DocId bigint, failedretriescount integer, status varchar(255), calltype integer, starttime bigint, endtime bigint, creationdate bigint, PRIMARY KEY(id));
 CREATE TABLE Files(id bigint NOT NULL DEFAULT nextval('FILES_ID_SEQ'::regclass), uid UUID NOT NULL, ClientId bigint, fileNumber varchar(255), title varchar(255), description text, creationdate bigint, modificationdate bigint, PRIMARY KEY(id));
@@ -97,6 +102,7 @@ CREATE TABLE Lawyer_Expertise(LawyerId bigint,ExpertiseId bigint, UNIQUE(Experti
 
 -- --------------------ALTER SEQUENCE-------------------------------------
 ALTER SEQUENCE USERS_ID_SEQ OWNED BY Users.id;
+ALTER SEQUENCE USERPOPULARITY_ID_SEQ OWNED BY UserPopularity.id;
 ALTER SEQUENCE ROLES_ID_SEQ OWNED BY Roles.id;
 ALTER SEQUENCE FEATURES_ID_SEQ OWNED BY Features.id;
 ALTER SEQUENCE INVITEDUSERS_ID_SEQ OWNED BY InvitedUsers.id;
@@ -147,8 +153,10 @@ ALTER TABLE User_Role ADD FOREIGN KEY(RoleId) REFERENCES Roles(id);
 ALTER TABLE Role_Feature ADD FOREIGN KEY(RoleId) REFERENCES Roles(id);
 ALTER TABLE Role_Feature ADD FOREIGN KEY(FeatureId) REFERENCES Features(id);
 
-ALTER TABLE Client_Lawyer ADD FOREIGN KEY(ClientId) REFERENCES Clients(id);
-ALTER TABLE Client_Lawyer ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(id);
+ALTER TABLE UserPopularity ADD FOREIGN KEY(UserId) REFERENCES Users(id);
+ALTER TABLE UserPopularity ADD FOREIGN KEY(UserPopularId) REFERENCES Users(id);
+-- ALTER TABLE Client_Lawyer ADD FOREIGN KEY(ClientId) REFERENCES Clients(id);
+-- ALTER TABLE Client_Lawyer ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(id);
 
 ALTER TABLE Lawyer_Expertise ADD FOREIGN KEY(ExpertiseId) REFERENCES Expertises(id);
 ALTER TABLE Lawyer_Expertise ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(id);

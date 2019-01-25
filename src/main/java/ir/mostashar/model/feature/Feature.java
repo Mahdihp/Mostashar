@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import ir.mostashar.model.AuditModel;
 import ir.mostashar.model.role.Role;
 import lombok.Data;
 

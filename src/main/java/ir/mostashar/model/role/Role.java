@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import javax.persistence.*;
 
-import ir.mostashar.model.AuditModel;
 import ir.mostashar.model.feature.Feature;
 import ir.mostashar.model.user.RoleName;
 import ir.mostashar.model.user.User;

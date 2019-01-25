@@ -1,9 +1,6 @@
 package ir.mostashar.model.lawyer;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import ir.mostashar.model.AuditModel;
 import ir.mostashar.model.acceptRequest.AcceptRequest;
-import ir.mostashar.model.accessentry.AccessEntry;
 import ir.mostashar.model.activity.Activity;
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.answer.Answer;
@@ -15,30 +12,19 @@ import ir.mostashar.model.failRequest.FailRequest;
 import ir.mostashar.model.officeAddress.OfficeAddress;
 import ir.mostashar.model.organization.Organization;
 import ir.mostashar.model.presenceSchedule.PresenceSchedule;
-import ir.mostashar.model.wallet.Wallet;
+import ir.mostashar.model.user.User;
 import lombok.Data;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 @Data
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "lawyers")
-public class Lawyer extends AuditModel {
-
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(unique = true, nullable = false)
-    private UUID uid;
+public class Lawyer extends User {
 
     @Column(name = "isavailable")
     private boolean isAvailable = false;

@@ -1,12 +1,12 @@
 package ir.mostashar.model.user;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.*;
 
-import ir.mostashar.model.AuditModel;
 import ir.mostashar.model.accessentry.AccessEntry;
 import ir.mostashar.model.assignDiscount.AssignDiscount;
 import ir.mostashar.model.complain.Complain;
@@ -16,14 +16,17 @@ import ir.mostashar.model.reminder.Reminder;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.setting.Setting;
 import ir.mostashar.model.sharingPerspective.SharingPerspectives;
+import ir.mostashar.model.userpopularity.UserPopularity;
 import ir.mostashar.model.wallet.Wallet;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "users")
-public class User extends AuditModel {
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -73,6 +76,16 @@ public class User extends AuditModel {
     @Column(name = "verificationcode")
     private String verificationCode;
 
+    @Column(name = "creationdate", updatable = false)
+    @CreatedDate
+    private Long creationDate;
+
+    @Column(name = "modificationdate",updatable = true)
+    @LastModifiedDate
+    private Long modificationDate;
+
+
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = {@JoinColumn(name = "userid")},
@@ -107,6 +120,12 @@ public class User extends AuditModel {
 
     @OneToMany(mappedBy = "user")
     private Set<SharingPerspectives> sharingPerspectives = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "user")
+    private Set<UserPopularity> userPopularities = new HashSet<>();
+
 
     public User() {
     }
