@@ -5,7 +5,6 @@ import ir.mostashar.model.file.File;
 import ir.mostashar.model.user.User;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
-
 import javax.persistence.*;
 import java.util.UUID;
 
