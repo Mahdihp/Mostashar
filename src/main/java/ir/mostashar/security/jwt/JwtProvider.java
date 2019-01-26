@@ -1,7 +1,7 @@
 package ir.mostashar.security.jwt;
 
 import io.jsonwebtoken.*;
-import ir.mostashar.model.user.service.UserPrinciple;
+import ir.mostashar.model.client.service.UserPrinciple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

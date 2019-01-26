@@ -1,5 +1,7 @@
-package ir.mostashar.model.user.service;
+package ir.mostashar.model.client.service;
 
+import ir.mostashar.model.client.Client;
+import ir.mostashar.model.client.repository.ClientRepository;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.repository.RoleRepository;
 import ir.mostashar.model.user.RoleName;
@@ -18,14 +20,17 @@ import ir.mostashar.model.user.User;
 import ir.mostashar.model.user.repository.UserRepository;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class ClientDetailsServiceImpl implements UserDetailsService {
+
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ClientRepository clientRepository;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -60,6 +65,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public void registerPhoneNumberAndRole(SignUpForm signUpForm){
         System.out.println("Log---------registerPhoneNumberAndRole");
         User newUser=new User(UUID.randomUUID(),Long.valueOf(signUpForm.getPhoneNumber()));
+        Client client=new Client(Long.valueOf(signUpForm.getPhoneNumber()));
+
         Set<String> strRoles = signUpForm.getRole();
         Set<Role> roles = new HashSet<>();
 
@@ -87,6 +94,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         });
         newUser.setRoles(roles);
         userRepository.save(newUser);
+        clientRepository.save(client);
     }
 
 

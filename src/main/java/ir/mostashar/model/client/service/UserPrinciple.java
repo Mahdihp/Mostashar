@@ -1,4 +1,4 @@
-package ir.mostashar.model.user.service;
+package ir.mostashar.model.client.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ir.mostashar.model.user.User;
@@ -18,10 +18,8 @@ public class UserPrinciple implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-
-    private String username;
-
     private UUID uid;
+    private String username;
 
     @JsonIgnore
     private String password;

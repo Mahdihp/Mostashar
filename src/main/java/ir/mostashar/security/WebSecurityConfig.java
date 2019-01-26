@@ -1,6 +1,6 @@
 package ir.mostashar.security;
 
-import ir.mostashar.model.user.service.UserDetailsServiceImpl;
+import ir.mostashar.model.client.service.ClientDetailsServiceImpl;
 import ir.mostashar.security.jwt.JwtAuthEntryPoint;
 import ir.mostashar.security.jwt.JwtAuthTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    UserDetailsServiceImpl userDetailsService;
+    ClientDetailsServiceImpl userDetailsService;
 
     @Autowired
     private JwtAuthEntryPoint unauthorizedHandler;

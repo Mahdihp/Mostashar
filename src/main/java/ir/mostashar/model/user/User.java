@@ -25,13 +25,16 @@ import org.springframework.data.annotation.LastModifiedDate;
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Table(name = "users")
+@Table(name = "users", schema="public")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "USERS_ID_SEQ", sequenceName = "USERS_ID_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USERS_ID_SEQ")
+    @Column (name = "id")
     private Long id;
 
     @Column(unique = true, nullable = false)
@@ -70,7 +73,7 @@ public class User implements Serializable {
     @Column(name = "isactive")
     private boolean isActive = false;
 
-    @Column(unique = true)
+    @Column(name = "mobilenumber",unique = true)
     private long mobileNumber;
 
     @Column(name = "verificationcode")

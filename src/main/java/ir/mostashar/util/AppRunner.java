@@ -1,39 +1,38 @@
 package ir.mostashar.util;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import ir.mostashar.model.feature.Feature;
-import ir.mostashar.model.feature.FeatureNames;
-import ir.mostashar.model.feature.logic.FeatureMgr;
-import ir.mostashar.model.role.Role;
-import ir.mostashar.model.role.service.RoleMgr;
 import ir.mostashar.model.user.User;
-import ir.mostashar.model.user.service.UserMgr;
+import ir.mostashar.model.user.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.stereotype.Component;
 
-//@Component
-public class DataSuit{
-//implements ApplicationRunner {
+import java.util.List;
 
-	private UserMgr userMgr;
+@Component
+public class AppRunner implements ApplicationRunner {
 
-	private RoleMgr roleMgr;
 
-	private FeatureMgr featureMgr;
 
 	@Autowired
-	public DataSuit(UserMgr userMgr, RoleMgr roleMgr, FeatureMgr featureMgr) {
+	UserRepository userRepository;
 
-		this.userMgr = userMgr;
-		this.roleMgr = roleMgr;
-		this.featureMgr = featureMgr;
+	public AppRunner() {
+
 	}
 
-	public void initalAdminUser() {
+	@Override
+	public void run(ApplicationArguments args) throws Exception {
+		initDataBase();
+	}
 
+
+	public void initDataBase() {
+
+		List<User> all = userRepository.findAll();
+		all.forEach(x -> x.toString());
+		//User newUser=new User(UUID.randomUUID(),9339466060L);
+		//userRepository.save(newUser);
 		/*User user = userMgr.findByUsername("admin");
 		if (user != null)
 			return;
@@ -80,9 +79,6 @@ public class DataSuit{
 
 	}
 
-//	@Override
-//	public void run(ApplicationArguments args) throws Exception {
-//		initalAdminUser();
-//	}
+
 
 }

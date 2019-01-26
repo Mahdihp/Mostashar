@@ -21,6 +21,8 @@ import java.util.UUID;
 @Table(name = "clients")
 public class Client extends User {
 
+    private static final long serialVersionUID = 1L;
+
     @Column(name = "jobtitle")
     private String jobTitle;
 
@@ -61,4 +63,7 @@ public class Client extends User {
     public Client() {
     }
 
+    public Client(Long tel) {
+        this.tel = tel;
+    }
 }
