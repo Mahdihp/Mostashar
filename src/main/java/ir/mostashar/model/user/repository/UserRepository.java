@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import ir.mostashar.model.user.User;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,4 +24,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Boolean existsUserByMobileNumber(@Param("mobileNumber")long  phoneNumber);
 
     Optional<User> findByUid(UUID uuid);
+
+    @Query("SELECT r.mobileNumber FROM User r")
+    List<User> findAll();
 }

@@ -1,5 +1,7 @@
 package ir.mostashar.util;
 
+import ir.mostashar.model.client.Client;
+import ir.mostashar.model.client.repository.ClientRepository;
 import ir.mostashar.model.user.User;
 import ir.mostashar.model.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,31 +10,38 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class AppRunner implements ApplicationRunner {
 
 
+    @Autowired
+    ClientRepository clientRepository;
 
-	@Autowired
-	UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
 
-	public AppRunner() {
+    public AppRunner() {
 
-	}
+    }
 
-	@Override
-	public void run(ApplicationArguments args) throws Exception {
-		initDataBase();
-	}
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        initDataBase();
+    }
 
 
-	public void initDataBase() {
+    public void initDataBase() {
 
-		List<User> all = userRepository.findAll();
-		all.forEach(x -> x.toString());
-		//User newUser=new User(UUID.randomUUID(),9339466060L);
-		//userRepository.save(newUser);
+//		User user=new User();
+//		user.setUid(UUID.randomUUID());
+//		user.setMobileNumber(9339466051L);
+//		userRepository.save(user);
+        List<User> all = userRepository.findAll();
+        System.out.println(all.size());
+//		User newUser=new User(UUID.randomUUID(),9339466060L);
+//		userRepository.save(newUser);
 		/*User user = userMgr.findByUsername("admin");
 		if (user != null)
 			return;
@@ -77,8 +86,7 @@ public class AppRunner implements ApplicationRunner {
 		adminUser.setRoles(roles);
 		userMgr.save(adminUser);*/
 
-	}
-
+    }
 
 
 }
