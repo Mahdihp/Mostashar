@@ -48,8 +48,8 @@ CREATE TABLE Users(id bigint NOT NULL DEFAULT nextval('USERS_ID_SEQ'::regclass),
 -- CREATE TABLE Clients(id bigint NOT NULL DEFAULT nextval('CLIENTS_ID_SEQ'::regclass), uid UUID NOT NULL, UserId bigint, jobtitle varchar(255), address varchar(255), postalcode varchar(255), fieldofstudy varchar(255), tel bigint, PRIMARY KEY(id));
 -- CREATE TABLE Lawyers(id bigint NOT NULL DEFAULT nextval('LAWYERS_ID_SEQ'::regclass), uid UUID NOT NULL, OrganizationId bigint, AdviceTypeId bigint, FailRequestId bigint, UserId bigint, isavailable boolean, level integer, PRIMARY KEY(id));
 
-CREATE TABLE Clients(UserId bigint, jobtitle varchar(255), address varchar(255), postalcode varchar(255), fieldofstudy varchar(255), tel bigint, UNIQUE(userid));
-CREATE TABLE Lawyers(UserId bigint, OrganizationId bigint, AdviceTypeId bigint, FailRequestId bigint, isavailable boolean, level integer, UNIQUE(userid));
+CREATE TABLE Clients(id bigint NOT NULL, jobtitle varchar(255), address varchar(255), postalcode varchar(255), fieldofstudy varchar(255), tel bigint, UNIQUE(id));
+CREATE TABLE Lawyers(id bigint NOT NULL, OrganizationId bigint, AdviceTypeId bigint, FailRequestId bigint, isavailable boolean, level integer, UNIQUE(id));
 
 CREATE TABLE UserPopularity(id bigint NOT NULL DEFAULT nextval('USERPOPULARITY_ID_SEQ'::regclass),UserId bigint NOT NULL,UserPopularId bigint NOT NULL);
 
@@ -100,7 +100,7 @@ CREATE TABLE Logs(id bigint NOT NULL DEFAULT nextval('LOGS_ID_SEQ'::regclass), u
 -- -----------------------------Relation Table--------------------------------
 CREATE TABLE User_Role(UserId bigint, RoleId bigint, UNIQUE(UserId), UNIQUE(RoleId));
 CREATE TABLE Role_Feature(RoleId bigint, FeatureId bigint, UNIQUE(RoleId), UNIQUE(FeatureId));
-CREATE TABLE Client_Lawyer(ClientId bigint, LawyerId bigint, UNIQUE(ClientId), UNIQUE(LawyerId));
+-- CREATE TABLE Client_Lawyer(ClientId bigint, LawyerId bigint, UNIQUE(ClientId), UNIQUE(LawyerId));
 CREATE TABLE Lawyer_Expertise(LawyerId bigint,ExpertiseId bigint, UNIQUE(ExpertiseId), UNIQUE(LawyerId));
 
 -- --------------------ALTER SEQUENCE-------------------------------------
@@ -162,11 +162,11 @@ ALTER TABLE UserPopularity ADD FOREIGN KEY(UserPopularId) REFERENCES Users(id);
 -- ALTER TABLE Client_Lawyer ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(id);
 
 ALTER TABLE Lawyer_Expertise ADD FOREIGN KEY(ExpertiseId) REFERENCES Expertises(id);
-ALTER TABLE Lawyer_Expertise ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(UserId);
+ALTER TABLE Lawyer_Expertise ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(id);
 
 -- -----------------Alter table add foreign key------------------
 ALTER TABLE Users ADD FOREIGN KEY(WalletId) REFERENCES Wallets(id);
-ALTER TABLE Clients ADD FOREIGN KEY(UserId) REFERENCES Users(id);
+ALTER TABLE Clients ADD FOREIGN KEY(id) REFERENCES Users(id);
 
 ALTER TABLE InvitedUsers ADD FOREIGN KEY(UserId) REFERENCES Users(id);
 ALTER TABLE Devices ADD FOREIGN KEY(UserId) REFERENCES Users(id);
@@ -186,7 +186,7 @@ ALTER TABLE Reminders ADD FOREIGN KEY(NotificationId) REFERENCES Notifications(i
 ALTER TABLE Factors ADD FOREIGN KEY(BillId) REFERENCES Bills(id);
 ALTER TABLE Bills ADD FOREIGN KEY(WalletId) REFERENCES Wallets(id);
 
-ALTER TABLE Lawyers ADD FOREIGN KEY(UserId) REFERENCES Users(id);
+ALTER TABLE Lawyers ADD FOREIGN KEY(id) REFERENCES Users(id);
 ALTER TABLE Lawyers ADD FOREIGN KEY(OrganizationId) REFERENCES Organizations(id);
 ALTER TABLE Lawyers ADD FOREIGN KEY(AdviceTypeId) REFERENCES AdviceTypes(id);
 ALTER TABLE Lawyers ADD FOREIGN KEY(FailRequestId) REFERENCES FailRequests(id);
@@ -195,18 +195,18 @@ ALTER TABLE SharingPerspectives ADD FOREIGN KEY(UserId) REFERENCES Users(id);
 ALTER TABLE SharingPerspectives ADD FOREIGN KEY(FileId) REFERENCES Files(id);
 
 ALTER TABLE Calls ADD FOREIGN KEY(RequestId) REFERENCES Requests(id);
-ALTER TABLE Calls ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(UserId);
-ALTER TABLE Calls ADD FOREIGN KEY(ClientId) REFERENCES Clients(UserId);
+ALTER TABLE Calls ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(id);
+ALTER TABLE Calls ADD FOREIGN KEY(ClientId) REFERENCES Clients(id);
 ALTER TABLE Calls ADD FOREIGN KEY(DocId) REFERENCES Docs(id);
 
 ALTER TABLE Requests ADD FOREIGN KEY(AdviceTypeId) REFERENCES AdviceTypes(id);
-ALTER TABLE Requests ADD FOREIGN KEY(ClientId) REFERENCES Clients(UserId);
+ALTER TABLE Requests ADD FOREIGN KEY(ClientId) REFERENCES Clients(id);
 ALTER TABLE Requests ADD FOREIGN KEY(FileId) REFERENCES Files(id);
 
-ALTER TABLE Docs ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(UserId);
+ALTER TABLE Docs ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(id);
 ALTER TABLE Docs ADD FOREIGN KEY(FileId) REFERENCES Files(id);
 
-ALTER TABLE Activities ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(UserId);
+ALTER TABLE Activities ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(id);
 ALTER TABLE Activities ADD FOREIGN KEY(DocId) REFERENCES Docs(id);
 ALTER TABLE Activities ADD FOREIGN KEY(FileId) REFERENCES Files(id);
 
@@ -220,20 +220,20 @@ ALTER TABLE Packs ADD FOREIGN KEY(AdviceTypeId) REFERENCES AdviceTypes(id);
 ALTER TABLE AdviceTypes ADD FOREIGN KEY(AdviceTypeId) REFERENCES AdviceTypes(id);
 ALTER TABLE FailRequests ADD FOREIGN KEY(RequestId) REFERENCES Requests(id);
 
-ALTER TABLE AcceptRequests ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(UserId);
+ALTER TABLE AcceptRequests ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(id);
 ALTER TABLE AcceptRequests ADD FOREIGN KEY(RequestId) REFERENCES Requests(id);
 
-ALTER TABLE OfficesAddress ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(UserId);
+ALTER TABLE OfficesAddress ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(id);
 
-ALTER TABLE PresenceSchedules ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(UserId);
+ALTER TABLE PresenceSchedules ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(id);
 ALTER TABLE PresenceSchedules ADD FOREIGN KEY(OfficesAddressId) REFERENCES OfficesAddress(id);
 
 ALTER TABLE Organizations ADD FOREIGN KEY(WalletId) REFERENCES Wallets(id);
 
-ALTER TABLE Feedbacks ADD FOREIGN KEY(ClientId) REFERENCES Clients(UserId);
+ALTER TABLE Feedbacks ADD FOREIGN KEY(ClientId) REFERENCES Clients(id);
 ALTER TABLE Feedbacks ADD FOREIGN KEY(RequestId) REFERENCES Requests(id);
 
-ALTER TABLE Questions ADD FOREIGN KEY(ClientId) REFERENCES Clients(UserId);
+ALTER TABLE Questions ADD FOREIGN KEY(ClientId) REFERENCES Clients(id);
 
 ALTER TABLE Answers ADD FOREIGN KEY(QuestionId) REFERENCES Questions(id);
-ALTER TABLE Answers ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(UserId);
+ALTER TABLE Answers ADD FOREIGN KEY(LawyerId) REFERENCES Lawyers(id);

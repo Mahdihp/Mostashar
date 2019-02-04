@@ -3,9 +3,10 @@ INSERT INTO users(id,uid,mobilenumber) VALUES(1,'b5dc7528-1d44-4ae3-9dc0-c3b8213
 INSERT INTO users(id,uid,mobilenumber) VALUES(2,'b6dc7528-1d44-4ae3-9dc0-c3b8213d45a6',9339466051);
 INSERT INTO users(id,uid,mobilenumber) VALUES(3,'b7dc7528-1d44-4ae3-9dc0-c3b8213d45a6',9191544275);
 --
-INSERT INTO clients(userid,address,tel)VALUES(1,'Qom very good',9339466051);
-INSERT INTO clients(userid,address,tel)VALUES(2,'tehran',9339466051);
-INSERT INTO clients(userid,address,tel)VALUES(3,'tehran',9339466051);
+INSERT INTO clients(id,address,tel)VALUES(1,'Qom very good',9339466051);
+INSERT INTO clients(id,address,tel)VALUES(2,'tehran',9339466051);
+INSERT INTO clients(id,address,tel)VALUES(3,'tehran',9339466051);
+
 --
 INSERT INTO roles(id,uid,name,userdefined,description)VALUES (1, 'b4482c30-b3a5-4401-a274-016bda28fdce', 'ROLE_ADMIN',  true,  'admin');
 INSERT INTO roles(id,uid,name,userdefined,description)VALUES (2, 'b3482c40-b3a5-4401-a274-016bda28fdce', 'ROLE_LAWYER', true, 'lawyer');
@@ -21,3 +22,5 @@ INSERT INTO features(id,description,name,uid) VALUES(5,'ACCESS_TO_UPDATE_ONE','A
 
 INSERT INTO role_feature(roleid,featureid) VALUES (1,1);
 INSERT INTO role_feature(roleid,featureid) VALUES (2,2);
+
+

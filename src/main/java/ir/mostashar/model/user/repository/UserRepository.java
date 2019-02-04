@@ -20,8 +20,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Boolean existsByUsername(String username);
 //    Boolean existsUserByMobileNumber(long phoneNumber);
 //    Boolean existsByMobileNumber(long  phoneNumber);
-    @Query("from User u where u.mobileNumber=?1")
-    Boolean existsUserByMobileNumber(@Param("mobileNumber")long  phoneNumber);
+
+    Optional<Boolean> existsUserByMobileNumber(long  phoneNumber);
 
     Optional<User> findByUid(UUID uuid);
 

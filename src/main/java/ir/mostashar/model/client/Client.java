@@ -8,6 +8,7 @@ import ir.mostashar.model.question.Question;
 import ir.mostashar.model.request.Request;
 import ir.mostashar.model.user.User;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,6 +17,7 @@ import java.util.Set;
 import java.util.UUID;
 
 
+@EqualsAndHashCode
 @Data
 @Entity
 @Table(name = "clients")
@@ -38,11 +40,11 @@ public class Client extends User {
     @Column(name = "tel")
     private Long tel;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "client_lawyer",
-            joinColumns = {@JoinColumn(name = "clientid")},
-            inverseJoinColumns = {@JoinColumn(name = "lawyerid")})
-    private Set<Lawyer> lawyers = new HashSet<>();
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinTable(name = "client_lawyer",
+//            joinColumns = {@JoinColumn(name = "clientid")},
+//            inverseJoinColumns = {@JoinColumn(name = "lawyerid")})
+//    private Set<Lawyer> lawyers = new HashSet<>();
 
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")

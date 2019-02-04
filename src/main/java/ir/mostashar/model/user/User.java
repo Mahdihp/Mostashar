@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ir.mostashar.model.accessentry.AccessEntry;
 import ir.mostashar.model.assignDiscount.AssignDiscount;
 import ir.mostashar.model.complain.Complain;
@@ -19,6 +20,7 @@ import ir.mostashar.model.sharingPerspective.SharingPerspectives;
 import ir.mostashar.model.userpopularity.UserPopularity;
 import ir.mostashar.model.wallet.Wallet;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -26,17 +28,17 @@ import org.springframework.data.annotation.LastModifiedDate;
 @ToString
 @Data
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "users", schema="public")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+//    @SequenceGenerator(name = "USERS_ID_SEQ", sequenceName = "USERS_ID_SEQ", allocationSize = 1)
     @Id
-    @SequenceGenerator(name = "USERS_ID_SEQ", sequenceName = "USERS_ID_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USERS_ID_SEQ")
     @Column (name = "id",unique = true, nullable = false)
-    private Long id;
+    private long id;
 
     @Column(unique = true, nullable = false)
     private UUID uid;
@@ -88,12 +90,11 @@ public class User implements Serializable {
     @LastModifiedDate
     private Long modificationDate;
 
-
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = {@JoinColumn(name = "userid")},
             inverseJoinColumns = {@JoinColumn(name = "roleid")})
+    @EqualsAndHashCode.Exclude
     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")

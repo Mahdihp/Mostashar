@@ -38,8 +38,9 @@ public class AppRunner implements ApplicationRunner {
 //		user.setUid(UUID.randomUUID());
 //		user.setMobileNumber(9339466051L);
 //		userRepository.save(user);
-        List<User> all = userRepository.findAll();
-        System.out.println(all.size());
+//        List<User> all = userRepository.findAll();
+//        System.out.println(all.get(0));
+//        System.out.println(all.get(1));
 //		User newUser=new User(UUID.randomUUID(),9339466060L);
 //		userRepository.save(newUser);
 		/*User user = userMgr.findByUsername("admin");

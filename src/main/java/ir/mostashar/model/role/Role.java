@@ -10,7 +10,9 @@ import ir.mostashar.model.feature.Feature;
 import ir.mostashar.model.user.RoleName;
 import ir.mostashar.model.user.User;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.NaturalId;
+
 
 @Data
 @Entity

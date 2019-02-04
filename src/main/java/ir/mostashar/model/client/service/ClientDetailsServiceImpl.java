@@ -7,6 +7,7 @@ import ir.mostashar.model.role.repository.RoleRepository;
 import ir.mostashar.model.user.RoleName;
 import ir.mostashar.model.user.dto.SignUpForm;
 import ir.mostashar.security.jwt.JwtProvider;
+import ir.mostashar.util.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +21,7 @@ import ir.mostashar.model.user.User;
 import ir.mostashar.model.user.repository.UserRepository;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -58,20 +60,29 @@ public class ClientDetailsServiceImpl implements UserDetailsService {
     }
 
     public boolean existsByPhoneNumber(long phoneNumber) {
-        System.out.println("Log---------------existsByPhoneNumber "+phoneNumber);
-        return userRepository.existsUserByMobileNumber(phoneNumber);
+        System.out.println("Log---------------existsByPhoneNumber " + phoneNumber);
+
+        Optional<Boolean> aBoolean = userRepository.existsUserByMobileNumber(phoneNumber);
+        if (aBoolean.isPresent())
+            return aBoolean.get();
+        else
+            return false;
     }
 
-    public void registerPhoneNumberAndRole(SignUpForm signUpForm){
+    public void registerPhoneNumberAndRole(SignUpForm signUpForm) {
         System.out.println("Log---------registerPhoneNumberAndRole");
-        User newUser=new User(UUID.randomUUID(),Long.valueOf(signUpForm.getPhoneNumber()));
-        Client client=new Client(Long.valueOf(signUpForm.getPhoneNumber()));
+        UUID uuid = UUID.randomUUID();
+        User newUser = new User(uuid, Long.valueOf(signUpForm.getPhoneNumber()));
+        Client client = new Client(Long.valueOf(signUpForm.getPhoneNumber()));
+        client.setUid(uuid);
 
         Set<String> strRoles = signUpForm.getRole();
         Set<Role> roles = new HashSet<>();
 
+        System.out.println("Random "+DataUtil.genarateRandomNumber());
+        System.out.println("Random "+DataUtil.genarateRandomNumber());
         strRoles.forEach(role -> {
-            switch(role) {
+            switch (role) {
                 case "admin":
                     Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
                             .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));

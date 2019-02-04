@@ -37,8 +37,8 @@ public class Lawyer extends User {
     @Column(name = "verified")
     private boolean verified = false;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "lawyers")
-    private Set<Client> client = new HashSet<>();
+//    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "lawyers")
+//    private Set<Client> client = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
     private Set<OfficeAddress> officeAddresses = new HashSet<>();

@@ -1,5 +1,6 @@
 package ir.mostashar.util;
 
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,5 +16,9 @@ public class DataUtil {
             return true;
         else
             return false;
+    }
+
+    public static String genarateRandomNumber() {
+        return String.valueOf(Math.round(Math.random()*100000));
     }
 }
