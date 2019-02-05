@@ -40,13 +40,6 @@ public class Client extends User {
     @Column(name = "tel")
     private Long tel;
 
-//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinTable(name = "client_lawyer",
-//            joinColumns = {@JoinColumn(name = "clientid")},
-//            inverseJoinColumns = {@JoinColumn(name = "lawyerid")})
-//    private Set<Lawyer> lawyers = new HashSet<>();
-
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
     private Set<Question> questions = new HashSet<>();
 

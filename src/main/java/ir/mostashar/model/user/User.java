@@ -77,7 +77,7 @@ public class User implements Serializable {
     private boolean isActive = false;
 
     @Column(name = "mobilenumber",unique = true)
-    private long mobileNumber;
+    private Long mobileNumber;
 
     @Column(name = "verificationcode")
     private String verificationCode;

@@ -1,18 +1,18 @@
 package ir.mostashar.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class BaseDTO {
 
     private String status;
     private String message;
+    private String userid;
+    private boolean isActive;
 
     public BaseDTO() {
     }
 
-    public BaseDTO(String status, String message) {
-        this.status = status;
-        this.message = message;
-    }
 }

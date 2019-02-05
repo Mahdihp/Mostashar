@@ -16,10 +16,9 @@ import java.util.UUID;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByUsername(String username);
+    Optional<User> findUserByUidAndVerificationCode(UUID uid,String code);
 
     Boolean existsByUsername(String username);
-//    Boolean existsUserByMobileNumber(long phoneNumber);
-//    Boolean existsByMobileNumber(long  phoneNumber);
 
     Optional<Boolean> existsUserByMobileNumber(long  phoneNumber);
 

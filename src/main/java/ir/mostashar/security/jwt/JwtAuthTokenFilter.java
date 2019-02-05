@@ -1,6 +1,6 @@
 package ir.mostashar.security.jwt;
 
-import ir.mostashar.model.client.service.ClientDetailsServiceImpl;
+import ir.mostashar.model.client.service.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
     private JwtProvider tokenProvider;
 
     @Autowired
-    private ClientDetailsServiceImpl userDetailsService;
+    private UserServiceImpl userDetailsService;
 
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthTokenFilter.class);
 

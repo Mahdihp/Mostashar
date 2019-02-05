@@ -1,11 +1,11 @@
 
 INSERT INTO users(id,uid,mobilenumber) VALUES(1,'b5dc7528-1d44-4ae3-9dc0-c3b8213d45a6',9134528901);
-INSERT INTO users(id,uid,mobilenumber) VALUES(2,'b6dc7528-1d44-4ae3-9dc0-c3b8213d45a6',9339466051);
-INSERT INTO users(id,uid,mobilenumber) VALUES(3,'b7dc7528-1d44-4ae3-9dc0-c3b8213d45a6',9191544275);
+INSERT INTO users(id,uid,mobilenumber) VALUES(2,'b6dc7528-1d44-4ae3-9dc0-c3b8213d45a6',9329466051);
+INSERT INTO users(id,uid,mobilenumber) VALUES(3,'b7dc7528-1d44-4ae3-9dc0-c3b8213d45a6',9161544275);
 --
-INSERT INTO clients(id,address,tel)VALUES(1,'Qom very good',9339466051);
-INSERT INTO clients(id,address,tel)VALUES(2,'tehran',9339466051);
-INSERT INTO clients(id,address,tel)VALUES(3,'tehran',9339466051);
+INSERT INTO clients(id,address,tel)VALUES(1,'Qom very good',9134528901);
+INSERT INTO clients(id,address,tel)VALUES(2,'tehran',9329466051);
+INSERT INTO clients(id,address,tel)VALUES(3,'tehran',9161544275);
 
 --
 INSERT INTO roles(id,uid,name,userdefined,description)VALUES (1, 'b4482c30-b3a5-4401-a274-016bda28fdce', 'ROLE_ADMIN',  true,  'admin');

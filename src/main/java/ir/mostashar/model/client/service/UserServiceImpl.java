@@ -5,7 +5,7 @@ import ir.mostashar.model.client.repository.ClientRepository;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.repository.RoleRepository;
 import ir.mostashar.model.user.RoleName;
-import ir.mostashar.model.user.dto.SignUpForm;
+import ir.mostashar.model.client.dto.SignUpForm;
 import ir.mostashar.security.jwt.JwtProvider;
 import ir.mostashar.util.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Service
-public class ClientDetailsServiceImpl implements UserDetailsService {
+public class UserServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -35,16 +35,16 @@ public class ClientDetailsServiceImpl implements UserDetailsService {
     private ClientRepository clientRepository;
 
     @Autowired
-    AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
-    PasswordEncoder encoder;
+    private PasswordEncoder encoder;
 
     @Autowired
-    JwtProvider jwtProvider;
+    private JwtProvider jwtProvider;
 
     @Override
     @Transactional(readOnly = true)
@@ -69,18 +69,17 @@ public class ClientDetailsServiceImpl implements UserDetailsService {
             return false;
     }
 
-    public void registerPhoneNumberAndRole(SignUpForm signUpForm) {
-        System.out.println("Log---------registerPhoneNumberAndRole");
+    public String registerPhoneNumberAndRole(SignUpForm signUpForm) {
         UUID uuid = UUID.randomUUID();
-        User newUser = new User(uuid, Long.valueOf(signUpForm.getPhoneNumber()));
-        Client client = new Client(Long.valueOf(signUpForm.getPhoneNumber()));
+        Client client = new Client();
+        client.setMobileNumber(Long.valueOf(signUpForm.getPhoneNumber()));
+        client.setVerificationCode(DataUtil.genarateRandomNumber());
+        client.setTel(Long.valueOf(signUpForm.getPhoneNumber()));
         client.setUid(uuid);
 
         Set<String> strRoles = signUpForm.getRole();
         Set<Role> roles = new HashSet<>();
 
-        System.out.println("Random "+DataUtil.genarateRandomNumber());
-        System.out.println("Random "+DataUtil.genarateRandomNumber());
         strRoles.forEach(role -> {
             switch (role) {
                 case "admin":
@@ -96,35 +95,33 @@ public class ClientDetailsServiceImpl implements UserDetailsService {
 
                     break;
                 default:
-//                    Optional<Role> byName = roleRepository.findByName(RoleName.ROLE_CLIENT);
-//                    System.out.println("Log----------"+byName.isPresent());
                     Role userRole = roleRepository.findByName(RoleName.ROLE_CLIENT)
                             .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
                     roles.add(userRole);
             }
         });
-        newUser.setRoles(roles);
-        userRepository.save(newUser);
+        client.setRoles(roles);
         clientRepository.save(client);
+        // Send SMS to Client
+        return uuid.toString();
     }
 
 
-    /*@Override
-	@Transactional(readOnly = true)
-	public UserDetails loadUserByUsername(String usernameOrMobileNumber) throws UsernameNotFoundException {
-		User user = userRepository.findByUsername(usernameOrMobileNumber);
+    public User findUUIDAndCode(String userid, String code) {
+        Optional<User> user = userRepository.findUserByUidAndVerificationCode(UUID.fromString(userid), code);
+        if (user.isPresent())
+            return user.get();
+        else
+            return null;
+    }
 
-		if(user == null){
-			user = userRepository.findByMobileNumber(usernameOrMobileNumber);
-		}
-
-		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-		for (Role role : user.getRoles()) {
-			grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
-		}
-
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-				grantedAuthorities);
-	}*/
+    public void setActiveUser(boolean isactive, UUID userid) {
+        Optional<User> user = userRepository.findByUid(userid);
+        if (user.isPresent()) {
+            user.get().setActive(isactive);
+            user.get().setVerificationCode("-1");
+            userRepository.save(user.get());
+        }
+    }
 
 }

@@ -1,6 +1,6 @@
 package ir.mostashar.security;
 
-import ir.mostashar.model.client.service.ClientDetailsServiceImpl;
+import ir.mostashar.model.client.service.UserServiceImpl;
 import ir.mostashar.security.jwt.JwtAuthEntryPoint;
 import ir.mostashar.security.jwt.JwtAuthTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    ClientDetailsServiceImpl userDetailsService;
+    UserServiceImpl userDetailsService;
 
     @Autowired
     private JwtAuthEntryPoint unauthorizedHandler;
@@ -55,7 +55,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().
                 authorizeRequests()
-                .antMatchers("/v1/api/auth/**").permitAll()
+                .antMatchers("/api/v1/client/**").permitAll()
+                .antMatchers("/api/v1/lawyer/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()

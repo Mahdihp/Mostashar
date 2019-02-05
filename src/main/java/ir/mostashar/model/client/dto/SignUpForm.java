@@ -1,4 +1,4 @@
-package ir.mostashar.model.user.dto;
+package ir.mostashar.model.client.dto;
 
 import lombok.Data;
 
@@ -13,8 +13,8 @@ public class SignUpForm {
     @Size(max = 10)
     private String phoneNumber;
 
+    @NotBlank
     private Set<String> role;
-
 
     public SignUpForm() {  }
 
