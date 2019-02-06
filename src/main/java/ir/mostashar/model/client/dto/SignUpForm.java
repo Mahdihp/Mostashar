@@ -10,8 +10,10 @@ import java.util.Set;
 public class SignUpForm {
 
     @NotBlank
-    @Size(max = 10)
+    @Size(min = 11,max = 11) //09339466051
     private String phoneNumber;
+
+
 
     @NotBlank
     private Set<String> role;

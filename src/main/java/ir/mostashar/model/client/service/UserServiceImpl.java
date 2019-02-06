@@ -8,6 +8,7 @@ import ir.mostashar.model.user.RoleName;
 import ir.mostashar.model.client.dto.SignUpForm;
 import ir.mostashar.security.jwt.JwtProvider;
 import ir.mostashar.util.DataUtil;
+import ir.mostashar.util.SmsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,6 +28,9 @@ import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserDetailsService {
+
+    @Autowired
+    private SmsService smsService;
 
     @Autowired
     private UserRepository userRepository;
@@ -73,7 +77,8 @@ public class UserServiceImpl implements UserDetailsService {
         UUID uuid = UUID.randomUUID();
         Client client = new Client();
         client.setMobileNumber(Long.valueOf(signUpForm.getPhoneNumber()));
-        client.setVerificationCode(DataUtil.genarateRandomNumber());
+        String code = DataUtil.genarateRandomNumber();
+        client.setVerificationCode(code);
         client.setTel(Long.valueOf(signUpForm.getPhoneNumber()));
         client.setUid(uuid);
 
@@ -102,7 +107,7 @@ public class UserServiceImpl implements UserDetailsService {
         });
         client.setRoles(roles);
         clientRepository.save(client);
-        // Send SMS to Client
+        smsService.sendSms(signUpForm.getPhoneNumber(),"Test Sms Send " + code);
         return uuid.toString();
     }
 
@@ -123,5 +128,7 @@ public class UserServiceImpl implements UserDetailsService {
             userRepository.save(user.get());
         }
     }
+
+
 
 }

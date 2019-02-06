@@ -1,5 +1,6 @@
 package ir.mostashar.util;
 
+import java.security.acl.LastOwnerException;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,6 +20,7 @@ public class DataUtil {
     }
 
     public static String genarateRandomNumber() {
-        return String.valueOf(Math.round(Math.random()*100000));
+        long round = Math.round(Math.random() * 100000);
+        return String.valueOf(round);
     }
 }

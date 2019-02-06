@@ -22,11 +22,9 @@ public class ClientController {
     @Autowired
     UserServiceImpl userService;
 
-    @PostMapping(value = "/signUp", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
+    @PostMapping(value = "/login", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
     public ResponseEntity<?> signUp(@RequestBody SignUpForm signUpForm) {
-        String phone = "0" + Long.valueOf(signUpForm.getPhoneNumber());
-
-        if (!DataUtil.isValidePhoneNumber(phone)) {
+        if (!DataUtil.isValidePhoneNumber(signUpForm.getPhoneNumber())) {
             return new ResponseEntity<>(new BaseDTO(HttpStatus.BAD_REQUEST.value() + "", Constants.KEY_PHONE_NUMBER_NOT_VALID, "", false), HttpStatus.BAD_REQUEST);
         }
         if (userService.existsByPhoneNumber(Long.valueOf(signUpForm.getPhoneNumber()))) {

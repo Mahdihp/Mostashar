@@ -12,6 +12,7 @@ public class BaseDTO {
     private String userid;
     private boolean isActive;
 
+
     public BaseDTO() {
     }
 
