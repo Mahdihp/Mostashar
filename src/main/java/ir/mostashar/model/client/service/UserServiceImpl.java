@@ -7,6 +7,7 @@ import ir.mostashar.model.role.repository.RoleRepository;
 import ir.mostashar.model.user.RoleName;
 import ir.mostashar.model.client.dto.SignUpForm;
 import ir.mostashar.security.jwt.JwtProvider;
+import ir.mostashar.util.Constants;
 import ir.mostashar.util.DataUtil;
 import ir.mostashar.util.SmsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,7 +108,7 @@ public class UserServiceImpl implements UserDetailsService {
         });
         client.setRoles(roles);
         clientRepository.save(client);
-        smsService.sendSms(signUpForm.getPhoneNumber(),"Test Sms Send " + code);
+        smsService.sendSms(signUpForm.getPhoneNumber(), Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
         return uuid.toString();
     }
 
@@ -128,7 +129,6 @@ public class UserServiceImpl implements UserDetailsService {
             userRepository.save(user.get());
         }
     }
-
 
 
 }
