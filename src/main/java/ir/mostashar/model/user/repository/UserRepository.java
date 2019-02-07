@@ -18,11 +18,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);
     Optional<User> findUserByUidAndVerificationCode(UUID uid,String code);
 
-    Boolean existsByUsername(String username);
-
     Optional<Boolean> existsUserByMobileNumber(long  phoneNumber);
 
     Optional<User> findByUid(UUID uuid);
+
 
     @Query("SELECT r.mobileNumber FROM User r")
     List<User> findAll();

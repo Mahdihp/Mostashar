@@ -14,6 +14,7 @@ import javax.persistence.Table;
 
 import ir.mostashar.model.role.Role;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
@@ -37,6 +38,7 @@ public class Feature {
 	private String groupKey;
 
 	@ManyToMany(mappedBy = "features")
+	@EqualsAndHashCode.Exclude
     private Set<Role> roles = new HashSet<>();
 
 	public Feature() {

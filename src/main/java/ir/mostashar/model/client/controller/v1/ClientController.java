@@ -1,18 +1,18 @@
 package ir.mostashar.model.client.controller.v1;
 
-import ir.mostashar.model.BaseDTO;
-import ir.mostashar.model.client.dto.SignUpForm;
-import ir.mostashar.model.client.dto.ValidateCode;
+import ir.mostashar.model.client.dto.FileForm;
 import ir.mostashar.model.client.service.UserServiceImpl;
-import ir.mostashar.model.user.User;
+import ir.mostashar.model.file.dto.FileDTO;
+import ir.mostashar.model.file.repository.FileRepository;
+import ir.mostashar.model.file.service.FileService;
 import ir.mostashar.util.Constants;
-import ir.mostashar.util.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -20,27 +20,20 @@ import javax.validation.Valid;
 public class ClientController {
 
     @Autowired
-    UserServiceImpl userService;
+    FileRepository fileRepository;
 
-    @PostMapping(value = "/login", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
-    public ResponseEntity<?> signUp(@RequestBody SignUpForm signUpForm) {
-        if (!DataUtil.isValidePhoneNumber(signUpForm.getPhoneNumber())) {
-            return new ResponseEntity<>(new BaseDTO(HttpStatus.BAD_REQUEST.value() + "", Constants.KEY_PHONE_NUMBER_NOT_VALID, "", false), HttpStatus.BAD_REQUEST);
-        }
-        if (userService.existsByPhoneNumber(Long.valueOf(signUpForm.getPhoneNumber()))) {
-            return new ResponseEntity<>(new BaseDTO(HttpStatus.BAD_REQUEST.value() + "", Constants.KEY_REGISTER_ALREADY, "", false), HttpStatus.BAD_REQUEST);
-        }
-        String uuid = userService.registerPhoneNumberAndRole(signUpForm);
-        return ResponseEntity.ok().body(new BaseDTO(HttpStatus.OK.value() + "", Constants.KEY_REGISTER, uuid, false));
-    }
+    @Autowired
+    FileService fileService;
 
-    @PostMapping(value = "/validateCode", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
-    public ResponseEntity<?> validateCode(@Valid @RequestBody ValidateCode validateCode) {
-        User user = userService.findUUIDAndCode(validateCode.getUserid(), validateCode.getCode());
-        if (user != null) {
-            userService.setActiveUser(true, user.getUid());
-            return ResponseEntity.ok().body(new BaseDTO(HttpStatus.OK.value() + "", Constants.KEY_CODE_VERIFY, user.getUid().toString(), true));
-        } else
-            return ResponseEntity.ok().body(new BaseDTO(HttpStatus.NOT_FOUND.value() + "", Constants.KEY_INVALID_CODE, "", false));
+    @PostMapping(value = "/createFile", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
+    public ResponseEntity<?> createFile(@Valid @RequestBody FileForm fileForm) {
+        if (fileService.checkExistTitleFile(fileForm.getTitle())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new FileDTO("23", Constants.KEY_DUPLICATE_FILE, ""));
+        }
+        UUID file = fileService.createFile(fileForm);
+        if (file != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(new FileDTO("200", Constants.KEY_CREATE_FILE_SUCSSES, file.toString()));
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new FileDTO("500", Constants.KEY_CREATE_FILE_FAILED, ""));
     }
 }

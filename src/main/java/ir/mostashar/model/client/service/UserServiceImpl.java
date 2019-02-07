@@ -1,17 +1,22 @@
 package ir.mostashar.model.client.service;
 
 import ir.mostashar.model.client.Client;
+import ir.mostashar.model.client.dto.ValidateCode;
 import ir.mostashar.model.client.repository.ClientRepository;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.repository.RoleRepository;
-import ir.mostashar.model.user.RoleName;
+import ir.mostashar.model.role.RoleName;
 import ir.mostashar.model.client.dto.SignUpForm;
 import ir.mostashar.security.jwt.JwtProvider;
+import ir.mostashar.security.jwt.JwtResponse;
 import ir.mostashar.util.Constants;
 import ir.mostashar.util.DataUtil;
 import ir.mostashar.util.SmsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,7 +26,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ir.mostashar.model.user.User;
 import ir.mostashar.model.user.repository.UserRepository;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -112,8 +119,26 @@ public class UserServiceImpl implements UserDetailsService {
         return uuid.toString();
     }
 
+    public JwtResponse generateToken(@Valid @RequestBody ValidateCode validateCode) {
+        Optional<User> userOptional = userRepository.findByUid(UUID.fromString(validateCode.getUserid()));
+        if (userOptional.isPresent()) {
+            System.out.println("Log---------2--generateToken " + userOptional.get().toString());
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            userOptional.get().getUsername(),
+                            userOptional.get().getPassword()
+                    )
+            );
 
-    public User findUUIDAndCode(String userid, String code) {
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String jwt = jwtProvider.generateJwtToken(authentication);
+            return new JwtResponse(jwt);
+        }
+        return null;
+    }
+
+    public User findUserIdAndCode(String userid, String code) {
+        System.out.println("Log----------findUserIdAndCode " + userid + "  " + code);
         Optional<User> user = userRepository.findUserByUidAndVerificationCode(UUID.fromString(userid), code);
         if (user.isPresent())
             return user.get();
@@ -121,7 +146,7 @@ public class UserServiceImpl implements UserDetailsService {
             return null;
     }
 
-    public void setActiveUser(boolean isactive, UUID userid) {
+    public void activeUser(boolean isactive, UUID userid) {
         Optional<User> user = userRepository.findByUid(userid);
         if (user.isPresent()) {
             user.get().setActive(isactive);
@@ -131,4 +156,11 @@ public class UserServiceImpl implements UserDetailsService {
     }
 
 
+    public User findByUserid(UUID userid) {
+        Optional<User> user = userRepository.findByUid(userid);
+        if (user.isPresent())
+            return user.get();
+        else
+            return null;
+    }
 }

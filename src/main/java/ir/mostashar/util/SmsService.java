@@ -10,12 +10,12 @@ public class SmsService {
     @Value("${sms.token}")
     private String token;
 
-    @Value("${sms.receiver}")
-    private String receiver;
+    @Value("${sms.sender}")
+    private String sender;
 
 
-    public void sendSms(String phoneNumber, String message) {
-        SmsSender smsSender=  new SmsSender(phoneNumber, message, token, receiver);
+    public void sendSms(String reciver, String message) {
+        SmsSender smsSender=  new SmsSender(token,sender,reciver,message);
         smsSender.sendSingleSms();
 
     }

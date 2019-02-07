@@ -6,6 +6,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 //r.tavakoli  4420504595
+// 1:03 len
 @SpringBootApplication
 @EnableJpaAuditing
 public class MostasharApplication extends SpringBootServletInitializer {

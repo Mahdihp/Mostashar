@@ -1,6 +1,6 @@
 package ir.mostashar.model.role.repository;
 
-import ir.mostashar.model.user.RoleName;
+import ir.mostashar.model.role.RoleName;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

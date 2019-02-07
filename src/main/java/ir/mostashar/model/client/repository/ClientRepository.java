@@ -14,9 +14,4 @@ public interface ClientRepository extends JpaRepository<Client,Long> {
     Boolean existsUserByMobileNumber(long phoneNumber);
     Optional<Client> findByUid(UUID uuid);
 
-//    @Query("SELECT count(*) FROM client")
-//    Optional<Long> countAllByClient();
-
-    @Override
-    long count();
 }

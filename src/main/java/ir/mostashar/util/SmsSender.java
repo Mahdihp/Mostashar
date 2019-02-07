@@ -9,50 +9,43 @@ import java.util.List;
 @Data
 public class SmsSender {
 
-    private String phoneNumber;
     private String message;
     private String token;
     private String reciever;
-    private List<String> listPhoneNumber;
+    private String sender;
+    private List<String> listReciver;
 
-    public SmsSender(String phoneNumber, String message, String token, String reciever) {
-        this.phoneNumber = phoneNumber;
+    public SmsSender(String token, String sender,String reciever, String message) {
         this.message = message;
         this.token = token;
         this.reciever = reciever;
-    }
-
-    public SmsSender(String message, String token, String reciever, List<String> listPhoneNumber) {
-        this.message = message;
-        this.token = token;
-        this.reciever = reciever;
-        this.listPhoneNumber = listPhoneNumber;
+        this.sender = sender;
     }
 
     public void sendListSms() {
         String phoneList = "";
-        for (String phone : listPhoneNumber) {
+        for (String phone : listReciver) {
             phoneList += phone + ",";
         }
         KavenegarApi api = new KavenegarApi(token);
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                //api.send(listPhoneNumber, reciever, message);
+                //api.send(listReciver, reciever, message);
             }
         });
         t.start();
     }
 
     public void sendSingleSms() {
-        System.out.println("Log-------------reciever" + phoneNumber);
+        System.out.println("Log-------------reciever" + reciever);
         System.out.println("Log-------------reciever" + message);
 
         KavenegarApi api = new KavenegarApi(token);
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-              //  api.send(phoneNumber, reciever, message);
+                api.send( sender,reciever, message);
                 System.out.println("Log---------sended");
             }
         });
