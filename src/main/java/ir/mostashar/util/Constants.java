@@ -15,4 +15,6 @@ public class Constants {
     public static final String KEY_DUPLICATE_FILE = "پرونده ای با این عنوان وجود دارد.";
     public static final String KEY_UPDATE_FILE = "پرونده ی مورد نظر بروز شد.";
     public static final String KEY_NOT_FOUND_FILE = "پرونده ی مورد نظر پیدا نشد.";
+    public static final String KEY_DELETE_FILE = "پرونده ی مورد نظر حذف شد.";
+    public static final String KEY_DELETE_ERROR_FILE = "خطا در حذف پرونده.";
 }

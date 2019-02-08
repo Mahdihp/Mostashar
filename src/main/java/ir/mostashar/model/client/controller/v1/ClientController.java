@@ -44,8 +44,12 @@ public class ClientController {
 
     @PostMapping(value = "/removeFile/{fileId}", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
     public ResponseEntity<?> removeFile(@PathVariable(value = "fileId") String fileId) {
-
-        return null;
+        Optional<File> file = fileRepository.findFileByUid(fileId);
+        if (file.isPresent()) {
+            fileRepository.delete(file.get());
+            return ResponseEntity.status(HttpStatus.OK).body(new FileDTO("200", Constants.KEY_DELETE_FILE));
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new FileDTO("500", Constants.KEY_DELETE_ERROR_FILE));
     }
 
     @PostMapping(value = "/updateFile", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
