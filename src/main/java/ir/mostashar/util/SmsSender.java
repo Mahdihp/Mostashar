@@ -2,6 +2,7 @@ package ir.mostashar.util;
 
 
 import com.kavenegar.sdk.KavenegarApi;
+import com.kavenegar.sdk.models.SendResult;
 import lombok.Data;
 
 import java.util.List;
@@ -45,7 +46,8 @@ public class SmsSender {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                api.send( sender,reciever, message);
+                SendResult send = api.send(sender, reciever, message);
+                System.out.println(send.toString());
                 System.out.println("Log---------sended");
             }
         });

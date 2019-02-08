@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserDetailsService {
             return false;
     }
 
-    public String registerPhoneNumberAndRole(SignUpForm signUpForm) {
+    public Optional<String> registerPhoneNumberAndRole(SignUpForm signUpForm) {
         UUID uuid = UUID.randomUUID();
         Client client = new Client();
         client.setMobileNumber(Long.valueOf(signUpForm.getPhoneNumber()));
@@ -114,9 +114,13 @@ public class UserServiceImpl implements UserDetailsService {
             }
         });
         client.setRoles(roles);
-        clientRepository.save(client);
-        smsService.sendSms(signUpForm.getPhoneNumber(), Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
-        return uuid.toString();
+        Client userSave = clientRepository.save(client);
+        if (userSave != null) {
+            smsService.sendSms(signUpForm.getPhoneNumber(), Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
+            return Optional.of(uuid.toString());
+        }
+        else
+            return Optional.empty();
     }
 
     public JwtResponse generateToken(@Valid @RequestBody ValidateCode validateCode) {
@@ -137,13 +141,14 @@ public class UserServiceImpl implements UserDetailsService {
         return null;
     }
 
-    public User findUserIdAndCode(String userid, String code) {
+    public Optional<User> findUserIdAndCode(String userid, String code) {
         System.out.println("Log----------findUserIdAndCode " + userid + "  " + code);
         Optional<User> user = userRepository.findUserByUidAndVerificationCode(UUID.fromString(userid), code);
-        if (user.isPresent())
-            return user.get();
-        else
-            return null;
+        return user;
+//        if (user.isPresent())
+//            return user.get();
+//        else
+//            return null;
     }
 
     public void activeUser(boolean isactive, UUID userid) {
@@ -156,11 +161,12 @@ public class UserServiceImpl implements UserDetailsService {
     }
 
 
-    public User findByUserid(UUID userid) {
+    public Optional<User> findByUserid(UUID userid) {
         Optional<User> user = userRepository.findByUid(userid);
-        if (user.isPresent())
-            return user.get();
-        else
-            return null;
+        return user;
+//        if (user.isPresent())
+//            return user.get();
+//        else
+//            return null;
     }
 }
