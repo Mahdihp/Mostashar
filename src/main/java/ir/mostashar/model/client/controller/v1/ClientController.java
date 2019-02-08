@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -24,8 +23,6 @@ import java.util.UUID;
 @RequestMapping("/api/v1/client")
 public class ClientController {
 
-    @Autowired
-    FileRepository fileRepository;
 
     @Autowired
     FileService fileService;
@@ -44,9 +41,7 @@ public class ClientController {
 
     @PostMapping(value = "/removefile/{fileId}", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
     public ResponseEntity<?> removeFile(@PathVariable(value = "fileId") String fileId) {
-        Optional<File> file = fileRepository.findFileByUid(fileId);
-        if (file.isPresent()) {
-            fileRepository.delete(file.get());
+        if (fileService.deleteFileByUid(fileId)) {
             return ResponseEntity.status(HttpStatus.OK).body(new FileDTO("200", Constants.KEY_DELETE_FILE));
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new FileDTO("500", Constants.KEY_DELETE_ERROR_FILE));
@@ -54,50 +49,26 @@ public class ClientController {
 
     @PostMapping(value = "/updatefile", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
     public ResponseEntity<?> updateFile(@Valid @RequestBody FileUpdateForm fileUpdateForm) {
-        Optional<File> file = fileRepository.findFileByUid(fileUpdateForm.getUid());
-        if (file.isPresent()) {
-            file.get().setTitle(fileUpdateForm.getTitle());
-            file.get().setDescription(fileUpdateForm.getDescription());
-            file.get().setModificationDate(System.currentTimeMillis());
-            fileRepository.save(file.get());
+        if (fileService.updateFile(fileUpdateForm)) {
             return ResponseEntity.status(HttpStatus.OK).body(new FileDTO("200", Constants.KEY_UPDATE_FILE));
         } else
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new FileDTO("404", Constants.KEY_NOT_FOUND_FILE));
-
     }
 
     @PostMapping(value = "/file/{fileId}", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
     public ResponseEntity<?> findFileById(@PathVariable(value = "fileId") String fileId) {
-        Optional<File> file = fileRepository.findFileByUid(fileId);
+        Optional<FileDTO> file = fileService.findFileByUid(fileId);
         if (file.isPresent()) {
-            FileDTO fileDTO = new FileDTO();
-            BaseFileDTO baseFileDTO = new BaseFileDTO();
-            fileDTO.setStatus("200");
-            fileDTO.setMessage("");
-            baseFileDTO.setFileId(file.get().getUid().toString());
-            baseFileDTO.setTitle(file.get().getTitle());
-            baseFileDTO.setDescription(file.get().getDescription());
-            baseFileDTO.setCreationDate(file.get().getCreationDate());
-            baseFileDTO.setModificationDate(file.get().getModificationDate());
-            if (file.get().getClient() != null)
-                baseFileDTO.setClient(file.get().getClient().getUid().toString());
-            fileDTO.setBaseFileDTO(baseFileDTO);
-            return ResponseEntity.status(HttpStatus.OK).body(fileDTO);
+            return ResponseEntity.status(HttpStatus.OK).body(file.get());
         } else
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new FileDTO("404", Constants.KEY_NOT_FOUND_FILE));
-
     }
 
     @PostMapping(value = "/files/{userid}", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
     public ResponseEntity<?> findAllFileByUserId(@PathVariable(value = "userid") String userid) {
-        Optional<List<File>> fileList = fileRepository.findAllByClientUid(userid);
-        if (fileList.isPresent()) {
-            FileDTO fileDTO = new FileDTO();
-            BaseFileDTO baseFileDTO = new BaseFileDTO();
-            fileDTO.setStatus("200");
-            fileDTO.setMessage("");
-            fileDTO.setBaseFileDTOList(FileDTO.convertListFileToListFileDTO(fileList.get()));
-            return ResponseEntity.status(HttpStatus.OK).body(fileDTO);
+        Optional<FileDTO> allFileByUserId = fileService.findAllFileByUserId(userid);
+        if (allFileByUserId.isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(allFileByUserId.get());
         } else
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new FileDTO("404", Constants.KEY_NOT_FOUND_FILE));
     }
