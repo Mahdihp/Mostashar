@@ -30,7 +30,7 @@ public class ClientController {
     @Autowired
     FileService fileService;
 
-    @PostMapping(value = "/createFile", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
+    @PostMapping(value = "/createfile", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
     public ResponseEntity<?> createFile(@Valid @RequestBody FileForm fileForm) {
         if (fileService.checkExistTitleFile(fileForm.getTitle())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new FileDTO("23", Constants.KEY_DUPLICATE_FILE));
@@ -42,7 +42,7 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new FileDTO("500", Constants.KEY_CREATE_FILE_FAILED));
     }
 
-    @PostMapping(value = "/removeFile/{fileId}", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
+    @PostMapping(value = "/removefile/{fileId}", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
     public ResponseEntity<?> removeFile(@PathVariable(value = "fileId") String fileId) {
         Optional<File> file = fileRepository.findFileByUid(fileId);
         if (file.isPresent()) {
@@ -52,7 +52,7 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new FileDTO("500", Constants.KEY_DELETE_ERROR_FILE));
     }
 
-    @PostMapping(value = "/updateFile", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
+    @PostMapping(value = "/updatefile", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
     public ResponseEntity<?> updateFile(@Valid @RequestBody FileUpdateForm fileUpdateForm) {
         Optional<File> file = fileRepository.findFileByUid(fileUpdateForm.getUid());
         if (file.isPresent()) {
