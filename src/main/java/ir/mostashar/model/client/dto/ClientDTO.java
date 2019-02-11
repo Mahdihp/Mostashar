@@ -1,5 +1,6 @@
 package ir.mostashar.model.client.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import ir.mostashar.model.BaseDTO;
 import ir.mostashar.security.jwt.JwtResponse;
 import lombok.Data;
@@ -7,6 +8,8 @@ import lombok.ToString;
 
 @ToString
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class ClientDTO extends BaseDTO {
 
     private JwtResponse jwtResponse;

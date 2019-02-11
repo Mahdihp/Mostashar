@@ -31,6 +31,11 @@ public class FileService {
     @Autowired
     FileRepository fileRepository;
 
+    /**
+     * create file from client
+     * @param fileForm
+     * @return
+     */
     public UUID createFile(FileForm fileForm) {
         Optional<Client> client = clientRepository.findByUid(UUID.fromString(fileForm.getUserId()));
         UUID uuid;
@@ -48,8 +53,13 @@ public class FileService {
         return null;
     }
 
-    public boolean checkExistTitleFile(String title) {
-        Optional<Boolean> aBoolean = fileRepository.existsByTitle(title);
+    /**
+     * check file title exist
+     * @param title
+     * @return
+     */
+    public boolean checkExistTitleFile(String title,Client client) {
+        Optional<Boolean> aBoolean = fileRepository.existsByClientAndTitle(client,title);
         if (aBoolean.isPresent())
             return true;
         else
@@ -92,7 +102,7 @@ public class FileService {
             if (file.get().getClient() != null)
                 baseFileDTO.setClient(file.get().getClient().getUid().toString());
             fileDTO.setBaseFileDTO(baseFileDTO);
-            return Optional.of(fileDTO);
+            return Optional.ofNullable(fileDTO);
         }
         return Optional.empty();
     }
@@ -105,7 +115,7 @@ public class FileService {
             fileDTO.setStatus("200");
             fileDTO.setMessage("");
             fileDTO.setBaseFileDTOList(FileDTO.convertListFileToListFileDTO(fileList.get()));
-            return Optional.of(fileDTO);
+            return Optional.ofNullable(fileDTO);
         }
         return Optional.empty();
     }

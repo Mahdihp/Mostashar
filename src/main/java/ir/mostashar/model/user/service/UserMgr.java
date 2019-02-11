@@ -18,11 +18,10 @@ import ir.mostashar.model.role.service.RoleMgr;
 import ir.mostashar.model.user.User;
 import ir.mostashar.model.user.repository.UserRepository;
 
-@Service
 public class UserMgr {
 
-	@Autowired
-    private UserRepository userRepository;
+
+   /* private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
@@ -54,15 +53,15 @@ public class UserMgr {
         user.setUid(UUID.randomUUID());
         
         return userRepository.save(user);
-    }
+    }*/
 
 //    public User findByUsername(String username) {
 //        return userRepository.findByUsername(username);
 //    }
 
-	public List<User> findAll() {
-		return userRepository.findAll();
-	}
+//	public List<User> findAll() {
+//		return userRepository.findAll();
+//	}
 	
 //	public boolean hasAccess(String featureName) {
 //

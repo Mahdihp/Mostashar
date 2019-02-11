@@ -30,7 +30,7 @@ public class ClientAuthController {
     @PostMapping(value = "/login", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
     public ResponseEntity<?> signUp(@RequestBody SignUpForm signUpForm) {
         if (!DataUtil.isValidePhoneNumber(signUpForm.getPhoneNumber())) {
-            return new ResponseEntity<>(new BaseDTO(HttpStatus.BAD_REQUEST.value() + "", Constants.KEY_PHONE_NUMBER_NOT_VALID, "", false), HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value() + "", Constants.KEY_PHONE_NUMBER_NOT_VALID, "", false));
         }
         if (userService.existsByPhoneNumber(Long.valueOf(signUpForm.getPhoneNumber()))) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BaseDTO(HttpStatus.BAD_REQUEST.value() + "", Constants.KEY_REGISTER_ALREADY, "", false));

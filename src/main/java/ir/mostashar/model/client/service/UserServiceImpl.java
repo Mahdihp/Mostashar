@@ -73,12 +73,11 @@ public class UserServiceImpl implements UserDetailsService {
 
     public boolean existsByPhoneNumber(long phoneNumber) {
         System.out.println("Log---------------existsByPhoneNumber " + phoneNumber);
-
         Optional<Boolean> aBoolean = userRepository.existsUserByMobileNumber(phoneNumber);
-        if (aBoolean.isPresent())
+        if (aBoolean.isPresent()) {
             return aBoolean.get();
-        else
-            return false;
+        }
+        return false;
     }
 
     public Optional<String> registerPhoneNumberAndRole(SignUpForm signUpForm) {
@@ -118,8 +117,7 @@ public class UserServiceImpl implements UserDetailsService {
         if (userSave != null) {
             smsService.sendSms(signUpForm.getPhoneNumber(), Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
             return Optional.of(uuid.toString());
-        }
-        else
+        } else
             return Optional.empty();
     }
 
@@ -168,5 +166,10 @@ public class UserServiceImpl implements UserDetailsService {
 //            return user.get();
 //        else
 //            return null;
+    }
+
+    public Optional<Client> findByClientId(UUID userid) {
+        Optional<Client> client = clientRepository.findByUid(userid);
+        return client;
     }
 }

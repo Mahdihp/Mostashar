@@ -10,6 +10,9 @@ public class Constants {
     public static final String KEY_OLD_ACTIVE = "حساب کاربری شما قبلا فعال شده است.";
     public static final String KEY_SEND_VERIFY_CODE = "پیامک تایید مستشار:";
 
+    public static final String KEY_USER_NOT_FOUND = "کاربر مورد نظر موجود نیست.";
+
+
     public static final String KEY_CREATE_FILE_SUCSSES = "پرونده با موفقیت تشکیل شد.";
     public static final String KEY_CREATE_FILE_FAILED = "پرونده ای تشکیل نشد.";
     public static final String KEY_DUPLICATE_FILE = "پرونده ای با این عنوان وجود دارد.";
@@ -17,4 +20,13 @@ public class Constants {
     public static final String KEY_NOT_FOUND_FILE = "پرونده ی مورد نظر پیدا نشد.";
     public static final String KEY_DELETE_FILE = "پرونده ی مورد نظر حذف شد.";
     public static final String KEY_DELETE_ERROR_FILE = "خطا در حذف پرونده.";
+
+
+    public static final String KEY_DUPLICATE_PACK = "بسته ای با این نام وجود دارد.";
+    public static final String KEY_CREATE_PACK_FAILED = "مشکل در ساخت بسته.";
+    public static final String KEY_CREATE_PACK_SUCESSE = "بسته مورد با موفقیت ساخته شد.";
+    public static final String KEY_DELETE_PACK = "بسته مورد نظر حذف شد.";
+    public static final String KEY_DELETE_PACK_FAILED = "خطا در حذف بسته.";
+    public static final String KEY_NOT_FOUND_PACK = "بسته مورد نظر یافت نشد.";
+    public static final String KEY_UPDATE_PACK_SUCESSE = "بسته مورد نظر با موفقیت ویرایش شد.";
 }

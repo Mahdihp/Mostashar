@@ -36,7 +36,7 @@ public class Pack {
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "pack")
-    private Set<ConsumptionPack> comments = new HashSet<>();
+    private Set<ConsumptionPack> consumptionpacks = new HashSet<>();
 
 
     @ManyToOne(fetch = FetchType.LAZY)

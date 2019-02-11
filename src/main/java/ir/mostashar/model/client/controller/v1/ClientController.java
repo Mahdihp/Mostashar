@@ -1,13 +1,12 @@
 package ir.mostashar.model.client.controller.v1;
 
+import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.dto.FileForm;
 import ir.mostashar.model.client.dto.FileUpdateForm;
 import ir.mostashar.model.client.service.UserServiceImpl;
-import ir.mostashar.model.file.File;
-import ir.mostashar.model.file.dto.BaseFileDTO;
 import ir.mostashar.model.file.dto.FileDTO;
-import ir.mostashar.model.file.repository.FileRepository;
 import ir.mostashar.model.file.service.FileService;
+import ir.mostashar.model.pack.dto.PackForm;
 import ir.mostashar.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,11 +26,20 @@ public class ClientController {
     @Autowired
     FileService fileService;
 
+    @Autowired
+    UserServiceImpl userService;
+
     @PostMapping(value = "/createfile", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
     public ResponseEntity<?> createFile(@Valid @RequestBody FileForm fileForm) {
-        if (fileService.checkExistTitleFile(fileForm.getTitle())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new FileDTO("23", Constants.KEY_DUPLICATE_FILE));
+        Optional<Client> client = userService.findByClientId(UUID.fromString(fileForm.getUserId()));
+        if (client.isPresent()) {
+            if (fileService.checkExistTitleFile(fileForm.getTitle(), client.get())) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new FileDTO("23", Constants.KEY_DUPLICATE_FILE));
+            }
+        }else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new FileDTO("23", Constants.KEY_USER_NOT_FOUND));
         }
+
         UUID file = fileService.createFile(fileForm);
         if (file != null) {
             return ResponseEntity.status(HttpStatus.OK).body(new FileDTO("200", Constants.KEY_CREATE_FILE_SUCSSES));
@@ -73,5 +81,14 @@ public class ClientController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new FileDTO("404", Constants.KEY_NOT_FOUND_FILE));
     }
 
+    @PostMapping(value = "/packages", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
+    public ResponseEntity<?> findAllPackage() {
+        return null;
+    }
+
+    @PostMapping(value = "/buypackage", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
+    public ResponseEntity<?> buyPackages(@Valid @RequestBody PackForm packForm) {
+        return null;
+    }
 
 }
