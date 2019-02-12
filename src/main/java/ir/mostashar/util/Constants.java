@@ -29,4 +29,7 @@ public class Constants {
     public static final String KEY_DELETE_PACK_FAILED = "خطا در حذف بسته.";
     public static final String KEY_NOT_FOUND_PACK = "بسته مورد نظر یافت نشد.";
     public static final String KEY_UPDATE_PACK_SUCESSE = "بسته مورد نظر با موفقیت ویرایش شد.";
+
+
+    public static final String KEY_SUCESSE = "sucesse!" ;
 }

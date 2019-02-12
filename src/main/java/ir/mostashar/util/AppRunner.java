@@ -4,6 +4,8 @@ import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.repository.ClientRepository;
 import ir.mostashar.model.feature.Feature;
 import ir.mostashar.model.feature.dao.FeatureRepository;
+import ir.mostashar.model.file.File;
+import ir.mostashar.model.file.repository.FileRepository;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.repository.RoleRepository;
 import ir.mostashar.model.role.RoleName;
@@ -26,6 +28,9 @@ public class AppRunner implements ApplicationRunner {
 
     @Autowired
     FeatureRepository featureRepository;
+
+    @Autowired
+    FileRepository fileRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -166,6 +171,29 @@ public class AppRunner implements ApplicationRunner {
         client3.setRoles(roles3);
         client4.setRoles(roles4);
 
+
+        File file1=new File();
+        file1.setUid(UUID.randomUUID());
+        file1.setTitle("Test File 1");
+        file1.setDescription("Description Test 1");
+        file1.setClient(client1);
+        file1.setCreationDate(System.currentTimeMillis());
+
+        File file2=new File();
+        file2.setUid(UUID.randomUUID());
+        file2.setTitle("Test File 2");
+        file2.setDescription("Description Test 2");
+        file2.setClient(client2);
+        file2.setCreationDate(System.currentTimeMillis());
+
+        File file3=new File();
+        file3.setUid(UUID.randomUUID());
+        file3.setTitle("Test File 3");
+        file3.setDescription("Description Test 3");
+        file3.setClient(client3);
+        file3.setCreationDate(System.currentTimeMillis());
+
+
         featureRepository.save(feature1);
         featureRepository.save(feature2);
         featureRepository.save(feature3);
@@ -180,6 +208,10 @@ public class AppRunner implements ApplicationRunner {
         clientRepository.save(client2);
         clientRepository.save(client3);
         clientRepository.save(client4);
+
+        fileRepository.save(file1);
+        fileRepository.save(file2);
+        fileRepository.save(file3);
     }
 
 

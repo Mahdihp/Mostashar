@@ -74,10 +74,10 @@ public class UserServiceImpl implements UserDetailsService {
     public boolean existsByPhoneNumber(long phoneNumber) {
         System.out.println("Log---------------existsByPhoneNumber " + phoneNumber);
         Optional<Boolean> aBoolean = userRepository.existsUserByMobileNumber(phoneNumber);
-        if (aBoolean.isPresent()) {
+        if (aBoolean.isPresent())
             return aBoolean.get();
-        }
-        return false;
+        else
+            return false;
     }
 
     public Optional<String> registerPhoneNumberAndRole(SignUpForm signUpForm) {
@@ -143,10 +143,6 @@ public class UserServiceImpl implements UserDetailsService {
         System.out.println("Log----------findUserIdAndCode " + userid + "  " + code);
         Optional<User> user = userRepository.findUserByUidAndVerificationCode(UUID.fromString(userid), code);
         return user;
-//        if (user.isPresent())
-//            return user.get();
-//        else
-//            return null;
     }
 
     public void activeUser(boolean isactive, UUID userid) {
@@ -162,10 +158,6 @@ public class UserServiceImpl implements UserDetailsService {
     public Optional<User> findByUserid(UUID userid) {
         Optional<User> user = userRepository.findByUid(userid);
         return user;
-//        if (user.isPresent())
-//            return user.get();
-//        else
-//            return null;
     }
 
     public Optional<Client> findByClientId(UUID userid) {

@@ -33,26 +33,32 @@ public class ClientController {
     public ResponseEntity<?> createFile(@Valid @RequestBody FileForm fileForm) {
         Optional<Client> client = userService.findByClientId(UUID.fromString(fileForm.getUserId()));
         if (client.isPresent()) {
-            if (fileService.checkExistTitleFile(fileForm.getTitle(), client.get())) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new FileDTO("23", Constants.KEY_DUPLICATE_FILE));
+            if (fileService.existTitleFile(fileForm.getTitle(), client.get())) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new FileDTO("400", Constants.KEY_DUPLICATE_FILE));
             }
-        }else{
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new FileDTO("23", Constants.KEY_USER_NOT_FOUND));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new FileDTO("400", Constants.KEY_USER_NOT_FOUND));
         }
 
         UUID file = fileService.createFile(fileForm);
         if (file != null) {
             return ResponseEntity.status(HttpStatus.OK).body(new FileDTO("200", Constants.KEY_CREATE_FILE_SUCSSES));
         }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new FileDTO("500", Constants.KEY_CREATE_FILE_FAILED));
+        return null;
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new FileDTO("500", Constants.KEY_CREATE_FILE_FAILED));
     }
 
     @PostMapping(value = "/removefile/{fileId}", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
     public ResponseEntity<?> removeFile(@PathVariable(value = "fileId") String fileId) {
-        if (fileService.deleteFileByUid(fileId)) {
-            return ResponseEntity.status(HttpStatus.OK).body(new FileDTO("200", Constants.KEY_DELETE_FILE));
+        Optional<FileDTO> file = fileService.findFileByUid(fileId);
+        if (file.isPresent()) {
+            if (fileService.deleteFileByUid(fileId)) {
+                return ResponseEntity.status(HttpStatus.OK).body(new FileDTO("200", Constants.KEY_DELETE_FILE));
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new FileDTO("404", Constants.KEY_NOT_FOUND_FILE));
         }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new FileDTO("500", Constants.KEY_DELETE_ERROR_FILE));
+        return null;
     }
 
     @PostMapping(value = "/updatefile", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
@@ -64,7 +70,7 @@ public class ClientController {
     }
 
     @PostMapping(value = "/file/{fileId}", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
-    public ResponseEntity<?> findFileById(@PathVariable(value = "fileId") String fileId) {
+    public ResponseEntity<?> findeById(@PathVariable(value = "fileId") String fileId) {
         Optional<FileDTO> file = fileService.findFileByUid(fileId);
         if (file.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(file.get());

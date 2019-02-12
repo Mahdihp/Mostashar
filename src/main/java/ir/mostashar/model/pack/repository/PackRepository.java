@@ -11,8 +11,6 @@ import java.util.UUID;
 @Repository
 public interface PackRepository extends JpaRepository<Pack,Long> {
 
-    Optional<List<Pack>> findAllPacks();
-
     Optional<Pack> findPackByUid(UUID uuid);
 
     Optional<Boolean> existsPackByName(String name);

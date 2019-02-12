@@ -7,14 +7,15 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public interface FileRepository extends JpaRepository<File,Long> {
 
     Optional<Boolean> existsByClientAndTitle(Client client, String title);
 
-    Optional<File> findFileByUid(String uid);
+    Optional<File> findFileByUid(UUID  uid);
 
-    Optional<List<File>> findAllByClientUid(String uid);
+    Optional<List<File>> findAllByClientUid(UUID uid);
 
 }

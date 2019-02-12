@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
-import java.util.UUID;
 
 @AllArgsConstructor
 @Data
@@ -25,8 +24,10 @@ public class FileUpdateForm extends BaseDTO {
     private String description;
 
     @NotBlank
-    private Long modificationDate;
+    private String modificationDate;
 
     public FileUpdateForm() {
     }
+
+
 }

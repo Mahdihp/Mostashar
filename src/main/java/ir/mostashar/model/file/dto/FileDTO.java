@@ -14,9 +14,9 @@ public class FileDTO {
 
     private String status;
     private String message;
-    private BaseFileDTO baseFileDTO;
+    private BaseFileDTO file;
 
-    private List<BaseFileDTO> baseFileDTOList;
+    private List<BaseFileDTO> files;
 
     public FileDTO() {
     }

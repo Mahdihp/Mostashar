@@ -50,6 +50,7 @@ public class Client extends User {
     private Set<Request> requests = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
+    @EqualsAndHashCode.Exclude
     private Set<File> files = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")

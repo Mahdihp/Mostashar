@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
 public class BaseFileDTO {
 
@@ -14,7 +13,7 @@ public class BaseFileDTO {
     private String description;
     private Long creationDate;
     private Long modificationDate;
-    private String client;
+    private String clientid;
 
     public BaseFileDTO() {
     }
