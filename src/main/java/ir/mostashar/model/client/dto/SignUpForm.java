@@ -14,14 +14,9 @@ public class SignUpForm {
     private String phoneNumber;
 
 
-
-    @NotBlank
-    private Set<String> role;
-
     public SignUpForm() {  }
 
-    public SignUpForm(String phoneNumber, Set<String> role) {
+    public SignUpForm(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-        this.role = role;
     }
 }

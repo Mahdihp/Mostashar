@@ -27,8 +27,8 @@ public class Pack {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "value")
-    private long  value;
+    @Column(name = "minute")
+    private int  minute;
 
     @Column(name = "isactive")
     private boolean isActive = false;

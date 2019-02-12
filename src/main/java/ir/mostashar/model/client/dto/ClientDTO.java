@@ -9,7 +9,6 @@ import lombok.ToString;
 @ToString
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-
 public class ClientDTO extends BaseDTO {
 
     private JwtResponse jwtResponse;

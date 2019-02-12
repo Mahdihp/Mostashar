@@ -2,7 +2,6 @@ package ir.mostashar.model.client.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ir.mostashar.model.user.User;
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,15 +9,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Data
+
 public class UserPrinciple implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    private UUID uid;
+    private String uid;
     private String username;
 
     @JsonIgnore
@@ -26,9 +24,7 @@ public class UserPrinciple implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrinciple(Long id,UUID uid, String username,
-                         String password,
-                         Collection<? extends GrantedAuthority> authorities) {
+    public UserPrinciple(Long id, String uid, String username, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.uid = uid;
         this.username = username;
@@ -43,62 +39,72 @@ public class UserPrinciple implements UserDetails {
 
         return new UserPrinciple(
                 user.getId(),
-                user.getUid(),
+                user.getUid().toString(),
                 user.getUsername(),
                 user.getPassword(),
                 authorities
         );
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+    public Long getId() {
+        return id;
     }
 
-    @Override
-    public String getPassword() {
-        return null;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return username;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserPrinciple that = (UserPrinciple) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(username, that.username) &&
-                Objects.equals(uid, that.uid) &&
-                Objects.equals(password, that.password) &&
-                Objects.equals(authorities, that.authorities);
+
+        UserPrinciple user = (UserPrinciple) o;
+        return Objects.equals(id, user.id);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username, uid, password, authorities);
-    }
+
 }

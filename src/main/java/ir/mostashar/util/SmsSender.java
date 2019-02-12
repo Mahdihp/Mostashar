@@ -16,7 +16,7 @@ public class SmsSender {
     private String sender;
     private List<String> listReciver;
 
-    public SmsSender(String token, String sender,String reciever, String message) {
+    public SmsSender(String token, String sender, String reciever, String message) {
         this.message = message;
         this.token = token;
         this.reciever = reciever;
@@ -46,9 +46,15 @@ public class SmsSender {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                SendResult send = api.send(sender, reciever, message);
-                System.out.println(send.toString());
-                System.out.println("Log---------sended");
+                try {
+                    SendResult send = api.send(sender, reciever, message);
+                    System.out.println(send.getSender());
+                    System.out.println(send.getMessage());
+                    System.out.println(send.getDate());
+                    System.out.println("Log---------sended");
+                } catch (Exception e1) {
+                    return;
+                }
             }
         });
         t.start();

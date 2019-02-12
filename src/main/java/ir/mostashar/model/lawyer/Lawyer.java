@@ -34,6 +34,9 @@ public class Lawyer extends User {
     @Column(name = "level")
     private int level = 1;
 
+    @Column(name = "pricelevel")
+    private int pricePerminute = 1;
+
     @Column(name = "verified")
     private boolean verified = false;
 

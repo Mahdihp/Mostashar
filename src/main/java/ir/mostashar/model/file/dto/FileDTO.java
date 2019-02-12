@@ -15,7 +15,7 @@ public class FileDTO {
     private String status;
     private String message;
     private BaseFileDTO file;
-
+    private String fileId;
     private List<BaseFileDTO> files;
 
     public FileDTO() {
@@ -24,6 +24,12 @@ public class FileDTO {
     public FileDTO(String status, String message) {
         this.status = status;
         this.message = message;
+    }
+
+    public FileDTO(String status, String message, String fileId) {
+        this.status = status;
+        this.message = message;
+        this.fileId = fileId;
     }
 
     public static List<BaseFileDTO> convertListFileToListFileDTO(List<File> listFile){

@@ -3,6 +3,8 @@ package ir.mostashar.model.client.service;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.dto.ValidateCode;
 import ir.mostashar.model.client.repository.ClientRepository;
+import ir.mostashar.model.lawyer.Lawyer;
+import ir.mostashar.model.lawyer.repository.LawyerRepository;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.repository.RoleRepository;
 import ir.mostashar.model.role.RoleName;
@@ -47,6 +49,9 @@ public class UserServiceImpl implements UserDetailsService {
     private ClientRepository clientRepository;
 
     @Autowired
+    private LawyerRepository lawyerRepository;
+
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
@@ -59,7 +64,7 @@ public class UserServiceImpl implements UserDetailsService {
     private JwtProvider jwtProvider;
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
 
@@ -80,38 +85,69 @@ public class UserServiceImpl implements UserDetailsService {
             return false;
     }
 
-    public Optional<String> registerPhoneNumberAndRole(SignUpForm signUpForm) {
+    public Optional<String> registerPhoneNumberAndRole(SignUpForm signUpForm, Role role) {
+
+        Set<Role> roles = new HashSet<>();
+        switch (role.getName()) {
+//            case ROLE_ADMIN:
+//                Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
+//                        .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+//                roles.add(adminRole);
+//
+//                break;
+            case ROLE_LAWYER:
+                Role lawyerRole = roleRepository.findByName(RoleName.ROLE_LAWYER)
+                        .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+                roles.add(lawyerRole);
+                return saveLawyer(signUpForm, roles);
+            case ROLE_CLIENT:
+                Role clientRole = roleRepository.findByName(RoleName.ROLE_CLIENT)
+                        .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+                roles.add(clientRole);
+                return saveClient(signUpForm, roles);
+
+//            case ROLE_RESELLER:
+//                Role resellerRole = roleRepository.findByName(RoleName.ROLE_RESELLER)
+//                        .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+//                roles.add(resellerRole);
+//                break;
+            default:
+                return null;
+        }
+    }
+
+    private Optional<String> saveLawyer(SignUpForm signUpForm, Set<Role> roles) {
+        Lawyer lawyer = new Lawyer();
         UUID uuid = UUID.randomUUID();
+        lawyer.setMobileNumber(Long.valueOf(signUpForm.getPhoneNumber()));
+        String code = DataUtil.genarateRandomNumber();
+        lawyer.setVerificationCode(code);
+        lawyer.setUid(uuid);
+
+        lawyer.setUsername(DataUtil.generateAlphaNumericRandomUserPass(8));
+        lawyer.setPassword(encoder.encode(DataUtil.generateNumericRandomUserPass(8)));
+
+        lawyer.setRoles(roles);
+        Lawyer userSave = lawyerRepository.save(lawyer);
+        if (userSave != null) {
+            smsService.sendSms(signUpForm.getPhoneNumber(), Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
+            return Optional.of(uuid.toString());
+        } else
+            return Optional.empty();
+    }
+
+    private Optional<String> saveClient(SignUpForm signUpForm, Set<Role> roles) {
         Client client = new Client();
+        UUID uuid = UUID.randomUUID();
         client.setMobileNumber(Long.valueOf(signUpForm.getPhoneNumber()));
         String code = DataUtil.genarateRandomNumber();
         client.setVerificationCode(code);
         client.setTel(Long.valueOf(signUpForm.getPhoneNumber()));
         client.setUid(uuid);
 
-        Set<String> strRoles = signUpForm.getRole();
-        Set<Role> roles = new HashSet<>();
+        client.setUsername(DataUtil.generateAlphaNumericRandomUserPass(8));
+        client.setPassword(encoder.encode(DataUtil.generateNumericRandomUserPass(8)));
 
-        strRoles.forEach(role -> {
-            switch (role) {
-                case "admin":
-                    Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
-                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
-                    roles.add(adminRole);
-
-                    break;
-                case "lawyer":
-                    Role pmRole = roleRepository.findByName(RoleName.ROLE_LAWYER)
-                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
-                    roles.add(pmRole);
-
-                    break;
-                default:
-                    Role userRole = roleRepository.findByName(RoleName.ROLE_CLIENT)
-                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
-                    roles.add(userRole);
-            }
-        });
         client.setRoles(roles);
         Client userSave = clientRepository.save(client);
         if (userSave != null) {
@@ -121,10 +157,13 @@ public class UserServiceImpl implements UserDetailsService {
             return Optional.empty();
     }
 
+
     public JwtResponse generateToken(@Valid @RequestBody ValidateCode validateCode) {
         Optional<User> userOptional = userRepository.findByUid(UUID.fromString(validateCode.getUserid()));
         if (userOptional.isPresent()) {
-            System.out.println("Log---------2--generateToken " + userOptional.get().toString());
+            System.out.println("Log---------2--generateToken " + userOptional.get().getUsername());
+            System.out.println("Log---------2--generateToken " + userOptional.get().getPassword());
+
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             userOptional.get().getUsername(),

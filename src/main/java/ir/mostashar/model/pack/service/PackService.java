@@ -6,11 +6,13 @@ import ir.mostashar.model.pack.Pack;
 import ir.mostashar.model.pack.dto.PackDTO;
 import ir.mostashar.model.pack.dto.PackForm;
 import ir.mostashar.model.pack.repository.PackRepository;
+import ir.mostashar.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -38,7 +40,7 @@ public class PackService {
             Pack pack = new Pack();
             pack.setUid(uuid);
             pack.setName(packForm.getName());
-            pack.setValue(packForm.getValue());
+            pack.setMinute(packForm.getMinute());
             pack.setDescription(packForm.getDescription());
             pack.setActive(packForm.getIsActive());
             pack.setAdvicetype(adviceType.get());
@@ -72,7 +74,7 @@ public class PackService {
             pack.get().setName(packForm.getUid());
             pack.get().setDescription(packForm.getDescription());
             pack.get().setActive(packForm.getIsActive());
-            pack.get().setValue(packForm.getValue());
+            pack.get().setMinute(packForm.getMinute());
             if (adviceType.isPresent())
                 pack.get().setAdvicetype(adviceType.get());
 
@@ -93,15 +95,37 @@ public class PackService {
             packForm.setUid(packForm.getUid());
             packForm.setName(pack.get().getName());
             packForm.setDescription(pack.get().getDescription());
-            packForm.setValue(pack.get().getValue());
+            packForm.setMinute(pack.get().getMinute());
             packForm.setAdviceId(pack.get().getAdvicetype().getUid().toString());
             packForm.setIsActive(pack.get().isActive());
             PackDTO packDTO = new PackDTO();
             packDTO.setStatus("200");
+            packDTO.setMessage(Constants.KEY_SUCESSE);
             packDTO.setPackForm(packForm);
             return Optional.ofNullable(packDTO);
         }
         return Optional.empty();
     }
+
+    public Optional<PackDTO> findAllPacks() {
+        List<Pack> packList = packRepository.findAll();
+        PackDTO packDTO = new PackDTO();
+        for (Pack pack : packList) {
+            packDTO.setStatus("200");
+            packDTO.setMessage(Constants.KEY_SUCESSE);
+
+            packDTO.setPackId(pack.getUid().toString());
+            packDTO.setName(pack.getName());
+            packDTO.setDescription(pack.getDescription());
+            packDTO.setMinute(pack.getMinute());
+            packDTO.setIsActive(pack.isActive());
+            packDTO.setAdvicetype(pack.getAdvicetype());
+        }
+        if (packList != null)
+            return Optional.ofNullable(packDTO);
+        else
+           return Optional.empty();
+    }
+
 
 }

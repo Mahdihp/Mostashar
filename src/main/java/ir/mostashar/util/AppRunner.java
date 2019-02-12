@@ -1,11 +1,15 @@
 package ir.mostashar.util;
 
+import ir.mostashar.model.adviceType.AdviceType;
+import ir.mostashar.model.adviceType.repository.AdviceTypeRepository;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.repository.ClientRepository;
 import ir.mostashar.model.feature.Feature;
 import ir.mostashar.model.feature.dao.FeatureRepository;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.repository.FileRepository;
+import ir.mostashar.model.pack.Pack;
+import ir.mostashar.model.pack.repository.PackRepository;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.repository.RoleRepository;
 import ir.mostashar.model.role.RoleName;
@@ -31,6 +35,12 @@ public class AppRunner implements ApplicationRunner {
 
     @Autowired
     FileRepository fileRepository;
+
+    @Autowired
+    AdviceTypeRepository adviceTypeRepository;
+
+    @Autowired
+    PackRepository packRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -193,6 +203,53 @@ public class AppRunner implements ApplicationRunner {
         file3.setClient(client3);
         file3.setCreationDate(System.currentTimeMillis());
 
+        AdviceType adviceType1=new AdviceType();
+        adviceType1.setUid(UUID.fromString("11482c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType1.setName("روانشناسی");
+        adviceType1.setType("1");
+        adviceType1.setDescription("مشاوره روانشناسی");
+
+        AdviceType adviceType2=new AdviceType();
+        adviceType2.setUid(UUID.fromString("12482c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType1.setName("حقوقی");
+        adviceType1.setType("2");
+        adviceType1.setDescription("مشاوره حقوقی");
+
+
+        Pack pack1=new Pack();
+        pack1.setUid(UUID.fromString("13482c33-b3a5-4401-a274-016bda28fdce"));
+        pack1.setMinute(0);
+        pack1.setName("5 دقیقه مشاوره");
+        pack1.setAdvicetype(adviceType2);
+        pack1.setActive(true);
+
+        Pack pack2=new Pack();
+        pack2.setUid(UUID.fromString("14482c33-b3a5-4401-a274-016bda28fdce"));
+        pack2.setMinute(10);
+        pack2.setName("10 دقیقه مشاوره");
+        pack2.setAdvicetype(adviceType2);
+        pack2.setActive(true);
+
+        Pack pack3=new Pack();
+        pack3.setUid(UUID.fromString("15482c33-b3a5-4401-a274-016bda28fdce"));
+        pack3.setMinute(15);
+        pack3.setName("15 دقیقه مشاوره");
+        pack3.setAdvicetype(adviceType2);
+        pack3.setActive(true);
+
+        Pack pack4=new Pack();
+        pack4.setUid(UUID.fromString("16482c33-b3a5-4401-a274-016bda28fdce"));
+        pack4.setMinute(30);
+        pack4.setName("30 دقیقه مشاوره");
+        pack4.setAdvicetype(adviceType2);
+        pack4.setActive(true);
+
+        Pack pack5=new Pack();
+        pack5.setUid(UUID.fromString("17482c33-b3a5-4401-a274-016bda28fdce"));
+        pack5.setMinute(45);
+        pack5.setName("45 دقیقه مشاوره");
+        pack5.setAdvicetype(adviceType2);
+        pack5.setActive(true);
 
         featureRepository.save(feature1);
         featureRepository.save(feature2);
@@ -212,6 +269,15 @@ public class AppRunner implements ApplicationRunner {
         fileRepository.save(file1);
         fileRepository.save(file2);
         fileRepository.save(file3);
+
+        adviceTypeRepository.save(adviceType1);
+        adviceTypeRepository.save(adviceType2);
+
+        packRepository.save(pack1);
+        packRepository.save(pack2);
+        packRepository.save(pack3);
+        packRepository.save(pack4);
+        packRepository.save(pack5);
     }
 
 

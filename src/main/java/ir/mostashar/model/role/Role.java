@@ -31,7 +31,7 @@ public class Role {
 
 	@Enumerated(EnumType.STRING)
 	@NaturalId
-	@Column(length = 60,unique = true)
+	@Column(length = 60)
 	private RoleName name;
 
 	@Column(name = "userdefined")
@@ -40,7 +40,7 @@ public class Role {
 	@ManyToMany(mappedBy = "roles")
 	private Set<User> users = new HashSet<>();
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "role_feature", joinColumns = @JoinColumn(name = "roleid", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "featureid", referencedColumnName = "id"))
 	private Set<Feature> features = new HashSet<>();
 

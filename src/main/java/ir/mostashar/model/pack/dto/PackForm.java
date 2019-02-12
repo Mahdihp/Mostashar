@@ -18,7 +18,7 @@ public class PackForm {
     private String description;
 
     @NotBlank
-    private Long  value;
+    private Integer  minute;
 
     @NotBlank
     private Boolean isActive;
