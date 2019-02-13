@@ -1,8 +1,6 @@
 package ir.mostashar.model.pack.cntroller.v1;
 
 import ir.mostashar.model.BaseDTO;
-import ir.mostashar.model.file.dto.FileDTO;
-import ir.mostashar.model.pack.Pack;
 import ir.mostashar.model.pack.dto.PackDTO;
 import ir.mostashar.model.pack.dto.PackForm;
 import ir.mostashar.model.pack.service.PackService;

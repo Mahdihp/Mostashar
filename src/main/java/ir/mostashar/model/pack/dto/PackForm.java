@@ -11,20 +11,14 @@ public class PackForm {
     @NotBlank
     private String uid;
 
-    @NotBlank
     private String name;
-
-    @NotBlank
     private String description;
 
     @NotBlank
-    private Integer  minute;
+    private Integer  pricePerMinute;
 
     @NotBlank
     private Boolean isActive;
-
-    @NotBlank
-    private String adviceId;
 
     public PackForm() {
     }

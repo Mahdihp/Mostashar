@@ -31,7 +31,7 @@ public class ConsumptionPack {
     private long value;
 
     @Column(name = "type")
-    private int type;
+    private short type;
 
     @Column(name = "firstinstallmentdate")
     private Long firstInstallmentDate;
@@ -57,7 +57,7 @@ public class ConsumptionPack {
     public ConsumptionPack() {
     }
 
-    public ConsumptionPack(UUID uid, Long consumptionTime, long value, int type, Long firstInstallmentDate, Long lastInstallmentDate, Pack pack, Request request) {
+    public ConsumptionPack(UUID uid, Long consumptionTime, long value, short type, Long firstInstallmentDate, Long lastInstallmentDate, Pack pack, Request request) {
         this.uid = uid;
         this.consumptionTime = consumptionTime;
         this.value = value;

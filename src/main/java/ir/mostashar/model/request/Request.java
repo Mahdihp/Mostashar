@@ -9,6 +9,7 @@ import ir.mostashar.model.failRequest.FailRequest;
 import ir.mostashar.model.feedback.Feedback;
 import ir.mostashar.model.file.File;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -35,6 +36,10 @@ public class Request {
 
     @Column(name = "deleted")
     private boolean deleted = false;
+
+    @Column(name = "creationdate", updatable = false)
+    @CreatedDate
+    private Long creationDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clientid", nullable = false)

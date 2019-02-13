@@ -42,7 +42,7 @@ public class Pack {
     @EqualsAndHashCode.Exclude
     private Set<ConsumptionPack> consumptionpacks = new HashSet<>();
 
-
+    // این فیلد به نظر می رسد اضافی و بلا استفاده است چون قیمت هر بسته به صورت داینامیک از طریق مشاور تعیین می شود و نیازی به این ارتباط نیست
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "advicetypeid", nullable = false)
     @ToString.Exclude

@@ -2,12 +2,8 @@ package ir.mostashar.model.pack.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import ir.mostashar.model.BaseDTO;
-import ir.mostashar.model.adviceType.AdviceType;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.ToString;
-
-import java.util.List;
 
 @ToString
 @Data
@@ -22,19 +18,11 @@ public class PackDTO extends BaseDTO {
     private Integer  minute;
     private Boolean isActive ;
 
-
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private AdviceType advicetype;
-
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private List<PackDTO> packs;
-
     public PackDTO() {
     }
 
     public PackDTO(String status, String message) {
         super(status, message);
     }
+
 }

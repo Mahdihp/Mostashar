@@ -43,6 +43,10 @@ public class OfficeAddress {
     public OfficeAddress() {
     }
 
+    public OfficeAddress(UUID uid) {
+        this.uid = uid;
+    }
+
     public OfficeAddress(UUID uid, String title, String address, Long tel, String description, Lawyer lawyer, Set<PresenceSchedule> presenceSchedule) {
         this.uid = uid;
         this.title = title;

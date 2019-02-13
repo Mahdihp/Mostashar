@@ -39,6 +39,9 @@ public class File {
     @Column(name = "modificationdate")
     private Long modificationDate;
 
+    @Column(name = "deleted")
+    private boolean deleted = false;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clientid",nullable = false)
     private Client client;

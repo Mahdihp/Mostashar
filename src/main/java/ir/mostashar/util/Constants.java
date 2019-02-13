@@ -29,7 +29,16 @@ public class Constants {
     public static final String KEY_DELETE_PACK_FAILED = "خطا در حذف بسته.";
     public static final String KEY_NOT_FOUND_PACK = "بسته مورد نظر یافت نشد.";
     public static final String KEY_UPDATE_PACK_SUCESSE = "بسته مورد نظر با موفقیت ویرایش شد.";
+    public static final String KEY_NOT_FOUND_LAWYER_PACK = "بسته ای برای این مشاور موجود نیست.";
 
 
-    public static final String KEY_SUCESSE = "sucesse!" ;
+    public static final String KEY_SUCESSE = "sucesse!";
+
+    public static final String KEY_NOT_FOUND_LAWYER = "مشاوری با این شماره موجود نیست.";
+    public static final String KEY_UUID_NOT_VALID = "شماره ی کاربری معتبر نیست.";
+
+
+    public static final String KEY_CREATE_REQUEST_SUCSSES = "درخواست مشاور با موفقیت ثبت شد.";
+    public static final String KEY_NOT_FOUND_REQUEST = "درخواست مورد نظر یافت نشد!";
+    public static final String KEY_DELETE_REQUEST = "درخواست مورد نظر حذف شد!";
 }

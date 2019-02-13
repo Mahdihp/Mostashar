@@ -5,13 +5,14 @@ import ir.mostashar.model.client.dto.FileForm;
 import ir.mostashar.model.client.dto.FileUpdateForm;
 import ir.mostashar.model.client.repository.ClientRepository;
 import ir.mostashar.model.file.File;
-import ir.mostashar.model.file.dto.BaseFileDTO;
 import ir.mostashar.model.file.dto.FileDTO;
+import ir.mostashar.model.file.dto.ListFileDTO;
 import ir.mostashar.model.file.repository.FileRepository;
 import ir.mostashar.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -51,6 +52,7 @@ public class FileService {
 
     /**
      * check file title exist
+     *
      * @param title
      * @return
      */
@@ -65,7 +67,8 @@ public class FileService {
     public boolean deleteFileByUid(String fileId) {
         Optional<File> file = fileRepository.findFileByUid(UUID.fromString(fileId));
         if (file.isPresent()) {
-            fileRepository.delete(file.get());
+            file.get().setDeleted(true);
+            fileRepository.save(file.get());
             return true;
         }
         return false;
@@ -87,31 +90,44 @@ public class FileService {
         Optional<File> file = fileRepository.findFileByUid(UUID.fromString(fileId));
         if (file.isPresent()) {
             FileDTO fileDTO = new FileDTO();
-            BaseFileDTO baseFileDTO = new BaseFileDTO();
             fileDTO.setStatus("200");
             fileDTO.setMessage(Constants.KEY_SUCESSE);
-            baseFileDTO.setFileId(file.get().getUid().toString());
-            baseFileDTO.setTitle(file.get().getTitle());
-            baseFileDTO.setDescription(file.get().getDescription());
-            baseFileDTO.setCreationDate(file.get().getCreationDate());
-            baseFileDTO.setModificationDate(file.get().getModificationDate());
+            fileDTO.setFileId(file.get().getUid().toString());
+            fileDTO.setTitle(file.get().getTitle());
+            fileDTO.setDescription(file.get().getDescription());
+            fileDTO.setCreationDate(file.get().getCreationDate());
+            fileDTO.setModificationDate(file.get().getModificationDate());
             if (file.get().getClient() != null)
-                baseFileDTO.setClientid(file.get().getClient().getUid().toString());
-            fileDTO.setFile(baseFileDTO);
+                fileDTO.setClientid(file.get().getClient().getUid().toString());
+
             return Optional.ofNullable(fileDTO);
         }
         return Optional.empty();
     }
 
-    public Optional<FileDTO> findAllFileByUserId(String userid) {
+    public Optional<ListFileDTO> findAllFileByUserId(String userid) {
         Optional<List<File>> fileList = fileRepository.findAllByClientUid(UUID.fromString(userid));
         if (fileList.isPresent()) {
-            FileDTO fileDTO = new FileDTO();
-            BaseFileDTO baseFileDTO = new BaseFileDTO();
-            fileDTO.setStatus("200");
-            fileDTO.setMessage(Constants.KEY_SUCESSE);
-            fileDTO.setFiles(FileDTO.convertListFileToListFileDTO(fileList.get()));
-            return Optional.ofNullable(fileDTO);
+
+            ListFileDTO listFileDTO = new ListFileDTO();
+            listFileDTO.setStatus("200");
+            listFileDTO.setMessage(Constants.KEY_SUCESSE);
+
+            List<FileDTO> dtoList = new ArrayList<>();
+            for (File file : fileList.get()) {
+                FileDTO fileDTO = new FileDTO();
+                fileDTO.setFileId(file.getUid().toString());
+                fileDTO.setTitle(file.getTitle());
+                fileDTO.setDescription(file.getDescription());
+                fileDTO.setCreationDate(file.getCreationDate());
+                fileDTO.setModificationDate(file.getModificationDate());
+                if (file.getClient() != null)
+                    fileDTO.setClientid(file.getClient().getUid().toString());
+
+                dtoList.add(fileDTO);
+            }
+            listFileDTO.setFiles(dtoList);
+            return Optional.of(listFileDTO);
         }
         return Optional.empty();
     }

@@ -34,7 +34,7 @@ public class Lawyer extends User {
     @Column(name = "level")
     private int level = 1;
 
-    @Column(name = "pricelevel")
+    @Column(name = "priceperminute")
     private int pricePerminute = 1;
 
     @Column(name = "verified")
@@ -57,11 +57,11 @@ public class Lawyer extends User {
 
     // ارتباط یک طرفه با کلاس Lawyer
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "failrequestid", nullable = true)
+    @JoinColumn(name = "failrequestid")
     private FailRequest failrequest;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "organizationid", nullable = false)
+    @JoinColumn(name = "organizationid")
     private Organization organization;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")

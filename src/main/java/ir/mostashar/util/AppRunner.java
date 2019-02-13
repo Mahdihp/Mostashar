@@ -8,6 +8,9 @@ import ir.mostashar.model.feature.Feature;
 import ir.mostashar.model.feature.dao.FeatureRepository;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.repository.FileRepository;
+import ir.mostashar.model.lawyer.Lawyer;
+import ir.mostashar.model.lawyer.repository.LawyerRepository;
+import ir.mostashar.model.officeAddress.OfficeAddress;
 import ir.mostashar.model.pack.Pack;
 import ir.mostashar.model.pack.repository.PackRepository;
 import ir.mostashar.model.role.Role;
@@ -23,6 +26,8 @@ import java.util.*;
 @Component
 public class AppRunner implements ApplicationRunner {
 
+    @Autowired
+    LawyerRepository lawyerRepository;
 
     @Autowired
     ClientRepository clientRepository;
@@ -57,6 +62,8 @@ public class AppRunner implements ApplicationRunner {
     }
 
     private void insertToDb() {
+
+
         Client client1 = new Client();
         client1.setUid(UUID.fromString("b5dc7528-1d44-4ae3-9dc0-c3b8213d45a6"));
         client1.setMobileNumber(9134528901L);
@@ -251,6 +258,38 @@ public class AppRunner implements ApplicationRunner {
         pack5.setAdvicetype(adviceType2);
         pack5.setActive(true);
 
+        Lawyer lawyer1=new Lawyer();
+        lawyer1.setUid(UUID.fromString("110c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        lawyer1.setLevel(1); // 3 level Lawyer
+        lawyer1.setAdvicetype(adviceType1);
+        lawyer1.setAvailable(true);
+        lawyer1.setVerified(true);
+        lawyer1.setMobileNumber(9144528901L);
+        lawyer1.setVerificationCode("-1");
+        lawyer1.setPricePerminute(3000);
+
+        Lawyer lawyer2=new Lawyer();
+        lawyer2.setUid(UUID.fromString("111c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        lawyer2.setLevel(2); // 3 level Lawyer
+        lawyer2.setAdvicetype(adviceType1);
+        lawyer2.setAvailable(true);
+        lawyer2.setVerified(true);
+        lawyer2.setMobileNumber(9154528901L);
+        lawyer2.setVerificationCode("-1");
+        lawyer2.setPricePerminute(6000);
+
+        Lawyer lawyer3=new Lawyer();
+        lawyer3.setUid(UUID.fromString("112c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        lawyer3.setLevel(3); // 3 level Lawyer
+        lawyer3.setAdvicetype(adviceType1);
+        lawyer3.setAvailable(true);
+        lawyer3.setVerified(true);
+        lawyer3.setMobileNumber(9164528901L);
+        lawyer3.setVerificationCode("-1");
+        lawyer3.setPricePerminute(9000);
+
+
+
         featureRepository.save(feature1);
         featureRepository.save(feature2);
         featureRepository.save(feature3);
@@ -278,6 +317,10 @@ public class AppRunner implements ApplicationRunner {
         packRepository.save(pack3);
         packRepository.save(pack4);
         packRepository.save(pack5);
+
+        lawyerRepository.save(lawyer1);
+        lawyerRepository.save(lawyer2);
+        lawyerRepository.save(lawyer3);
     }
 
 
