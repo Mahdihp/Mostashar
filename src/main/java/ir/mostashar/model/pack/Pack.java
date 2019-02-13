@@ -3,6 +3,8 @@ package ir.mostashar.model.pack;
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.consumptionPack.ConsumptionPack;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -36,11 +38,15 @@ public class Pack {
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "pack")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<ConsumptionPack> consumptionpacks = new HashSet<>();
 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "advicetypeid", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private AdviceType advicetype;
 
     public Pack() {

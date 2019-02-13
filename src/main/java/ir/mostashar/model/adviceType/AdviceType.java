@@ -5,6 +5,8 @@ import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.pack.Pack;
 import ir.mostashar.model.request.Request;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -37,9 +39,13 @@ public class AdviceType {
 
     @ManyToOne(cascade={CascadeType.ALL})
     @JoinColumn(name="advicetypeid")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private AdviceType adviceType;
 
     @OneToMany(mappedBy="adviceType")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<AdviceType> subordinates = new HashSet<>();
 
     @OneToOne(fetch = FetchType.LAZY,
@@ -50,6 +56,8 @@ public class AdviceType {
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "advicetype")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Pack> packs= new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL,

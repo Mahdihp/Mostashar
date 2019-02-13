@@ -109,6 +109,7 @@ public class PackService {
 
     public Optional<PackDTO> findAllPacks() {
         List<Pack> packList = packRepository.findAll();
+        System.out.println("Log------------findAllPacks "+packList.size());
         PackDTO packDTO = new PackDTO();
         for (Pack pack : packList) {
             packDTO.setStatus("200");

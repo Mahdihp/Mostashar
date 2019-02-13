@@ -4,6 +4,8 @@ import ir.mostashar.model.installment.Installment;
 import ir.mostashar.model.pack.Pack;
 import ir.mostashar.model.request.Request;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -39,6 +41,8 @@ public class ConsumptionPack {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "packid", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Pack pack;
 
     @ManyToOne(fetch = FetchType.LAZY)

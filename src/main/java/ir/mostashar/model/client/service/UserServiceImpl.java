@@ -64,20 +64,38 @@ public class UserServiceImpl implements UserDetailsService {
     private JwtProvider jwtProvider;
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
-
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() ->
                         new UsernameNotFoundException("User Not Found with -> username or password : " + username)
                 );
-
         return UserPrinciple.build(user);
     }
 
-    public boolean existsByPhoneNumber(long phoneNumber) {
-        System.out.println("Log---------------existsByPhoneNumber " + phoneNumber);
+    public JwtResponse generateToken(@Valid @RequestBody ValidateCode validateCode) {
+        Optional<User> userOptional = userRepository.findByUid(UUID.fromString(validateCode.getUserid()));
+        if (userOptional.isPresent()) {
+            System.out.println("Log---------2--generateToken " + userOptional.get().getUsername());
+            System.out.println("Log---------2--generateToken " + userOptional.get().getPassword());
+
+
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            userOptional.get().getUsername(),
+                            userOptional.get().getPassword()
+                    )
+            );
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String jwt = jwtProvider.generateJwtToken(authentication);
+            return new JwtResponse(jwt);
+        }
+        return null;
+    }
+
+    public boolean existsPhoneNumber(long phoneNumber) {
         Optional<Boolean> aBoolean = userRepository.existsUserByMobileNumber(phoneNumber);
         if (aBoolean.isPresent())
             return aBoolean.get();
@@ -85,7 +103,7 @@ public class UserServiceImpl implements UserDetailsService {
             return false;
     }
 
-    public Optional<String> registerPhoneNumberAndRole(SignUpForm signUpForm, Role role) {
+    public Optional<String> registerUser(SignUpForm signUpForm, Role role) {
 
         Set<Role> roles = new HashSet<>();
         switch (role.getName()) {
@@ -145,7 +163,9 @@ public class UserServiceImpl implements UserDetailsService {
         client.setTel(Long.valueOf(signUpForm.getPhoneNumber()));
         client.setUid(uuid);
 
-        client.setUsername(DataUtil.generateAlphaNumericRandomUserPass(8));
+        String user= DataUtil.generateAlphaNumericRandomUserPass(8);
+        System.out.println("Log--------------saveClient "+user);
+        client.setUsername(user);
         client.setPassword(encoder.encode(DataUtil.generateNumericRandomUserPass(8)));
 
         client.setRoles(roles);
@@ -157,26 +177,6 @@ public class UserServiceImpl implements UserDetailsService {
             return Optional.empty();
     }
 
-
-    public JwtResponse generateToken(@Valid @RequestBody ValidateCode validateCode) {
-        Optional<User> userOptional = userRepository.findByUid(UUID.fromString(validateCode.getUserid()));
-        if (userOptional.isPresent()) {
-            System.out.println("Log---------2--generateToken " + userOptional.get().getUsername());
-            System.out.println("Log---------2--generateToken " + userOptional.get().getPassword());
-
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            userOptional.get().getUsername(),
-                            userOptional.get().getPassword()
-                    )
-            );
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            String jwt = jwtProvider.generateJwtToken(authentication);
-            return new JwtResponse(jwt);
-        }
-        return null;
-    }
 
     public Optional<User> findUserIdAndCode(String userid, String code) {
         System.out.println("Log----------findUserIdAndCode " + userid + "  " + code);

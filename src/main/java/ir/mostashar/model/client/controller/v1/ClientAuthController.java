@@ -2,11 +2,9 @@ package ir.mostashar.model.client.controller.v1;
 
 import ir.mostashar.model.BaseDTO;
 import ir.mostashar.model.client.dto.ClientDTO;
-import ir.mostashar.model.client.dto.FileForm;
 import ir.mostashar.model.client.dto.SignUpForm;
 import ir.mostashar.model.client.dto.ValidateCode;
 import ir.mostashar.model.client.service.UserServiceImpl;
-import ir.mostashar.model.file.dto.FileDTO;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.RoleName;
 import ir.mostashar.model.user.User;
@@ -35,7 +33,7 @@ public class ClientAuthController {
         if (!DataUtil.isValidePhoneNumber(signUpForm.getPhoneNumber())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value() + "", Constants.KEY_PHONE_NUMBER_NOT_VALID, "", false));
         }
-        if (userService.existsByPhoneNumber(Long.valueOf(signUpForm.getPhoneNumber()))) {
+        if (userService.existsPhoneNumber(Long.valueOf(signUpForm.getPhoneNumber()))) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BaseDTO(HttpStatus.BAD_REQUEST.value() + "", Constants.KEY_REGISTER_ALREADY, "", false));
         }
         Role role = new Role();
@@ -45,7 +43,7 @@ public class ClientAuthController {
 
         role.setDescription("client");
 
-        Optional<String> uuid = userService.registerPhoneNumberAndRole(signUpForm,role);
+        Optional<String> uuid = userService.registerUser(signUpForm,role);
         if (uuid.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value() + "", Constants.KEY_REGISTER, uuid.get(), false));
         else

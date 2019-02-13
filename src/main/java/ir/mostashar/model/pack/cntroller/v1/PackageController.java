@@ -23,18 +23,21 @@ public class PackageController {
     @Autowired
     PackService packService;
 
-
+    /**
+     * find exist pack name
+     * create pack
+     *
+     * @param packForm
+     * @return
+     */
     @PostMapping(value = "/createpackage", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
     public ResponseEntity<?> createPackage(@Valid @RequestBody PackForm packForm) {
         if (!packService.existsPack(packForm.getName())) {
             if (packService.createPack(packForm)) {
                 return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value() + "", Constants.KEY_CREATE_PACK_SUCESSE));
             }
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value() + "", Constants.KEY_DUPLICATE_PACK));
         }
-        return null;
-//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new BaseDTO("500", Constants.KEY_CREATE_PACK_FAILED));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value() + "", Constants.KEY_DUPLICATE_PACK));
     }
 
     @PostMapping(value = "/removepackage{uid}", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
