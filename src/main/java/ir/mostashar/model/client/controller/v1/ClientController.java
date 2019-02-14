@@ -128,11 +128,15 @@ public class ClientController {
 
     @PostMapping(value = "/createrequest", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
     public ResponseEntity<?> createRequest(@Valid @RequestBody RequestForm requestForm) {
-        UUID requestId = requestService.createRequest(requestForm);
-        if (requestId != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO("200", Constants.KEY_CREATE_REQUEST_SUCSSES, requestId.toString()));
+        if (!requestService.existsRequest(requestForm.getFileId(),requestForm.getClientId())){
+            UUID requestId = requestService.createRequest(requestForm);
+            if (requestId != null) {
+                return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO("200", Constants.KEY_CREATE_REQUEST_SUCSSES, requestId.toString()));
+            }else{
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RequestDTO("404", Constants.KEY_NOT_FOUND_CLIENT_LAWYER_FILE));
+            }
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ListFileDTO("404", Constants.KEY_NOT_FOUND_CLIENT_LAWYER));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RequestDTO("404", Constants.KEY_DUPLICATE_REQUEST));
     }
 
     @GetMapping(value = "/request/{clientid}/{requestid}", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
@@ -144,8 +148,8 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestDTO("404", Constants.KEY_NOT_FOUND_REQUEST));
     }
 
-    @GetMapping(value = "/request/{clientid}", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
-    public ResponseEntity<?> findRequestByClient(@PathVariable(value = "clientid") String clientid) {
+    @GetMapping(value = "/requests/{clientid}", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
+    public ResponseEntity<?> findAllRequestByClient(@PathVariable(value = "clientid") String clientid) {
         Optional<ListRequestDTO> allRequestClient = requestService.findAllRequestClient(clientid);
         if (allRequestClient.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(allRequestClient.get());
@@ -153,7 +157,7 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestDTO("404", Constants.KEY_NOT_FOUND_REQUEST));
     }
 
-    @GetMapping(value = "/removerequest/{clientid}/{requestid}", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
+    @PostMapping(value = "/removerequest/{clientid}/{requestid}", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
     public ResponseEntity<?> removeRequest(@PathVariable(value = "clientid") String clientid, @PathVariable(value = "requestid") String requestid) {
         if (requestService.deleteRequest(clientid, requestid)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestDTO("200", Constants.KEY_DELETE_REQUEST));

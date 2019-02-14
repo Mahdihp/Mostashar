@@ -64,7 +64,7 @@ public class Request {
     private Feedback feedback;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fileid",nullable = true)
+    @JoinColumn(name = "fileid")
     private File file;
 
     @OneToMany(cascade = CascadeType.ALL,
@@ -72,11 +72,9 @@ public class Request {
             mappedBy = "request")
     private Set<AcceptRequest> acceptRequests = new HashSet<>();
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "advicetypeid", nullable = false)
     private AdviceType advicetype;
-
-
 
     public Request() {
     }

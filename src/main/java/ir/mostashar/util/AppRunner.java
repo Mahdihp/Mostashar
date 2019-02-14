@@ -189,21 +189,21 @@ public class AppRunner implements ApplicationRunner {
 
 
         File file1=new File();
-        file1.setUid(UUID.randomUUID());
+        file1.setUid(UUID.fromString("b4482c10-b3a5-4401-a274-016bda28fdce"));
         file1.setTitle("Test File 1");
         file1.setDescription("Description Test 1");
         file1.setClient(client1);
         file1.setCreationDate(System.currentTimeMillis());
 
         File file2=new File();
-        file2.setUid(UUID.randomUUID());
+        file2.setUid(UUID.fromString("b4482c11-b3a5-4401-a274-016bda28fdce"));
         file2.setTitle("Test File 2");
         file2.setDescription("Description Test 2");
         file2.setClient(client2);
         file2.setCreationDate(System.currentTimeMillis());
 
         File file3=new File();
-        file3.setUid(UUID.randomUUID());
+        file3.setUid(UUID.fromString("b4482c12-b3a5-4401-a274-016bda28fdce"));
         file3.setTitle("Test File 3");
         file3.setDescription("Description Test 3");
         file3.setClient(client3);

@@ -41,12 +41,15 @@ public class Client extends User {
     private Long tel;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
+    @EqualsAndHashCode.Exclude
     private Set<Question> questions = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
+    @EqualsAndHashCode.Exclude
     private Set<Feedback> feedbacks = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
+    @EqualsAndHashCode.Exclude
     private Set<Request> requests = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
@@ -54,6 +57,7 @@ public class Client extends User {
     private Set<File> files = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
+    @EqualsAndHashCode.Exclude
     private Set<Call> calls = new HashSet<>();
 
     public Client() {

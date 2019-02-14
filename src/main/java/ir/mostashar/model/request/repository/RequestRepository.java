@@ -14,11 +14,13 @@ import java.util.UUID;
 public interface RequestRepository extends JpaRepository<Request, Long> {
 
 
-    Optional<Request> findRequestByUid(UUID uuid);
+    Optional<Request> findRequestByUidAndDeleted(UUID uuid,boolean isDeleted);
 
-    Optional<List<Request>> findAllByClientUid(UUID client);
+    Optional<List<Request>> findAllByClientUidAndDeleted(UUID uuid,boolean isDeleted);
 
-    Optional<Request> findRequestByClientUidAndUid(UUID client,UUID requestId);
+    Optional<Request> findRequestByClientUidAndUidAndDeleted(UUID client,UUID requestId,boolean isDeleted);
+
+    Optional<Boolean> existsRequestByFileUidAndClientUidAndDeleted(UUID fileId,UUID clientId,boolean isDeleted);
 
     @Query("SELECT max(ch.requestNumber) FROM Request ch")
     Long findMaxRequestNumber();

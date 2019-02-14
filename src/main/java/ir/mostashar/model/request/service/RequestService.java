@@ -61,9 +61,9 @@ public class RequestService {
             uuid = UUID.randomUUID();
             request.setUid(uuid);
             request.setDescription(request.getDescription());
-            if (maxRequestNumber!= null) {
+            if (maxRequestNumber != null) {
                 request.setRequestNumber(String.valueOf(maxRequestNumber + 1));
-            }else{
+            } else {
                 request.setRequestNumber(requestNumber);
             }
             request.setClient(client.get());
@@ -85,7 +85,7 @@ public class RequestService {
      * @return true & false
      */
     public boolean deleteRequest(String clientId, String requestId) {
-        Optional<Request> request = requestRepository.findRequestByClientUidAndUid(UUID.fromString(clientId), UUID.fromString(requestId));
+        Optional<Request> request = requestRepository.findRequestByClientUidAndUidAndDeleted(UUID.fromString(clientId), UUID.fromString(requestId), false);
         if (request.isPresent()) {
             request.get().setDeleted(true);
             requestRepository.save(request.get());
@@ -102,7 +102,7 @@ public class RequestService {
      * @return
      */
     public boolean updateRequest(RequestForm requestForm) {
-        Optional<Request> request = requestRepository.findRequestByUid(UUID.fromString(requestForm.getRequestId()));
+        Optional<Request> request = requestRepository.findRequestByUidAndDeleted(UUID.fromString(requestForm.getRequestId()), false);
         Optional<AdviceType> adviceType = adviceTypeRepository.findAdviceTypeByUid(UUID.fromString(requestForm.getAdviceTypeId()));
         Optional<File> file = fileRepository.findFileByUid(UUID.fromString(requestForm.getFileId()));
         if (request.isPresent() && adviceType.isPresent() && file.isPresent()) {
@@ -125,7 +125,7 @@ public class RequestService {
      * @return RequestDTO
      */
     public Optional<RequestDTO> findRequestByClient(String clientId, String requestId) {
-        Optional<Request> request = requestRepository.findRequestByClientUidAndUid(UUID.fromString(clientId), UUID.fromString(requestId));
+        Optional<Request> request = requestRepository.findRequestByClientUidAndUidAndDeleted(UUID.fromString(clientId), UUID.fromString(requestId), false);
         if (request.isPresent()) {
             RequestDTO requestDTO = new RequestDTO();
             requestDTO.setStatus("200");
@@ -144,8 +144,7 @@ public class RequestService {
     }
 
     public Optional<ListRequestDTO> findAllRequestClient(String clientId) {
-
-        Optional<List<Request>> requestList = requestRepository.findAllByClientUid(UUID.fromString(clientId));
+        Optional<List<Request>> requestList = requestRepository.findAllByClientUidAndDeleted(UUID.fromString(clientId), false);
         if (requestList.isPresent()) {
             List<RequestDTO> dtoList = new ArrayList<>();
             ListRequestDTO listRequestDTO = new ListRequestDTO();
@@ -158,14 +157,29 @@ public class RequestService {
                 requestDTO.setClientId(request.getClient().getUid().toString());
                 requestDTO.setFileId(request.getFile().getUid().toString());
                 requestDTO.setAdviceTypeId(request.getAdvicetype().getUid().toString());
+                dtoList.add(requestDTO);
             }
+
             listRequestDTO.setStatus("200");
             listRequestDTO.setMessage(Constants.KEY_SUCESSE);
             listRequestDTO.setRequests(dtoList);
             return Optional.of(listRequestDTO);
-
         }
         return Optional.empty();
+    }
+
+    /**
+     * Chcek Duplicate Request in Table
+     * @param clientId
+     * @param requestId
+     * @return true or false
+     */
+    public boolean existsRequest(String clientId, String requestId) {
+        Optional<Boolean> aBoolean = requestRepository.existsRequestByFileUidAndClientUidAndDeleted(UUID.fromString(clientId), UUID.fromString(requestId), false);
+        if (aBoolean.isPresent())
+            return aBoolean.get();
+        else
+            return false;
     }
 
 

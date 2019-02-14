@@ -41,5 +41,7 @@ public class Constants {
     public static final String KEY_CREATE_REQUEST_SUCSSES = "درخواست مشاور با موفقیت ثبت شد.";
     public static final String KEY_NOT_FOUND_REQUEST = "درخواست مورد نظر یافت نشد!";
     public static final String KEY_DELETE_REQUEST = "درخواست مورد نظر حذف شد!";
-    public static final String KEY_NOT_FOUND_CLIENT_LAWYER = "مشاور و کاربر نظر پیدا نشد.";
+    public static final String KEY_NOT_FOUND_CLIENT_LAWYER = "مشاور یا کاربر نظر پیدا نشد.";
+    public static final String KEY_DUPLICATE_REQUEST = "امکان ایجاد درخواست تکراری برای یک پرونده وجود ندارد.";
+    public static final String KEY_NOT_FOUND_CLIENT_LAWYER_FILE = "مشاور یا کاربر یا پرونده نظر پیدا نشد.";
 }

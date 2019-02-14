@@ -44,11 +44,6 @@ public class AdviceType {
     @OneToMany(mappedBy="adviceType")
     private Set<AdviceType> subordinates = new HashSet<>();
 
-    @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "advicetype")
-    private Request request;
-
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "advicetype")
@@ -59,6 +54,10 @@ public class AdviceType {
             mappedBy = "advicetype")
     private Set<Lawyer> lawyers;
 
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "advicetype")
+    private Set<Request> requests=new HashSet<>();
 
     public AdviceType() {
     }
