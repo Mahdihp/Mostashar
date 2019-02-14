@@ -31,8 +31,8 @@ public class Request {
     @Column(name = "requestnumber")
     private String requestNumber;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "status")
+    private RequestStatus status;
 
     @Column(name = "deleted")
     private boolean deleted = false;
@@ -49,9 +49,9 @@ public class Request {
     private Set<Call> calls;
 
     @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
+            cascade = CascadeType.ALL,
             mappedBy = "request")
-    private FailRequest  failRequest;
+    private FailRequest failRequest;
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
@@ -59,7 +59,7 @@ public class Request {
     private Set<ConsumptionPack> comments = new HashSet<>();
 
     @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
+            cascade = CascadeType.ALL,
             mappedBy = "request")
     private Feedback feedback;
 
@@ -78,7 +78,6 @@ public class Request {
 
     public Request() {
     }
-
 
 
 }

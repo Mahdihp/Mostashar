@@ -139,6 +139,18 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RequestDTO("404", Constants.KEY_DUPLICATE_REQUEST));
     }
 
+    @PostMapping(value = "/updaterequest", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
+    public ResponseEntity<?> updateRequest(@Valid @RequestBody RequestForm requestForm) {
+        if (!requestService.existsRequest(requestForm.getFileId(),requestForm.getClientId())){
+            if (requestService.updateRequest(requestForm)) {
+                return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO("200", Constants.KEY_UPDATE_REQUEST_SUCSSES));
+            }else{
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RequestDTO("404", Constants.KEY_NOT_FOUND_CLIENT_LAWYER_FILE));
+            }
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RequestDTO("404", Constants.KEY_DUPLICATE_REQUEST));
+    }
+
     @GetMapping(value = "/request/{clientid}/{requestid}", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})
     public ResponseEntity<?> findRequestByClient(@PathVariable(value = "clientid") String clientid, @PathVariable(value = "requestid") String requestid) {
         Optional<RequestDTO> request = requestService.findRequestByClient(clientid, requestid);

@@ -8,6 +8,7 @@ import ir.mostashar.model.client.repository.ClientRepository;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.repository.FileRepository;
 import ir.mostashar.model.request.Request;
+import ir.mostashar.model.request.RequestStatus;
 import ir.mostashar.model.request.dto.ListRequestDTO;
 import ir.mostashar.model.request.dto.RequestDTO;
 import ir.mostashar.model.request.dto.RequestForm;
@@ -54,13 +55,11 @@ public class RequestService {
         Long maxRequestNumber = requestRepository.findMaxRequestNumber();
         System.out.println("Log-----------------maxRequestNumber " + maxRequestNumber);
         UUID uuid;
-        System.out.println(adviceType.isPresent() && client.isPresent() && file.isPresent());
-
         if (adviceType.isPresent() && client.isPresent() && file.isPresent()) {
             Request request = new Request();
             uuid = UUID.randomUUID();
             request.setUid(uuid);
-            request.setDescription(request.getDescription());
+            request.setStatus(RequestStatus.Waiting);
             if (maxRequestNumber != null) {
                 request.setRequestNumber(String.valueOf(maxRequestNumber + 1));
             } else {
@@ -106,10 +105,11 @@ public class RequestService {
         Optional<AdviceType> adviceType = adviceTypeRepository.findAdviceTypeByUid(UUID.fromString(requestForm.getAdviceTypeId()));
         Optional<File> file = fileRepository.findFileByUid(UUID.fromString(requestForm.getFileId()));
         if (request.isPresent() && adviceType.isPresent() && file.isPresent()) {
-            request.get().setDescription(requestForm.getDescription());
 
-            request.get().setAdvicetype(adviceType.get());
-            request.get().setFile(file.get());
+            request.get().setStatus(RequestStatus.valueOf(requestForm.getStatus()));
+//            request.get().setAdvicetype(adviceType.get());
+//            request.get().setFile(file.get());
+
             requestRepository.save(request.get());
             return true;
         }
@@ -131,7 +131,7 @@ public class RequestService {
             requestDTO.setStatus("200");
             requestDTO.setMessage(Constants.KEY_SUCESSE);
             requestDTO.setRequestId(request.get().getUid().toString());
-            requestDTO.setDescription(request.get().getDescription());
+            requestDTO.setStatus(request.get().getStatus().name());
             requestDTO.setRequestNumber(request.get().getRequestNumber());
 
             requestDTO.setClientId(request.get().getClient().getUid().toString());
@@ -151,7 +151,7 @@ public class RequestService {
             for (Request request : requestList.get()) {
                 RequestDTO requestDTO = new RequestDTO();
                 requestDTO.setRequestId(request.getUid().toString());
-                requestDTO.setDescription(request.getDescription());
+                requestDTO.setStatus(request.getStatus().name());
                 requestDTO.setRequestNumber(request.getRequestNumber());
 
                 requestDTO.setClientId(request.getClient().getUid().toString());

@@ -1,5 +1,6 @@
 package ir.mostashar.model.request.dto;
 
+import ir.mostashar.model.request.RequestStatus;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -8,8 +9,7 @@ import javax.validation.constraints.NotBlank;
 public class RequestForm {
 
     private String requestId;
-
-    private String description;
+    private String status;
 
     @NotBlank
     private String clientId;
