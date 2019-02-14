@@ -10,7 +10,6 @@ import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.repository.FileRepository;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.lawyer.repository.LawyerRepository;
-import ir.mostashar.model.officeAddress.OfficeAddress;
 import ir.mostashar.model.pack.Pack;
 import ir.mostashar.model.pack.repository.PackRepository;
 import ir.mostashar.model.role.Role;
@@ -266,7 +265,7 @@ public class AppRunner implements ApplicationRunner {
         lawyer1.setVerified(true);
         lawyer1.setMobileNumber(9144528901L);
         lawyer1.setVerificationCode("-1");
-        lawyer1.setPricePerminute(3000);
+        lawyer1.setPricePerMinute(3000);
 
         Lawyer lawyer2=new Lawyer();
         lawyer2.setUid(UUID.fromString("111c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
@@ -276,7 +275,7 @@ public class AppRunner implements ApplicationRunner {
         lawyer2.setVerified(true);
         lawyer2.setMobileNumber(9154528901L);
         lawyer2.setVerificationCode("-1");
-        lawyer2.setPricePerminute(6000);
+        lawyer2.setPricePerMinute(6000);
 
         Lawyer lawyer3=new Lawyer();
         lawyer3.setUid(UUID.fromString("112c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
@@ -286,7 +285,7 @@ public class AppRunner implements ApplicationRunner {
         lawyer3.setVerified(true);
         lawyer3.setMobileNumber(9164528901L);
         lawyer3.setVerificationCode("-1");
-        lawyer3.setPricePerminute(9000);
+        lawyer3.setPricePerMinute(9000);
 
 
 

@@ -8,10 +8,6 @@ import javax.validation.constraints.NotBlank;
 public class RequestForm {
 
     private String requestId;
-
-    @NotBlank
-    private String requestNumber;
-
     private String description;
 
     @NotBlank

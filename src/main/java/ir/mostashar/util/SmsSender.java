@@ -39,8 +39,8 @@ public class SmsSender {
     }
 
     public void sendSingleSms() {
-        System.out.println("Log-------------reciever" + reciever);
-        System.out.println("Log-------------reciever" + message);
+
+        System.out.println("Log-------------sendSingleSms" + reciever + " " + message);
 
         KavenegarApi api = new KavenegarApi(token);
         Thread t = new Thread(new Runnable() {
@@ -51,7 +51,7 @@ public class SmsSender {
                     System.out.println(send.getSender());
                     System.out.println(send.getMessage());
                     System.out.println(send.getDate());
-                    System.out.println("Log---------sended");
+                    System.out.println("Log---------sended...");
                 } catch (Exception e1) {
                     return;
                 }

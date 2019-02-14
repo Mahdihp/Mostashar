@@ -60,11 +60,12 @@ public class UserServiceImpl implements UserDetailsService {
     @Autowired
     private PasswordEncoder encoder;
 
+
     @Autowired
     private JwtProvider jwtProvider;
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
@@ -75,8 +76,10 @@ public class UserServiceImpl implements UserDetailsService {
     }
 
     public JwtResponse generateToken(@Valid @RequestBody ValidateCode validateCode) {
-        Optional<User> userOptional = userRepository.findByUid(UUID.fromString(validateCode.getUserid()));
+        Optional<User> userOptional = userRepository.findUserByUidAndVerificationCode(UUID.fromString(validateCode.getUserid()), validateCode.getCode());
+
         if (userOptional.isPresent()) {
+
             System.out.println("Log---------2--generateToken " + userOptional.get().getUsername());
             System.out.println("Log---------2--generateToken " + userOptional.get().getPassword());
 
@@ -84,8 +87,7 @@ public class UserServiceImpl implements UserDetailsService {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             userOptional.get().getUsername(),
-                            userOptional.get().getPassword()
-                    )
+                            "1")
             );
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -143,7 +145,7 @@ public class UserServiceImpl implements UserDetailsService {
         lawyer.setUid(uuid);
 
         lawyer.setUsername(DataUtil.generateAlphaNumericRandomUserPass(8));
-        lawyer.setPassword(encoder.encode(DataUtil.generateNumericRandomUserPass(8)));
+        lawyer.setPassword(DataUtil.generateNumericRandomUserPass(8));
 
         lawyer.setRoles(roles);
         Lawyer userSave = lawyerRepository.save(lawyer);
@@ -163,10 +165,10 @@ public class UserServiceImpl implements UserDetailsService {
         client.setTel(Long.valueOf(signUpForm.getPhoneNumber()));
         client.setUid(uuid);
 
-        String user= DataUtil.generateAlphaNumericRandomUserPass(8);
-        System.out.println("Log--------------saveClient "+user);
+        String user = DataUtil.generateAlphaNumericRandomUserPass(8);
+        System.out.println("Log--------------saveClient " + user);
         client.setUsername(user);
-        client.setPassword(encoder.encode(DataUtil.generateNumericRandomUserPass(8)));
+        client.setPassword(encoder.encode("1"));
 
         client.setRoles(roles);
         Client userSave = clientRepository.save(client);
@@ -185,7 +187,7 @@ public class UserServiceImpl implements UserDetailsService {
     }
 
     public void activeUser(boolean isactive, UUID userid) {
-        Optional<User> user = userRepository.findByUid(userid);
+        Optional<User> user = userRepository.findUserByUid(userid);
         if (user.isPresent()) {
             user.get().setActive(isactive);
             user.get().setVerificationCode("-1");
@@ -195,7 +197,7 @@ public class UserServiceImpl implements UserDetailsService {
 
 
     public Optional<User> findByUserid(UUID userid) {
-        Optional<User> user = userRepository.findByUid(userid);
+        Optional<User> user = userRepository.findUserByUid(userid);
         return user;
     }
 

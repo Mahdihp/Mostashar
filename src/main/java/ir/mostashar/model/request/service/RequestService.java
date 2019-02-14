@@ -14,6 +14,7 @@ import ir.mostashar.model.request.dto.RequestForm;
 import ir.mostashar.model.request.repository.RequestRepository;
 import ir.mostashar.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -36,6 +37,9 @@ public class RequestService {
     @Autowired
     FileRepository fileRepository;
 
+    @Value("${mostashar.app.requestNumber}")
+    private String requestNumber;
+
     /**
      * find Advice Type & Client & File by Uids
      * If Not Null this Three Object And Save New Request
@@ -47,12 +51,21 @@ public class RequestService {
         Optional<AdviceType> adviceType = adviceTypeRepository.findAdviceTypeByUid(UUID.fromString(requestForm.getAdviceTypeId()));
         Optional<Client> client = clientRepository.findByUid(UUID.fromString(requestForm.getClientId()));
         Optional<File> file = fileRepository.findFileByUid(UUID.fromString(requestForm.getFileId()));
+        Long maxRequestNumber = requestRepository.findMaxRequestNumber();
+        System.out.println("Log-----------------maxRequestNumber " + maxRequestNumber);
         UUID uuid;
+        System.out.println(adviceType.isPresent() && client.isPresent() && file.isPresent());
+
         if (adviceType.isPresent() && client.isPresent() && file.isPresent()) {
             Request request = new Request();
             uuid = UUID.randomUUID();
             request.setUid(uuid);
             request.setDescription(request.getDescription());
+            if (maxRequestNumber!= null) {
+                request.setRequestNumber(String.valueOf(maxRequestNumber + 1));
+            }else{
+                request.setRequestNumber(requestNumber);
+            }
             request.setClient(client.get());
             request.setAdvicetype(adviceType.get());
             request.setFile(file.get());
@@ -94,7 +107,7 @@ public class RequestService {
         Optional<File> file = fileRepository.findFileByUid(UUID.fromString(requestForm.getFileId()));
         if (request.isPresent() && adviceType.isPresent() && file.isPresent()) {
             request.get().setDescription(requestForm.getDescription());
-            request.get().setRequestNumber(requestForm.getRequestNumber());
+
             request.get().setAdvicetype(adviceType.get());
             request.get().setFile(file.get());
             requestRepository.save(request.get());

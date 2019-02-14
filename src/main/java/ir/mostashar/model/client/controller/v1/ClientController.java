@@ -18,7 +18,6 @@ import ir.mostashar.model.request.dto.RequestForm;
 import ir.mostashar.model.request.service.RequestService;
 import ir.mostashar.util.Constants;
 import ir.mostashar.util.DataUtil;
-import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -114,7 +113,7 @@ public class ClientController {
 
         Optional<Lawyer> lawyer = lawyerRepository.findByUid(UUID.fromString(lawyerid));
         if (lawyer.isPresent()) {
-            Optional<ListPackDTO> allPacks = packService.findAllPacks(lawyer.get().getPricePerminute());
+            Optional<ListPackDTO> allPacks = packService.findAllPacks(lawyer.get().getPricePerMinute());
             if (allPacks.isPresent()) {
                 return ResponseEntity.status(HttpStatus.OK).body(allPacks.get());
             }
@@ -133,7 +132,7 @@ public class ClientController {
         if (requestId != null) {
             return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO("200", Constants.KEY_CREATE_REQUEST_SUCSSES, requestId.toString()));
         }
-        return null;
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ListFileDTO("404", Constants.KEY_NOT_FOUND_CLIENT_LAWYER));
     }
 
     @GetMapping(value = "/request/{clientid}/{requestid}", consumes = {"application/json;charset=UTF-8"}, produces = {"application/json;charset=UTF-8"})

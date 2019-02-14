@@ -22,8 +22,8 @@ import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/client/auth")
-public class ClientAuthController {
+@RequestMapping("/api/v1/auth")
+public class AuthController {
 
     @Autowired
     UserServiceImpl userService;
@@ -40,7 +40,6 @@ public class ClientAuthController {
         role.setUid(UUID.randomUUID());
         role.setName(RoleName.ROLE_CLIENT);
         role.setUserDefined(true);
-
         role.setDescription("client");
 
         Optional<String> uuid = userService.registerUser(signUpForm,role);

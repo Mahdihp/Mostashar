@@ -20,7 +20,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<Boolean> existsUserByMobileNumber(long  phoneNumber);
 
-    Optional<User> findByUid(UUID uuid);
+    Optional<User> findUserByUid(UUID uuid);
 
 
     @Query("SELECT r.mobileNumber FROM User r")

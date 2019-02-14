@@ -37,6 +37,7 @@ public class UserPrinciple implements UserDetails {
                 new SimpleGrantedAuthority(role.getName().name())
 
         ).collect(Collectors.toList());
+
         for (Role role : user.getRoles()) {
             System.out.println("Log------------Role "+role.getName().name());
         }
