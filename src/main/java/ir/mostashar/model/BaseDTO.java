@@ -8,7 +8,7 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BaseDTO {
 
-    private String status;
+    private Integer status;
     private String message;
     private String userid;
     private Boolean isActive;
@@ -17,18 +17,18 @@ public class BaseDTO {
     public BaseDTO() {
     }
 
-    public BaseDTO(String status, String message) {
+    public BaseDTO(Integer status, String message) {
         this.status = status;
         this.message = message;
     }
 
-    public BaseDTO(String status, String message, Boolean isActive) {
+    public BaseDTO(Integer status, String message, Boolean isActive) {
         this.status = status;
         this.message = message;
         this.isActive = isActive;
     }
 
-    public BaseDTO(String status, String message, String userid, Boolean isActive) {
+    public BaseDTO(Integer status, String message, String userid, Boolean isActive) {
         this.status = status;
         this.message = message;
         this.userid = userid;

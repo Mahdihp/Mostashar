@@ -9,6 +9,7 @@ import ir.mostashar.model.request.Request;
 import ir.mostashar.model.user.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -54,6 +55,7 @@ public class Client extends User {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<File> files = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")

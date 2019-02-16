@@ -1,8 +1,10 @@
 package ir.mostashar.model.consumptionPack.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ConsumptionPackForm {
 
     private String packId;

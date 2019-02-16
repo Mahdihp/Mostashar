@@ -10,6 +10,7 @@ import ir.mostashar.model.file.dto.ListFileDTO;
 import ir.mostashar.model.file.repository.FileRepository;
 import ir.mostashar.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -86,11 +87,11 @@ public class FileService {
         return false;
     }
 
-    public Optional<FileDTO> findFileByUid(String fileId) {
+    public Optional<FileDTO> findFileDTOByUid(String fileId) {
         Optional<File> file = fileRepository.findFileByUid(UUID.fromString(fileId));
         if (file.isPresent()) {
             FileDTO fileDTO = new FileDTO();
-            fileDTO.setStatus("200");
+            fileDTO.setStatus(HttpStatus.OK.value());
             fileDTO.setMessage(Constants.KEY_SUCESSE);
             fileDTO.setFileId(file.get().getUid().toString());
             fileDTO.setTitle(file.get().getTitle());
@@ -110,7 +111,7 @@ public class FileService {
         if (fileList.isPresent()) {
 
             ListFileDTO listFileDTO = new ListFileDTO();
-            listFileDTO.setStatus("200");
+            listFileDTO.setStatus(HttpStatus.OK.value());
             listFileDTO.setMessage(Constants.KEY_SUCESSE);
 
             List<FileDTO> dtoList = new ArrayList<>();
@@ -130,6 +131,14 @@ public class FileService {
             return Optional.of(listFileDTO);
         }
         return Optional.empty();
+    }
+
+    public Optional<File> findFileByUid(String fileId) {
+        Optional<File> file = fileRepository.findFileByUid(UUID.fromString(fileId));
+        if (file.isPresent())
+            return Optional.ofNullable(file.get());
+        else
+            return Optional.empty();
     }
 
 }

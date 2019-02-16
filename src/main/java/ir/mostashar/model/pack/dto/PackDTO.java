@@ -21,7 +21,7 @@ public class PackDTO extends BaseDTO {
     public PackDTO() {
     }
 
-    public PackDTO(String status, String message) {
+    public PackDTO(int status, String message) {
         super(status, message);
     }
 

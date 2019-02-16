@@ -17,7 +17,7 @@ public class ListFileDTO extends BaseDTO {
     public ListFileDTO() {
     }
 
-    public ListFileDTO(String status, String message) {
+    public ListFileDTO(int status, String message) {
         super(status,message);
     }
 

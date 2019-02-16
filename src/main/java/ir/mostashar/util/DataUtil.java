@@ -4,6 +4,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import java.security.acl.LastOwnerException;
 import java.util.Random;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,17 +21,26 @@ public class DataUtil {
         else
             return false;
     }
-    public static boolean isValidUUID(String uuid){
-        String uuidPattern = "[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}";
-        if (uuid == null || uuid.length() <= 0)
-            return false;
-
-        Pattern p = Pattern.compile(uuidPattern);
-        Matcher m = p.matcher(uuid);
-        if (m.matches())
+//    public static boolean isValidUUID(String uuid){
+////        String uuidPattern = "[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}";
+//        String uuidPattern = "/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i";
+//        if (uuid == null || uuid.length() <= 0)
+//            return false;
+//
+//        Pattern p = Pattern.compile(uuidPattern);
+//        Matcher m = p.matcher(uuid);
+//        if (m.matches())
+//            return true;
+//        else
+//            return false;
+//    }
+    public static boolean isValidUUID(String string) {
+        try {
+            UUID.fromString(string);
             return true;
-        else
+        } catch (Exception ex) {
             return false;
+        }
     }
     public static String genarateRandomNumber() {
         long round = Math.round(Math.random() * 100000);

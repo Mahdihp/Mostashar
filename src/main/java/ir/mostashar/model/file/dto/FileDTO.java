@@ -19,11 +19,11 @@ public class FileDTO extends BaseDTO {
     public FileDTO() {
     }
 
-    public FileDTO(String status, String message) {
+    public FileDTO(int status, String message) {
         super(status, message);
     }
 
-    public FileDTO(String status, String message, String fileId) {
+    public FileDTO(int   status, String message, String fileId) {
         super(status, message);
         this.fileId = fileId;
     }

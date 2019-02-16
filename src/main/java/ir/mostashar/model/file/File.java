@@ -6,6 +6,8 @@ import ir.mostashar.model.doc.Doc;
 import ir.mostashar.model.request.Request;
 import ir.mostashar.model.sharingPerspective.SharingPerspectives;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -44,6 +46,8 @@ public class File {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clientid",nullable = false)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Client client;
 
     @OneToMany(cascade = CascadeType.ALL,

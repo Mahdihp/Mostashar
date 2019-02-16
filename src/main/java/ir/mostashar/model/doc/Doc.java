@@ -7,13 +7,15 @@ import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-
+@ToString
 @Data
 @Entity
 @Table(name = "docs")
@@ -33,17 +35,22 @@ public class Doc {
     private String hashCode;
 
     @Column(name = "doctype")
-    private String docType;
+    private DocType docType;
+
+    @Lob
+    @Column(name="data")
+    private byte[] data;
 
     @Column(name = "creationdate")
     private Long creationDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lawyerid",nullable = false)
+    @JoinColumn(name = "lawyerid")
+    @EqualsAndHashCode.Exclude
     private Lawyer lawyer;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(nullable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "callid")
     private Call call;
 
     @OneToMany(cascade = CascadeType.ALL,
@@ -52,21 +59,11 @@ public class Doc {
     private Set<Activity> activities = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fileid", nullable = true)
+    @JoinColumn(name = "fileid", nullable = false)
+    @EqualsAndHashCode.Exclude
     private File file;
 
     public Doc() {
     }
 
-    public Doc(UUID uid, String checksum, String hashCode, String docType, Long creationDate, Lawyer lawyer, Call call, Set<Activity> activities, File file) {
-        this.uid = uid;
-        this.checksum = checksum;
-        this.hashCode = hashCode;
-        this.docType = docType;
-        this.creationDate = creationDate;
-        this.lawyer = lawyer;
-        this.call = call;
-        this.activities = activities;
-        this.file = file;
-    }
 }

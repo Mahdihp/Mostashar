@@ -16,6 +16,7 @@ import ir.mostashar.model.request.repository.RequestRepository;
 import ir.mostashar.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -128,10 +129,10 @@ public class RequestService {
         Optional<Request> request = requestRepository.findRequestByClientUidAndUidAndDeleted(UUID.fromString(clientId), UUID.fromString(requestId), false);
         if (request.isPresent()) {
             RequestDTO requestDTO = new RequestDTO();
-            requestDTO.setStatus("200");
+            requestDTO.setStatus(HttpStatus.OK.value());
             requestDTO.setMessage(Constants.KEY_SUCESSE);
             requestDTO.setRequestId(request.get().getUid().toString());
-            requestDTO.setStatus(request.get().getStatus().name());
+            requestDTO.setRequestStatus(request.get().getStatus().name());
             requestDTO.setRequestNumber(request.get().getRequestNumber());
 
             requestDTO.setClientId(request.get().getClient().getUid().toString());
@@ -151,7 +152,7 @@ public class RequestService {
             for (Request request : requestList.get()) {
                 RequestDTO requestDTO = new RequestDTO();
                 requestDTO.setRequestId(request.getUid().toString());
-                requestDTO.setStatus(request.getStatus().name());
+                requestDTO.setRequestStatus(request.getStatus().name());
                 requestDTO.setRequestNumber(request.getRequestNumber());
 
                 requestDTO.setClientId(request.getClient().getUid().toString());
@@ -160,7 +161,7 @@ public class RequestService {
                 dtoList.add(requestDTO);
             }
 
-            listRequestDTO.setStatus("200");
+            listRequestDTO.setStatus(HttpStatus.OK.value());
             listRequestDTO.setMessage(Constants.KEY_SUCESSE);
             listRequestDTO.setRequests(dtoList);
             return Optional.of(listRequestDTO);

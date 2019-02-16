@@ -2,7 +2,6 @@ package ir.mostashar.model.request.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import ir.mostashar.model.BaseDTO;
-import ir.mostashar.model.request.RequestStatus;
 import lombok.Data;
 
 @Data
@@ -11,7 +10,7 @@ public class RequestDTO extends BaseDTO {
 
     private String requestId;
     private String requestNumber;
-    private String status;
+    private String requestStatus;
 
     private String clientId;
     private String fileId;
@@ -20,11 +19,11 @@ public class RequestDTO extends BaseDTO {
     public RequestDTO() {
     }
 
-    public RequestDTO(String status, String message) {
+    public RequestDTO(int status, String message) {
         super(status, message);
     }
 
-    public RequestDTO(String status, String message, String requestId) {
+    public RequestDTO(int status, String message, String requestId) {
         super(status, message);
         this.requestId = requestId;
     }

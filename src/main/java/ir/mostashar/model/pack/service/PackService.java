@@ -107,7 +107,7 @@ public class PackService {
 //            packForm.setAdviceId(pack.get().getAdvicetype().getUid().toString());
             packForm.setIsActive(pack.get().isActive());
             PackDTO packDTO = new PackDTO();
-            packDTO.setStatus("200");
+            packDTO.setStatus(HttpStatus.OK.value());
             packDTO.setMessage(Constants.KEY_SUCESSE);
             packDTO.setPackForm(packForm);
             return Optional.ofNullable(packDTO);
@@ -129,7 +129,7 @@ public class PackService {
             listPackDTO.add(packObj);
         }
         if (packList != null)
-            return Optional.of(new ListPackDTO("200", Constants.KEY_SUCESSE, listPackDTO));
+            return Optional.of(new ListPackDTO(HttpStatus.OK.value(), Constants.KEY_SUCESSE, listPackDTO));
         else
             return Optional.empty();
     }

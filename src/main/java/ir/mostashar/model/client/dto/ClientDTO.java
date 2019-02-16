@@ -13,7 +13,7 @@ public class ClientDTO extends BaseDTO {
 
     private JwtResponse jwtResponse;
 
-    public ClientDTO(String status, String message, String userid, boolean isActive, JwtResponse jwtResponse) {
+    public ClientDTO(int status, String message, String userid, boolean isActive, JwtResponse jwtResponse) {
         super(status, message, userid, isActive);
         this.jwtResponse = jwtResponse;
     }

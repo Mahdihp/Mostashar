@@ -18,7 +18,7 @@ public class ListPackDTO extends BaseDTO {
     public ListPackDTO() {
     }
 
-    public ListPackDTO(String status, String message) {
+    public ListPackDTO(int status, String message) {
         super(status, message);
     }
 
@@ -26,7 +26,7 @@ public class ListPackDTO extends BaseDTO {
         this.packs = packs;
     }
 
-    public ListPackDTO(String status, String message, List<PackDTO> packs) {
+    public ListPackDTO(int   status, String message, List<PackDTO> packs) {
         super(status, message);
         this.packs = packs;
     }
