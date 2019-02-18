@@ -52,7 +52,7 @@ public class RequestService {
     public UUID createRequest(RequestForm requestForm) {
         Optional<AdviceType> adviceType = adviceTypeRepository.findAdviceTypeByUid(UUID.fromString(requestForm.getAdviceTypeId()));
         Optional<Client> client = clientRepository.findByUid(UUID.fromString(requestForm.getClientId()));
-        Optional<File> file = fileRepository.findFileByUidAndDeleted(UUID.fromString(requestForm.getFileId()),false);
+        Optional<File> file = fileRepository.findFileByUidAndDeleted(UUID.fromString(requestForm.getFileId()), false);
         Long maxRequestNumber = requestRepository.findMaxRequestNumber();
         System.out.println("Log-----------------maxRequestNumber " + maxRequestNumber);
         UUID uuid;
@@ -76,19 +76,25 @@ public class RequestService {
         return null;
     }
 
+    public Optional<Request> findByClientIdAndRequestId(String clientid, String requestid) {
+        Optional<Request> request = requestRepository.findRequestByClientUidAndUidAndDeleted(UUID.fromString(clientid), UUID.fromString(requestid), false);
+        if (request.isPresent())
+            return request;
+        else
+            return Optional.empty();
+    }
+
     /**
-     * find Advice Type & Client & File by Uids
-     * And Logic Delete Record
+     * Logic Delete Record
      *
-     * @param clientId
-     * @param requestId
+     * @param request
      * @return true & false
      */
-    public boolean deleteRequest(String clientId, String requestId) {
-        Optional<Request> request = requestRepository.findRequestByClientUidAndUidAndDeleted(UUID.fromString(clientId), UUID.fromString(requestId), false);
-        if (request.isPresent()) {
-            request.get().setDeleted(true);
-            requestRepository.save(request.get());
+    public boolean deleteRequest(Request request) {
+//        Optional<Request> request = requestRepository.findRequestByClientUidAndUidAndDeleted(UUID.fromString(clientId), UUID.fromString(requestId), false);
+        if (request != null) {
+            request.setDeleted(true);
+            requestRepository.save(request);
             return true;
         }
         return false;
@@ -104,7 +110,7 @@ public class RequestService {
     public boolean updateRequest(RequestForm requestForm) {
         Optional<Request> request = requestRepository.findRequestByUidAndDeleted(UUID.fromString(requestForm.getRequestId()), false);
         Optional<AdviceType> adviceType = adviceTypeRepository.findAdviceTypeByUid(UUID.fromString(requestForm.getAdviceTypeId()));
-        Optional<File> file = fileRepository.findFileByUidAndDeleted(UUID.fromString(requestForm.getFileId()),false);
+        Optional<File> file = fileRepository.findFileByUidAndDeleted(UUID.fromString(requestForm.getFileId()), false);
         if (request.isPresent() && adviceType.isPresent() && file.isPresent()) {
 
             request.get().setStatus(RequestStatus.valueOf(requestForm.getStatus()));
@@ -171,6 +177,7 @@ public class RequestService {
 
     /**
      * Chcek Duplicate Request in Table
+     *
      * @param clientId
      * @param requestId
      * @return true or false

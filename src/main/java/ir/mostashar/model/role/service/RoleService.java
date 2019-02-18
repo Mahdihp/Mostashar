@@ -11,12 +11,12 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import ir.mostashar.model.feature.Feature;
-import ir.mostashar.model.feature.dao.FeatureRepository;
+import ir.mostashar.model.feature.repository.FeatureRepository;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.repository.RoleRepository;
 
 @Service
-public class RoleMgr {
+public class RoleService {
 
 	@Autowired
 	private RoleRepository roleRepository;

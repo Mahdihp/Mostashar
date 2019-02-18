@@ -66,10 +66,10 @@ public class PackService {
         return false;
     }
 
-    public boolean deletePack(String uidPack) {
-        Optional<Pack> pack = packRepository.findPackByUid(UUID.fromString(uidPack));
-        if (pack.isPresent()) {
-            packRepository.delete(pack.get());
+    public boolean deletePack(Pack pack) {
+//        Optional<Pack> pack = packRepository.findPackByUid(UUID.fromString(uidPack));
+        if (pack != null) {
+            packRepository.delete(pack);
             return true;
         }
         return false;
@@ -134,7 +134,7 @@ public class PackService {
             return Optional.empty();
     }
 
-    public boolean createBuyPack(ConsumptionPackForm packForm){
+    public boolean createBuyPack(ConsumptionPackForm packForm) {
         Optional<Pack> pack = packRepository.findPackByUid(UUID.fromString(packForm.getPackId()));
 
         if (pack.isPresent()) {
@@ -149,7 +149,6 @@ public class PackService {
         }
         return false;
     }
-
 
 
 }

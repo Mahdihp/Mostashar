@@ -57,14 +57,4 @@ public class ConsumptionPack {
     public ConsumptionPack() {
     }
 
-    public ConsumptionPack(UUID uid, Long consumptionTime, long value, short type, Long firstInstallmentDate, Long lastInstallmentDate, Pack pack, Request request) {
-        this.uid = uid;
-        this.consumptionTime = consumptionTime;
-        this.value = value;
-        this.type = type;
-        this.firstInstallmentDate = firstInstallmentDate;
-        this.lastInstallmentDate = lastInstallmentDate;
-        this.pack = pack;
-        this.request = request;
-    }
 }

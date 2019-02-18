@@ -45,6 +45,11 @@ public class FileController {
     @Autowired
     DocService docService;
 
+    /**
+     * First find client by userId & exists file title & Later Create File Record
+     * @param fileForm
+     * @return
+     */
     @PostMapping(value = "/createfile", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> createFile(@Valid @RequestBody FileForm fileForm) {
         Optional<Client> client = userService.findByClientId(UUID.fromString(fileForm.getUserId()));
@@ -63,11 +68,16 @@ public class FileController {
         return null;
     }
 
+    /**
+     * Find file Id and Later delete logic file
+     * @param fileId
+     * @return
+     */
     @PostMapping(value = "/removefile/{fileId}", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> removeFile(@PathVariable(value = "fileId") String fileId) {
-        Optional<FileDTO> file = fileService.findFileDTOByUid(fileId);
+        Optional<File> file = fileService.findFileByUid(fileId);
         if (file.isPresent()) {
-            if (fileService.deleteFileByUid(fileId)) {
+            if (fileService.deleteFileByUid(file.get())) {
                 return ResponseEntity.status(HttpStatus.OK).body(new ListFileDTO(HttpStatus.OK.value(), Constants.KEY_DELETE_FILE));
             }
         } else {

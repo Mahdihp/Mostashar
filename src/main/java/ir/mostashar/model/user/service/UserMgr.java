@@ -1,23 +1,5 @@
 package ir.mostashar.model.user.service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
-
-import ir.mostashar.model.client.service.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import ir.mostashar.model.role.Role;
-import ir.mostashar.model.role.repository.RoleRepository;
-import ir.mostashar.model.role.service.RoleMgr;
-import ir.mostashar.model.user.User;
-import ir.mostashar.model.user.repository.UserRepository;
-
 public class UserMgr {
 
 

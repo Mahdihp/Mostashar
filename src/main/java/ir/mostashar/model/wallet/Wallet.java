@@ -35,15 +35,18 @@ public class Wallet {
 	@Column(name = "bankaccountsheba")
 	private String bankAccountSheba;
 
+	@Column(name = "deleted")
+	private boolean deleted = false;
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "wallet")
 	private Set<Bill> bills = new HashSet<>();
 
 	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(nullable = false)
+	@JoinColumn(name = "userid",nullable = false)
 	private User user;
 
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(nullable = false)
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "organizationid")
 	private Organization organization;
 
 	public Wallet() {

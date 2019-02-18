@@ -5,7 +5,7 @@ import ir.mostashar.model.adviceType.repository.AdviceTypeRepository;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.repository.ClientRepository;
 import ir.mostashar.model.feature.Feature;
-import ir.mostashar.model.feature.dao.FeatureRepository;
+import ir.mostashar.model.feature.repository.FeatureRepository;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.repository.FileRepository;
 import ir.mostashar.model.lawyer.Lawyer;

@@ -65,11 +65,11 @@ public class FileService {
             return false;
     }
 
-    public boolean deleteFileByUid(String fileId) {
-        Optional<File> file = fileRepository.findFileByUidAndDeleted(UUID.fromString(fileId),false);
-        if (file.isPresent()) {
-            file.get().setDeleted(true);
-            fileRepository.save(file.get());
+    public boolean deleteFileByUid(File file) {
+//        Optional<File> file = fileRepository.findFileByUidAndDeleted(UUID.fromString(fileId),false);
+        if (file != null ) {
+            file.setDeleted(true);
+            fileRepository.save(file);
             return true;
         }
         return false;

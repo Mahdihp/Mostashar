@@ -1,17 +1,33 @@
 package ir.mostashar.model.consumptionPack.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ConsumptionPackForm {
 
+    @NotBlank
     private String packId;
+
+    @NotBlank
     private String requestId;
+
+    @NotBlank
     private Long consumptionTime;
+
+    @NotBlank
     private Long value;
-    private Integer type;
+
+    @NotBlank
+    private Short type;
+
+    @NotBlank
     private Long firstInstallmentDate;
+
+    @NotBlank
     private Long lastInstallmentDate;
+
+    public ConsumptionPackForm() {
+    }
 }

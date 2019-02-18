@@ -39,8 +39,8 @@ public class Organization {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "userpassword")
-    private String userPassword;
+    @Column(name = "password")
+    private String password;
 
     @Column(name = "creationdate")
     private Long creationDate;
@@ -66,23 +66,5 @@ public class Organization {
     private Wallet wallet;
 
     public Organization() {
-    }
-
-    public Organization(UUID uid, String name, String description, String address, String tel, long terminalId, String username, String userPassword, Long creationDate, Long expiryDate, Long orgStock, Long appStock, boolean verified, Set<Lawyer> lawyers, Wallet wallet) {
-        this.uid = uid;
-        this.name = name;
-        this.description = description;
-        this.address = address;
-        this.tel = tel;
-        this.terminalId = terminalId;
-        this.username = username;
-        this.userPassword = userPassword;
-        this.creationDate = creationDate;
-        this.expiryDate = expiryDate;
-        this.orgStock = orgStock;
-        this.appStock = appStock;
-        this.verified = verified;
-        this.lawyers = lawyers;
-        this.wallet = wallet;
     }
 }

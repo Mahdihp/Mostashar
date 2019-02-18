@@ -35,7 +35,7 @@ public class DocService {
     @Autowired
     ClientRepository clientRepository;
 
-    public boolean createDoc(File fileId, int docType, MultipartFile multipartFile) {
+    public boolean createDoc(File file, int docType, MultipartFile multipartFile) {
         Doc doc = new Doc();
         byte[] arrayData = new byte[(int) multipartFile.getSize()];
         try {
@@ -71,7 +71,7 @@ public class DocService {
                 doc.setDocType(DocType.RARFile);
                 break;
         }
-        doc.setFile(fileId);
+        doc.setFile(file);
 
         doc.setCreationDate(System.currentTimeMillis());
         Doc save = docRepository.save(doc);
