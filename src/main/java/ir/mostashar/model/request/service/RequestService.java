@@ -52,7 +52,7 @@ public class RequestService {
     public UUID createRequest(RequestForm requestForm) {
         Optional<AdviceType> adviceType = adviceTypeRepository.findAdviceTypeByUid(UUID.fromString(requestForm.getAdviceTypeId()));
         Optional<Client> client = clientRepository.findByUid(UUID.fromString(requestForm.getClientId()));
-        Optional<File> file = fileRepository.findFileByUid(UUID.fromString(requestForm.getFileId()));
+        Optional<File> file = fileRepository.findFileByUidAndDeleted(UUID.fromString(requestForm.getFileId()),false);
         Long maxRequestNumber = requestRepository.findMaxRequestNumber();
         System.out.println("Log-----------------maxRequestNumber " + maxRequestNumber);
         UUID uuid;
@@ -104,7 +104,7 @@ public class RequestService {
     public boolean updateRequest(RequestForm requestForm) {
         Optional<Request> request = requestRepository.findRequestByUidAndDeleted(UUID.fromString(requestForm.getRequestId()), false);
         Optional<AdviceType> adviceType = adviceTypeRepository.findAdviceTypeByUid(UUID.fromString(requestForm.getAdviceTypeId()));
-        Optional<File> file = fileRepository.findFileByUid(UUID.fromString(requestForm.getFileId()));
+        Optional<File> file = fileRepository.findFileByUidAndDeleted(UUID.fromString(requestForm.getFileId()),false);
         if (request.isPresent() && adviceType.isPresent() && file.isPresent()) {
 
             request.get().setStatus(RequestStatus.valueOf(requestForm.getStatus()));

@@ -55,7 +55,7 @@ public class AppRunner implements ApplicationRunner {
     public void initDataBase() {
 
         long countAll = clientRepository.count();
-        System.out.println("Log----------------Count " + countAll);
+        System.out.println("Log---------------- Client Count " + countAll);
         if (countAll <= 0)
             insertToDb();
     }

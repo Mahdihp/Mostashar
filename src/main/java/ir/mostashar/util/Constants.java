@@ -48,4 +48,5 @@ public class Constants {
 
     public static final String KEYT_CREATE_DOC_SUCSSES = "مستند مورد نظر با موفقیت ثبت شد.";
     public static final String KEY_NOT_FOUND_DOC = "مستند مورد نظر پیدا نشد.";
+    public static final String KEY_DELETE_DOC = "حذف مستند مورد نظر انجام شد.";
 }

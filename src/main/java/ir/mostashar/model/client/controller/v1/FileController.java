@@ -7,6 +7,7 @@ import ir.mostashar.model.client.service.UserServiceImpl;
 import ir.mostashar.model.doc.Doc;
 import ir.mostashar.model.doc.dto.DocDTO;
 import ir.mostashar.model.doc.dto.DocForm;
+import ir.mostashar.model.doc.dto.ListDocDTO;
 import ir.mostashar.model.doc.service.DocService;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.dto.FileDTO;
@@ -101,7 +102,7 @@ public class FileController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ListFileDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_FILE));
     }
 
-    @PostMapping(value = "/createdocument", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    @PostMapping(value = "/createdoc", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> createDocument(@RequestParam("file") MultipartFile file, @RequestParam(value = "fileid") String fileid, @RequestParam(value = "doctype") int doctype) {
         Optional<File> fileByUid = fileService.findFileByUid(fileid);
         if (fileByUid.isPresent()) {
@@ -121,6 +122,15 @@ public class FileController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new FileDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_DOC));
     }
 
+    @GetMapping(value = "/docs/{userid}/{fileid}", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> findAllDocByUid(@PathVariable(value = "userid") String userid,@PathVariable(value = "fileid") String fileid) {
+        Optional<ListDocDTO> docs = docService.findAllByWithoutDataUid(userid,fileid);
+        if (docs.isPresent())
+            return ResponseEntity.status(HttpStatus.OK).body(docs.get());
+        else
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new FileDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_DOC));
+    }
+
     @GetMapping(value = "/docdata/{docid}")
     public ResponseEntity<?> findDocDataByUid(@PathVariable(value = "docid") String docid) {
         Optional<Doc> doc = docService.findByUid(docid);
@@ -128,6 +138,14 @@ public class FileController {
             return ResponseEntity.status(HttpStatus.OK).body(docService.findDocDataByUid(doc));
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new FileDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_DOC));
+    }
+
+    @PostMapping(value = "removedoc", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> removeDocByUid(@PathVariable(value = "docid") String docid) {
+        if (docService.deleteDoc(docid))
+            return ResponseEntity.status(HttpStatus.OK).body(new FileDTO(HttpStatus.OK.value(), Constants.KEY_DELETE_DOC));
+        else
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new FileDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_DOC));
     }
 
 

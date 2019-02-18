@@ -66,7 +66,7 @@ public class FileService {
     }
 
     public boolean deleteFileByUid(String fileId) {
-        Optional<File> file = fileRepository.findFileByUid(UUID.fromString(fileId));
+        Optional<File> file = fileRepository.findFileByUidAndDeleted(UUID.fromString(fileId),false);
         if (file.isPresent()) {
             file.get().setDeleted(true);
             fileRepository.save(file.get());
@@ -76,7 +76,7 @@ public class FileService {
     }
 
     public boolean updateFile(FileUpdateForm fileUpdateForm) {
-        Optional<File> file = fileRepository.findFileByUid(UUID.fromString(fileUpdateForm.getUid()));
+        Optional<File> file = fileRepository.findFileByUidAndDeleted(UUID.fromString(fileUpdateForm.getUid()),false);
         if (file.isPresent()) {
             file.get().setTitle(fileUpdateForm.getTitle());
             file.get().setDescription(fileUpdateForm.getDescription());
@@ -88,7 +88,7 @@ public class FileService {
     }
 
     public Optional<FileDTO> findFileDTOByUid(String fileId) {
-        Optional<File> file = fileRepository.findFileByUid(UUID.fromString(fileId));
+        Optional<File> file = fileRepository.findFileByUidAndDeleted(UUID.fromString(fileId),false);
         if (file.isPresent()) {
             FileDTO fileDTO = new FileDTO();
             fileDTO.setStatus(HttpStatus.OK.value());
@@ -107,7 +107,7 @@ public class FileService {
     }
 
     public Optional<ListFileDTO> findAllFileByUserId(String userid) {
-        Optional<List<File>> fileList = fileRepository.findAllByClientUid(UUID.fromString(userid));
+        Optional<List<File>> fileList = fileRepository.findAllByClientUidAndDeleted(UUID.fromString(userid),false);
         if (fileList.isPresent()) {
 
             ListFileDTO listFileDTO = new ListFileDTO();
@@ -134,7 +134,7 @@ public class FileService {
     }
 
     public Optional<File> findFileByUid(String fileId) {
-        Optional<File> file = fileRepository.findFileByUid(UUID.fromString(fileId));
+        Optional<File> file = fileRepository.findFileByUidAndDeleted(UUID.fromString(fileId),false);
         if (file.isPresent())
             return Optional.ofNullable(file.get());
         else

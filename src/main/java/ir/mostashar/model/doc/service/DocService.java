@@ -1,8 +1,11 @@
 package ir.mostashar.model.doc.service;
 
+import ir.mostashar.model.client.Client;
+import ir.mostashar.model.client.repository.ClientRepository;
 import ir.mostashar.model.doc.Doc;
 import ir.mostashar.model.doc.DocType;
 import ir.mostashar.model.doc.dto.DocDTO;
+import ir.mostashar.model.doc.dto.ListDocDTO;
 import ir.mostashar.model.doc.repository.DocRepository;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.repository.FileRepository;
@@ -14,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -26,6 +31,9 @@ public class DocService {
 
     @Autowired
     FileRepository fileRepository;
+
+    @Autowired
+    ClientRepository clientRepository;
 
     public boolean createDoc(File fileId, int docType, MultipartFile multipartFile) {
         Doc doc = new Doc();
@@ -73,8 +81,35 @@ public class DocService {
             return false;
     }
 
+    public Optional<ListDocDTO> findAllByWithoutDataUid(String userId, String fileId) {
+        Optional<Client> client = clientRepository.findByUid(UUID.fromString(userId));
+        Optional<File> file = fileRepository.findFileByUidAndDeleted(UUID.fromString(fileId), false);
+        if (client.isPresent() && file.isPresent()) {
+            Optional<List<Doc>> docs = docRepository.findAllByFileUidAndDeleted(file.get().getUid() ,false);
+            if (docs.isPresent()) {
+                List<DocDTO> dtoList = new ArrayList<>();
+                ListDocDTO listDocDTO = new ListDocDTO();
+                for (Doc doc : docs.get()) {
+                    DocDTO docDTO = new DocDTO();
+                    docDTO.setDocId(doc.getUid().toString());
+                    docDTO.setChecksum(doc.getChecksum());
+                    docDTO.setHashCode(doc.getHashCode());
+                    docDTO.setDocType(doc.getDocType().type + "");
+                    docDTO.setCreationDate(doc.getCreationDate());
+                    docDTO.setFileId(doc.getFile().getUid().toString());
+                    dtoList.add(docDTO);
+                }
+                listDocDTO.setStatus(HttpStatus.OK.value());
+                listDocDTO.setMessage(Constants.KEY_SUCESSE);
+                listDocDTO.setDocs(dtoList);
+                return Optional.ofNullable(listDocDTO);
+            }
+        }
+        return Optional.empty();
+    }
+
     public Optional<DocDTO> findByWithoutDataUid(String docId) {
-        Optional<Doc> doc = docRepository.findByUid(UUID.fromString(docId));
+        Optional<Doc> doc = docRepository.findByUidAndDeleted(UUID.fromString(docId), false);
         if (doc.isPresent()) {
             DocDTO docDTO = new DocDTO();
             docDTO.setDocId(doc.get().getUid().toString());
@@ -98,11 +133,21 @@ public class DocService {
 
 
     public Optional<Doc> findByUid(String docid) {
-        Optional<Doc> doc = docRepository.findByUid(UUID.fromString(docid));
+        Optional<Doc> doc = docRepository.findByUidAndDeleted(UUID.fromString(docid), false);
         if (doc.isPresent())
             return doc;
         else
             return Optional.empty();
 
+    }
+
+    public boolean deleteDoc(String docUid) {
+        Optional<Doc> doc = docRepository.findByUidAndDeleted(UUID.fromString(docUid), false);
+        if (doc.isPresent()) {
+            doc.get().setDeleted(true);
+            docRepository.save(doc.get());
+            return true;
+        }
+        return false;
     }
 }

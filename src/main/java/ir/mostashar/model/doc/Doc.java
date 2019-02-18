@@ -44,6 +44,9 @@ public class Doc {
     @Column(name = "creationdate")
     private Long creationDate;
 
+    @Column(name = "deleted")
+    private boolean deleted = false;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lawyerid")
     @EqualsAndHashCode.Exclude
