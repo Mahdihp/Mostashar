@@ -1,19 +1,11 @@
 package ir.mostashar.model.client.controller.v1;
 
-import ir.mostashar.model.client.service.UserServiceImpl;
-import ir.mostashar.model.file.dto.ListFileDTO;
-import ir.mostashar.model.lawyer.Lawyer;
-import ir.mostashar.model.lawyer.repository.LawyerRepository;
-import ir.mostashar.model.pack.dto.ListPackDTO;
-import ir.mostashar.model.pack.dto.PackForm;
-import ir.mostashar.model.pack.service.PackService;
 import ir.mostashar.model.request.Request;
 import ir.mostashar.model.request.dto.ListRequestDTO;
 import ir.mostashar.model.request.dto.RequestDTO;
 import ir.mostashar.model.request.dto.RequestForm;
 import ir.mostashar.model.request.service.RequestService;
-import ir.mostashar.util.Constants;
-import ir.mostashar.util.DataUtil;
+import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

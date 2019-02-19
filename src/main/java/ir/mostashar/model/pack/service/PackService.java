@@ -1,6 +1,5 @@
 package ir.mostashar.model.pack.service;
 
-import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.adviceType.repository.AdviceTypeRepository;
 import ir.mostashar.model.consumptionPack.ConsumptionPack;
 import ir.mostashar.model.consumptionPack.dto.ConsumptionPackForm;
@@ -10,10 +9,9 @@ import ir.mostashar.model.pack.dto.ListPackDTO;
 import ir.mostashar.model.pack.dto.PackDTO;
 import ir.mostashar.model.pack.dto.PackForm;
 import ir.mostashar.model.pack.repository.PackRepository;
-import ir.mostashar.util.Constants;
+import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

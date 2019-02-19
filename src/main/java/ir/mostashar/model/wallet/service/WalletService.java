@@ -1,6 +1,5 @@
 package ir.mostashar.model.wallet.service;
 
-import ir.mostashar.model.client.Client;
 import ir.mostashar.model.organization.Organization;
 import ir.mostashar.model.organization.repository.OrganizationRepository;
 import ir.mostashar.model.user.User;
@@ -10,13 +9,11 @@ import ir.mostashar.model.wallet.dto.ListWalletDTO;
 import ir.mostashar.model.wallet.dto.WalletDTO;
 import ir.mostashar.model.wallet.dto.WalletForm;
 import ir.mostashar.model.wallet.repository.WalletRepository;
-import ir.mostashar.util.Constants;
-import lombok.AllArgsConstructor;
+import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import javax.swing.event.CaretListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

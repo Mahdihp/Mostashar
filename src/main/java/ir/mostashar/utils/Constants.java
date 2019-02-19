@@ -1,4 +1,4 @@
-package ir.mostashar.util;
+package ir.mostashar.utils;
 
 public class Constants {
 

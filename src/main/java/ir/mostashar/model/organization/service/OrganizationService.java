@@ -5,9 +5,8 @@ import ir.mostashar.model.organization.dto.ListOrganizationDTO;
 import ir.mostashar.model.organization.dto.OrganizationDTO;
 import ir.mostashar.model.organization.dto.OrganizationForm;
 import ir.mostashar.model.organization.repository.OrganizationRepository;
-import ir.mostashar.util.Constants;
+import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 

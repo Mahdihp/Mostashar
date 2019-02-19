@@ -6,29 +6,23 @@ import ir.mostashar.model.client.dto.FileUpdateForm;
 import ir.mostashar.model.client.service.UserServiceImpl;
 import ir.mostashar.model.doc.Doc;
 import ir.mostashar.model.doc.dto.DocDTO;
-import ir.mostashar.model.doc.dto.DocForm;
 import ir.mostashar.model.doc.dto.ListDocDTO;
 import ir.mostashar.model.doc.service.DocService;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.dto.FileDTO;
 import ir.mostashar.model.file.dto.ListFileDTO;
 import ir.mostashar.model.file.service.FileService;
-import ir.mostashar.util.Constants;
-import ir.mostashar.util.DataUtil;
+import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController

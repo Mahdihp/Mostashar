@@ -1,4 +1,4 @@
-package ir.mostashar.util;
+package ir.mostashar.utils;
 
 
 import org.springframework.beans.factory.annotation.Value;

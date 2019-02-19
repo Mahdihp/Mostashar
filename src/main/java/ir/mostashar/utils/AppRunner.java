@@ -1,4 +1,4 @@
-package ir.mostashar.util;
+package ir.mostashar.utils;
 
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.adviceType.repository.AdviceTypeRepository;

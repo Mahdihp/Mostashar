@@ -1,4 +1,4 @@
-package ir.mostashar.util;
+package ir.mostashar.utils;
 
 
 import com.kavenegar.sdk.KavenegarApi;

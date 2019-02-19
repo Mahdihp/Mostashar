@@ -1,9 +1,7 @@
-package ir.mostashar.util;
+package ir.mostashar.utils;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
-import java.security.acl.LastOwnerException;
-import java.util.Random;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

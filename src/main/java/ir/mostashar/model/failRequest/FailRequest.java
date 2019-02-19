@@ -1,6 +1,5 @@
 package ir.mostashar.model.failRequest;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.request.Request;
 import lombok.Data;
