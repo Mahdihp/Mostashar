@@ -1,14 +1,13 @@
 package ir.mostashar.model.client.service;
 
 import ir.mostashar.model.client.Client;
-import ir.mostashar.model.client.dto.ValidateCode;
+import ir.mostashar.model.client.dto.*;
 import ir.mostashar.model.client.repository.ClientRepository;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.lawyer.repository.LawyerRepository;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.repository.RoleRepository;
 import ir.mostashar.model.role.RoleName;
-import ir.mostashar.model.client.dto.SignUpForm;
 import ir.mostashar.security.jwt.JwtProvider;
 import ir.mostashar.security.jwt.JwtResponse;
 import ir.mostashar.util.Constants;
@@ -183,7 +182,10 @@ public class UserServiceImpl implements UserDetailsService {
     public Optional<User> findUserIdAndCode(String userid, String code) {
         System.out.println("Log----------findUserIdAndCode " + userid + "  " + code);
         Optional<User> user = userRepository.findUserByUidAndVerificationCode(UUID.fromString(userid), code);
-        return user;
+        if (user.isPresent())
+            return Optional.ofNullable(user.get());
+        else
+            return Optional.empty();
     }
 
     public void activeUser(boolean isactive, UUID userid) {
@@ -196,13 +198,4 @@ public class UserServiceImpl implements UserDetailsService {
     }
 
 
-    public Optional<User> findByUserid(UUID userid) {
-        Optional<User> user = userRepository.findUserByUid(userid);
-        return user;
-    }
-
-    public Optional<Client> findByClientId(UUID userid) {
-        Optional<Client> client = clientRepository.findByUid(userid);
-        return client;
-    }
 }

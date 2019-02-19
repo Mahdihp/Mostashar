@@ -6,13 +6,19 @@ import ir.mostashar.model.organization.repository.OrganizationRepository;
 import ir.mostashar.model.user.User;
 import ir.mostashar.model.user.repository.UserRepository;
 import ir.mostashar.model.wallet.Wallet;
+import ir.mostashar.model.wallet.dto.ListWalletDTO;
+import ir.mostashar.model.wallet.dto.WalletDTO;
 import ir.mostashar.model.wallet.dto.WalletForm;
 import ir.mostashar.model.wallet.repository.WalletRepository;
+import ir.mostashar.util.Constants;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.swing.event.CaretListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -85,8 +91,8 @@ public class WalletService {
         return false;
     }
 
-    public boolean updateWallet(WalletForm walletForm) {
-        Optional<Wallet> wallet = walletRepository.findByUidAndUserUidAndDeleted(UUID.fromString(walletForm.getWalletId()), UUID.fromString(walletForm.getUserId()), false);
+    public boolean updateWallet(WalletForm walletForm,boolean isDelete) {
+        Optional<Wallet> wallet = walletRepository.findByUidAndUserUidAndDeleted(UUID.fromString(walletForm.getWalletId()), UUID.fromString(walletForm.getUserId()), isDelete);
         if (wallet.isPresent()) {
             wallet.get().setBankAccountName(walletForm.getBankAccountName());
             wallet.get().setBankAccountNumber(walletForm.getBankAccountNumber());
@@ -112,7 +118,7 @@ public class WalletService {
         return false;
     }
 
-    public boolean restoreWallet(String walletUid, String userUid){
+    public boolean restoreWallet(String walletUid, String userUid) {
         Optional<Wallet> wallet = walletRepository.findByUidAndUserUid(UUID.fromString(walletUid), UUID.fromString(userUid));
         if (wallet.isPresent()) {
             wallet.get().setDeleted(false);
@@ -120,6 +126,56 @@ public class WalletService {
             return true;
         }
         return false;
+    }
+
+    public Optional<Wallet> findByUid(String walletUid, String userUid,boolean isDelete) {
+        Optional<Wallet> wallet = walletRepository.findByUidAndUserUidAndDeleted(UUID.fromString(walletUid), UUID.fromString(userUid),isDelete);
+        if (wallet.isPresent()) {
+            return Optional.ofNullable(wallet.get());
+        }
+        return Optional.empty();
+    }
+
+    public Optional<WalletDTO> findWalletDTOByUid(String walletUid, String userUid,boolean isDelete) {
+        Optional<Wallet> wallet = walletRepository.findByUidAndUserUidAndDeleted(UUID.fromString(walletUid), UUID.fromString(userUid),isDelete);
+        if (wallet.isPresent()) {
+            WalletDTO walletDTO = new WalletDTO();
+            walletDTO.setStatus(HttpStatus.OK.value());
+            walletDTO.setMessage(Constants.KEY_SUCESSE);
+            walletDTO.setUserId(wallet.get().getUid().toString());
+            walletDTO.setValue(wallet.get().getValue());
+            walletDTO.setBankAccountName(wallet.get().getBankAccountName());
+            walletDTO.setBankAccountNumber(wallet.get().getBankAccountNumber());
+            walletDTO.setBankAccountSheba(wallet.get().getBankAccountSheba());
+            walletDTO.setUserId(wallet.get().getUser().getUid().toString());
+            walletDTO.setOrganizationId(wallet.get().getOrganization().getUid().toString());
+            return Optional.ofNullable(walletDTO);
+        }
+        return Optional.empty();
+    }
+
+    public Optional<ListWalletDTO> findAllListWalletDTO(boolean isDelete) {
+        Optional<List<Wallet>> orgs = walletRepository.findAllByDeleted(isDelete);
+        if (orgs.isPresent()) {
+            ListWalletDTO listWalletDTO = new ListWalletDTO();
+            List<WalletDTO> dtoList = new ArrayList<>();
+            listWalletDTO.setStatus(HttpStatus.OK.value());
+            listWalletDTO.setMessage(Constants.KEY_SUCESSE);
+            for (Wallet wallet : orgs.get()) {
+                WalletDTO walletDTO = new WalletDTO();
+                walletDTO.setUserId(wallet.getUid().toString());
+                walletDTO.setValue(wallet.getValue());
+                walletDTO.setBankAccountName(wallet.getBankAccountName());
+                walletDTO.setBankAccountNumber(wallet.getBankAccountNumber());
+                walletDTO.setBankAccountSheba(wallet.getBankAccountSheba());
+                walletDTO.setUserId(wallet.getUser().getUid().toString());
+                walletDTO.setOrganizationId(wallet.getOrganization().getUid().toString());
+                dtoList.add(walletDTO);
+            }
+            listWalletDTO.setData(dtoList);
+            return Optional.ofNullable(listWalletDTO);
+        }
+        return Optional.empty();
     }
 
 }

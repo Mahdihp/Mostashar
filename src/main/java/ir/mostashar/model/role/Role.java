@@ -9,9 +9,10 @@ import javax.persistence.*;
 import ir.mostashar.model.feature.Feature;
 import ir.mostashar.model.user.User;
 import lombok.Data;
+import lombok.ToString;
 import org.hibernate.annotations.NaturalId;
 
-
+@ToString
 @Data
 @Entity
 @Table(name = "roles")

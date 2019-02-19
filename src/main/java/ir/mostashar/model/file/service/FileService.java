@@ -106,8 +106,8 @@ public class FileService {
         return Optional.empty();
     }
 
-    public Optional<ListFileDTO> findAllFileByUserId(String userid) {
-        Optional<List<File>> fileList = fileRepository.findAllByClientUidAndDeleted(UUID.fromString(userid),false);
+    public Optional<ListFileDTO> findAllFileByUserId() {
+        Optional<List<File>> fileList = fileRepository.findAllByDeleted(false);
         if (fileList.isPresent()) {
 
             ListFileDTO listFileDTO = new ListFileDTO();

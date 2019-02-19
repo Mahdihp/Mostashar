@@ -4,6 +4,8 @@ import ir.mostashar.model.client.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.awt.print.Pageable;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -14,4 +16,5 @@ public interface ClientRepository extends JpaRepository<Client,Long> {
     Boolean existsUserByMobileNumber(long phoneNumber);
     Optional<Client> findByUid(UUID uuid);
 
+    List<Client> findAll();
 }
