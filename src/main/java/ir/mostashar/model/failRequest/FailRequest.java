@@ -28,12 +28,12 @@ public class FailRequest {
     private String description;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(nullable = false)
+    @JoinColumn(name = "requestid",nullable = false)
     private Request request;
 
-    @OneToMany(cascade = CascadeType.ALL,
-            mappedBy = "failrequest")
-    private Set<Lawyer> lawyers = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lawyerid",nullable = false)
+    private Lawyer lawyer;
 
     public FailRequest() {
     }

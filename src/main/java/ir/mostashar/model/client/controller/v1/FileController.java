@@ -3,6 +3,7 @@ package ir.mostashar.model.client.controller.v1;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.dto.FileForm;
 import ir.mostashar.model.client.dto.FileUpdateForm;
+import ir.mostashar.model.client.service.ClientService;
 import ir.mostashar.model.client.service.UserServiceImpl;
 import ir.mostashar.model.doc.Doc;
 import ir.mostashar.model.doc.dto.DocDTO;
@@ -39,6 +40,8 @@ public class FileController {
     @Autowired
     DocService docService;
 
+    @Autowired
+    ClientService clientService;
     /**
      * First find client by userId & exists file title & Later Create File Record
      * @param fileForm
@@ -46,7 +49,7 @@ public class FileController {
      */
     @PostMapping(value = "/createfile", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> createFile(@Valid @RequestBody FileForm fileForm) {
-        Optional<Client> client = userService.findByClientId(UUID.fromString(fileForm.getUserId()));
+        Optional<Client> client = clientService.findByClientId(fileForm.getUserId());
         if (client.isPresent()) {
             if (fileService.existTitleFile(fileForm.getTitle(), client.get())) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ListFileDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_DUPLICATE_FILE));

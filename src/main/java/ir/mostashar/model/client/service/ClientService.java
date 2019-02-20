@@ -22,8 +22,8 @@ public class ClientService {
     private ClientRepository clientRepository;
 
 
-    public Optional<Client> findByClientId(UUID userid) {
-        Optional<Client> client = clientRepository.findByUid(userid);
+    public Optional<Client> findByClientId(String userid) {
+        Optional<Client> client = clientRepository.findByUid(UUID.fromString(userid));
         if (client.isPresent())
             return Optional.ofNullable(client.get());
         else

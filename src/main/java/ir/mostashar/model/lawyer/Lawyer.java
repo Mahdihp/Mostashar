@@ -55,14 +55,14 @@ public class Lawyer extends User {
             inverseJoinColumns = {@JoinColumn(name = "expertiseid")})
     private Set<Expertise> expertises = new HashSet<>();
 
-    // ارتباط یک طرفه با کلاس Lawyer
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "failrequestid")
-    private FailRequest failrequest;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organizationid")
     private Organization organization;
+
+    // ارتباط یک طرفه با کلاس Lawyer
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    private Set<FailRequest> failRequests;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
     private Set<AcceptRequest> acceptRequests;

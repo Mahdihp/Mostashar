@@ -108,4 +108,30 @@ public class AcceptRequestService {
         }
         return Optional.empty();
     }
+
+    public Optional<ListAcceptRequestDTO> findListAcceptRequestDTOByLawyer(String lawyerUid) {
+        Optional<List<AcceptRequest>> allByLawyerUid = arRepository.findAllByLawyerUid(UUID.fromString(lawyerUid));
+        if (allByLawyerUid.isPresent()) {
+            ListAcceptRequestDTO larDTO = new ListAcceptRequestDTO();
+            larDTO.setStatus(HttpStatus.OK.value());
+            larDTO.setMessage(Constants.KEY_SUCESSE);
+            List<AcceptRequestDTO> dtoList = new ArrayList<>();
+            for (AcceptRequest ar : allByLawyerUid.get()) {
+                AcceptRequestDTO arDTO = new AcceptRequestDTO();
+                arDTO.setStatus(HttpStatus.OK.value());
+                arDTO.setMessage(Constants.KEY_SUCESSE);
+
+                arDTO.setUid(ar.getUid().toString());
+                arDTO.setAcceptDate(ar.getAcceptDate());
+                arDTO.setFinished(ar.getFinished());
+                arDTO.setVerified(ar.getVerified());
+                arDTO.setRequestUid(ar.getRequest().getUid().toString());
+                arDTO.setLawyerUid(ar.getLawyer().getUid().toString());
+                dtoList.add(arDTO);
+            }
+            larDTO.setData(dtoList);
+            return Optional.ofNullable(larDTO);
+        }
+        return Optional.empty();
+    }
 }

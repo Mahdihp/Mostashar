@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "installments")
+@Table(name = "installments") // قسط ها
 public class Installment {
 
     @Id
@@ -31,7 +31,6 @@ public class Installment {
     @Column(name = "value")
     private long value;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "consumptionpackid", nullable = false)
     private ConsumptionPack consumptionpack;
@@ -40,7 +39,6 @@ public class Installment {
             cascade =  CascadeType.ALL,
             mappedBy = "installment")
     private Factor factor;
-
 
     public Installment() {
     }
