@@ -15,7 +15,7 @@ public class AcceptRequestDTO extends BaseDTO {
 
     private Long verified;
 
-    private Long finished;
+    private Long finishedTimeFile;
 
     private String lawyerUid;
 

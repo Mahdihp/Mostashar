@@ -18,12 +18,7 @@ public class ListPackSnapshotDTO extends BaseDTO {
     public ListPackSnapshotDTO() {
     }
 
-    public ListPackSnapshotDTO(List<PackSnapshotDTO> packs) {
-        this.packs = packs;
-    }
-
-    public ListPackSnapshotDTO(String status, String message, List<PackSnapshotDTO> packs) {
+    public ListPackSnapshotDTO(Integer status, String message) {
         super(status, message);
-        this.packs = packs;
     }
 }

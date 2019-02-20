@@ -3,6 +3,7 @@ package ir.mostashar.model.packsnapshot;
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.consumptionPack.ConsumptionPack;
 import ir.mostashar.model.lawyer.Lawyer;
+import ir.mostashar.model.pack.Pack;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -14,7 +15,7 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "packsnapshot")
+@Table(name = "packsnapshots")
 public class PackSnapshot {
 
     @Id
@@ -24,8 +25,8 @@ public class PackSnapshot {
     @Column(unique = true, nullable = false)
     private UUID uid;
 
-    @Column(name = "packname")
-    private String packname;
+//    @Column(name = "packname")
+//    private String packname;
 
     @Column(name = "packdescription")
     private String packdescription;
@@ -56,6 +57,12 @@ public class PackSnapshot {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private AdviceType advicetype;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "packid", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Pack pack;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(nullable = false)

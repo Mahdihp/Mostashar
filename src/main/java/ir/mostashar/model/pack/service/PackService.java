@@ -1,5 +1,6 @@
 package ir.mostashar.model.pack.service;
 
+import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.adviceType.repository.AdviceTypeRepository;
 import ir.mostashar.model.consumptionPack.ConsumptionPack;
 import ir.mostashar.model.consumptionPack.dto.ConsumptionPackForm;
@@ -41,19 +42,18 @@ public class PackService {
      */
     public boolean createPack(PackForm packForm) {
         UUID uuid = UUID.randomUUID();
-//        Optional<AdviceType> adviceType = adviceTypeRepository.findAdviceTypeByUid(UUID.fromString(packForm.getAdviceId()));
-//        if (adviceType.isPresent()) {
-        Pack pack = new Pack();
-        pack.setUid(uuid);
-        pack.setName(packForm.getName());
-        pack.setMinute(packForm.getPricePerMinute());
-        pack.setDescription(packForm.getDescription());
-        pack.setActive(packForm.getIsActive());
-//            pack.setAdvicetype(adviceType.get());
-        packRepository.save(pack);
-        return true;
-//        }
-//        return false;
+        Optional<AdviceType> adviceType = adviceTypeRepository.findAdviceTypeByUid(UUID.fromString(packForm.getAdvicetypeUid()));
+        if (adviceType.isPresent()) {
+            Pack pack = new Pack();
+            pack.setUid(uuid);
+            pack.setMinute(packForm.getMinute());
+            pack.setDescription(packForm.getDescription());
+            pack.setActive(false);
+            pack.setAdvicetype(adviceType.get());
+            packRepository.save(pack);
+            return true;
+        }
+        return false;
     }
 
     public boolean existsPack(String packName) {
@@ -76,13 +76,13 @@ public class PackService {
     public boolean updatePack(PackForm packForm) {
         Optional<Pack> pack = packRepository.findPackByUid(UUID.fromString(packForm.getUid()));
         if (pack.isPresent()) {
-//            Optional<AdviceType> adviceType = adviceTypeRepository.findAdviceTypeByUid(UUID.fromString(packForm.getAdviceId()));
+            Optional<AdviceType> adviceType = adviceTypeRepository.findAdviceTypeByUid(UUID.fromString(packForm.getAdvicetypeUid()));
             pack.get().setName(packForm.getUid());
             pack.get().setDescription(packForm.getDescription());
-            pack.get().setActive(packForm.getIsActive());
-            pack.get().setMinute(packForm.getPricePerMinute());
-//            if (adviceType.isPresent())
-//                pack.get().setAdvicetype(adviceType.get());
+            pack.get().setActive(packForm.isActive());
+            pack.get().setMinute(packForm.getMinute());
+            if (adviceType.isPresent())
+                pack.get().setAdvicetype(adviceType.get());
 
             packRepository.save(pack.get());
             return true;
@@ -101,9 +101,9 @@ public class PackService {
             packForm.setUid(packForm.getUid());
             packForm.setName(pack.get().getName());
             packForm.setDescription(pack.get().getDescription());
-            packForm.setPricePerMinute(pack.get().getMinute());
+            packForm.setTotalprice(pack.get().getMinute());
 //            packForm.setAdviceId(pack.get().getAdvicetype().getUid().toString());
-            packForm.setIsActive(pack.get().isActive());
+            packForm.setActive(pack.get().isActive());
             PackDTO packDTO = new PackDTO();
             packDTO.setStatus(HttpStatus.OK.value());
             packDTO.setMessage(Constants.KEY_SUCESSE);

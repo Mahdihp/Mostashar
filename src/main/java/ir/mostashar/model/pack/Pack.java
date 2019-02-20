@@ -2,6 +2,8 @@ package ir.mostashar.model.pack;
 
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.consumptionPack.ConsumptionPack;
+import ir.mostashar.model.failRequest.FailRequest;
+import ir.mostashar.model.packsnapshot.PackSnapshot;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -48,6 +50,9 @@ public class Pack {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private AdviceType advicetype;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pack")
+    private Set<PackSnapshot> packsnapshots;
 
     public Pack() {
     }

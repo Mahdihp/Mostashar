@@ -31,9 +31,6 @@ public class Request {
     @Column(name = "requestnumber")
     private String requestNumber;
 
-    @Column(name = "status")
-    private RequestStatus status;
-
     @Column(name = "deleted")
     private boolean deleted = false;
 

@@ -13,7 +13,7 @@ public class AcceptRequestForm {
 
     private Long verified;
 
-    private Long finished;
+    private Long finishedTimeFile;
 
     @NotBlank
     private String lawyerUid;

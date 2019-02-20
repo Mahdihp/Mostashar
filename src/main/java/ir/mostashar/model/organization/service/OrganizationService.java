@@ -36,7 +36,7 @@ public class OrganizationService {
             org.setTel(form.getTel());
             org.setPassword(form.getPassword());
             org.setTerminalId(form.getTerminalId());
-//            org.setVerified(false);
+            org.setVerified(false);
 //            org.setExpiryDate(form.getDescription()); چطوری تعیین میشه
             orgRepository.save(org);
             return true;
@@ -57,8 +57,8 @@ public class OrganizationService {
             org.get().setTel(form.getTel());
             org.get().setPassword(form.getPassword());
             org.get().setTerminalId(form.getTerminalId());
-//            org.setVerified(false);
-//            org.setExpiryDate(form.getDescription()); چطوری تعیین میشه
+            org.get().setVerified(form.isVerified());
+            org.get().setExpiryDate(form.getExpiryDate()); //چطوری تعیین میشه
             orgRepository.save(org.get());
             return true;
         }

@@ -29,6 +29,8 @@ public class OrganizationForm {
 
     private Long appStock;
 
+    private boolean isVerified;
+
     public OrganizationForm() {
     }
 }

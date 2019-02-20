@@ -8,17 +8,29 @@ import javax.validation.constraints.NotBlank;
 public class PackForm {
 
 
-    @NotBlank
     private String uid;
 
+    @NotBlank
     private String name;
+
+    @NotBlank
+    private String packUid;
+
     private String description;
 
-    @NotBlank
-    private Integer  pricePerMinute;
+    private int  minute;
+
+    private int  lawyerpriceperminute;
+
+    private int  totalprice;
+
+    private boolean isActive = false;
 
     @NotBlank
-    private Boolean isActive;
+    private String advicetypeUid;
+
+    @NotBlank
+    private String lawyerUid;
 
     public PackForm() {
     }

@@ -1,14 +1,18 @@
 package ir.mostashar.model.packsnapshot.service;
 
+import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.adviceType.repository.AdviceTypeRepository;
 import ir.mostashar.model.consumptionPack.repository.ConsumptionPackRepository;
+import ir.mostashar.model.pack.Pack;
+import ir.mostashar.model.pack.dto.PackForm;
+import ir.mostashar.model.pack.service.PackService;
 import ir.mostashar.model.packsnapshot.PackSnapshot;
-import ir.mostashar.model.packsnapshot.dto.ListPackDTO;
 import ir.mostashar.model.packsnapshot.dto.ListPackSnapshotDTO;
 import ir.mostashar.model.packsnapshot.dto.PackSnapshotDTO;
 import ir.mostashar.model.packsnapshot.repository.PackSnapshotRepository;
-import ir.mostashar.util.Constants;
+import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,6 +32,9 @@ public class PackSnapshotService {
     @Autowired
     ConsumptionPackRepository consumptionPackRepository;
 
+    @Autowired
+    PackService packService;
+
     /**
      * first find Advicetype by uid
      * two assing to setAdvicetype
@@ -36,54 +43,49 @@ public class PackSnapshotService {
      *
      * @param packForm
      */
-    public boolean createPack(PackForm packForm) {
+    public boolean createPackSnapshot(PackForm packForm) {
         UUID uuid = UUID.randomUUID();
-//        Optional<AdviceType> adviceType = adviceTypeRepository.findAdviceTypeByUid(UUID.fromString(packForm.getAdviceId()));
-//        if (adviceType.isPresent()) {
-        Packsnapshot packsnapshot = new Packsnapshot();
-        packsnapshot.setUid(uuid);
-        packsnapshot.setName(packForm.getName());
-        packsnapshot.setMinute(packForm.getPricePerMinute());
-        packsnapshot.setDescription(packForm.getDescription());
-        packsnapshot.setActive(packForm.getIsActive());
-//            packsnapshot.setAdvicetype(adviceType.get());
-        packRepository.save(packsnapshot);
-        return true;
-//        }
-//        return false;
+        Optional<AdviceType> adviceType = adviceTypeRepository.findAdviceTypeByUid(UUID.fromString(packForm.getAdvicetypeUid()));
+        Optional<Pack> pack = packService.findPackByUid(packForm.getPackUid());
+        if (adviceType.isPresent() && pack.isPresent()) {
+            PackSnapshot packsnapshot = new PackSnapshot();
+            packsnapshot.setUid(uuid);
+            packsnapshot.setPack(pack.get());
+            packsnapshot.setLawyerpriceperminute(packForm.getLawyerpriceperminute());
+            packsnapshot.setPackminute(packForm.getPackminute());
+//            packsnapshot.setActive(); // پرسیده شود
+            packsnapshot.setAdvicetype(adviceType.get());
+            packsnapshotRepository.save(packsnapshot);
+            return true;
+        }
+        return false;
     }
 
 
-
-
-
-
-    public Optional<PackSnapshot> findPackByUid(String uid) {
+    public Optional<PackSnapshot> findPackSnapshotByUid(String uid) {
         return packsnapshotRepository.findPackByUid(UUID.fromString(uid));
     }
 
 
-    public Optional<ListPackSnapshotDTO> findAllPacks() {
+    public Optional<ListPackSnapshotDTO> findAllPackSnapshot() {
         List<PackSnapshot> packsnapshotList = packsnapshotRepository.findAll();
         List<PackSnapshotDTO> listPackDTO = new ArrayList<>();
         for (PackSnapshot packsnapshot : packsnapshotList) {
             PackSnapshotDTO packObj = new PackSnapshotDTO();
-            packObj.set(packsnapshot.getUid().toString());
-            packObj.setName(packsnapshot.getName());
-            packObj.setDescription(packsnapshot.getDescription());
-            packObj.setMinute(packsnapshot.getMinute() * pricePerminute);
+            packObj.setUid(packsnapshot.getUid().toString());
+
+            packObj.setPackUid(packsnapshot.getPack().getUid().toString());
+            packObj.setLawyerUid(packsnapshot.getLawyer().getUid().toString());
+//            packObj.setTotalprice(packsnapshot.getLawyerpriceperminute() * pricePerminute);
             packObj.setIsActive(packsnapshot.isActive());
 
             listPackDTO.add(packObj);
         }
         if (packsnapshotList != null)
-            return Optional.of(new ListPackDTO("200", Constants.KEY_SUCESSE, listPackDTO));
+            return Optional.of(new ListPackSnapshotDTO(HttpStatus.OK.value(), Constants.KEY_SUCESSE));
         else
             return Optional.empty();
     }
-
-
-
 
 
 }

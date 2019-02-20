@@ -38,8 +38,8 @@ public class AcceptRequestService {
             AcceptRequest ar = new AcceptRequest();
             ar.setUid(UUID.randomUUID());
             ar.setAcceptDate(System.currentTimeMillis());
-//            ar.setFinished(); // پرسیده شود.
-//            ar.setVerified(); // پرسیده شود.
+            ar.setFinishedTimeFile(null);
+            ar.setVerified(null); // پرسیده شود.
             ar.setLawyer(lawyer.get());
             ar.setRequest(request.get());
             arRepository.save(ar);
@@ -74,7 +74,7 @@ public class AcceptRequestService {
 
             arDTO.setUid(acceptRequest.get().getUid().toString());
             arDTO.setAcceptDate(acceptRequest.get().getAcceptDate());
-            arDTO.setFinished(acceptRequest.get().getFinished());
+            arDTO.setFinishedTimeFile(acceptRequest.get().getFinishedTimeFile());
             arDTO.setVerified(acceptRequest.get().getVerified());
             arDTO.setRequestUid(acceptRequest.get().getRequest().getUid().toString());
             arDTO.setLawyerUid(acceptRequest.get().getLawyer().getUid().toString());
@@ -97,7 +97,7 @@ public class AcceptRequestService {
 
                 arDTO.setUid(ar.getUid().toString());
                 arDTO.setAcceptDate(ar.getAcceptDate());
-                arDTO.setFinished(ar.getFinished());
+                arDTO.setFinishedTimeFile(ar.getFinishedTimeFile());
                 arDTO.setVerified(ar.getVerified());
                 arDTO.setRequestUid(ar.getRequest().getUid().toString());
                 arDTO.setLawyerUid(ar.getLawyer().getUid().toString());
@@ -123,7 +123,7 @@ public class AcceptRequestService {
 
                 arDTO.setUid(ar.getUid().toString());
                 arDTO.setAcceptDate(ar.getAcceptDate());
-                arDTO.setFinished(ar.getFinished());
+                arDTO.setFinishedTimeFile(ar.getFinishedTimeFile());
                 arDTO.setVerified(ar.getVerified());
                 arDTO.setRequestUid(ar.getRequest().getUid().toString());
                 arDTO.setLawyerUid(ar.getLawyer().getUid().toString());

@@ -2,6 +2,7 @@ package ir.mostashar.model.acceptRequest;
 
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.request.Request;
+import ir.mostashar.model.request.RequestStatus;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -25,8 +26,11 @@ public class AcceptRequest {
     @Column(name = "verified")
     private Long verified;
 
-    @Column(name = "finished")
-    private Long finished;
+    @Column(name = "finishedtimefile")
+    private Long finishedTimeFile;
+
+    @Column(name = "requeststatus")
+    private RequestStatus requestStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lawyerid",nullable = false)
