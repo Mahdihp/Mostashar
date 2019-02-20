@@ -38,7 +38,7 @@ public class Installment {
     @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
             mappedBy = "installment")
-    private Factor factor;
+    private Factor factor; // forign key from Factor
 
     public Installment() {
     }

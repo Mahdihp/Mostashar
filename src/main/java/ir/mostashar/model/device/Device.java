@@ -63,3 +63,4 @@ public class Device {
 		this.user = user;
 	}
 }
+
