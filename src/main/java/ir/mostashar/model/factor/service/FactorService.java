@@ -2,7 +2,6 @@ package ir.mostashar.model.factor.service;
 
 import ir.mostashar.model.bill.Bill;
 import ir.mostashar.model.bill.service.BillService;
-import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.service.ClientService;
 import ir.mostashar.model.factor.Factor;
 import ir.mostashar.model.factor.dto.FactorDTO;
@@ -11,7 +10,6 @@ import ir.mostashar.model.factor.dto.ListFactorDTO;
 import ir.mostashar.model.factor.repository.FactorRepo;
 import ir.mostashar.model.installment.Installment;
 import ir.mostashar.model.installment.service.InstallmentService;
-import ir.mostashar.model.wallet.Wallet;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,7 +37,7 @@ public class FactorService {
 
 
     public boolean createFactor(FactorForm factorForm) {
-        Optional<Bill> bill = billService.findByUid(factorForm.getBillUid());
+        Optional<Bill> bill = billService.findBillByUid(factorForm.getBillUid());
         Optional<Installment> installment = installmentService.findInstallmentByUid(factorForm.getInstallmentUid());
         if (bill.isPresent() && installment.isPresent()) {
             Factor factor = new Factor();
