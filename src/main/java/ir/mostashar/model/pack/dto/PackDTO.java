@@ -10,13 +10,19 @@ import lombok.ToString;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PackDTO extends BaseDTO {
 
-    private PackForm packForm;
+    private String uid;
 
-    private String packId;
     private String name;
+
     private String description;
+
     private Integer  minute;
-    private Boolean isActive ;
+
+    private Long priceTotal;
+
+    private Boolean isActive = false;
+
+    private String advicetypeUid;
 
     public PackDTO() {
     }

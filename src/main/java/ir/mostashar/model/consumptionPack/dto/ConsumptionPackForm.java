@@ -17,7 +17,7 @@ public class ConsumptionPackForm {
     private Long consumptionTime;
 
     @NotBlank
-    private Long value;
+    private Long baseTime;
 
     @NotBlank
     private Short type;

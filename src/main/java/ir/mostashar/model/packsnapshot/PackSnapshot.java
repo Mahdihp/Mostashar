@@ -25,8 +25,8 @@ public class PackSnapshot {
     @Column(unique = true, nullable = false)
     private UUID uid;
 
-//    @Column(name = "packname")
-//    private String packname;
+    @Column(name = "packname")
+    private String packname;
 
     @Column(name = "packdescription")
     private String packdescription;
@@ -58,14 +58,9 @@ public class PackSnapshot {
     @EqualsAndHashCode.Exclude
     private AdviceType advicetype;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "packid", nullable = false)
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private Pack pack;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(nullable = false)
+    @JoinColumn(name = "lawyerid",nullable = false)
     private Lawyer lawyer;
 
 

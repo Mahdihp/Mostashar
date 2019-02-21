@@ -2,14 +2,16 @@ package ir.mostashar.model.packsnapshot.service;
 
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.adviceType.repository.AdviceTypeRepository;
-import ir.mostashar.model.consumptionPack.repository.ConsumptionPackRepository;
+import ir.mostashar.model.consumptionPack.service.ConsumptionPackService;
+import ir.mostashar.model.lawyer.Lawyer;
+import ir.mostashar.model.lawyer.repository.LawyerRepository;
 import ir.mostashar.model.pack.Pack;
-import ir.mostashar.model.pack.dto.PackForm;
 import ir.mostashar.model.pack.service.PackService;
 import ir.mostashar.model.packsnapshot.PackSnapshot;
 import ir.mostashar.model.packsnapshot.dto.ListPackSnapshotDTO;
 import ir.mostashar.model.packsnapshot.dto.PackSnapshotDTO;
-import ir.mostashar.model.packsnapshot.repository.PackSnapshotRepository;
+import ir.mostashar.model.packsnapshot.dto.PackSnapshotForm;
+import ir.mostashar.model.packsnapshot.repository.PackSnapshotRepo;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,38 +26,37 @@ import java.util.UUID;
 public class PackSnapshotService {
 
     @Autowired
-    PackSnapshotRepository packsnapshotRepository;
+    PackSnapshotRepo packsnapshotRepo;
 
     @Autowired
     AdviceTypeRepository adviceTypeRepository;
 
     @Autowired
-    ConsumptionPackRepository consumptionPackRepository;
+    ConsumptionPackService consumptionPackService;
 
     @Autowired
     PackService packService;
 
-    /**
-     * first find Advicetype by uid
-     * two assing to setAdvicetype
-     * three save new Packsnapshot
-     * four retrun true
-     *
-     * @param packForm
-     */
-    public boolean createPackSnapshot(PackForm packForm) {
-        UUID uuid = UUID.randomUUID();
+    @Autowired
+    LawyerRepository lawyerRepository;
+
+
+    public boolean createPackSnapshot(PackSnapshotForm packForm) {
         Optional<AdviceType> adviceType = adviceTypeRepository.findAdviceTypeByUid(UUID.fromString(packForm.getAdvicetypeUid()));
-        Optional<Pack> pack = packService.findPackByUid(packForm.getPackUid());
+        Optional<Pack> pack = packService.findPackByName(packForm.getPackname());
+        Optional<Lawyer> lawyer = lawyerRepository.findByUid(UUID.fromString(packForm.getLawyerUid()));
         if (adviceType.isPresent() && pack.isPresent()) {
             PackSnapshot packsnapshot = new PackSnapshot();
-            packsnapshot.setUid(uuid);
-            packsnapshot.setPack(pack.get());
-            packsnapshot.setLawyerpriceperminute(packForm.getLawyerpriceperminute());
-            packsnapshot.setPackminute(packForm.getPackminute());
-//            packsnapshot.setActive(); // پرسیده شود
+            packsnapshot.setUid(UUID.randomUUID());
+            packsnapshot.setPackname(pack.get().getName());
+            packsnapshot.setPackdescription(pack.get().getDescription());
+            packsnapshot.setPackminute(pack.get().getMinute());
+            packsnapshot.setLawyerpriceperminute(lawyer.get().getPricePerMinute());
+            packsnapshot.setTotalprice(lawyer.get().getPricePerMinute() * pack.get().getMinute());
+            packsnapshot.setActive(true);
             packsnapshot.setAdvicetype(adviceType.get());
-            packsnapshotRepository.save(packsnapshot);
+            packsnapshot.setLawyer(lawyer.get());
+            packsnapshotRepo.save(packsnapshot);
             return true;
         }
         return false;
@@ -63,28 +64,32 @@ public class PackSnapshotService {
 
 
     public Optional<PackSnapshot> findPackSnapshotByUid(String uid) {
-        return packsnapshotRepository.findPackByUid(UUID.fromString(uid));
+        return packsnapshotRepo.findPackByUid(UUID.fromString(uid));
     }
 
 
     public Optional<ListPackSnapshotDTO> findAllPackSnapshot() {
-        List<PackSnapshot> packsnapshotList = packsnapshotRepository.findAll();
+        List<PackSnapshot> packsnapshotList = packsnapshotRepo.findAll();
         List<PackSnapshotDTO> listPackDTO = new ArrayList<>();
-        for (PackSnapshot packsnapshot : packsnapshotList) {
-            PackSnapshotDTO packObj = new PackSnapshotDTO();
-            packObj.setUid(packsnapshot.getUid().toString());
+        if (packsnapshotList != null) {
+            for (PackSnapshot packsnapshot : packsnapshotList) {
 
-            packObj.setPackUid(packsnapshot.getPack().getUid().toString());
-            packObj.setLawyerUid(packsnapshot.getLawyer().getUid().toString());
-//            packObj.setTotalprice(packsnapshot.getLawyerpriceperminute() * pricePerminute);
-            packObj.setIsActive(packsnapshot.isActive());
+                PackSnapshotDTO packObj = new PackSnapshotDTO();
+                packsnapshot.setUid(UUID.randomUUID());
+                packsnapshot.setPackname(packsnapshot.getPackname());
+                packsnapshot.setPackdescription(packsnapshot.getPackdescription());
+                packsnapshot.setPackminute(packsnapshot.getPackminute());
+                packsnapshot.setLawyerpriceperminute(packsnapshot.getLawyer().getPricePerMinute());
+                packsnapshot.setTotalprice(packsnapshot.getTotalprice());
+                packsnapshot.setActive(true);
+                packsnapshot.setAdvicetype(packsnapshot.getAdvicetype());
+                packsnapshot.setLawyer(packsnapshot.getLawyer());
 
-            listPackDTO.add(packObj);
-        }
-        if (packsnapshotList != null)
+                listPackDTO.add(packObj);
+            }
             return Optional.of(new ListPackSnapshotDTO(HttpStatus.OK.value(), Constants.KEY_SUCESSE));
-        else
-            return Optional.empty();
+        }
+        return Optional.empty();
     }
 
 

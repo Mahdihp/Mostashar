@@ -9,9 +9,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface PackRepository extends JpaRepository<Pack,Long> {
+public interface PackRepo extends JpaRepository<Pack,Long> {
 
     Optional<Pack> findPackByUid(UUID uuid);
+    Optional<Pack> findPackByName(String uuid);
+    Optional<Pack> findPackByUidBOrderByActive(UUID uuid,boolean isActive);
 
     Optional<Boolean> existsPackByName(String name);
 

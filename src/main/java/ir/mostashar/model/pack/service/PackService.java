@@ -2,14 +2,13 @@ package ir.mostashar.model.pack.service;
 
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.adviceType.repository.AdviceTypeRepository;
-import ir.mostashar.model.consumptionPack.ConsumptionPack;
 import ir.mostashar.model.consumptionPack.dto.ConsumptionPackForm;
 import ir.mostashar.model.consumptionPack.repository.ConsumptionPackRepository;
 import ir.mostashar.model.pack.Pack;
 import ir.mostashar.model.pack.dto.ListPackDTO;
 import ir.mostashar.model.pack.dto.PackDTO;
 import ir.mostashar.model.pack.dto.PackForm;
-import ir.mostashar.model.pack.repository.PackRepository;
+import ir.mostashar.model.pack.repository.PackRepo;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +23,7 @@ import java.util.UUID;
 public class PackService {
 
     @Autowired
-    PackRepository packRepository;
+    PackRepo packRepo;
 
     @Autowired
     AdviceTypeRepository adviceTypeRepository;
@@ -50,14 +49,14 @@ public class PackService {
             pack.setDescription(packForm.getDescription());
             pack.setActive(false);
             pack.setAdvicetype(adviceType.get());
-            packRepository.save(pack);
+            packRepo.save(pack);
             return true;
         }
         return false;
     }
 
     public boolean existsPack(String packName) {
-        Optional<Boolean> aBoolean = packRepository.existsPackByName(packName);
+        Optional<Boolean> aBoolean = packRepo.existsPackByName(packName);
         if (aBoolean.isPresent()) {
             return aBoolean.get();
         }
@@ -67,14 +66,14 @@ public class PackService {
     public boolean deletePack(Pack pack) {
 //        Optional<Pack> pack = packRepository.findPackByUid(UUID.fromString(uidPack));
         if (pack != null) {
-            packRepository.delete(pack);
+            packRepo.delete(pack);
             return true;
         }
         return false;
     }
 
     public boolean updatePack(PackForm packForm) {
-        Optional<Pack> pack = packRepository.findPackByUid(UUID.fromString(packForm.getUid()));
+        Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(packForm.getUid()));
         if (pack.isPresent()) {
             Optional<AdviceType> adviceType = adviceTypeRepository.findAdviceTypeByUid(UUID.fromString(packForm.getAdvicetypeUid()));
             pack.get().setName(packForm.getUid());
@@ -84,44 +83,48 @@ public class PackService {
             if (adviceType.isPresent())
                 pack.get().setAdvicetype(adviceType.get());
 
-            packRepository.save(pack.get());
+            packRepo.save(pack.get());
             return true;
         }
         return false;
     }
-
+    public Optional<Pack> findPackByName(String packName) {
+        return packRepo.findPackByName(packName);
+    }
     public Optional<Pack> findPackByUid(String uid) {
-        return packRepository.findPackByUid(UUID.fromString(uid));
+        return packRepo.findPackByUid(UUID.fromString(uid));
     }
 
     public Optional<PackDTO> findPackDTOByUid(String uid) {
-        Optional<Pack> pack = packRepository.findPackByUid(UUID.fromString(uid));
+        Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(uid));
         if (pack.isPresent()) {
-            PackForm packForm = new PackForm();
-            packForm.setUid(packForm.getUid());
-            packForm.setName(pack.get().getName());
-            packForm.setDescription(pack.get().getDescription());
-            packForm.setTotalprice(pack.get().getMinute());
-//            packForm.setAdviceId(pack.get().getAdvicetype().getUid().toString());
-            packForm.setActive(pack.get().isActive());
+
             PackDTO packDTO = new PackDTO();
             packDTO.setStatus(HttpStatus.OK.value());
             packDTO.setMessage(Constants.KEY_SUCESSE);
-            packDTO.setPackForm(packForm);
+
+            packDTO.setUid(pack.get().getUid().toString());
+            packDTO.setName(pack.get().getName());
+            packDTO.setDescription(pack.get().getDescription());
+            packDTO.setPriceTotal(0L);
+            packDTO.setAdvicetypeUid(pack.get().getAdvicetype().getUid().toString());
+            packDTO.setIsActive(pack.get().isActive());
+            packDTO.setMinute(pack.get().getMinute());
+
             return Optional.ofNullable(packDTO);
         }
         return Optional.empty();
     }
 
-    public Optional<ListPackDTO> findAllPacks(int pricePerminute) {
-        List<Pack> packList = packRepository.findAll();
+    public Optional<ListPackDTO> findAllPacks(int pricePerminuteByLawyer) {
+        List<Pack> packList = packRepo.findAll();
         List<PackDTO> listPackDTO = new ArrayList<>();
         for (Pack pack : packList) {
             PackDTO packObj = new PackDTO();
-            packObj.setPackId(pack.getUid().toString());
+            packObj.setUid(pack.getUid().toString());
             packObj.setName(pack.getName());
             packObj.setDescription(pack.getDescription());
-            packObj.setMinute(pack.getMinute() * pricePerminute);
+            packObj.setPriceTotal((long) (pack.getMinute() * pricePerminuteByLawyer));
             packObj.setIsActive(pack.isActive());
 
             listPackDTO.add(packObj);
@@ -132,10 +135,10 @@ public class PackService {
             return Optional.empty();
     }
 
-    public boolean createBuyPack(ConsumptionPackForm packForm) {
-        Optional<Pack> pack = packRepository.findPackByUid(UUID.fromString(packForm.getPackId()));
+    public boolean createBuyPack(ConsumptionPackForm packForm,String lawyerUid) {
+        Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(packForm.getPackId()));
 
-        if (pack.isPresent()) {
+       /* if (pack.isPresent()) {
             ConsumptionPack consumptionPack = new ConsumptionPack();
             consumptionPack.setUid(UUID.randomUUID());
             consumptionPack.setValue(packForm.getValue());
@@ -144,7 +147,8 @@ public class PackService {
             consumptionPack.setFirstInstallmentDate(packForm.getFirstInstallmentDate());
             consumptionPack.setLastInstallmentDate(packForm.getLastInstallmentDate());
 
-        }
+        }*/
+       // And create PackSnapShot Object
         return false;
     }
 

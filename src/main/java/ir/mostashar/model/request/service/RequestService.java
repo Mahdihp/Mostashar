@@ -59,7 +59,7 @@ public class RequestService {
             Request request = new Request();
             uuid = UUID.randomUUID();
             request.setUid(uuid);
-            request.setStatus(RequestStatus.Waiting);
+//            request.setStatus(RequestStatus.Waiting);
             if (maxRequestNumber != null) {
                 request.setRequestNumber(String.valueOf(maxRequestNumber + 1));
             } else {
@@ -112,7 +112,7 @@ public class RequestService {
         Optional<File> file = fileRepository.findFileByUidAndDeleted(UUID.fromString(requestForm.getFileId()), false);
         if (request.isPresent() && adviceType.isPresent() && file.isPresent()) {
 
-            request.get().setStatus(RequestStatus.valueOf(requestForm.getStatus()));
+//            request.get().setStatus(RequestStatus.valueOf(requestForm.getStatus()));
 //            request.get().setAdvicetype(adviceType.get());
 //            request.get().setFile(file.get());
 
@@ -137,7 +137,7 @@ public class RequestService {
             requestDTO.setStatus(HttpStatus.OK.value());
             requestDTO.setMessage(Constants.KEY_SUCESSE);
             requestDTO.setRequestId(request.get().getUid().toString());
-            requestDTO.setRequestStatus(request.get().getStatus().name());
+//            requestDTO.setRequestStatus(request.get().getStatus().name());
             requestDTO.setRequestNumber(request.get().getRequestNumber());
 
             requestDTO.setClientId(request.get().getClient().getUid().toString());
@@ -157,7 +157,7 @@ public class RequestService {
             for (Request request : requestList.get()) {
                 RequestDTO requestDTO = new RequestDTO();
                 requestDTO.setRequestId(request.getUid().toString());
-                requestDTO.setRequestStatus(request.getStatus().name());
+//                requestDTO.setRequestStatus(request.getStatus().name());
                 requestDTO.setRequestNumber(request.getRequestNumber());
 
                 requestDTO.setClientId(request.getClient().getUid().toString());

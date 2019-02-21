@@ -51,8 +51,7 @@ public class Pack {
     @EqualsAndHashCode.Exclude
     private AdviceType advicetype;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pack")
-    private Set<PackSnapshot> packsnapshots;
+
 
     public Pack() {
     }

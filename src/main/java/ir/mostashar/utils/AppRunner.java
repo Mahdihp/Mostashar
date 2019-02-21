@@ -11,7 +11,7 @@ import ir.mostashar.model.file.repository.FileRepository;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.lawyer.repository.LawyerRepository;
 import ir.mostashar.model.pack.Pack;
-import ir.mostashar.model.pack.repository.PackRepository;
+import ir.mostashar.model.pack.repository.PackRepo;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.repository.RoleRepository;
 import ir.mostashar.model.role.RoleName;
@@ -44,7 +44,7 @@ public class AppRunner implements ApplicationRunner {
     AdviceTypeRepository adviceTypeRepository;
 
     @Autowired
-    PackRepository packRepository;
+    PackRepo packRepo;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -311,11 +311,11 @@ public class AppRunner implements ApplicationRunner {
         adviceTypeRepository.save(adviceType1);
         adviceTypeRepository.save(adviceType2);
 
-        packRepository.save(pack1);
-        packRepository.save(pack2);
-        packRepository.save(pack3);
-        packRepository.save(pack4);
-        packRepository.save(pack5);
+        packRepo.save(pack1);
+        packRepo.save(pack2);
+        packRepo.save(pack3);
+        packRepo.save(pack4);
+        packRepo.save(pack5);
 
         lawyerRepository.save(lawyer1);
         lawyerRepository.save(lawyer2);

@@ -4,7 +4,7 @@ import ir.mostashar.model.consumptionPack.ConsumptionPack;
 import ir.mostashar.model.consumptionPack.dto.ConsumptionPackForm;
 import ir.mostashar.model.consumptionPack.repository.ConsumptionPackRepository;
 import ir.mostashar.model.pack.Pack;
-import ir.mostashar.model.pack.repository.PackRepository;
+import ir.mostashar.model.pack.repository.PackRepo;
 import ir.mostashar.model.request.Request;
 import ir.mostashar.model.request.repository.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class ConsumptionPackService {
     ConsumptionPackRepository cpRepository;
 
     @Autowired
-    PackRepository packRepository;
+    PackRepo packRepo;
 
     @Autowired
     RequestRepository requestRepository;
@@ -34,13 +34,13 @@ public class ConsumptionPackService {
      * @return false & true
      */
     public boolean createConsumptionPack(ConsumptionPackForm cpForm) {
-        Optional<Pack> pack = packRepository.findPackByUid(UUID.fromString(cpForm.getPackId()));
+        Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(cpForm.getPackId()));
         Optional<Request> request = requestRepository.findRequestByUidAndDeleted(UUID.fromString(cpForm.getRequestId()), false);
         if (pack.isPresent() && request.isPresent()) {
             ConsumptionPack cp = new ConsumptionPack();
             cp.setUid(UUID.randomUUID());
             cp.setConsumptionTime(cpForm.getConsumptionTime());
-            cp.setValue(cpForm.getValue());
+            cp.setBaseTime(cpForm.getBaseTime());
             cp.setType(cpForm.getType());
             cp.setFirstInstallmentDate(cpForm.getFirstInstallmentDate());
             cp.setLastInstallmentDate(cpForm.getLastInstallmentDate());

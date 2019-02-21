@@ -24,11 +24,11 @@ public class ConsumptionPack {
     @Column(unique = true, nullable = false)
     private UUID uid;
 
-    @Column(name = "consumptiontime")
+    @Column(name = "consumptiontime") // left time
     private Long consumptionTime;
 
-    @Column(name = "value")
-    private long value;
+    @Column(name = "basetime")
+    private long baseTime;
 
     @Column(name = "type")
     private short type;
