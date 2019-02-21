@@ -5,8 +5,10 @@ import ir.mostashar.model.consumptionPack.dto.ConsumptionPackForm;
 import ir.mostashar.model.consumptionPack.repository.ConsumptionPackRepo;
 import ir.mostashar.model.pack.Pack;
 import ir.mostashar.model.pack.repository.PackRepo;
+import ir.mostashar.model.pack.service.PackService;
 import ir.mostashar.model.request.Request;
 import ir.mostashar.model.request.repository.RequestRepo;
+import ir.mostashar.model.request.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,7 @@ public class ConsumptionPackService {
     ConsumptionPackRepo cpRepository;
 
     @Autowired
-    PackRepo packRepo;
+    PackService packService;
 
     @Autowired
     RequestRepo requestRepo;
@@ -34,7 +36,7 @@ public class ConsumptionPackService {
      * @return false & true
      */
     public boolean createConsumptionPack(ConsumptionPackForm cpForm) {
-        Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(cpForm.getPackId()));
+        Optional<Pack> pack = packService.findPackByUid(cpForm.getPackId());
         Optional<Request> request = requestRepo.findRequestByUidAndDeleted(UUID.fromString(cpForm.getRequestId()), false);
         if (pack.isPresent() && request.isPresent()) {
             ConsumptionPack cp = new ConsumptionPack();
