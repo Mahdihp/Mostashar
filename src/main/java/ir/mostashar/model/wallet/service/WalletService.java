@@ -125,6 +125,14 @@ public class WalletService {
         return false;
     }
 
+    public Optional<Wallet> findByUid(String uid,boolean isDelete) {
+        Optional<Wallet> wallet = walletRepo.findByUidAndDeleted(UUID.fromString(uid),isDelete);
+        if (wallet.isPresent()) {
+            return Optional.ofNullable(wallet.get());
+        }
+        return Optional.empty();
+    }
+
     public Optional<Wallet> findByUid(String walletUid, String userUid,boolean isDelete) {
         Optional<Wallet> wallet = walletRepo.findByUidAndUserUidAndDeleted(UUID.fromString(walletUid), UUID.fromString(userUid),isDelete);
         if (wallet.isPresent()) {

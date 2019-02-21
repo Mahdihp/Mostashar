@@ -23,10 +23,10 @@ public class Factor {
     private String serviceDescription;
 
     @Column(name = "clientName")
-    private String clientName;
+    private String clientName; // این چه اسمی هست
 
     @Column(name = "clientcode")
-    private String clientCode;
+    private String clientCode; // این چه اسمی هست
 
     @Column(name = "address")
     private String address;

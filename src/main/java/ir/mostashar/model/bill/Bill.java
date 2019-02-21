@@ -51,14 +51,4 @@ public class Bill {
     public Bill() {
     }
 
-    public Bill(UUID uid, String transactionNumber, String trackingNumber, Long transactionDate, String status, long value, String orgUid, Wallet wallet) {
-        this.uid = uid;
-        this.transactionNumber = transactionNumber;
-        this.trackingNumber = trackingNumber;
-        this.transactionDate = transactionDate;
-        this.status = status;
-        this.value = value;
-        this.orgUid = orgUid;
-        this.wallet = wallet;
-    }
 }

@@ -55,6 +55,14 @@ public class InstallmentService {
         return false;
     }
 
+    public Optional<Installment> findInstallmentByUid(String uid) {
+        Optional<Installment> installment = installmentRepo.findByUid(UUID.fromString(uid));
+        if (installment.isPresent())
+            return Optional.ofNullable(installment.get());
+        else
+            return Optional.empty();
+    }
+
     public Optional<InstallmentDTO> findInstallmentDTOByUid(String uid) {
         Optional<Installment> installment = installmentRepo.findByUid(UUID.fromString(uid));
         if (installment.isPresent()) {
