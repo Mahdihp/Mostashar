@@ -2,6 +2,7 @@ package ir.mostashar.model.bill.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import ir.mostashar.model.BaseDTO;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
@@ -20,4 +21,17 @@ public class BillDTO extends BaseDTO {
 
     public BillDTO() {
     }
+
+    public BillDTO(String uid, String transactionNumber, String trackingNumber, Long transactionDate, String status, Long value, String orgUid, String walletUid, String factorUid) {
+        this.uid = uid;
+        this.transactionNumber = transactionNumber;
+        this.trackingNumber = trackingNumber;
+        this.transactionDate = transactionDate;
+        this.status = status;
+        this.value = value;
+        this.orgUid = orgUid;
+        this.walletUid = walletUid;
+        this.factorUid = factorUid;
+    }
+
 }

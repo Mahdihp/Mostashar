@@ -2,13 +2,13 @@ package ir.mostashar.model.bill.service;
 
 import ir.mostashar.model.bill.Bill;
 import ir.mostashar.model.bill.dto.BillDTO;
+import ir.mostashar.model.bill.dto.BillDTOBuilder;
 import ir.mostashar.model.bill.dto.BillForm;
 import ir.mostashar.model.bill.dto.ListBillDTO;
 import ir.mostashar.model.bill.repository.BillRepo;
 import ir.mostashar.model.factor.Factor;
 import ir.mostashar.model.factor.service.FactorService;
 import ir.mostashar.model.wallet.Wallet;
-import ir.mostashar.model.wallet.repository.WalletRepo;
 import ir.mostashar.model.wallet.service.WalletService;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +63,7 @@ public class BillService {
     public Optional<BillDTO> findBillDTOByValue(Long value) {
         Optional<Bill> bill = billRepo.findByValue(value);
         if (bill.isPresent()) {
-            BillDTO billDTO = new BillDTO();
+            BillDTO billDTO = new BillDTOBuilder().createBillDTO();
             billDTO.setStatus(HttpStatus.OK.value());
             billDTO.setMessage(Constants.KEY_SUCESSE);
             billDTO.setUid(bill.get().toString());
@@ -83,7 +83,7 @@ public class BillService {
     public Optional<BillDTO> findBillDTOByTrackingNumber(String trackingNumber) {
         Optional<Bill> bill = billRepo.findByTrackingNumber(trackingNumber);
         if (bill.isPresent()) {
-            BillDTO billDTO = new BillDTO();
+            BillDTO billDTO = new BillDTOBuilder().createBillDTO();
             billDTO.setStatus(HttpStatus.OK.value());
             billDTO.setMessage(Constants.KEY_SUCESSE);
             billDTO.setUid(bill.get().toString());
@@ -103,7 +103,7 @@ public class BillService {
     public Optional<BillDTO> findBillDTOByTransactionNumber(String transactionNumber) {
         Optional<Bill> bill = billRepo.findByTransactionNumber(transactionNumber);
         if (bill.isPresent()) {
-            BillDTO billDTO = new BillDTO();
+            BillDTO billDTO = new BillDTOBuilder().createBillDTO();
             billDTO.setStatus(HttpStatus.OK.value());
             billDTO.setMessage(Constants.KEY_SUCESSE);
             billDTO.setUid(bill.get().toString());
@@ -123,7 +123,7 @@ public class BillService {
     public Optional<BillDTO> findBillDTOByUid(String uid) {
         Optional<Bill> bill = billRepo.findByUid(UUID.fromString(uid));
         if (bill.isPresent()) {
-            BillDTO billDTO = new BillDTO();
+            BillDTO billDTO = new BillDTOBuilder().createBillDTO();
             billDTO.setStatus(HttpStatus.OK.value());
             billDTO.setMessage(Constants.KEY_SUCESSE);
             billDTO.setUid(bill.get().toString());
@@ -148,7 +148,7 @@ public class BillService {
             lbDTO.setMessage(Constants.KEY_SUCESSE);
             List<BillDTO> dtoList = new ArrayList<>();
             for (Bill bill : bills.get()) {
-                BillDTO billDTO = new BillDTO();
+                BillDTO billDTO = new BillDTOBuilder().createBillDTO();
                 billDTO.setUid(bill.toString());
                 billDTO.setTrackingNumber(bill.getTrackingNumber());
                 billDTO.setTrackingNumber(bill.getTrackingNumber());
