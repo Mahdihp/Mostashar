@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface OrganizationRepository extends JpaRepository<Organization, Long> {
+public interface OrganizationRepo extends JpaRepository<Organization, Long> {
 
     Optional<Organization> findByUid(UUID uuid);
     Optional<Organization> findByUidAndVerified(UUID uuid,boolean isVerified);

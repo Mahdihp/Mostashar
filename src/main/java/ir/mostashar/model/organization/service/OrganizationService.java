@@ -4,7 +4,7 @@ import ir.mostashar.model.organization.Organization;
 import ir.mostashar.model.organization.dto.ListOrganizationDTO;
 import ir.mostashar.model.organization.dto.OrganizationDTO;
 import ir.mostashar.model.organization.dto.OrganizationForm;
-import ir.mostashar.model.organization.repository.OrganizationRepository;
+import ir.mostashar.model.organization.repository.OrganizationRepo;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ import java.util.UUID;
 public class OrganizationService {
 
     @Autowired
-    OrganizationRepository orgRepository;
+    OrganizationRepo orgRepository;
 
     public boolean createOrganization(OrganizationForm form) {
         Optional<Organization> orgOld = orgRepository.findByUsernameAndName(form.getUsername(), form.getName());

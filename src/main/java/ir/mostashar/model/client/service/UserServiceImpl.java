@@ -2,11 +2,11 @@ package ir.mostashar.model.client.service;
 
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.dto.*;
-import ir.mostashar.model.client.repository.ClientRepository;
+import ir.mostashar.model.client.repository.ClientRepo;
 import ir.mostashar.model.lawyer.Lawyer;
-import ir.mostashar.model.lawyer.repository.LawyerRepository;
+import ir.mostashar.model.lawyer.repository.LawyerRepo;
 import ir.mostashar.model.role.Role;
-import ir.mostashar.model.role.repository.RoleRepository;
+import ir.mostashar.model.role.repository.RoleRepo;
 import ir.mostashar.model.role.RoleName;
 import ir.mostashar.security.jwt.JwtProvider;
 import ir.mostashar.security.jwt.JwtResponse;
@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ir.mostashar.model.user.User;
-import ir.mostashar.model.user.repository.UserRepository;
+import ir.mostashar.model.user.repository.UserRepo;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
@@ -42,19 +42,19 @@ public class UserServiceImpl implements UserDetailsService {
     private SmsService smsService;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepo userRepo;
 
     @Autowired
-    private ClientRepository clientRepository;
+    private ClientRepo clientRepo;
 
     @Autowired
-    private LawyerRepository lawyerRepository;
+    private LawyerRepo lawyerRepo;
 
     @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private RoleRepository roleRepository;
+    private RoleRepo roleRepo;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username)
+        User user = userRepo.findByUsername(username)
                 .orElseThrow(() ->
                         new UsernameNotFoundException("User Not Found with -> username or password : " + username)
                 );
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserDetailsService {
     }
 
     public JwtResponse generateToken(@Valid @RequestBody ValidateCode validateCode) {
-        Optional<User> userOptional = userRepository.findUserByUidAndVerificationCode(UUID.fromString(validateCode.getUserid()), validateCode.getCode());
+        Optional<User> userOptional = userRepo.findUserByUidAndVerificationCode(UUID.fromString(validateCode.getUserid()), validateCode.getCode());
 
         if (userOptional.isPresent()) {
 
@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserDetailsService {
     }
 
     public boolean existsPhoneNumber(long phoneNumber) {
-        Optional<Boolean> aBoolean = userRepository.existsUserByMobileNumber(phoneNumber);
+        Optional<Boolean> aBoolean = userRepo.existsUserByMobileNumber(phoneNumber);
         if (aBoolean.isPresent())
             return aBoolean.get();
         else
@@ -115,12 +115,12 @@ public class UserServiceImpl implements UserDetailsService {
 //
 //                break;
             case ROLE_LAWYER:
-                Role lawyerRole = roleRepository.findByName(RoleName.ROLE_LAWYER)
+                Role lawyerRole = roleRepo.findByName(RoleName.ROLE_LAWYER)
                         .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
                 roles.add(lawyerRole);
                 return saveLawyer(signUpForm, roles);
             case ROLE_CLIENT:
-                Role clientRole = roleRepository.findByName(RoleName.ROLE_CLIENT)
+                Role clientRole = roleRepo.findByName(RoleName.ROLE_CLIENT)
                         .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
                 roles.add(clientRole);
                 return saveClient(signUpForm, roles);
@@ -147,7 +147,7 @@ public class UserServiceImpl implements UserDetailsService {
         lawyer.setPassword(DataUtil.generateNumericRandomUserPass(8));
 
         lawyer.setRoles(roles);
-        Lawyer userSave = lawyerRepository.save(lawyer);
+        Lawyer userSave = lawyerRepo.save(lawyer);
         if (userSave != null) {
             smsService.sendSms(signUpForm.getPhoneNumber(), Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
             return Optional.of(uuid.toString());
@@ -170,7 +170,7 @@ public class UserServiceImpl implements UserDetailsService {
         client.setPassword(encoder.encode("1"));
 
         client.setRoles(roles);
-        Client userSave = clientRepository.save(client);
+        Client userSave = clientRepo.save(client);
         if (userSave != null) {
             smsService.sendSms(signUpForm.getPhoneNumber(), Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
             return Optional.of(uuid.toString());
@@ -181,7 +181,7 @@ public class UserServiceImpl implements UserDetailsService {
 
     public Optional<User> findUserIdAndCode(String userid, String code) {
         System.out.println("Log----------findUserIdAndCode " + userid + "  " + code);
-        Optional<User> user = userRepository.findUserByUidAndVerificationCode(UUID.fromString(userid), code);
+        Optional<User> user = userRepo.findUserByUidAndVerificationCode(UUID.fromString(userid), code);
         if (user.isPresent())
             return Optional.ofNullable(user.get());
         else
@@ -189,11 +189,11 @@ public class UserServiceImpl implements UserDetailsService {
     }
 
     public void activeUser(boolean isactive, UUID userid) {
-        Optional<User> user = userRepository.findUserByUid(userid);
+        Optional<User> user = userRepo.findUserByUid(userid);
         if (user.isPresent()) {
             user.get().setActive(isactive);
             user.get().setVerificationCode("-1");
-            userRepository.save(user.get());
+            userRepo.save(user.get());
         }
     }
 

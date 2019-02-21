@@ -3,11 +3,11 @@ package ir.mostashar.model.file.service;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.dto.FileForm;
 import ir.mostashar.model.client.dto.FileUpdateForm;
-import ir.mostashar.model.client.repository.ClientRepository;
+import ir.mostashar.model.client.repository.ClientRepo;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.dto.FileDTO;
 import ir.mostashar.model.file.dto.ListFileDTO;
-import ir.mostashar.model.file.repository.FileRepository;
+import ir.mostashar.model.file.repository.FileRepo;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,10 +23,10 @@ public class FileService {
 
 
     @Autowired
-    ClientRepository clientRepository;
+    ClientRepo clientRepo;
 
     @Autowired
-    FileRepository fileRepository;
+    FileRepo fileRepo;
 
     /**
      * create file from client
@@ -35,7 +35,7 @@ public class FileService {
      * @return
      */
     public UUID createFile(FileForm fileForm) {
-        Optional<Client> client = clientRepository.findByUid(UUID.fromString(fileForm.getUserId()));
+        Optional<Client> client = clientRepo.findByUid(UUID.fromString(fileForm.getUserId()));
         UUID uuid;
         if (client.isPresent()) {
             uuid = UUID.randomUUID();
@@ -45,7 +45,7 @@ public class FileService {
             file.setDescription(fileForm.getDescription());
             file.setCreationDate(System.currentTimeMillis());
             file.setClient(client.get());
-            fileRepository.save(file);
+            fileRepo.save(file);
             return uuid;
         }
         return null;
@@ -58,7 +58,7 @@ public class FileService {
      * @return
      */
     public boolean existTitleFile(String title, Client client) {
-        Optional<Boolean> aBoolean = fileRepository.existsByClientAndTitle(client, title);
+        Optional<Boolean> aBoolean = fileRepo.existsByClientAndTitle(client, title);
         if (aBoolean.isPresent())
             return aBoolean.get();
         else
@@ -69,26 +69,26 @@ public class FileService {
 //        Optional<File> file = fileRepository.findFileByUidAndDeleted(UUID.fromString(fileId),false);
         if (file != null ) {
             file.setDeleted(true);
-            fileRepository.save(file);
+            fileRepo.save(file);
             return true;
         }
         return false;
     }
 
     public boolean updateFile(FileUpdateForm fileUpdateForm) {
-        Optional<File> file = fileRepository.findFileByUidAndDeleted(UUID.fromString(fileUpdateForm.getUid()),false);
+        Optional<File> file = fileRepo.findFileByUidAndDeleted(UUID.fromString(fileUpdateForm.getUid()),false);
         if (file.isPresent()) {
             file.get().setTitle(fileUpdateForm.getTitle());
             file.get().setDescription(fileUpdateForm.getDescription());
             file.get().setModificationDate(System.currentTimeMillis());
-            fileRepository.save(file.get());
+            fileRepo.save(file.get());
             return true;
         }
         return false;
     }
 
     public Optional<FileDTO> findFileDTOByUid(String fileId) {
-        Optional<File> file = fileRepository.findFileByUidAndDeleted(UUID.fromString(fileId),false);
+        Optional<File> file = fileRepo.findFileByUidAndDeleted(UUID.fromString(fileId),false);
         if (file.isPresent()) {
             FileDTO fileDTO = new FileDTO();
             fileDTO.setStatus(HttpStatus.OK.value());
@@ -107,7 +107,7 @@ public class FileService {
     }
 
     public Optional<ListFileDTO> findAllFileByUserId(String clientUid) {
-        Optional<List<File>> fileList = fileRepository.findAllByClientUidAndDeleted(UUID.fromString(clientUid),false);
+        Optional<List<File>> fileList = fileRepo.findAllByClientUidAndDeleted(UUID.fromString(clientUid),false);
         if (fileList.isPresent()) {
 
             ListFileDTO listFileDTO = new ListFileDTO();
@@ -134,7 +134,7 @@ public class FileService {
     }
 
     public Optional<File> findFileByUid(String fileId) {
-        Optional<File> file = fileRepository.findFileByUidAndDeleted(UUID.fromString(fileId),false);
+        Optional<File> file = fileRepo.findFileByUidAndDeleted(UUID.fromString(fileId),false);
         if (file.isPresent())
             return Optional.ofNullable(file.get());
         else

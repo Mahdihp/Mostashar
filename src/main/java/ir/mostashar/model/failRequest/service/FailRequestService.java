@@ -4,11 +4,11 @@ import ir.mostashar.model.failRequest.FailRequest;
 import ir.mostashar.model.failRequest.dto.FailRequestDTO;
 import ir.mostashar.model.failRequest.dto.FailRequestForm;
 import ir.mostashar.model.failRequest.dto.ListFailRequestDTO;
-import ir.mostashar.model.failRequest.repository.FailRequestRepository;
+import ir.mostashar.model.failRequest.repository.FailRequestRepo;
 import ir.mostashar.model.lawyer.Lawyer;
-import ir.mostashar.model.lawyer.repository.LawyerRepository;
+import ir.mostashar.model.lawyer.repository.LawyerRepo;
 import ir.mostashar.model.request.Request;
-import ir.mostashar.model.request.repository.RequestRepository;
+import ir.mostashar.model.request.repository.RequestRepo;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,17 +23,17 @@ import java.util.UUID;
 public class FailRequestService {
 
     @Autowired
-    FailRequestRepository frRepository;
+    FailRequestRepo frRepository;
 
     @Autowired
-    LawyerRepository lawyerRepository;
+    LawyerRepo lawyerRepo;
 
     @Autowired
-    RequestRepository requestRepository;
+    RequestRepo requestRepo;
 
     public boolean createFailRequest(FailRequestForm frForm) {
-        Optional<Lawyer> lawyer = lawyerRepository.findByUid(UUID.fromString(frForm.getLawyerUid()));
-        Optional<Request> request = requestRepository.findRequestByUidAndDeleted(UUID.fromString(frForm.getRequestUid()), false);
+        Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(frForm.getLawyerUid()));
+        Optional<Request> request = requestRepo.findRequestByUidAndDeleted(UUID.fromString(frForm.getRequestUid()), false);
         if (lawyer.isPresent() && request.isPresent()) {
             FailRequest failRequest = new FailRequest();
             failRequest.setUid(UUID.randomUUID());

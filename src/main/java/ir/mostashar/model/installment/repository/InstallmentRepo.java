@@ -1,4 +1,4 @@
-package ir.mostashar.model.installment.repo;
+package ir.mostashar.model.installment.repository;
 
 import ir.mostashar.model.installment.Installment;
 import org.springframework.data.jpa.repository.JpaRepository;

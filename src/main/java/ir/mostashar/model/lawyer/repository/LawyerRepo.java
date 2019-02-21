@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface LawyerRepository extends JpaRepository<Lawyer,Long> {
+public interface LawyerRepo extends JpaRepository<Lawyer,Long> {
 
     Optional<Lawyer> findByUsername(String username);
     Boolean existsByUsername(String username);

@@ -11,18 +11,18 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import ir.mostashar.model.feature.Feature;
-import ir.mostashar.model.feature.repository.FeatureRepository;
+import ir.mostashar.model.feature.repository.FeatureRepo;
 import ir.mostashar.model.role.Role;
-import ir.mostashar.model.role.repository.RoleRepository;
+import ir.mostashar.model.role.repository.RoleRepo;
 
 @Service
 public class RoleService {
 
 	@Autowired
-	private RoleRepository roleRepository;
+	private RoleRepo roleRepo;
 
 	@Autowired
-	private FeatureRepository featureRepository;
+	private FeatureRepo featureRepo;
 
 	public Role save(Role role) {
 
@@ -32,12 +32,12 @@ public class RoleService {
 			for (Feature feature : features) {
 
 				Example<Feature> example = Example.of(feature);
-				Optional<Feature> savedFeature = featureRepository.findOne(example);
+				Optional<Feature> savedFeature = featureRepo.findOne(example);
 				if (savedFeature != null && savedFeature.isPresent()) {
 					featuresSet.add(savedFeature.get());
 				} else {
 					feature.setUid(UUID.randomUUID());
-					featuresSet.add(featureRepository.save(feature));
+					featuresSet.add(featureRepo.save(feature));
 				}
 			}
 			role.setFeatures(featuresSet);
@@ -45,11 +45,11 @@ public class RoleService {
 
 		role.setUid(UUID.randomUUID());
 
-		return roleRepository.save(role);
+		return roleRepo.save(role);
 	}
 
 	public List<Role> findAll() {
-		return roleRepository.findAll();
+		return roleRepo.findAll();
 	}
 
 	public Role getByName(String name) {

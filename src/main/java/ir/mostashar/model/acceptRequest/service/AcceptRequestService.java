@@ -4,11 +4,11 @@ import ir.mostashar.model.acceptRequest.AcceptRequest;
 import ir.mostashar.model.acceptRequest.dto.AcceptRequestDTO;
 import ir.mostashar.model.acceptRequest.dto.AcceptRequestForm;
 import ir.mostashar.model.acceptRequest.dto.ListAcceptRequestDTO;
-import ir.mostashar.model.acceptRequest.repository.AcceptRequestRepository;
+import ir.mostashar.model.acceptRequest.repository.AcceptRequestRepo;
 import ir.mostashar.model.lawyer.Lawyer;
-import ir.mostashar.model.lawyer.repository.LawyerRepository;
+import ir.mostashar.model.lawyer.repository.LawyerRepo;
 import ir.mostashar.model.request.Request;
-import ir.mostashar.model.request.repository.RequestRepository;
+import ir.mostashar.model.request.repository.RequestRepo;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,17 +23,17 @@ import java.util.UUID;
 public class AcceptRequestService {
 
     @Autowired
-    AcceptRequestRepository arRepository;
+    AcceptRequestRepo arRepository;
 
     @Autowired
-    LawyerRepository lawyerRepository;
+    LawyerRepo lawyerRepo;
 
     @Autowired
-    RequestRepository requestRepository;
+    RequestRepo requestRepo;
 
     public boolean createAcceptRequest(AcceptRequestForm arForm) {
-        Optional<Lawyer> lawyer = lawyerRepository.findByUid(UUID.fromString(arForm.getLawyerUid()));
-        Optional<Request> request = requestRepository.findRequestByUidAndDeleted(UUID.fromString(arForm.getRequestUid()), false);
+        Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(arForm.getLawyerUid()));
+        Optional<Request> request = requestRepo.findRequestByUidAndDeleted(UUID.fromString(arForm.getRequestUid()), false);
         if (lawyer.isPresent() && request.isPresent()) {
             AcceptRequest ar = new AcceptRequest();
             ar.setUid(UUID.randomUUID());

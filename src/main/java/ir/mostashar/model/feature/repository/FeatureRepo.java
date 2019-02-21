@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import ir.mostashar.model.feature.Feature;
 
 @Repository
-public interface FeatureRepository extends JpaRepository<Feature, Long> {
+public interface FeatureRepo extends JpaRepository<Feature, Long> {
 	Feature findByName(String name);
 }

@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface AcceptRequestRepository extends JpaRepository<AcceptRequest, Long> {
+public interface AcceptRequestRepo extends JpaRepository<AcceptRequest, Long> {
 
     Optional<Boolean> removeByUid(UUID uuid);
 

@@ -3,7 +3,7 @@ package ir.mostashar.model.client.service;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.dto.BaseClientDTO;
 import ir.mostashar.model.client.dto.ListBaseClientDTO;
-import ir.mostashar.model.client.repository.ClientRepository;
+import ir.mostashar.model.client.repository.ClientRepo;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,11 +19,11 @@ public class ClientService {
 
 
     @Autowired
-    private ClientRepository clientRepository;
+    private ClientRepo clientRepo;
 
 
     public Optional<Client> findByClientId(String userid) {
-        Optional<Client> client = clientRepository.findByUid(UUID.fromString(userid));
+        Optional<Client> client = clientRepo.findByUid(UUID.fromString(userid));
         if (client.isPresent())
             return Optional.ofNullable(client.get());
         else
@@ -31,7 +31,7 @@ public class ClientService {
     }
 
     public Optional<ListBaseClientDTO> findAll() {
-        List<Client> clients = clientRepository.findAll();
+        List<Client> clients = clientRepo.findAll();
         if (clients != null) {
             ListBaseClientDTO lbcDTO = new ListBaseClientDTO();
             lbcDTO.setStatus(HttpStatus.OK.value());
@@ -70,7 +70,7 @@ public class ClientService {
     }
 
     public Optional<BaseClientDTO> findByUid(String userid) {
-        Optional<Client> client = clientRepository.findByUid(UUID.fromString(userid));
+        Optional<Client> client = clientRepo.findByUid(UUID.fromString(userid));
         if (client.isPresent()) {
             BaseClientDTO bcDTO = new BaseClientDTO();
             bcDTO.setStatus(HttpStatus.OK.value());

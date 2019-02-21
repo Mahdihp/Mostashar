@@ -1,19 +1,19 @@
 package ir.mostashar.utils;
 
 import ir.mostashar.model.adviceType.AdviceType;
-import ir.mostashar.model.adviceType.repository.AdviceTypeRepository;
+import ir.mostashar.model.adviceType.repository.AdviceTypeRepo;
 import ir.mostashar.model.client.Client;
-import ir.mostashar.model.client.repository.ClientRepository;
+import ir.mostashar.model.client.repository.ClientRepo;
 import ir.mostashar.model.feature.Feature;
-import ir.mostashar.model.feature.repository.FeatureRepository;
+import ir.mostashar.model.feature.repository.FeatureRepo;
 import ir.mostashar.model.file.File;
-import ir.mostashar.model.file.repository.FileRepository;
+import ir.mostashar.model.file.repository.FileRepo;
 import ir.mostashar.model.lawyer.Lawyer;
-import ir.mostashar.model.lawyer.repository.LawyerRepository;
+import ir.mostashar.model.lawyer.repository.LawyerRepo;
 import ir.mostashar.model.pack.Pack;
 import ir.mostashar.model.pack.repository.PackRepo;
 import ir.mostashar.model.role.Role;
-import ir.mostashar.model.role.repository.RoleRepository;
+import ir.mostashar.model.role.repository.RoleRepo;
 import ir.mostashar.model.role.RoleName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -26,22 +26,22 @@ import java.util.*;
 public class AppRunner implements ApplicationRunner {
 
     @Autowired
-    LawyerRepository lawyerRepository;
+    LawyerRepo lawyerRepo;
 
     @Autowired
-    ClientRepository clientRepository;
+    ClientRepo clientRepo;
 
     @Autowired
-    RoleRepository roleRepository;
+    RoleRepo roleRepo;
 
     @Autowired
-    FeatureRepository featureRepository;
+    FeatureRepo featureRepo;
 
     @Autowired
-    FileRepository fileRepository;
+    FileRepo fileRepo;
 
     @Autowired
-    AdviceTypeRepository adviceTypeRepository;
+    AdviceTypeRepo adviceTypeRepo;
 
     @Autowired
     PackRepo packRepo;
@@ -54,7 +54,7 @@ public class AppRunner implements ApplicationRunner {
 
     public void initDataBase() {
 
-        long countAll = clientRepository.count();
+        long countAll = clientRepo.count();
         System.out.println("Log---------------- Client Count " + countAll);
         if (countAll <= 0)
             insertToDb();
@@ -289,27 +289,27 @@ public class AppRunner implements ApplicationRunner {
 
 
 
-        featureRepository.save(feature1);
-        featureRepository.save(feature2);
-        featureRepository.save(feature3);
-        featureRepository.save(feature4);
+        featureRepo.save(feature1);
+        featureRepo.save(feature2);
+        featureRepo.save(feature3);
+        featureRepo.save(feature4);
 
-        roleRepository.save(role1);
-        roleRepository.save(role2);
-        roleRepository.save(role3);
-        roleRepository.save(role4);
+        roleRepo.save(role1);
+        roleRepo.save(role2);
+        roleRepo.save(role3);
+        roleRepo.save(role4);
 
-        clientRepository.save(client1);
-        clientRepository.save(client2);
-        clientRepository.save(client3);
-        clientRepository.save(client4);
+        clientRepo.save(client1);
+        clientRepo.save(client2);
+        clientRepo.save(client3);
+        clientRepo.save(client4);
 
-        fileRepository.save(file1);
-        fileRepository.save(file2);
-        fileRepository.save(file3);
+        fileRepo.save(file1);
+        fileRepo.save(file2);
+        fileRepo.save(file3);
 
-        adviceTypeRepository.save(adviceType1);
-        adviceTypeRepository.save(adviceType2);
+        adviceTypeRepo.save(adviceType1);
+        adviceTypeRepo.save(adviceType2);
 
         packRepo.save(pack1);
         packRepo.save(pack2);
@@ -317,9 +317,9 @@ public class AppRunner implements ApplicationRunner {
         packRepo.save(pack4);
         packRepo.save(pack5);
 
-        lawyerRepository.save(lawyer1);
-        lawyerRepository.save(lawyer2);
-        lawyerRepository.save(lawyer3);
+        lawyerRepo.save(lawyer1);
+        lawyerRepo.save(lawyer2);
+        lawyerRepo.save(lawyer3);
     }
 
 

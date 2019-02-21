@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface ClientRepository extends JpaRepository<Client,Long> {
+public interface ClientRepo extends JpaRepository<Client,Long> {
 
     Optional<Client> findByUsername(String username);
     Boolean existsByUsername(String username);

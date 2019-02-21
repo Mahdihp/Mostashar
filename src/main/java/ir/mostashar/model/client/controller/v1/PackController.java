@@ -2,7 +2,7 @@ package ir.mostashar.model.client.controller.v1;
 
 import ir.mostashar.model.file.dto.ListFileDTO;
 import ir.mostashar.model.lawyer.Lawyer;
-import ir.mostashar.model.lawyer.repository.LawyerRepository;
+import ir.mostashar.model.lawyer.repository.LawyerRepo;
 import ir.mostashar.model.pack.dto.ListPackDTO;
 import ir.mostashar.model.pack.dto.PackForm;
 import ir.mostashar.model.pack.service.PackService;
@@ -24,7 +24,7 @@ import java.util.UUID;
 public class PackController {
 
     @Autowired
-    LawyerRepository lawyerRepository;
+    LawyerRepo lawyerRepo;
 
     @Autowired
     PackService packService;
@@ -34,7 +34,7 @@ public class PackController {
         if (!DataUtil.isValidUUID(lawyerid))
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ListFileDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_UUID_NOT_VALID));
 
-        Optional<Lawyer> lawyer = lawyerRepository.findByUid(UUID.fromString(lawyerid));
+        Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(lawyerid));
         if (lawyer.isPresent()) {
             Optional<ListPackDTO> allPacks = packService.findAllPacks(lawyer.get().getPricePerMinute());
             if (allPacks.isPresent()) {

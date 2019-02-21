@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface ConsumptionPackRepository extends JpaRepository<ConsumptionPack,Long> {
+public interface ConsumptionPackRepo extends JpaRepository<ConsumptionPack,Long> {
 
     Optional<ConsumptionPack> findByUid(UUID uuid);
     Optional<List<ConsumptionPack>> findConsumptionPacksByRequestUidAndPackUid(UUID reqUid,UUID packUid);

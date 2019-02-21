@@ -2,11 +2,11 @@ package ir.mostashar.model.consumptionPack.service;
 
 import ir.mostashar.model.consumptionPack.ConsumptionPack;
 import ir.mostashar.model.consumptionPack.dto.ConsumptionPackForm;
-import ir.mostashar.model.consumptionPack.repository.ConsumptionPackRepository;
+import ir.mostashar.model.consumptionPack.repository.ConsumptionPackRepo;
 import ir.mostashar.model.pack.Pack;
 import ir.mostashar.model.pack.repository.PackRepo;
 import ir.mostashar.model.request.Request;
-import ir.mostashar.model.request.repository.RequestRepository;
+import ir.mostashar.model.request.repository.RequestRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +18,13 @@ import java.util.UUID;
 public class ConsumptionPackService {
 
     @Autowired
-    ConsumptionPackRepository cpRepository;
+    ConsumptionPackRepo cpRepository;
 
     @Autowired
     PackRepo packRepo;
 
     @Autowired
-    RequestRepository requestRepository;
+    RequestRepo requestRepo;
 
     /**
      * Find pack & request if this two object is present
@@ -35,7 +35,7 @@ public class ConsumptionPackService {
      */
     public boolean createConsumptionPack(ConsumptionPackForm cpForm) {
         Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(cpForm.getPackId()));
-        Optional<Request> request = requestRepository.findRequestByUidAndDeleted(UUID.fromString(cpForm.getRequestId()), false);
+        Optional<Request> request = requestRepo.findRequestByUidAndDeleted(UUID.fromString(cpForm.getRequestId()), false);
         if (pack.isPresent() && request.isPresent()) {
             ConsumptionPack cp = new ConsumptionPack();
             cp.setUid(UUID.randomUUID());

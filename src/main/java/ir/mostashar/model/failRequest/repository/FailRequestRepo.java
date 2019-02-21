@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface FailRequestRepository extends JpaRepository<FailRequest, Long> {
+public interface FailRequestRepo extends JpaRepository<FailRequest, Long> {
 
     Optional<FailRequest> findByUid(UUID uuid);
 

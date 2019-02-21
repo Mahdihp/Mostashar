@@ -1,9 +1,9 @@
 package ir.mostashar.model.pack.service;
 
 import ir.mostashar.model.adviceType.AdviceType;
-import ir.mostashar.model.adviceType.repository.AdviceTypeRepository;
+import ir.mostashar.model.adviceType.repository.AdviceTypeRepo;
 import ir.mostashar.model.consumptionPack.dto.ConsumptionPackForm;
-import ir.mostashar.model.consumptionPack.repository.ConsumptionPackRepository;
+import ir.mostashar.model.consumptionPack.repository.ConsumptionPackRepo;
 import ir.mostashar.model.pack.Pack;
 import ir.mostashar.model.pack.dto.ListPackDTO;
 import ir.mostashar.model.pack.dto.PackDTO;
@@ -26,10 +26,10 @@ public class PackService {
     PackRepo packRepo;
 
     @Autowired
-    AdviceTypeRepository adviceTypeRepository;
+    AdviceTypeRepo adviceTypeRepo;
 
     @Autowired
-    ConsumptionPackRepository consumptionPackRepository;
+    ConsumptionPackRepo consumptionPackRepo;
 
     /**
      * first find Advicetype by uid
@@ -41,7 +41,7 @@ public class PackService {
      */
     public boolean createPack(PackForm packForm) {
         UUID uuid = UUID.randomUUID();
-        Optional<AdviceType> adviceType = adviceTypeRepository.findAdviceTypeByUid(UUID.fromString(packForm.getAdvicetypeUid()));
+        Optional<AdviceType> adviceType = adviceTypeRepo.findAdviceTypeByUid(UUID.fromString(packForm.getAdvicetypeUid()));
         if (adviceType.isPresent()) {
             Pack pack = new Pack();
             pack.setUid(uuid);
@@ -75,7 +75,7 @@ public class PackService {
     public boolean updatePack(PackForm packForm) {
         Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(packForm.getUid()));
         if (pack.isPresent()) {
-            Optional<AdviceType> adviceType = adviceTypeRepository.findAdviceTypeByUid(UUID.fromString(packForm.getAdvicetypeUid()));
+            Optional<AdviceType> adviceType = adviceTypeRepo.findAdviceTypeByUid(UUID.fromString(packForm.getAdvicetypeUid()));
             pack.get().setName(packForm.getUid());
             pack.get().setDescription(packForm.getDescription());
             pack.get().setActive(packForm.isActive());

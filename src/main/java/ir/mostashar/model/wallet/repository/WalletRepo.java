@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface WalletRepository extends JpaRepository<Wallet, Long> {
+public interface WalletRepo extends JpaRepository<Wallet, Long> {
 
     Optional<Wallet> findByUid(UUID uuid);
     Optional<Wallet> findByUidAndDeleted(UUID uuid,boolean isDelete);

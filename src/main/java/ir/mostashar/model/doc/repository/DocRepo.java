@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface DocRepository extends JpaRepository<Doc, Long> {
+public interface DocRepo extends JpaRepository<Doc, Long> {
 
 
     Optional<Doc> findByUidAndDeleted(UUID uuid, boolean isDelete);

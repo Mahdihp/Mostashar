@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface AdviceTypeRepository extends JpaRepository<AdviceType,Long> {
+public interface AdviceTypeRepo extends JpaRepository<AdviceType,Long> {
 
     Optional<AdviceType> findAdviceTypeByUid(UUID uuid);
 }

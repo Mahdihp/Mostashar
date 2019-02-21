@@ -4,7 +4,7 @@ import ir.mostashar.model.installment.Installment;
 import ir.mostashar.model.installment.InstallmentForm;
 import ir.mostashar.model.installment.dto.InstallmentDTO;
 import ir.mostashar.model.installment.dto.ListInstallmentDTO;
-import ir.mostashar.model.installment.repo.InstallmentRepo;
+import ir.mostashar.model.installment.repository.InstallmentRepo;
 import ir.mostashar.model.pack.Pack;
 import ir.mostashar.model.pack.service.PackService;
 import ir.mostashar.utils.Constants;

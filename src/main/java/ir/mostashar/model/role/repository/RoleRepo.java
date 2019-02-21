@@ -10,6 +10,6 @@ import ir.mostashar.model.role.Role;
 import java.util.Optional;
 
 @Repository
-public interface RoleRepository extends JpaRepository<Role, Long>, JpaSpecificationExecutor<Role> {
+public interface RoleRepo extends JpaRepository<Role, Long>, JpaSpecificationExecutor<Role> {
 	Optional<Role> findByName(RoleName roleName);
 }

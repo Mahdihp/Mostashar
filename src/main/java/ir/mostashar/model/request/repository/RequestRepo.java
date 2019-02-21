@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface RequestRepository extends JpaRepository<Request, Long> {
+public interface RequestRepo extends JpaRepository<Request, Long> {
 
 
     Optional<Request> findRequestByUidAndDeleted(UUID uuid,boolean isDeleted);

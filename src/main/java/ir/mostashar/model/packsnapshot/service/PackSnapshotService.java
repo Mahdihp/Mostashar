@@ -1,10 +1,10 @@
 package ir.mostashar.model.packsnapshot.service;
 
 import ir.mostashar.model.adviceType.AdviceType;
-import ir.mostashar.model.adviceType.repository.AdviceTypeRepository;
+import ir.mostashar.model.adviceType.repository.AdviceTypeRepo;
 import ir.mostashar.model.consumptionPack.service.ConsumptionPackService;
 import ir.mostashar.model.lawyer.Lawyer;
-import ir.mostashar.model.lawyer.repository.LawyerRepository;
+import ir.mostashar.model.lawyer.repository.LawyerRepo;
 import ir.mostashar.model.pack.Pack;
 import ir.mostashar.model.pack.service.PackService;
 import ir.mostashar.model.packsnapshot.PackSnapshot;
@@ -29,7 +29,7 @@ public class PackSnapshotService {
     PackSnapshotRepo packsnapshotRepo;
 
     @Autowired
-    AdviceTypeRepository adviceTypeRepository;
+    AdviceTypeRepo adviceTypeRepo;
 
     @Autowired
     ConsumptionPackService consumptionPackService;
@@ -38,13 +38,13 @@ public class PackSnapshotService {
     PackService packService;
 
     @Autowired
-    LawyerRepository lawyerRepository;
+    LawyerRepo lawyerRepo;
 
 
     public boolean createPackSnapshot(PackSnapshotForm packForm) {
-        Optional<AdviceType> adviceType = adviceTypeRepository.findAdviceTypeByUid(UUID.fromString(packForm.getAdvicetypeUid()));
+        Optional<AdviceType> adviceType = adviceTypeRepo.findAdviceTypeByUid(UUID.fromString(packForm.getAdvicetypeUid()));
         Optional<Pack> pack = packService.findPackByName(packForm.getPackname());
-        Optional<Lawyer> lawyer = lawyerRepository.findByUid(UUID.fromString(packForm.getLawyerUid()));
+        Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(packForm.getLawyerUid()));
         if (adviceType.isPresent() && pack.isPresent()) {
             PackSnapshot packsnapshot = new PackSnapshot();
             packsnapshot.setUid(UUID.randomUUID());
