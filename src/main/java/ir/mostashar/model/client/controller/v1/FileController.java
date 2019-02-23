@@ -91,8 +91,8 @@ public class FileController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ListFileDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_FILE));
     }
 
-    @PostMapping(value = "/file/{userId}/{fileId}", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> findFileByClient(@PathVariable(value = "userId") String userId, @PathVariable(value = "fileId") String fileId) {
+    @PostMapping(value = "/file/{fileId}", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> findFileByClient(@PathVariable(value = "fileId") String fileId) {
         Optional<FileDTO> file = fileService.findFileDTOByUid(fileId);
         if (file.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(file.get());

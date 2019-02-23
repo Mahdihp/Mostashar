@@ -81,10 +81,9 @@ public class DocService {
     }
 
     public Optional<ListDocDTO> findAllByWithoutDataUid(String userId, String fileId) {
-        Optional<Client> client = clientRepo.findByUid(UUID.fromString(userId));
-        Optional<File> file = fileRepo.findFileByUidAndDeleted(UUID.fromString(fileId), false);
-        if (client.isPresent() && file.isPresent()) {
-            Optional<List<Doc>> docs = docRepo.findAllByFileUidAndDeleted(file.get().getUid() ,false);
+        Optional<File> file = fileRepo.findByUidAndClientUid(UUID.fromString(fileId), UUID.fromString(userId), false);
+        if (file.isPresent()) {
+            Optional<List<Doc>> docs = docRepo.findAllByFileUidAndDeleted(file.get().getUid(), false);
             if (docs.isPresent()) {
                 List<DocDTO> dtoList = new ArrayList<>();
                 ListDocDTO listDocDTO = new ListDocDTO();
