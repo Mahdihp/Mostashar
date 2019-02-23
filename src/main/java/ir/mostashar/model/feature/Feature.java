@@ -45,11 +45,4 @@ public class Feature {
 	}
 
 
-	public Feature(UUID uid, String name, String description, String groupKey, Set<Role> roles) {
-		this.uid = uid;
-		this.name = name;
-		this.description = description;
-		this.groupKey = groupKey;
-		this.roles = roles;
-	}
 }
