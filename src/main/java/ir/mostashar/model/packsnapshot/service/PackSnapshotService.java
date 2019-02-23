@@ -45,7 +45,7 @@ public class PackSnapshotService {
         Optional<AdviceType> adviceType = adviceTypeRepo.findAdviceTypeByUid(UUID.fromString(packForm.getAdvicetypeUid()));
         Optional<Pack> pack = packService.findPackByName(packForm.getPackname());
         Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(packForm.getLawyerUid()));
-        if (adviceType.isPresent() && pack.isPresent()) {
+        if (adviceType.isPresent() && pack.isPresent() && lawyer.isPresent()) {
             PackSnapshot packsnapshot = new PackSnapshot();
             packsnapshot.setUid(UUID.randomUUID());
             packsnapshot.setPackname(pack.get().getName());

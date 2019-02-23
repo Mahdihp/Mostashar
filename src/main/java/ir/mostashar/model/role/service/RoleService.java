@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
+import ir.mostashar.model.role.RoleName;
+import ir.mostashar.model.role.dto.RoleForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
@@ -24,9 +26,16 @@ public class RoleService {
 	@Autowired
 	private FeatureRepo featureRepo;
 
-	public Role save(Role role) {
+	public boolean createRole(RoleForm role) {
 
-		Set<Feature> features = role.getFeatures();
+		Role role1 = new Role();
+		role1.setUid(UUID.randomUUID());
+		role1.setName(RoleName.valueOf(role.getRoleName()));
+		role1.setUserDefined(true);
+		role1.setDescription(role.getDescription());
+
+
+		/*Set<Feature> features = role.getFeatures();
 		Set<Feature> featuresSet = new HashSet<Feature>();
 		if (features != null && !features.isEmpty()) {
 			for (Feature feature : features) {
@@ -44,8 +53,8 @@ public class RoleService {
 		}
 
 		role.setUid(UUID.randomUUID());
-
-		return roleRepo.save(role);
+*/
+		return false;
 	}
 
 	public List<Role> findAll() {

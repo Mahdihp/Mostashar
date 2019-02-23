@@ -30,13 +30,15 @@ public class SettingTypesService {
     public boolean createSettingTypes(SettingTypesForm stForm) {
         Optional<Boolean> name = settingTypesRepo.existsByName(stForm.getName());
         if (name.isPresent()) {
-            SettingType settingType = new SettingType();
-            settingType.setUid(UUID.randomUUID());
-            settingType.setName(stForm.getName());
-            settingType.setDescription(stForm.getDescription());
-            settingType.setType(stForm.getType());
-            settingTypesRepo.save(settingType);
-            return true;
+            if (!name.get()) {
+                SettingType settingType = new SettingType();
+                settingType.setUid(UUID.randomUUID());
+                settingType.setName(stForm.getName());
+                settingType.setDescription(stForm.getDescription());
+                settingType.setType(stForm.getType());
+                settingTypesRepo.save(settingType);
+                return true;
+            }
         }
         return false;
     }
@@ -61,6 +63,7 @@ public class SettingTypesService {
         }
         return false;
     }
+
     public Optional<SettingType> findSettingTypeByUid(String uid) {
         Optional<SettingType> settingTypes = settingTypesRepo.findByUid(UUID.fromString(uid));
         if (settingTypes.isPresent()) {

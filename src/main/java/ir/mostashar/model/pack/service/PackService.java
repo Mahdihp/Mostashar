@@ -42,15 +42,18 @@ public class PackService {
     public boolean createPack(PackForm packForm) {
         UUID uuid = UUID.randomUUID();
         Optional<AdviceType> adviceType = adviceTypeRepo.findAdviceTypeByUid(UUID.fromString(packForm.getAdvicetypeUid()));
-        if (adviceType.isPresent()) {
-            Pack pack = new Pack();
-            pack.setUid(uuid);
-            pack.setMinute(packForm.getMinute());
-            pack.setDescription(packForm.getDescription());
-            pack.setActive(false);
-            pack.setAdvicetype(adviceType.get());
-            packRepo.save(pack);
-            return true;
+        Optional<Boolean> existsPackByName = packRepo.existsPackByName(packForm.getName());
+        if (existsPackByName.isPresent() && !existsPackByName.get()) {
+            if (adviceType.isPresent()) {
+                Pack pack = new Pack();
+                pack.setUid(uuid);
+                pack.setMinute(packForm.getMinute());
+                pack.setDescription(packForm.getDescription());
+                pack.setActive(false);
+                pack.setAdvicetype(adviceType.get());
+                packRepo.save(pack);
+                return true;
+            }
         }
         return false;
     }
@@ -88,9 +91,11 @@ public class PackService {
         }
         return false;
     }
+
     public Optional<Pack> findPackByName(String packName) {
         return packRepo.findPackByName(packName);
     }
+
     public Optional<Pack> findPackByUid(String uid) {
         return packRepo.findPackByUid(UUID.fromString(uid));
     }
@@ -135,7 +140,7 @@ public class PackService {
             return Optional.empty();
     }
 
-    public boolean createBuyPack(ConsumptionPackForm packForm,String lawyerUid) {
+    public boolean createBuyPack(ConsumptionPackForm packForm, String lawyerUid) {
         Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(packForm.getPackId()));
 
        /* if (pack.isPresent()) {
@@ -148,7 +153,7 @@ public class PackService {
             consumptionPack.setLastInstallmentDate(packForm.getLastInstallmentDate());
 
         }*/
-       // And create PackSnapShot Object
+        // And create PackSnapShot Object
         return false;
     }
 

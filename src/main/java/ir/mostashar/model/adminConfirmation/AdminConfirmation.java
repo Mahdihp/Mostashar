@@ -27,7 +27,7 @@ public class AdminConfirmation {
     private String targetUid;
 
     @Column(name = "targettype")
-    private int targetType;
+    private short targetType;
 
     @Column(name = "verified")
     private boolean verified;
@@ -39,16 +39,5 @@ public class AdminConfirmation {
     private Long creationDate;
 
     public AdminConfirmation() {
-    }
-
-    public AdminConfirmation(UUID uid, String title, String description, String targetUid, int targetType, boolean verified, boolean deleted, Long creationDate) {
-        this.uid = uid;
-        this.title = title;
-        this.description = description;
-        this.targetUid = targetUid;
-        this.targetType = targetType;
-        this.verified = verified;
-        this.deleted = deleted;
-        this.creationDate = creationDate;
     }
 }

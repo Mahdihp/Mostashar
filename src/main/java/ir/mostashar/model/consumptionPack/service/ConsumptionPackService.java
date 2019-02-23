@@ -37,7 +37,7 @@ public class ConsumptionPackService {
      */
     public boolean createConsumptionPack(ConsumptionPackForm cpForm) {
         Optional<Pack> pack = packService.findPackByUid(cpForm.getPackId());
-        Optional<Request> request = requestRepo.findRequestByUidAndDeleted(UUID.fromString(cpForm.getRequestId()), false);
+        Optional<Request> request = requestRepo.findByUidAndDeleted(UUID.fromString(cpForm.getRequestId()), false);
         if (pack.isPresent() && request.isPresent()) {
             ConsumptionPack cp = new ConsumptionPack();
             cp.setUid(UUID.randomUUID());

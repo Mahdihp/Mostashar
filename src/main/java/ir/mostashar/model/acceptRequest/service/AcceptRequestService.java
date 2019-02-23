@@ -33,7 +33,7 @@ public class AcceptRequestService {
 
     public boolean createAcceptRequest(AcceptRequestForm arForm) {
         Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(arForm.getLawyerUid()));
-        Optional<Request> request = requestRepo.findRequestByUidAndDeleted(UUID.fromString(arForm.getRequestUid()), false);
+        Optional<Request> request = requestRepo.findByUidAndDeleted(UUID.fromString(arForm.getRequestUid()), false);
         if (lawyer.isPresent() && request.isPresent()) {
             AcceptRequest ar = new AcceptRequest();
             ar.setUid(UUID.randomUUID());

@@ -15,7 +15,7 @@ public interface OrganizationRepo extends JpaRepository<Organization, Long> {
 
     Optional<Organization> findByUid(UUID uuid);
     Optional<Organization> findByUidAndVerified(UUID uuid,boolean isVerified);
-    Optional<Organization> findByUsernameAndName(String userName,String name);
+    Optional<Organization> findByUsernameOrName(String userName, String name);
 
     Optional<List<Organization>> findAllByVerified(boolean isVerified);
 

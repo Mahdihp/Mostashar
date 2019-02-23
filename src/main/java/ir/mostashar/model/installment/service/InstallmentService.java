@@ -28,15 +28,18 @@ public class InstallmentService {
 
     public boolean createInstallment(InstallmentForm iForm) {
         Optional<Pack> pack = packService.findPackByUid(iForm.getConsumptionPackUid());
-        if (pack.isPresent()) {
-            Installment installment = new Installment();
-            installment.setUid(UUID.randomUUID());
-            installment.setCreationDate(System.currentTimeMillis());
-            installment.setInstallmentNumber(iForm.getInstallmentNumber());
-            installment.setInstallmentTotalNumber(iForm.getInstallmentTotalNumber());
-            installment.setValue(iForm.getValue());
-            installmentRepo.save(installment);
-            return true;
+        Optional<Boolean> exists = installmentRepo.existsByInstallmentNumber(iForm.getInstallmentNumber());
+        if (exists.isPresent() && !exists.get()) {
+            if (pack.isPresent()) {
+                Installment installment = new Installment();
+                installment.setUid(UUID.randomUUID());
+                installment.setCreationDate(System.currentTimeMillis());
+                installment.setInstallmentNumber(iForm.getInstallmentNumber());
+                installment.setInstallmentTotalNumber(iForm.getInstallmentTotalNumber());
+                installment.setValue(iForm.getValue());
+                installmentRepo.save(installment);
+                return true;
+            }
         }
         return false;
     }

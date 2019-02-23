@@ -26,27 +26,21 @@ public class RequestController {
 
     @PostMapping(value = "/createrequest", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> createRequest(@Valid @RequestBody RequestForm requestForm) {
-        if (!requestService.existsRequest(requestForm.getFileId(), requestForm.getClientId())) {
-            UUID requestId = requestService.createRequest(requestForm);
-            if (requestId != null) {
-                return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_CREATE_REQUEST_SUCSSES, requestId.toString()));
-            } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_CLIENT_LAWYER_FILE));
-            }
+        UUID requestId = requestService.createRequest(requestForm);
+        if (requestId != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_CREATE_REQUEST_SUCSSES, requestId.toString()));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_CLIENT_LAWYER_FILE));
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_DUPLICATE_REQUEST));
     }
 
     @PostMapping(value = "/updaterequest", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> updateRequest(@Valid @RequestBody RequestForm requestForm) {
-        if (!requestService.existsRequest(requestForm.getFileId(), requestForm.getClientId())) {
-            if (requestService.updateRequest(requestForm)) {
-                return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_UPDATE_REQUEST_SUCSSES));
-            } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_CLIENT_LAWYER_FILE));
-            }
+        if (requestService.updateRequest(requestForm)) {
+            return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_UPDATE_REQUEST_SUCSSES));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_CLIENT_LAWYER_FILE));
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_DUPLICATE_REQUEST));
     }
 
     @GetMapping(value = "/request/{clientid}/{requestid}", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
@@ -67,9 +61,9 @@ public class RequestController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
 
-    @PostMapping(value = "/removerequest/{clientid}/{requestid}", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> removeRequest(@PathVariable(value = "clientid") String clientid, @PathVariable(value = "requestid") String requestid) {
-        Optional<Request> request = requestService.findByClientIdAndRequestId(clientid, requestid);
+    @PostMapping(value = "/removerequest/{requestid}", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> removeRequest(@PathVariable(value = "requestid") String requestid) {
+        Optional<Request> request = requestService.findByUid(requestid);
         if (request.isPresent()) {
             if (requestService.deleteRequest(request.get())) {
                 return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_DELETE_REQUEST));
