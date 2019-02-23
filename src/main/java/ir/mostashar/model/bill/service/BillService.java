@@ -2,7 +2,6 @@ package ir.mostashar.model.bill.service;
 
 import ir.mostashar.model.bill.Bill;
 import ir.mostashar.model.bill.dto.BillDTO;
-import ir.mostashar.model.bill.dto.BillDTOBuilder;
 import ir.mostashar.model.bill.dto.BillForm;
 import ir.mostashar.model.bill.dto.ListBillDTO;
 import ir.mostashar.model.bill.repository.BillRepo;
@@ -41,7 +40,7 @@ public class BillService {
             bill.setTrackingNumber(billForm.getTrackingNumber());
             bill.setTrackingNumber(billForm.getTrackingNumber());
             bill.setTransactionDate(billForm.getTransactionDate()); // System.currentTimeMillis()
-            bill.setStatus(billForm.getStatus());
+            bill.setBillStatus(billForm.getBillStatus());
             bill.setValue(billForm.getValue());
             bill.setOrgUid(billForm.getOrgUid()); // اگر دارد
             bill.setWallet(wallet.get());
@@ -63,14 +62,14 @@ public class BillService {
     public Optional<BillDTO> findBillDTOByValue(Long value) {
         Optional<Bill> bill = billRepo.findByValue(value);
         if (bill.isPresent()) {
-            BillDTO billDTO = new BillDTOBuilder().createBillDTO();
+            BillDTO billDTO = new BillDTO();
             billDTO.setStatus(HttpStatus.OK.value());
             billDTO.setMessage(Constants.KEY_SUCESSE);
             billDTO.setUid(bill.get().toString());
             billDTO.setTrackingNumber(bill.get().getTrackingNumber());
             billDTO.setTrackingNumber(bill.get().getTrackingNumber());
             billDTO.setTransactionDate(bill.get().getTransactionDate()); // System.currentTimeMillis()
-            billDTO.setStatus(bill.get().getStatus());
+            billDTO.setBillStatus(bill.get().getBillStatus());
             billDTO.setValue(bill.get().getValue());
             billDTO.setOrgUid(bill.get().getOrgUid()); // اگر دارد
             billDTO.setWalletUid(bill.get().getWallet().getUid().toString());
@@ -83,14 +82,14 @@ public class BillService {
     public Optional<BillDTO> findBillDTOByTrackingNumber(String trackingNumber) {
         Optional<Bill> bill = billRepo.findByTrackingNumber(trackingNumber);
         if (bill.isPresent()) {
-            BillDTO billDTO = new BillDTOBuilder().createBillDTO();
+            BillDTO billDTO = new BillDTO();
             billDTO.setStatus(HttpStatus.OK.value());
             billDTO.setMessage(Constants.KEY_SUCESSE);
             billDTO.setUid(bill.get().toString());
             billDTO.setTrackingNumber(bill.get().getTrackingNumber());
             billDTO.setTrackingNumber(bill.get().getTrackingNumber());
             billDTO.setTransactionDate(bill.get().getTransactionDate()); // System.currentTimeMillis()
-            billDTO.setStatus(bill.get().getStatus());
+            billDTO.setBillStatus(bill.get().getBillStatus());
             billDTO.setValue(bill.get().getValue());
             billDTO.setOrgUid(bill.get().getOrgUid()); // اگر دارد
             billDTO.setWalletUid(bill.get().getWallet().getUid().toString());
@@ -103,14 +102,14 @@ public class BillService {
     public Optional<BillDTO> findBillDTOByTransactionNumber(String transactionNumber) {
         Optional<Bill> bill = billRepo.findByTransactionNumber(transactionNumber);
         if (bill.isPresent()) {
-            BillDTO billDTO = new BillDTOBuilder().createBillDTO();
+            BillDTO billDTO = new BillDTO();
             billDTO.setStatus(HttpStatus.OK.value());
             billDTO.setMessage(Constants.KEY_SUCESSE);
             billDTO.setUid(bill.get().toString());
             billDTO.setTrackingNumber(bill.get().getTrackingNumber());
             billDTO.setTrackingNumber(bill.get().getTrackingNumber());
             billDTO.setTransactionDate(bill.get().getTransactionDate()); // System.currentTimeMillis()
-            billDTO.setStatus(bill.get().getStatus());
+            billDTO.setBillStatus(bill.get().getBillStatus());
             billDTO.setValue(bill.get().getValue());
             billDTO.setOrgUid(bill.get().getOrgUid()); // اگر دارد
             billDTO.setWalletUid(bill.get().getWallet().getUid().toString());
@@ -123,14 +122,14 @@ public class BillService {
     public Optional<BillDTO> findBillDTOByUid(String uid) {
         Optional<Bill> bill = billRepo.findByUid(UUID.fromString(uid));
         if (bill.isPresent()) {
-            BillDTO billDTO = new BillDTOBuilder().createBillDTO();
+            BillDTO billDTO = new BillDTO();
             billDTO.setStatus(HttpStatus.OK.value());
             billDTO.setMessage(Constants.KEY_SUCESSE);
             billDTO.setUid(bill.get().toString());
             billDTO.setTrackingNumber(bill.get().getTrackingNumber());
             billDTO.setTrackingNumber(bill.get().getTrackingNumber());
             billDTO.setTransactionDate(bill.get().getTransactionDate()); // System.currentTimeMillis()
-            billDTO.setStatus(bill.get().getStatus());
+            billDTO.setBillStatus(bill.get().getBillStatus());
             billDTO.setValue(bill.get().getValue());
             billDTO.setOrgUid(bill.get().getOrgUid()); // اگر دارد
             billDTO.setWalletUid(bill.get().getWallet().getUid().toString());
@@ -148,12 +147,12 @@ public class BillService {
             lbDTO.setMessage(Constants.KEY_SUCESSE);
             List<BillDTO> dtoList = new ArrayList<>();
             for (Bill bill : bills.get()) {
-                BillDTO billDTO = new BillDTOBuilder().createBillDTO();
+                BillDTO billDTO = new BillDTO();
                 billDTO.setUid(bill.toString());
                 billDTO.setTrackingNumber(bill.getTrackingNumber());
                 billDTO.setTrackingNumber(bill.getTrackingNumber());
                 billDTO.setTransactionDate(bill.getTransactionDate()); // System.currentTimeMillis()
-                billDTO.setStatus(bill.getStatus());
+                billDTO.setBillStatus(bill.getBillStatus());
                 billDTO.setValue(bill.getValue());
                 billDTO.setOrgUid(bill.getOrgUid()); // اگر دارد
                 billDTO.setWalletUid(bill.getWallet().getUid().toString());

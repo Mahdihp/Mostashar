@@ -188,6 +188,14 @@ public class UserServiceImpl implements UserDetailsService {
             return Optional.empty();
     }
 
+    public Optional<User> findUserByUid(String uid) {
+        Optional<User> user = userRepo.findUserByUid(UUID.fromString(uid));
+        if (user.isPresent())
+            return Optional.ofNullable(user.get());
+        else
+            return Optional.empty();
+    }
+
     public void activeUser(boolean isactive, UUID userid) {
         Optional<User> user = userRepo.findUserByUid(userid);
         if (user.isPresent()) {

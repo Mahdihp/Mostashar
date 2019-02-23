@@ -13,7 +13,7 @@ public class BillDTO extends BaseDTO {
     private String transactionNumber;
     private String trackingNumber;
     private Long transactionDate;
-    private String status;
+    private String billStatus;
     private Long value;
     private String orgUid;
     private String walletUid;
@@ -22,16 +22,5 @@ public class BillDTO extends BaseDTO {
     public BillDTO() {
     }
 
-    public BillDTO(String uid, String transactionNumber, String trackingNumber, Long transactionDate, String status, Long value, String orgUid, String walletUid, String factorUid) {
-        this.uid = uid;
-        this.transactionNumber = transactionNumber;
-        this.trackingNumber = trackingNumber;
-        this.transactionDate = transactionDate;
-        this.status = status;
-        this.value = value;
-        this.orgUid = orgUid;
-        this.walletUid = walletUid;
-        this.factorUid = factorUid;
-    }
 
 }

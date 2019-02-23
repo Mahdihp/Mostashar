@@ -29,8 +29,8 @@ public class Bill {
     @Column(name = "transactiondate")
     private Long transactionDate;
 
-    @Column(name = "status")
-    private String status;
+    @Column(name = "billstatus")
+    private String billStatus;
 
     @Column(name = "value")
     private long value;

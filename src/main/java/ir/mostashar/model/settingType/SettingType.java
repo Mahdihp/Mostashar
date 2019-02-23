@@ -12,7 +12,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "settingtypes")
-public class SettingTypes {
+public class SettingType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,13 +28,13 @@ public class SettingTypes {
     private String description;
 
     @Column(name = "type")
-    private int type;
+    private short type;
 
     @OneToMany
     @JoinColumn(name = "id")
     private Set<Setting> setting;
 
-    public SettingTypes() {
+    public SettingType() {
     }
 
 }

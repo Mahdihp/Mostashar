@@ -13,7 +13,6 @@ public interface PackRepo extends JpaRepository<Pack,Long> {
 
     Optional<Pack> findPackByUid(UUID uuid);
     Optional<Pack> findPackByName(String uuid);
-    Optional<Pack> findPackByUidBOrderByActive(UUID uuid,boolean isActive);
 
     Optional<Boolean> existsPackByName(String name);
 

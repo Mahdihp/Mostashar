@@ -12,10 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import ir.mostashar.model.settingType.SettingTypes;
+import ir.mostashar.model.settingType.SettingType;
 import lombok.Data;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -46,7 +44,7 @@ public class Setting {
 
 	@ManyToOne
     @JoinColumn(name = "settingtypeid",nullable = false)
-	private SettingTypes settingType;
+	private SettingType settingType;
 
 	public Setting() {
 	}

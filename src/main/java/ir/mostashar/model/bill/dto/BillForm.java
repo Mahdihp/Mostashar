@@ -15,7 +15,7 @@ public class BillForm {
 
     private Long transactionDate;
 
-    private String status;
+    private String billStatus;
 
     @NotBlank
     private long value;
