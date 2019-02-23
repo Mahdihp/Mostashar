@@ -10,12 +10,10 @@ import ir.mostashar.model.settingType.SettingType;
 import ir.mostashar.model.settingType.service.SettingTypesService;
 import ir.mostashar.model.user.User;
 import ir.mostashar.utils.Constants;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import javax.swing.plaf.PanelUI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

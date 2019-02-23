@@ -66,7 +66,7 @@ public class FileController {
     }
 
     /**
-     * Find file Id and Later delete logic file
+     * Find file Id and Later delete service file
      * @param fileId
      * @return
      */

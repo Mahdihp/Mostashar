@@ -54,13 +54,5 @@ public class Device {
 	public Device() {
 	}
 
-	public Device(UUID uid, String imei, String fireBaseRegId, String ipAddress, String model, User user) {
-		this.uid = uid;
-		this.imei = imei;
-		this.fireBaseRegId = fireBaseRegId;
-		this.ipAddress = ipAddress;
-		this.model = model;
-		this.user = user;
-	}
 }
 

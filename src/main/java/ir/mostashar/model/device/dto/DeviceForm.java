@@ -1,18 +1,21 @@
 package ir.mostashar.model.device.dto;
 
-import ir.mostashar.model.BaseDTO;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+
 @Data
-public class DeviceDTO extends BaseDTO {
+public class DeviceForm {
 
     private String uid;
     private String imei;
     private String fireBaseRegId;
     private String ipAddress;
     private String model;
+
+    @NotBlank
     private String useruid;
 
-    public DeviceDTO() {
+    public DeviceForm() {
     }
 }
