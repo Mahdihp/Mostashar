@@ -35,7 +35,7 @@ public class BillService {
         if (wallet.isPresent() && exists.isPresent() && !exists.get()) {
             Bill bill = new Bill();
             bill.setUid(UUID.randomUUID());
-            bill.setTrackingNumber(billForm.getTrackingNumber());
+            bill.setTransactionNumber(billForm.getTransactionNumber());
             bill.setTrackingNumber(billForm.getTrackingNumber());
             bill.setTransactionDate(billForm.getTransactionDate()); // System.currentTimeMillis()
             bill.setBillStatus(billForm.getBillStatus());
@@ -52,7 +52,7 @@ public class BillService {
         Optional<Wallet> wallet = walletService.findByUid(billForm.getWalletUid(), false);
         Optional<Bill> bill = billRepo.findByUid(UUID.fromString(billForm.getUid()));
         if (bill.isPresent() && wallet.isPresent()) {
-            bill.get().setTrackingNumber(billForm.getTrackingNumber());
+            bill.get().setTransactionNumber(billForm.getTransactionNumber());
             bill.get().setTrackingNumber(billForm.getTrackingNumber());
             bill.get().setTransactionDate(billForm.getTransactionDate()); // System.currentTimeMillis()
             bill.get().setBillStatus(billForm.getBillStatus());
@@ -80,7 +80,7 @@ public class BillService {
             billDTO.setStatus(HttpStatus.OK.value());
             billDTO.setMessage(Constants.KEY_SUCESSE);
             billDTO.setUid(bill.get().toString());
-            billDTO.setTrackingNumber(bill.get().getTrackingNumber());
+            billDTO.setTransactionNumber(bill.get().getTransactionNumber());
             billDTO.setTrackingNumber(bill.get().getTrackingNumber());
             billDTO.setTransactionDate(bill.get().getTransactionDate()); // System.currentTimeMillis()
             billDTO.setBillStatus(bill.get().getBillStatus());
@@ -100,7 +100,7 @@ public class BillService {
             billDTO.setStatus(HttpStatus.OK.value());
             billDTO.setMessage(Constants.KEY_SUCESSE);
             billDTO.setUid(bill.get().toString());
-            billDTO.setTrackingNumber(bill.get().getTrackingNumber());
+            billDTO.setTransactionNumber(bill.get().getTransactionNumber());
             billDTO.setTrackingNumber(bill.get().getTrackingNumber());
             billDTO.setTransactionDate(bill.get().getTransactionDate()); // System.currentTimeMillis()
             billDTO.setBillStatus(bill.get().getBillStatus());
@@ -120,7 +120,7 @@ public class BillService {
             billDTO.setStatus(HttpStatus.OK.value());
             billDTO.setMessage(Constants.KEY_SUCESSE);
             billDTO.setUid(bill.get().toString());
-            billDTO.setTrackingNumber(bill.get().getTrackingNumber());
+            billDTO.setTransactionNumber(bill.get().getTransactionNumber());
             billDTO.setTrackingNumber(bill.get().getTrackingNumber());
             billDTO.setTransactionDate(bill.get().getTransactionDate()); // System.currentTimeMillis()
             billDTO.setBillStatus(bill.get().getBillStatus());
@@ -140,7 +140,7 @@ public class BillService {
             billDTO.setStatus(HttpStatus.OK.value());
             billDTO.setMessage(Constants.KEY_SUCESSE);
             billDTO.setUid(bill.get().toString());
-            billDTO.setTrackingNumber(bill.get().getTrackingNumber());
+            billDTO.setTransactionNumber(bill.get().getTransactionNumber());
             billDTO.setTrackingNumber(bill.get().getTrackingNumber());
             billDTO.setTransactionDate(bill.get().getTransactionDate()); // System.currentTimeMillis()
             billDTO.setBillStatus(bill.get().getBillStatus());
@@ -163,7 +163,7 @@ public class BillService {
             for (Bill bill : bills.get()) {
                 BillDTO billDTO = new BillDTO();
                 billDTO.setUid(bill.toString());
-                billDTO.setTrackingNumber(bill.getTrackingNumber());
+                billDTO.setTransactionNumber(bill.getTransactionNumber());
                 billDTO.setTrackingNumber(bill.getTrackingNumber());
                 billDTO.setTransactionDate(bill.getTransactionDate()); // System.currentTimeMillis()
                 billDTO.setBillStatus(bill.getBillStatus());

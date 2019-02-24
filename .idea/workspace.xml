@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1e01327f-4aba-4542-b594-13cb3ce25ace" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/bill/repository/BillRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/bill/repository/BillRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/bill/service/BillService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/bill/service/BillService.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -144,17 +143,17 @@
         <counts>
           <entry key="dummy" value="131" />
           <entry key="gitignore" value="1" />
-          <entry key="java" value="44713" />
+          <entry key="java" value="44760" />
           <entry key="properties" value="418" />
           <entry key="sql" value="6136" />
-          <entry key="txt" value="626" />
+          <entry key="txt" value="634" />
           <entry key="xml" value="19" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="44713" />
-          <entry key="PLAIN_TEXT" value="758" />
+          <entry key="JAVA" value="44760" />
+          <entry key="PLAIN_TEXT" value="766" />
           <entry key="Properties" value="418" />
           <entry key="SQL" value="6119" />
           <entry key="Scratch" value="17" />
@@ -182,8 +181,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/bill/service/BillService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="53" column="50" selection-start-line="53" selection-start-column="50" selection-end-line="53" selection-end-column="50" />
+            <state relative-caret-position="195">
+              <caret line="54" column="75" selection-start-line="54" selection-start-column="75" selection-end-line="54" selection-end-column="75" />
             </state>
           </provider>
         </entry>
@@ -657,14 +656,7 @@
       <workItem from="1550911509753" duration="2206000" />
       <workItem from="1550914977998" duration="991000" />
       <workItem from="1550916043483" duration="4840000" />
-      <workItem from="1550988610884" duration="8310000" />
-    </task>
-    <task id="LOCAL-00023" summary="CREATE &amp; ALTER SEQUENCE.&#10;Create User Register Controller.">
-      <created>1548278783216</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1548278783216</updated>
+      <workItem from="1550988610884" duration="8531000" />
     </task>
     <task id="LOCAL-00024" summary="CREATE &amp; ALTER SEQUENCE.&#10;Create User Register Controller..">
       <created>1548433498807</created>
@@ -1002,11 +994,18 @@
       <option name="project" value="LOCAL" />
       <updated>1550997174968</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="Create Complate Installments &amp; Factor &amp; Bill Operation v2.">
+      <created>1550997614830</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1550997614831</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="399932000" />
+    <option name="totallyTimeSpent" value="400153000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1089,7 +1088,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="CREATE &amp; ALTER SEQUENCE.&#10;Create User Register Controller." />
     <MESSAGE value="CREATE &amp; ALTER SEQUENCE.&#10;Create User Register Controller.." />
     <MESSAGE value="Disable Flayway." />
     <MESSAGE value="Create File Controller." />
@@ -1114,7 +1112,8 @@
     <MESSAGE value="Create RightMessage Operation" />
     <MESSAGE value="Create UserFeedBack Operation" />
     <MESSAGE value="Create Complate Installments &amp; Factor Operation v1." />
-    <option name="LAST_COMMIT_MESSAGE" value="Create Complate Installments &amp; Factor Operation v1." />
+    <MESSAGE value="Create Complate Installments &amp; Factor &amp; Bill Operation v2." />
+    <option name="LAST_COMMIT_MESSAGE" value="Create Complate Installments &amp; Factor &amp; Bill Operation v2." />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -1507,8 +1506,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/bill/service/BillService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="53" column="50" selection-start-line="53" selection-start-column="50" selection-end-line="53" selection-end-column="50" />
+        <state relative-caret-position="195">
+          <caret line="54" column="75" selection-start-line="54" selection-start-column="75" selection-end-line="54" selection-end-column="75" />
         </state>
       </provider>
     </entry>
