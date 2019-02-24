@@ -28,13 +28,11 @@ public class BillService {
     @Autowired
     WalletService walletService;
 
-    @Autowired
-    FactorService factorService;
-
     public boolean createBill(BillForm billForm) {
         Optional<Wallet> wallet = walletService.findByUid(billForm.getWalletUid(), false);
-        Optional<Factor> factor = factorService.findByUid(billForm.getFactorUid());
-        if (wallet.isPresent() && factor.isPresent()) {
+        Optional<Boolean> exists = billRepo.existsByTransactionNumber(billForm.getTransactionNumber());
+
+        if (wallet.isPresent() && exists.isPresent() && !exists.get()) {
             Bill bill = new Bill();
             bill.setUid(UUID.randomUUID());
             bill.setTrackingNumber(billForm.getTrackingNumber());
@@ -44,8 +42,24 @@ public class BillService {
             bill.setValue(billForm.getValue());
             bill.setOrgUid(billForm.getOrgUid()); // اگر دارد
             bill.setWallet(wallet.get());
-            bill.setFactor(factor.get());
             billRepo.save(bill);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean updateBill(BillForm billForm) {
+        Optional<Wallet> wallet = walletService.findByUid(billForm.getWalletUid(), false);
+        Optional<Bill> bill = billRepo.findByUid(UUID.fromString(billForm.getUid()));
+        if (bill.isPresent() && wallet.isPresent()) {
+            bill.get().setTrackingNumber(billForm.getTrackingNumber());
+            bill.get().setTrackingNumber(billForm.getTrackingNumber());
+            bill.get().setTransactionDate(billForm.getTransactionDate()); // System.currentTimeMillis()
+            bill.get().setBillStatus(billForm.getBillStatus());
+            bill.get().setValue(billForm.getValue());
+            bill.get().setOrgUid(billForm.getOrgUid()); // اگر دارد
+            bill.get().setWallet(wallet.get());
+            billRepo.save(bill.get());
             return true;
         }
         return false;
