@@ -8,7 +8,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "userfeedbacks")
-public class UserFeedback {
+public class UserFeedBack {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +32,7 @@ public class UserFeedback {
     @Column(name = "read")
     private boolean read;
 
-    public UserFeedback() {
+    public UserFeedBack() {
     }
 
 }

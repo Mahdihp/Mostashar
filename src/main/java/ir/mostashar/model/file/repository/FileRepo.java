@@ -15,7 +15,7 @@ public interface FileRepo extends JpaRepository<File,Long> {
     Optional<Boolean> existsByClientAndTitle(Client client, String title);
 
     Optional<File> findFileByUidAndDeleted(UUID uid,boolean isDeleted);
-    Optional<File> findByUidAndClientUid(UUID uid,UUID clientUid,boolean isDeleted);
+    Optional<File> findByUidAndClientUidAndDeleted(UUID uid,UUID clientUid,boolean isDeleted);
 
     Optional<List<File>> findAllByDeleted(boolean isDeleted);
     Optional<List<File>> findAllByClientUidAndDeleted(UUID uuid,boolean isDeleted);

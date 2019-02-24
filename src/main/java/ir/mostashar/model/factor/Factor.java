@@ -53,8 +53,9 @@ public class Factor {
     @JoinColumn(name = "billid", nullable = false)
     private Bill bill;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "installmentid", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "factor")
     private Installment installment;
 
     public Factor() {
