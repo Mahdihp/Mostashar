@@ -32,5 +32,4 @@ public class FactorForm {
 
     private String billUid;
 
-    private String installmentUid;
 }

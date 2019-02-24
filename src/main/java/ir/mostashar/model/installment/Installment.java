@@ -37,7 +37,7 @@ public class Installment {
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "factorid", nullable = false)
-    private Factor factor; // forign key from Factor
+    private Factor factor;
 
     public Installment() {
     }

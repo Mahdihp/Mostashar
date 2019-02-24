@@ -38,8 +38,7 @@ public class FactorService {
 
     public boolean createFactor(FactorForm factorForm) {
         Optional<Bill> bill = billService.findBillByUid(factorForm.getBillUid());
-        Optional<Installment> installment = installmentService.findInstallmentByUid(factorForm.getInstallmentUid());
-        if (bill.isPresent() && installment.isPresent()) {
+        if (bill.isPresent()) {
             Factor factor = new Factor();
             factor.setUid(UUID.randomUUID());
             factor.setServiceDescription(factorForm.getServiceDescription());
@@ -52,8 +51,36 @@ public class FactorService {
             factor.setCreationDate(System.currentTimeMillis());
             factor.setValue(factorForm.getValue());
             factor.setBill(bill.get());
-            factor.setInstallment(installment.get());
             factorRepo.save(factor);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean updateFactor(FactorForm factorForm) {
+        Optional<Factor> factor = factorRepo.findByUid(UUID.fromString(factorForm.getUid()));
+        Optional<Bill> bill = billService.findBillByUid(factorForm.getBillUid());
+        if (factor.isPresent() && bill.isPresent()) {
+            factor.get().setServiceDescription(factorForm.getServiceDescription());
+            factor.get().setClientName(factorForm.getClientName());
+            factor.get().setClientCode(factorForm.getClientCode());
+            factor.get().setAddress(factorForm.getAddress());
+            factor.get().setTel(factorForm.getTel());
+            factor.get().setPostalCode(factorForm.getPostalCode());
+            factor.get().setFactorNumber(factorForm.getFactorNumber()); // چگونه تولید می شود؟
+            factor.get().setCreationDate(System.currentTimeMillis());
+            factor.get().setValue(factorForm.getValue());
+            factor.get().setBill(bill.get());
+            factorRepo.save(factor.get());
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteFactor(String uid) {
+        Optional<Factor> factor = factorRepo.findByUid(UUID.fromString(uid));
+        if (factor.isPresent()) {
+            factorRepo.delete(factor.get());
             return true;
         }
         return false;
@@ -85,7 +112,7 @@ public class FactorService {
             factorDTO.setCreationDate(System.currentTimeMillis());
             factorDTO.setValue(factor.get().getValue());
             factorDTO.setBillUid(factor.get().getBill().getUid().toString());
-            factorDTO.setInstallmentUid(factor.get().getInstallment().getUid().toString());
+
             return Optional.ofNullable(factorDTO);
         }
         return Optional.empty();
@@ -111,7 +138,6 @@ public class FactorService {
                 factorDTO.setCreationDate(System.currentTimeMillis());
                 factorDTO.setValue(factor.getValue());
                 factorDTO.setBillUid(factor.getBill().getUid().toString());
-                factorDTO.setInstallmentUid(factor.getInstallment().getUid().toString());
                 dtoList.add(factorDTO);
             }
             lfDTO.setData(dtoList);
@@ -119,6 +145,7 @@ public class FactorService {
         }
         return Optional.empty();
     }
+
     public Optional<ListFactorDTO> findListFactorDTOByCraeteDate(Long createDate) {
         Optional<List<Factor>> factors = factorRepo.findAllByCreationDateAndDeleted(createDate, false);
         if (factors.isPresent()) {
@@ -139,7 +166,6 @@ public class FactorService {
                 factorDTO.setCreationDate(System.currentTimeMillis());
                 factorDTO.setValue(factor.getValue());
                 factorDTO.setBillUid(factor.getBill().getUid().toString());
-                factorDTO.setInstallmentUid(factor.getInstallment().getUid().toString());
                 dtoList.add(factorDTO);
             }
             lfDTO.setData(dtoList);
