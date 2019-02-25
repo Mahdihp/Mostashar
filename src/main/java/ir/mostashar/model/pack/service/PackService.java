@@ -215,7 +215,7 @@ public class PackService {
 
             // insert into factor
 
-            Factor factor = new Factor();
+            /*Factor factor = new Factor();
             factorUid = UUID.randomUUID();
             factor.setUid(factorUid);
             factor.setServiceDescription(""); //از کجا پر میشه
@@ -228,9 +228,9 @@ public class PackService {
             factor.setCreationDate(System.currentTimeMillis());
             factor.setValue(bpForm.getTotalPrice()); // پرسیده شود
             if (!factorService.saveFactor(factor))
-                return Optional.ofNullable(new BuyPackStatus(BuyPack.FactorError));
+                return Optional.ofNullable(new BuyPackStatus(BuyPack.FactorError));*/
 
-            return Optional.ofNullable(new BuyPackStatus(factorUid.toString(), consumptionPackUid.toString(), BuyPack.ComplateAll));
+            return Optional.ofNullable(new BuyPackStatus(BuyPack.ComplateAll));
         }
         return Optional.ofNullable(new BuyPackStatus(BuyPack.ErrorAll));
     }

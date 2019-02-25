@@ -62,8 +62,8 @@ public class PackController {
                     return ResponseEntity.status(HttpStatus.OK).body(new PackDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_FAIL_CONSUMPTIONPACK));
                 case PackSnapshotError:
                     return ResponseEntity.status(HttpStatus.OK).body(new PackDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_FAIL));
-                case FactorError:
-                    return ResponseEntity.status(HttpStatus.OK).body(new PackDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_FAIL_FACTOR));
+//                case FactorError:
+//                    return ResponseEntity.status(HttpStatus.OK).body(new PackDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_FAIL_FACTOR));
             }
         }
         return null;
