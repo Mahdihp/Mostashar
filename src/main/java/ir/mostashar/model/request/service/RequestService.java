@@ -49,7 +49,7 @@ public class RequestService {
      */
     public UUID createRequest(RequestForm requestForm) {
 
-        Optional<AdviceType> adviceType = adviceTypeRepo.findAdviceTypeByUid(UUID.fromString(requestForm.getAdviceTypeId()));
+        Optional<AdviceType> adviceType = adviceTypeRepo.findByUid(UUID.fromString(requestForm.getAdviceTypeId()));
         Optional<Client> client = clientRepo.findByUid(UUID.fromString(requestForm.getClientId()));
         Optional<File> file = fileRepo.findFileByUidAndDeleted(UUID.fromString(requestForm.getFileId()), false);
 
@@ -111,7 +111,7 @@ public class RequestService {
      */
     public boolean updateRequest(RequestForm requestForm) {
         Optional<Request> request = requestRepo.findByUidAndDeleted(UUID.fromString(requestForm.getRequestId()), false);
-        Optional<AdviceType> adviceType = adviceTypeRepo.findAdviceTypeByUid(UUID.fromString(requestForm.getAdviceTypeId()));
+        Optional<AdviceType> adviceType = adviceTypeRepo.findByUid(UUID.fromString(requestForm.getAdviceTypeId()));
         Optional<File> file = fileRepo.findFileByUidAndDeleted(UUID.fromString(requestForm.getFileId()), false);
         if (request.isPresent() && adviceType.isPresent() && file.isPresent()) {
 

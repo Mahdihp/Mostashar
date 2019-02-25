@@ -37,6 +37,7 @@ public class AuthController {
         if (userService.existsPhoneNumber(Long.valueOf(signUpForm.getPhoneNumber()))) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_REGISTER_ALREADY, "", false));
         }
+
         Role role = new Role();
         role.setUid(UUID.randomUUID());
         role.setName(RoleName.ROLE_CLIENT);

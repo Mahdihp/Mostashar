@@ -3,7 +3,7 @@ package ir.mostashar.model.pack.cntroller.v1;
 import ir.mostashar.model.BaseDTO;
 import ir.mostashar.model.pack.Pack;
 import ir.mostashar.model.pack.dto.PackDTO;
-import ir.mostashar.model.pack.dto.PackForm;
+import ir.mostashar.model.pack.dto.BuyPackForm;
 import ir.mostashar.model.pack.service.PackService;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +27,13 @@ public class PackageController {
      * find exist pack name
      * create pack
      *
-     * @param packForm
+     * @param buyPackForm
      * @return
      */
     @PostMapping(value = "/createpackage", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> createPackage(@Valid @RequestBody PackForm packForm) {
-        if (!packService.existsPack(packForm.getName())) {
-            if (packService.createPack(packForm)) {
+    public ResponseEntity<?> createPackage(@Valid @RequestBody BuyPackForm buyPackForm) {
+        if (!packService.existsPack(buyPackForm.getName())) {
+            if (packService.createPack(buyPackForm)) {
                 return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_CREATE_PACK_SUCESSE));
             }
         }
@@ -52,8 +52,8 @@ public class PackageController {
     }
 
     @PostMapping(value = "/updatepackage", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> updatePackage(@Valid @RequestBody PackForm packForm) {
-        if (packService.updatePack(packForm))
+    public ResponseEntity<?> updatePackage(@Valid @RequestBody BuyPackForm buyPackForm) {
+        if (packService.updatePack(buyPackForm))
             return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_UPDATE_PACK_SUCESSE));
         else
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_NOT_FOUND_PACK));

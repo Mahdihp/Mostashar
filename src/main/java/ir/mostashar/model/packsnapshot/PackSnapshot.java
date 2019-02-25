@@ -26,19 +26,19 @@ public class PackSnapshot {
     private UUID uid;
 
     @Column(name = "packname")
-    private String packname;
+    private String packName;
 
     @Column(name = "packdescription")
-    private String packdescription;
+    private String packDescription;
 
     @Column(name = "packminute")
-    private int  packminute;
+    private int  packMinute;
 
     @Column(name = "lawyerpriceperminute")
-    private int  lawyerpriceperminute;
+    private int  lawyerPricePerMinute;
 
     @Column(name = "totalprice")
-    private int  totalprice;
+    private int  totalPrice;
 
 
     @Column(name = "isactive")

@@ -1,7 +1,6 @@
 package ir.mostashar.model.packsnapshot.v1;
 
 import ir.mostashar.model.BaseDTO;
-import ir.mostashar.model.pack.dto.PackForm;
 import ir.mostashar.model.pack.service.PackService;
 import ir.mostashar.model.packsnapshot.dto.PackSnapshotForm;
 import ir.mostashar.model.packsnapshot.service.PackSnapshotService;

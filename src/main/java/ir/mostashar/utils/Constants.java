@@ -33,6 +33,7 @@ public class Constants {
 
 
     public static final String KEY_SUCESSE = "sucesse!";
+    public static final String KEY_FAIL = "fail";
 
     public static final String KEY_NOT_FOUND_LAWYER = "مشاوری با این شماره موجود نیست.";
     public static final String KEY_UUID_NOT_VALID = "شماره ی کاربری معتبر نیست.";
@@ -49,4 +50,10 @@ public class Constants {
     public static final String KEYT_CREATE_DOC_SUCSSES = "مستند مورد نظر با موفقیت ثبت شد.";
     public static final String KEY_NOT_FOUND_DOC = "مستند مورد نظر پیدا نشد.";
     public static final String KEY_DELETE_DOC = "حذف مستند مورد نظر انجام شد.";
+    
+    public static final String KEY_FAIL_CONSUMPTIONPACK = "مشکلی در ثبت خرید بسته رخ داد.";
+
+    public static final String KEY_FAIL_PACKSNAPSHOT = "مشکلی در ثبت اسنپ شات رخ داد";
+
+    public static final String KEY_FAIL_FACTOR = "مشکلی در ثبت فاکتور رخ داد.";
 }

@@ -22,4 +22,9 @@ public class DocDTO extends BaseDTO {
     public DocDTO(Integer status, String message) {
         super(status, message);
     }
+
+    public DocDTO(Integer status, String message, String docId) {
+        super(status, message);
+        this.docId = docId;
+    }
 }

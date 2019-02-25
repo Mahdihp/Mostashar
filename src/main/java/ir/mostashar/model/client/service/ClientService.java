@@ -22,7 +22,7 @@ public class ClientService {
     private ClientRepo clientRepo;
 
 
-    public Optional<Client> findByClientId(String userid) {
+    public Optional<Client> findClientByUid(String userid) {
         Optional<Client> client = clientRepo.findByUid(UUID.fromString(userid));
         if (client.isPresent())
             return Optional.ofNullable(client.get());

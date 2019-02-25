@@ -20,13 +20,13 @@ public class Factor {
     private UUID uid;
 
     @Column(name = "servicedescription")
-    private String serviceDescription;
+    private String serviceDescription; // مقدار این از کجا پر میشه
 
     @Column(name = "clientName")
-    private String clientName; // این چه اسمی هست
+    private String clientName; // این برای چیه
 
     @Column(name = "clientcode")
-    private String clientCode; // این چه اسمی هست
+    private String clientCode; // این برای چیه
 
     @Column(name = "address")
     private String address;
@@ -50,7 +50,7 @@ public class Factor {
     private boolean deleted = false;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "billid", nullable = false)
+    @JoinColumn(name = "billid") // پرسیده شود ایا نال پذیر باشد یا خیر
     private Bill bill;
 
     @OneToOne(fetch = FetchType.LAZY,

@@ -54,6 +54,15 @@ public class ConsumptionPackService {
         return false;
     }
 
+    public boolean saveConsumptionPack(ConsumptionPack consumptionPack) {
+        ConsumptionPack cp = cpRepository.save(consumptionPack);
+        if (cp != null)
+            return true;
+        else
+            return false;
+
+    }
+
     public Optional<ConsumptionPack> findByUid(String cpUid) {
         Optional<ConsumptionPack> cp = cpRepository.findByUid(UUID.fromString(cpUid));
         if (cp.isPresent())

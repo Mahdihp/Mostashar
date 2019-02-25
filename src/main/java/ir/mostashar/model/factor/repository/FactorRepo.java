@@ -2,6 +2,7 @@ package ir.mostashar.model.factor.repository;
 
 import ir.mostashar.model.factor.Factor;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,5 +18,7 @@ public interface FactorRepo extends JpaRepository<Factor,Long> {
     Optional<List<Factor>> findAllByFactorNumberAndDeleted(String factorNumber,boolean isDelete);
     Optional<List<Factor>> findAllByCreationDateAndDeleted(Long createDate,boolean isDelete);
 
+    @Query("SELECT max(fa.factorNumber) FROM Factor fa")
+    Long findMaxFactorNumber();
 
 }

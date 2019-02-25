@@ -12,6 +12,7 @@ import ir.mostashar.model.installment.Installment;
 import ir.mostashar.model.installment.service.InstallmentService;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,9 @@ public class FactorService {
     @Autowired
     ClientService clientService;
 
+    @Value("${mostashar.app.factorNumber}")
+    private String factorNumber;
+
 
     public boolean createFactor(FactorForm factorForm) {
         Optional<Bill> bill = billService.findBillByUid(factorForm.getBillUid());
@@ -47,6 +51,14 @@ public class FactorService {
             factor.setAddress(factorForm.getAddress());
             factor.setTel(factorForm.getTel());
             factor.setPostalCode(factorForm.getPostalCode());
+
+            Long maxFactorNumber = factorRepo.findMaxFactorNumber();
+            if (maxFactorNumber != null) {
+                factor.setFactorNumber(String.valueOf(factorNumber + 1));
+            } else {
+                factor.setFactorNumber(factorNumber);
+            }
+
             factor.setFactorNumber(factorForm.getFactorNumber()); // چگونه تولید می شود؟
             factor.setCreationDate(System.currentTimeMillis());
             factor.setValue(factorForm.getValue());
@@ -55,6 +67,22 @@ public class FactorService {
             return true;
         }
         return false;
+    }
+
+    public boolean saveFactor(Factor factor) {
+        Factor save = factorRepo.save(factor);
+        if (save != null)
+            return true;
+        else
+            return false;
+    }
+
+    public Long getMaxFactorNumber() {
+        Long maxFactorNumber = factorRepo.findMaxFactorNumber();
+        if (maxFactorNumber != null)
+            return maxFactorNumber;
+        else
+            return null;
     }
 
     public boolean updateFactor(FactorForm factorForm) {
