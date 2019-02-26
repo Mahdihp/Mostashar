@@ -34,8 +34,8 @@ public class PackController {
     PackService packService;
 
 
-    @GetMapping(value = "/packs/{lawyerid}", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> findAllPackByLawyer(@PathVariable(value = "lawyerid") String lawyerid) {
+    @GetMapping(value = "/packs", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> findAllPackByLawyer(@RequestParam("lawyerid") String lawyerid) {
         if (!DataUtil.isValidUUID(lawyerid))
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new PackDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_UUID_NOT_VALID));
 
@@ -55,13 +55,13 @@ public class PackController {
         if (buyPack.isPresent()) {
             switch (buyPack.get().getBuyPack()) {
                 case ComplateAll:
-                    return ResponseEntity.status(HttpStatus.OK).body(new BuyPackDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_SUCESSE, buyPack.get().getFactorUid()));
+                    return ResponseEntity.status(HttpStatus.OK).body(new BuyPackDTO(HttpStatus.OK.value(), Constants.KEY_SUCESSE));
                 case ErrorAll:
-                    return ResponseEntity.status(HttpStatus.OK).body(new PackDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_FAIL));
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new PackDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_FAIL));
                 case ConsumptionPackError:
-                    return ResponseEntity.status(HttpStatus.OK).body(new PackDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_FAIL_CONSUMPTIONPACK));
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new PackDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_FAIL_CONSUMPTIONPACK));
                 case PackSnapshotError:
-                    return ResponseEntity.status(HttpStatus.OK).body(new PackDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_FAIL));
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new PackDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_FAIL));
 //                case FactorError:
 //                    return ResponseEntity.status(HttpStatus.OK).body(new PackDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_FAIL_FACTOR));
             }

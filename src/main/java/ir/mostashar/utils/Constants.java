@@ -3,7 +3,7 @@ package ir.mostashar.utils;
 public class Constants {
 
     public static final String KEY_REGISTER_ALREADY = "شما قبلا ثبت نام کرده اید.";
-    public static final String KEY_REGISTER = "ثبت نام شما کامل شد." + "تا چند لحظه ی دیگه برای شما کد تایید ارسال خواهد شد.";
+    public static final String KEY_REGISTER = "ثبت نام شما کامل شد." + "/n" + "تا چند لحظه ی دیگه برای شما کد تایید ارسال خواهد شد.";
     public static final String KEY_PHONE_NUMBER_NOT_VALID = "شماره موبایل معتبر نمی باشد.";
     public static final String KEY_CODE_VERIFY = "حساب شما فعال شد.";
     public static final String KEY_INVALID_CODE = "کد تایید و نام کاربری اشتباه است.";
@@ -50,10 +50,15 @@ public class Constants {
     public static final String KEYT_CREATE_DOC_SUCSSES = "مستند مورد نظر با موفقیت ثبت شد.";
     public static final String KEY_NOT_FOUND_DOC = "مستند مورد نظر پیدا نشد.";
     public static final String KEY_DELETE_DOC = "حذف مستند مورد نظر انجام شد.";
-    
+
     public static final String KEY_FAIL_CONSUMPTIONPACK = "مشکلی در ثبت خرید بسته رخ داد.";
 
     public static final String KEY_FAIL_PACKSNAPSHOT = "مشکلی در ثبت اسنپ شات رخ داد";
 
     public static final String KEY_FAIL_FACTOR = "مشکلی در ثبت فاکتور رخ داد.";
+
+    public static final String KEY_NOT_FOUND_USER = "کاربری با این مشخصات پیدا نشد.";
+
+    public static final String KEY_ADD_USER_POPULARITY = "به لیست محبوب ها اضافه شد.";
+    public static final String KEY_DELETE_USER_POPULARITY = "با موفقیت کاربر محبوب حذف شد.";
 }

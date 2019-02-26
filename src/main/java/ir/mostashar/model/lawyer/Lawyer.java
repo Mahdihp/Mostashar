@@ -28,8 +28,8 @@ public class Lawyer extends User {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "isavailable")
-    private boolean isAvailable = false;
+    @Column(name = "available")
+    private boolean available = false;
 
     @Column(name = "level")
     private int level = 1;

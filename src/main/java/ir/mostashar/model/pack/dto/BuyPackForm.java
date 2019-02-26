@@ -10,16 +10,16 @@ public class BuyPackForm {
     private String uid;
 
     @NotBlank
-    private String userUid;
+    private String userId;
 
     @NotBlank
     private String name;
 
     @NotBlank
-    private String packUid;
+    private String packId;
 
     @NotBlank
-    private String requestUid;
+    private String requestId;
 
     private String description;
 
@@ -35,13 +35,13 @@ public class BuyPackForm {
      */
     private int  totalPrice;
 
-    private boolean isActive = false;
+    private boolean active = false;
 
     @NotBlank
-    private String adviceTypeUid;
+    private String adviceTypeId;
 
     @NotBlank
-    private String lawyerUid;
+    private String lawyerId;
 
     public BuyPackForm() {
     }

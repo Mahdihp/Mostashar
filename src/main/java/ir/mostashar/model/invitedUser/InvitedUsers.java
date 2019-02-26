@@ -41,7 +41,7 @@ public class InvitedUsers {
 	private Long  creationDate;
 	
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "userid", nullable = false)
+    @JoinColumn(name = "userId", nullable = false)
     @JsonIgnore
     private User user;
 

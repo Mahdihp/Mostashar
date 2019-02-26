@@ -6,7 +6,6 @@ import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.service.ClientService;
 import ir.mostashar.model.consumptionPack.ConsumptionPack;
 import ir.mostashar.model.consumptionPack.service.ConsumptionPackService;
-import ir.mostashar.model.factor.Factor;
 import ir.mostashar.model.factor.service.FactorService;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.lawyer.repository.LawyerRepo;
@@ -73,7 +72,7 @@ public class PackService {
      */
     public boolean createPack(BuyPackForm buyPackForm) {
         UUID uuid = UUID.randomUUID();
-        Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(buyPackForm.getAdviceTypeUid());
+        Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(buyPackForm.getAdviceTypeId());
         Optional<Boolean> existsPackByName = packRepo.existsPackByName(buyPackForm.getName());
         if (existsPackByName.isPresent() && !existsPackByName.get()) {
             if (adviceType.isPresent()) {
@@ -110,7 +109,7 @@ public class PackService {
     public boolean updatePack(BuyPackForm buyPackForm) {
         Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(buyPackForm.getUid()));
         if (pack.isPresent()) {
-            Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(buyPackForm.getAdviceTypeUid());
+            Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(buyPackForm.getAdviceTypeId());
             pack.get().setName(buyPackForm.getUid());
             pack.get().setDescription(buyPackForm.getDescription());
             pack.get().setActive(buyPackForm.isActive());
@@ -176,11 +175,11 @@ public class PackService {
     public Optional<BuyPackStatus> createBuyPack(BuyPackForm bpForm) {
         UUID factorUid;
         UUID consumptionPackUid;
-        Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(bpForm.getPackUid()));
-        Optional<Request> request = requestService.findByUid(bpForm.getRequestUid());
-        Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(bpForm.getAdviceTypeUid());
-        Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(bpForm.getLawyerUid()));
-        Optional<Client> client = clientService.findClientByUid(bpForm.getUserUid());
+        Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(bpForm.getPackId()));
+        Optional<Request> request = requestService.findByUid(bpForm.getRequestId());
+        Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(bpForm.getAdviceTypeId());
+        Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(bpForm.getLawyerId()));
+        Optional<Client> client = clientService.findClientByUidAndActive(bpForm.getUserId(),true);
         if (pack.isPresent() && request.isPresent() && adviceType.isPresent() && lawyer.isPresent() && client.isPresent()) {
 
             // insert into consumptionPack

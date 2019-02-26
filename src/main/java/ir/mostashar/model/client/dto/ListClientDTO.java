@@ -9,14 +9,14 @@ import java.util.List;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ListBaseClientDTO extends BaseDTO {
+public class ListClientDTO extends BaseDTO {
 
-    private List<BaseClientDTO> data;
+    private List<ClientDTO> data;
 
-    public ListBaseClientDTO() {
+    public ListClientDTO() {
     }
 
-    public ListBaseClientDTO(Integer status, String message) {
+    public ListClientDTO(Integer status, String message) {
         super(status, message);
     }
 }

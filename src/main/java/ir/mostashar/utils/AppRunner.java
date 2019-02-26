@@ -69,6 +69,7 @@ public class AppRunner implements ApplicationRunner {
         client1.setTel(9134528901L);
         client1.setAddress("Qom1");
         client1.setVerificationCode("-1");
+        client1.setActive(true);
 
         Client client2 = new Client();
         client2.setUid(UUID.fromString("b6dc7528-1d44-4ae3-9dc0-c3b8213d45a6"));
@@ -76,6 +77,7 @@ public class AppRunner implements ApplicationRunner {
         client2.setTel(9329466051L);
         client2.setAddress("Qom2");
         client2.setVerificationCode("-1");
+        client2.setActive(true);
 
         Client client3 = new Client();
         client3.setUid(UUID.fromString("b7dc7528-1d44-4ae3-9dc0-c3b8213d45a6"));
@@ -83,6 +85,7 @@ public class AppRunner implements ApplicationRunner {
         client3.setTel(9161544275L);
         client3.setAddress("Qom3");
         client3.setVerificationCode("-1");
+        client3.setActive(true);
 
         Client client4 = new Client();
         client4.setUid(UUID.fromString("b8dc7528-1d44-4ae3-9dc0-c3b8213d45a6"));
@@ -90,6 +93,7 @@ public class AppRunner implements ApplicationRunner {
         client4.setTel(9161544277L);
         client4.setAddress("Qom4");
         client4.setVerificationCode("-1");
+        client4.setActive(true);
 
         Feature feature1 = new Feature();
         feature1.setUid(UUID.fromString("e6f9b9bd-9396-4b78-a5e8-569ff236d991"));

@@ -1,7 +1,7 @@
 package ir.mostashar.model.client.controller.v1;
 
 import ir.mostashar.model.BaseDTO;
-import ir.mostashar.model.client.dto.ClientDTO;
+import ir.mostashar.model.client.dto.RegisterClientDTO;
 import ir.mostashar.model.client.dto.ValidateCode;
 import ir.mostashar.model.client.service.UserServiceImpl;
 import ir.mostashar.model.role.Role;
@@ -32,10 +32,10 @@ public class AuthController {
 //    public ResponseEntity<?> signUp(@Valid @RequestBody SignUpForm signUpForm) {
     public ResponseEntity<?> signUp(@RequestParam("phoneNumber") String phoneNumber) {
         if (!DataUtil.isValidePhoneNumber(phoneNumber))
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_PHONE_NUMBER_NOT_VALID, "", false));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_PHONE_NUMBER_NOT_VALID,  false));
 
         if (userService.existsPhoneNumber(Long.valueOf(phoneNumber)))
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_REGISTER_ALREADY, "", false));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_REGISTER_ALREADY,  false));
 
         Role role = new Role();
         role.setUid(UUID.randomUUID());
@@ -47,14 +47,14 @@ public class AuthController {
         if (uuid.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_REGISTER, uuid.get(), false));
         else
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new BaseDTO(500, Constants.KEY_CREATE_FILE_FAILED, "", false));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new BaseDTO(500, Constants.KEY_CREATE_FILE_FAILED,  false));
 
     }
 
     @PostMapping(value = "/validatecode", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> validateCode(@RequestParam("code") String code, @RequestParam("userid") String userId) {
+    public ResponseEntity<?> validateCode(@RequestParam("code") String code, @RequestParam("userId") String userId) {
         if (TextUtils.isEmpty(code) && TextUtils.isEmpty(userId))
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_INVALID_CODE, "", false));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_INVALID_CODE,  false));
 
         Optional<User> user = userService.findUserIdAndCode(userId, code);
         ValidateCode validateCode = new ValidateCode(code, userId);
@@ -65,14 +65,14 @@ public class AuthController {
 
                 userService.activateUser(true, user.get().getUid());
                 System.out.println("Log------------------JwtResponse " + jwtResponse.toString());
-                ClientDTO clientDTO = new ClientDTO(HttpStatus.OK.value(), Constants.KEY_CODE_VERIFY, user.get().getUid().toString(), true, jwtResponse);
+                RegisterClientDTO registerClientDTO = new RegisterClientDTO(HttpStatus.OK.value(), Constants.KEY_CODE_VERIFY, user.get().getUid().toString(), true, jwtResponse);
 
-                return ResponseEntity.status(HttpStatus.OK).body(clientDTO);
+                return ResponseEntity.status(HttpStatus.OK).body(registerClientDTO);
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new BaseDTO(HttpStatus.UNAUTHORIZED.value(), Constants.KEY_INVALID_CODE, "", false));
             }
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BaseDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_INVALID_CODE, "", false));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BaseDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_INVALID_CODE, false));
 
     }
 
