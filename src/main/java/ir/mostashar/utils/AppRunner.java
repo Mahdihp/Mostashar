@@ -212,13 +212,13 @@ public class AppRunner implements ApplicationRunner {
         AdviceType adviceType1=new AdviceType();
         adviceType1.setUid(UUID.fromString("11482c33-b3a5-4401-a274-016bda28fdce"));
         adviceType1.setName("روانشناسی");
-        adviceType1.setType("1");
+        adviceType1.setType((short) 1);
         adviceType1.setDescription("مشاوره روانشناسی");
 
         AdviceType adviceType2=new AdviceType();
         adviceType2.setUid(UUID.fromString("12482c33-b3a5-4401-a274-016bda28fdce"));
         adviceType1.setName("حقوقی");
-        adviceType1.setType("2");
+        adviceType1.setType((short) 2);
         adviceType1.setDescription("مشاوره حقوقی");
 
 

@@ -13,13 +13,13 @@ public class ValidateCode {
     private String code;
 
     @NotBlank
-    private String userid;
+    private String userId;
 
     public ValidateCode() {
     }
 
-    public ValidateCode(@NotBlank String code, @NotBlank String userid) {
+    public ValidateCode(@NotBlank String code, @NotBlank String userId) {
         this.code = code;
-        this.userid = userid;
+        this.userId = userId;
     }
 }
