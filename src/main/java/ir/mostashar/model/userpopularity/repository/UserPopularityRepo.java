@@ -12,8 +12,10 @@ import java.util.UUID;
 @Repository
 public interface UserPopularityRepo extends JpaRepository<UserPopularity,Long> {
 
-    Optional<UserPopularity> findByUser(User user);
-    Optional<UserPopularity> findByUserPopu(User user);
+    Optional<UserPopularity> findByUserUid(UUID user);
+    Optional<UserPopularity> findByUserPopu(UUID user);
+
+    Optional<UserPopularity> findByUserUidAndUserPopuUid(UUID user,UUID userPopu);
 
     Optional<List<UserPopularity>> findAllByUser(User user);
 }

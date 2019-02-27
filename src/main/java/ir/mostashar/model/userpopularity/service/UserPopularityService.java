@@ -27,20 +27,25 @@ public class UserPopularityService {
 
         Optional<User> masteruser = userService.findUserByUid(userUid);
         Optional<User> userpopular = userService.findUserByUid(userPopularUid);
+
         if (masteruser.isPresent() && userpopular.isPresent()) {
-            Optional<UserPopularity> user = upRepo.findByUser(masteruser.get());
-            if (user.isPresent()) {
-                if (!user.get().getUserPopu().equals(userpopular.get())) {
-                    UserPopularity userPopularity = new UserPopularity();
-                    userPopularity.setUser(masteruser.get());
-                    userPopularity.setUserPopu(userpopular.get());
-                    upRepo.save(userPopularity);
-                    return true;
-                }
-            }
+            UserPopularity userPopularity = new UserPopularity();
+            userPopularity.setUser(masteruser.get());
+            userPopularity.setUserPopu(userpopular.get());
+            upRepo.save(userPopularity);
+            return true;
         }
         return false;
     }
+
+    public boolean existsPopu(String userUid, String userPopularUid) {
+        Optional<UserPopularity> user = upRepo.findByUserUidAndUserPopuUid(UUID.fromString(userUid), UUID.fromString(userPopularUid));
+        if (user.isPresent())
+            return true;
+        else
+            return false;
+    }
+
 
     public boolean saveUserPopularity(UserPopularity userPopularity) {
         if (userPopularity != null) {
@@ -55,7 +60,7 @@ public class UserPopularityService {
         Optional<User> userPopular = userService.findUserByUid(userPopularUid);
 
         if (user.isPresent() && userPopular.isPresent()) {
-            Optional<UserPopularity> byUserPopular = upRepo.findByUserPopu(userPopular.get());
+            Optional<UserPopularity> byUserPopular = upRepo.findByUserPopu(userPopular.get().getUid());
             if (byUserPopular.isPresent()) {
                 upRepo.delete(byUserPopular.get());
                 return true;
@@ -67,14 +72,14 @@ public class UserPopularityService {
     public Optional<UserPopularityDTO> findUserPopularityDTOByUserPopular(String uPopular) {
         Optional<User> userPopular = userService.findUserByUid(uPopular);
         if (userPopular.isPresent()) {
-            Optional<UserPopularity> byUserPopular = upRepo.findByUserPopu(userPopular.get());
+            Optional<UserPopularity> byUserPopular = upRepo.findByUserPopu(userPopular.get().getUid());
             if (byUserPopular.isPresent()) {
                 UserPopularityDTO userPopularityDTO = new UserPopularityDTO();
                 userPopularityDTO.setStatus(HttpStatus.OK.value());
                 userPopularityDTO.setMessage(Constants.KEY_SUCESSE);
 
-                userPopularityDTO.setUserId(byUserPopular.get().getUser().getUid().toString());
-                userPopularityDTO.setUserId(byUserPopular.get().getUserPopu().getUid().toString());
+//                userPopularityDTO.setUserId(byUserPopular.get().getUser().getUid().toString());
+                userPopularityDTO.setUserPopularId(byUserPopular.get().getUserPopu().getUid().toString());
                 return Optional.ofNullable(userPopularityDTO);
             }
         }
@@ -92,8 +97,8 @@ public class UserPopularityService {
             List<UserPopularityDTO> dtoList = new ArrayList<>();
             for (UserPopularity userPopularity : allByUser.get()) {
                 UserPopularityDTO userPopularityDTO = new UserPopularityDTO();
-                userPopularityDTO.setUserId(userPopularity.getUser().getUid().toString());
-                userPopularityDTO.setUserId(userPopularity.getUserPopu().getUid().toString());
+//                userPopularityDTO.setUserId(userPopularity.getUser().getUid().toString());
+                userPopularityDTO.setUserPopularId(userPopularity.getUserPopu().getUid().toString());
                 dtoList.add(userPopularityDTO);
             }
             lupDTO.setData(dtoList);
