@@ -11,6 +11,7 @@ import ir.mostashar.model.expertise.Expertise;
 import ir.mostashar.model.failRequest.FailRequest;
 import ir.mostashar.model.officeAddress.OfficeAddress;
 import ir.mostashar.model.organization.Organization;
+import ir.mostashar.model.packsnapshot.PackSnapshot;
 import ir.mostashar.model.presenceSchedule.PresenceSchedule;
 import ir.mostashar.model.user.User;
 import lombok.Data;
@@ -60,7 +61,6 @@ public class Lawyer extends User {
     @JoinColumn(name = "organizationid")
     private Organization organization;
 
-    // ارتباط یک طرفه با کلاس Lawyer
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
     private Set<FailRequest> failRequests;
 
@@ -82,6 +82,9 @@ public class Lawyer extends User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "advicetype", nullable = false)
     private AdviceType advicetype;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    private Set<PackSnapshot> packSnapshots;
 
     public Lawyer() {
     }

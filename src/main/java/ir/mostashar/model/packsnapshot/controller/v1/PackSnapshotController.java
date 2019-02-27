@@ -1,4 +1,4 @@
-package ir.mostashar.model.packsnapshot.v1;
+package ir.mostashar.model.packsnapshot.controller.v1;
 
 import ir.mostashar.model.BaseDTO;
 import ir.mostashar.model.pack.service.PackService;

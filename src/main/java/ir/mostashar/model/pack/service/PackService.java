@@ -180,6 +180,14 @@ public class PackService {
         Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(bpForm.getAdviceTypeId());
         Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(bpForm.getLawyerId()));
         Optional<Client> client = clientService.findClientByUidAndActive(bpForm.getUserId(),true);
+
+        System.out.println("Log---createBuyPack--------------------:"+pack.isPresent());
+        System.out.println("Log---createBuyPack--------------------:"+request.isPresent());
+        System.out.println("Log---createBuyPack--------------------:"+adviceType.isPresent());
+        System.out.println("Log---createBuyPack--------------------:"+lawyer.isPresent());
+        System.out.println("Log---createBuyPack--------------------:"+client.isPresent());
+
+
         if (pack.isPresent() && request.isPresent() && adviceType.isPresent() && lawyer.isPresent() && client.isPresent()) {
 
             // insert into consumptionPack

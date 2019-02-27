@@ -32,13 +32,13 @@ public class PackSnapshot {
     private String packDescription;
 
     @Column(name = "packminute")
-    private int  packMinute;
+    private int packMinute;
 
     @Column(name = "lawyerpriceperminute")
-    private int  lawyerPricePerMinute;
+    private int lawyerPricePerMinute;
 
     @Column(name = "totalprice")
-    private int  totalPrice;
+    private int totalPrice;
 
 
     @Column(name = "isactive")
@@ -59,8 +59,10 @@ public class PackSnapshot {
     private AdviceType advicetype;
 
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "lawyerid",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lawyerid", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Lawyer lawyer;
 
 

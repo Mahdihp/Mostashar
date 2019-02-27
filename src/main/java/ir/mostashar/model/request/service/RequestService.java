@@ -70,6 +70,7 @@ public class RequestService {
                 request.setRequestNumber(requestNumber);
             }
             request.setClient(client.get());
+            request.setCreationDate(System.currentTimeMillis());
             request.setAdvicetype(adviceType.get());
             request.setFile(file.get());
             request.setRequestNumber(request.getRequestNumber());
