@@ -62,4 +62,7 @@ public class Constants {
     public static final String KEY_ADD_USER_POPULARITY = "به لیست محبوب ها اضافه شد.";
     public static final String KEY_DELETE_USER_POPULARITY = "با موفقیت کاربر محبوب حذف شد.";
     public static final String KEY_USER_POPU_ALDEADY = "این کاربر قبلا به لیست اضافه شده.";
+
+    public static final String KEY_UPDATE_WALLET = "اطلاعات کیف پول بروز شد.";
+    public static final String KEY_ADD_MONEY_WALLET = "کیف پول شارژ شد.";
 }

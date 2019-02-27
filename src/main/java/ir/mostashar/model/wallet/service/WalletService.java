@@ -49,7 +49,7 @@ public class WalletService {
                     wallet.setBankAccountName(walletForm.getBankAccountName());
                     wallet.setBankAccountNumber(walletForm.getBankAccountNumber());
                     wallet.setBankAccountSheba(walletForm.getBankAccountSheba());
-                    wallet.setValue(walletForm.getValue());
+                    wallet.setValue(0);
                     Optional<Organization> organization = orgRepository.findByUid(UUID.fromString(walletForm.getOrganizationId()));
                     if (organization.isPresent())
                         wallet.setOrganization(organization.get());
@@ -59,6 +59,14 @@ public class WalletService {
                     return true;
                 }
             }
+        }
+        return false;
+    }
+
+    public boolean saveWallet(Wallet wallet) {
+        if (wallet != null) {
+            walletRepo.save(wallet);
+            return true;
         }
         return false;
     }
@@ -99,7 +107,6 @@ public class WalletService {
             wallet.get().setBankAccountName(walletForm.getBankAccountName());
             wallet.get().setBankAccountNumber(walletForm.getBankAccountNumber());
             wallet.get().setBankAccountSheba(walletForm.getBankAccountSheba());
-            wallet.get().setValue(walletForm.getValue());
             Optional<Organization> organization = orgRepository.findByUid(UUID.fromString(walletForm.getOrganizationId()));
             if (organization.isPresent())
                 wallet.get().setOrganization(organization.get());
@@ -128,6 +135,14 @@ public class WalletService {
             return true;
         }
         return false;
+    }
+
+    public Optional<Wallet> findByUid(String uid) {
+        Optional<Wallet> wallet = walletRepo.findByUid(UUID.fromString(uid));
+        if (wallet.isPresent()) {
+            return Optional.ofNullable(wallet.get());
+        }
+        return Optional.empty();
     }
 
     public Optional<Wallet> findByUid(String uid, boolean isDelete) {

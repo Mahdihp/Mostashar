@@ -52,6 +52,8 @@ public class ClientDTO extends BaseDTO {
 
     private Long tel;
 
+    private String walletId;
+
     public ClientDTO() {
     }
 

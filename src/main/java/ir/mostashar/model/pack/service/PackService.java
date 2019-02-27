@@ -173,7 +173,7 @@ public class PackService {
 
     @Transactional
     public Optional<BuyPackStatus> createBuyPack(BuyPackForm bpForm) {
-        UUID factorUid;
+//        UUID factorUid;
         UUID consumptionPackUid;
         Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(bpForm.getPackId()));
         Optional<Request> request = requestService.findByUid(bpForm.getRequestId());
@@ -186,7 +186,6 @@ public class PackService {
         System.out.println("Log---createBuyPack--------------------:"+adviceType.isPresent());
         System.out.println("Log---createBuyPack--------------------:"+lawyer.isPresent());
         System.out.println("Log---createBuyPack--------------------:"+client.isPresent());
-
 
         if (pack.isPresent() && request.isPresent() && adviceType.isPresent() && lawyer.isPresent() && client.isPresent()) {
 

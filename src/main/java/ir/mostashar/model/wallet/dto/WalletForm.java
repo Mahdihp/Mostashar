@@ -9,8 +9,6 @@ public class WalletForm {
 
     private String walletId;
 
-    private int value;
-
     private String bankAccountName;
 
     private String bankAccountNumber;

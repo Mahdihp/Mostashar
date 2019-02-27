@@ -15,6 +15,9 @@ import ir.mostashar.model.pack.repository.PackRepo;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.repository.RoleRepo;
 import ir.mostashar.model.role.RoleName;
+import ir.mostashar.model.wallet.Wallet;
+import ir.mostashar.model.wallet.repository.WalletRepo;
+import ir.mostashar.model.wallet.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -45,6 +48,9 @@ public class AppRunner implements ApplicationRunner {
 
     @Autowired
     PackRepo packRepo;
+
+    @Autowired
+    WalletRepo walletRepo;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -292,6 +298,40 @@ public class AppRunner implements ApplicationRunner {
         lawyer3.setPricePerMinute(9000);
 
 
+        Wallet wallet1=new Wallet();
+        wallet1.setUid(UUID.fromString("113c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        wallet1.setValue(0);
+        wallet1.setUser(client1);
+
+        Wallet wallet2=new Wallet();
+        wallet2.setUid(UUID.fromString("114c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        wallet2.setValue(0);
+        wallet2.setUser(client2);
+
+        Wallet wallet3=new Wallet();
+        wallet3.setUid(UUID.fromString("115c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        wallet3.setValue(0);
+        wallet3.setUser(client3);
+
+        Wallet wallet4=new Wallet();
+        wallet4.setUid(UUID.fromString("116c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        wallet4.setValue(0);
+        wallet4.setUser(client4);
+
+        Wallet wallet5=new Wallet();
+        wallet5.setUid(UUID.fromString("117c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        wallet5.setValue(0);
+        wallet5.setUser(lawyer1);
+
+        Wallet wallet6=new Wallet();
+        wallet6.setUid(UUID.fromString("118c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        wallet6.setValue(0);
+        wallet6.setUser(lawyer2);
+
+        Wallet wallet7=new Wallet();
+        wallet7.setUid(UUID.fromString("119c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        wallet7.setValue(0);
+        wallet7.setUser(lawyer3);
 
         featureRepo.save(feature1);
         featureRepo.save(feature2);
@@ -324,6 +364,15 @@ public class AppRunner implements ApplicationRunner {
         lawyerRepo.save(lawyer1);
         lawyerRepo.save(lawyer2);
         lawyerRepo.save(lawyer3);
+
+        walletRepo.save(wallet1);
+        walletRepo.save(wallet2);
+        walletRepo.save(wallet3);
+        walletRepo.save(wallet4);
+        walletRepo.save(wallet5);
+        walletRepo.save(wallet6);
+        walletRepo.save(wallet7);
+
     }
 
 

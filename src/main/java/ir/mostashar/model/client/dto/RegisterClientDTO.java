@@ -12,11 +12,14 @@ import lombok.ToString;
 public class RegisterClientDTO extends BaseDTO {
 
     private JwtResponse jwtResponse;
+    private String walletId;
 
-    public RegisterClientDTO(int status, String message, String userid, boolean isActive, JwtResponse jwtResponse) {
+    public RegisterClientDTO(int status, String message, String userid, String walletId, boolean isActive, JwtResponse jwtResponse) {
         super(status, message, userid, isActive);
+        this.walletId = walletId;
         this.jwtResponse = jwtResponse;
     }
+
 
     public RegisterClientDTO(JwtResponse jwtResponse) {
         this.jwtResponse = jwtResponse;

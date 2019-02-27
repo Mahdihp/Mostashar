@@ -60,6 +60,7 @@ public class ClientService {
                 bcDTO.setPostalCode(client.getPostalCode());
                 bcDTO.setFieldOfStudy(client.getFieldOfStudy());
                 bcDTO.setTel(client.getTel());
+                bcDTO.setWalletId(client.getWallet().getId().toString());
 //            bcDTO.setVerificationCode(client.getVerificationCode());
                 dtoList.add(bcDTO);
             }
@@ -97,6 +98,8 @@ public class ClientService {
             bcDTO.setPostalCode(client.get().getPostalCode());
             bcDTO.setFieldOfStudy(client.get().getFieldOfStudy());
             bcDTO.setTel(client.get().getTel());
+            bcDTO.setWalletId(client.get().getWallet().getId().toString());
+
 //            bcDTO.setVerificationCode(client.get().getVerificationCode());
             return Optional.ofNullable(bcDTO);
         }
