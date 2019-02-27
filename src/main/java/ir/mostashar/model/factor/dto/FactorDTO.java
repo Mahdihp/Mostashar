@@ -25,4 +25,7 @@ public class FactorDTO extends BaseDTO {
     public FactorDTO() {
     }
 
+    public FactorDTO(Integer status, String message) {
+        super(status, message);
+    }
 }

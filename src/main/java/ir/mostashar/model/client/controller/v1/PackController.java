@@ -34,7 +34,7 @@ public class PackController {
     PackService packService;
 
 
-    @GetMapping(value = "/packs", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    @PostMapping(value = "/packs", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findAllPackByLawyer(@RequestParam("lawyerid") String lawyerid) {
         if (!DataUtil.isValidUUID(lawyerid))
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new PackDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_UUID_NOT_VALID));

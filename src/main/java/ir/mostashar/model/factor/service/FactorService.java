@@ -146,6 +146,10 @@ public class FactorService {
         return Optional.empty();
     }
 
+    public Optional<ListFactorDTO> findListFactorDTOByUserUid(String userUid) {
+        return Optional.empty();
+    }
+
     public Optional<ListFactorDTO> findListFactorDTOByFactorNumber(String factorNumber) {
         Optional<List<Factor>> factors = factorRepo.findAllByFactorNumberAndDeleted(factorNumber, false);
         if (factors.isPresent()) {
