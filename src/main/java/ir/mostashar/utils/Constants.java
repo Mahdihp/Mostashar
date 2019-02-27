@@ -65,4 +65,5 @@ public class Constants {
 
     public static final String KEY_UPDATE_WALLET = "اطلاعات کیف پول بروز شد.";
     public static final String KEY_ADD_MONEY_WALLET = "کیف پول شارژ شد.";
+    public static final String KEY_NOT_FOUND_CALL = "تماسی با مشخصات مورد نظر پیدا نشد.";
 }

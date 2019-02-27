@@ -11,7 +11,7 @@ public class CallForm {
 
     private int failedRetriesCount;
 
-    private String status;
+    private String callStatus;
 
     private int callType;
 
