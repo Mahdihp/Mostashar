@@ -83,6 +83,7 @@ public class AcceptRequestService {
         return Optional.empty();
     }
 
+
     public Optional<ListAcceptRequestDTO> findListAcceptRequestDTO() {
         List<AcceptRequest> list = arRepository.findAll();
         if (list != null) {

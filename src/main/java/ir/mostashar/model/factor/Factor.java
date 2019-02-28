@@ -19,14 +19,11 @@ public class Factor {
     @Column(unique = true, nullable = false)
     private UUID uid;
 
-    @Column(name = "servicedescription")
+    @Column(name = "servicedescription") // توضیحی ثابت و خبری از خرید اون ایتم
     private String serviceDescription; // مقدار این از کجا پر میشه
 
     @Column(name = "clientName")
     private String clientName; // این برای چیه
-
-    @Column(name = "clientcode")
-    private String clientCode; // این برای چیه
 
     @Column(name = "address")
     private String address;
@@ -37,7 +34,7 @@ public class Factor {
     @Column(name = "postalcode")
     private String postalCode;
 
-    @Column(name = "factornumber")
+    @Column(name = "factornumber",unique = true)
     private String factorNumber;
 
     @Column(name = "creationdate")

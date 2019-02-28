@@ -48,10 +48,4 @@ public class InvitedUsers {
 	public InvitedUsers() {
 	}
 
-	public InvitedUsers(UUID uid, String invitedUsername, Long creationDate, User user) {
-		this.uid = uid;
-		this.invitedUsername = invitedUsername;
-		this.creationDate = creationDate;
-		this.user = user;
-	}
 }

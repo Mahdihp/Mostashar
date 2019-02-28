@@ -36,13 +36,4 @@ public class Complain {
 
     public Complain() {
     }
-
-    public Complain(UUID uid, String title, String description, Long creationDate, boolean read, User user) {
-        this.uid = uid;
-        this.title = title;
-        this.description = description;
-        this.creationDate = creationDate;
-        this.read = read;
-        this.user = user;
-    }
 }

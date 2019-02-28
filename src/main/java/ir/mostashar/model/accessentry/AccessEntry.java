@@ -47,15 +47,4 @@ public class AccessEntry {
 
     public AccessEntry() {
     }
-
-    public AccessEntry(UUID uid, int type, String name, String description, Long creationDate, Long modificationDate, Long expiryDate, User user) {
-        this.uid = uid;
-        this.type = type;
-        this.name = name;
-        this.description = description;
-        this.creationDate = creationDate;
-        this.modificationDate = modificationDate;
-        this.expiryDate = expiryDate;
-        this.user = user;
-    }
 }

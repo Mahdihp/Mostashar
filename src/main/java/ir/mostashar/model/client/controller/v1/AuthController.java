@@ -10,13 +10,16 @@ import ir.mostashar.model.user.User;
 import ir.mostashar.security.jwt.JwtResponse;
 import ir.mostashar.utils.Constants;
 import ir.mostashar.utils.DataUtil;
+import org.apache.http.impl.bootstrap.HttpServer;
 import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,6 +30,10 @@ public class AuthController {
 
     @Autowired
     UserServiceImpl userService;
+    public ResponseEntity<?> signUp1(HttpServletRequest httpRequest) {
+
+        return null;
+    }
 
     @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 //    public ResponseEntity<?> signUp(@Valid @RequestBody SignUpForm signUpForm) {

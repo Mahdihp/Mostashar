@@ -41,8 +41,8 @@ public class PackSnapshot {
     private int totalPrice;
 
 
-    @Column(name = "isactive")
-    private boolean isActive = false;
+    @Column(name = "active")
+    private boolean active = false;
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,

@@ -39,7 +39,7 @@ public class WalletService {
      * @return
      */
     public boolean createWallet(WalletForm walletForm) {
-        Optional<User> user = userRepo.findUserByUid(UUID.fromString(walletForm.getUserId()));
+        Optional<User> user = userRepo.findUserByUid(UUID.fromString(walletForm.getWalletId()));
         Optional<Boolean> exitWallet = walletRepo.existsByBankAccountNumberOrBankAccountSheba(walletForm.getBankAccountNumber(), walletForm.getBankAccountSheba());
         if (exitWallet.isPresent()) {
             if (!exitWallet.get()) {
@@ -102,7 +102,7 @@ public class WalletService {
     }
 
     public boolean updateWallet(WalletForm walletForm, boolean isDelete) {
-        Optional<Wallet> wallet = walletRepo.findByUidAndUserUidAndDeleted(UUID.fromString(walletForm.getWalletId()), UUID.fromString(walletForm.getUserId()), isDelete);
+        Optional<Wallet> wallet = walletRepo.findByUidAndDeleted(UUID.fromString(walletForm.getWalletId()), isDelete);
         if (wallet.isPresent()) {
             wallet.get().setBankAccountName(walletForm.getBankAccountName());
             wallet.get().setBankAccountNumber(walletForm.getBankAccountNumber());

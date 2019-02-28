@@ -47,7 +47,7 @@ public class FactorService {
             factor.setUid(UUID.randomUUID());
             factor.setServiceDescription(factorForm.getServiceDescription());
             factor.setClientName(factorForm.getClientName());
-            factor.setClientCode(factorForm.getClientCode());
+//            factor.setClientCode(factorForm.getClientCode());
             factor.setAddress(factorForm.getAddress());
             factor.setTel(factorForm.getTel());
             factor.setPostalCode(factorForm.getPostalCode());
@@ -91,7 +91,7 @@ public class FactorService {
         if (factor.isPresent() && bill.isPresent()) {
             factor.get().setServiceDescription(factorForm.getServiceDescription());
             factor.get().setClientName(factorForm.getClientName());
-            factor.get().setClientCode(factorForm.getClientCode());
+//            factor.get().setClientCode(factorForm.getClientCode());
             factor.get().setAddress(factorForm.getAddress());
             factor.get().setTel(factorForm.getTel());
             factor.get().setPostalCode(factorForm.getPostalCode());
@@ -132,7 +132,7 @@ public class FactorService {
             factorDTO.setUid(factor.get().getUid().toString());
             factorDTO.setServiceDescription(factor.get().getServiceDescription());
             factorDTO.setClientName(factor.get().getClientName());
-            factorDTO.setClientCode(factor.get().getClientCode());
+//            factorDTO.setClientCode(factor.get().getClientCode());
             factorDTO.setAddress(factor.get().getAddress());
             factorDTO.setTel(factor.get().getTel());
             factorDTO.setPostalCode(factor.get().getPostalCode());
@@ -146,40 +146,19 @@ public class FactorService {
         return Optional.empty();
     }
 
-    public Optional<ListFactorDTO> findListFactorDTOByUserUid(String userUid) {
-        return Optional.empty();
-    }
-
-    public Optional<ListFactorDTO> findListFactorDTOByFactorNumber(String factorNumber) {
-        Optional<List<Factor>> factors = factorRepo.findAllByFactorNumberAndDeleted(factorNumber, false);
-        if (factors.isPresent()) {
-            ListFactorDTO lfDTO = new ListFactorDTO();
-            lfDTO.setStatus(HttpStatus.OK.value());
-            lfDTO.setMessage(Constants.KEY_SUCESSE);
-            List<FactorDTO> dtoList = new ArrayList<>();
-            for (Factor factor : factors.get()) {
-                FactorDTO factorDTO = new FactorDTO();
-                factorDTO.setUid(factor.getUid().toString());
-                factorDTO.setServiceDescription(factor.getServiceDescription());
-                factorDTO.setClientName(factor.getClientName());
-                factorDTO.setClientCode(factor.getClientCode());
-                factorDTO.setAddress(factor.getAddress());
-                factorDTO.setTel(factor.getTel());
-                factorDTO.setPostalCode(factor.getPostalCode());
-                factorDTO.setFactorNumber(factor.getFactorNumber());
-                factorDTO.setCreationDate(System.currentTimeMillis());
-                factorDTO.setValue(factor.getValue());
-                factorDTO.setBillUid(factor.getBill().getUid().toString());
-                dtoList.add(factorDTO);
-            }
-            lfDTO.setData(dtoList);
-            return Optional.ofNullable(lfDTO);
+    public Optional<ListFactorDTO> findListFactorDTO(Long createDate, String userUid_factorNumber, short typeQuer) {
+        Optional<List<Factor>> factors = Optional.empty();
+        switch (typeQuer) {
+            case 1: // find by user uid
+                factors = Optional.empty();
+                break;
+            case 2:
+                factors = factorRepo.findAllByFactorNumberAndDeleted(userUid_factorNumber, false);
+                break;
+            case 3:
+                factors = factorRepo.findAllByCreationDateAndDeleted(createDate, false);
+                break;
         }
-        return Optional.empty();
-    }
-
-    public Optional<ListFactorDTO> findListFactorDTOByCraeteDate(Long createDate) {
-        Optional<List<Factor>> factors = factorRepo.findAllByCreationDateAndDeleted(createDate, false);
         if (factors.isPresent()) {
             ListFactorDTO lfDTO = new ListFactorDTO();
             lfDTO.setStatus(HttpStatus.OK.value());
@@ -190,7 +169,7 @@ public class FactorService {
                 factorDTO.setUid(factor.getUid().toString());
                 factorDTO.setServiceDescription(factor.getServiceDescription());
                 factorDTO.setClientName(factor.getClientName());
-                factorDTO.setClientCode(factor.getClientCode());
+//                factorDTO.setClientCode(factor.getClientCode());
                 factorDTO.setAddress(factor.getAddress());
                 factorDTO.setTel(factor.getTel());
                 factorDTO.setPostalCode(factor.getPostalCode());

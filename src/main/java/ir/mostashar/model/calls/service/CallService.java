@@ -43,12 +43,12 @@ public class CallService {
         if (client.isPresent() && request.isPresent()) {
             Call call = new Call();
             call.setUid(UUID.randomUUID());
-            call.setFailedRetriesCount(callForm.getFailedRetriesCount());
+//            call.setFailedRetriesCount(callForm.getFailedRetriesCount());
             call.setCallStatus(callForm.getCallStatus());
             call.setCallType(callForm.getCallType());
             call.setStartTime(callForm.getStartTime());
             call.setEndTime(callForm.getEndTime());
-            call.setCreationDate(System.currentTimeMillis());
+//            call.setCreationDate(System.currentTimeMillis());
             call.setClient(client.get());
             call.setRequest(request.get());
             // wait for lawyer service
@@ -86,7 +86,7 @@ public class CallService {
             for (Call call : list.get()) {
                 CallDTO callDTO = new CallDTO();
                 callDTO.setId(call.getUid().toString());
-                callDTO.setFailedRetriesCount(call.getFailedRetriesCount());
+//                callDTO.setFailedRetriesCount(call.getFailedRetriesCount());
                 callDTO.setCallStatus(call.getCallStatus());
                 callDTO.setCallType(call.getCallType());
                 callDTO.setStartTime(call.getStartTime());

@@ -1,11 +1,10 @@
 package ir.mostashar.model.lawyer;
 
 import ir.mostashar.model.acceptRequest.AcceptRequest;
-import ir.mostashar.model.activity.Activity;
+import ir.mostashar.model.activity.ActivityLawyer;
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.answer.Answer;
 import ir.mostashar.model.calls.Call;
-import ir.mostashar.model.client.Client;
 import ir.mostashar.model.doc.Doc;
 import ir.mostashar.model.expertise.Expertise;
 import ir.mostashar.model.failRequest.FailRequest;
@@ -17,10 +16,8 @@ import ir.mostashar.model.user.User;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Data
 @Entity
@@ -68,7 +65,7 @@ public class Lawyer extends User {
     private Set<AcceptRequest> acceptRequests;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-    private Set<Activity> activities;
+    private Set<ActivityLawyer> activities;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
     private Set<Call> calls;

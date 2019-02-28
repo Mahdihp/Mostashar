@@ -9,8 +9,8 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "activities")
-public class Activity {
+@Table(name = "activitylawyers")
+public class ActivityLawyer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,17 +43,7 @@ public class Activity {
     @JoinColumn(name = "fileid", nullable = true)
     private File file;
 
-    public Activity() {
+    public ActivityLawyer() {
     }
 
-    public Activity(UUID uid, int type, String title, String description, Long creationDate, Lawyer lawyer, Doc doc, File file) {
-        this.uid = uid;
-        this.type = type;
-        this.title = title;
-        this.description = description;
-        this.creationDate = creationDate;
-        this.lawyer = lawyer;
-        this.doc = doc;
-        this.file = file;
-    }
 }

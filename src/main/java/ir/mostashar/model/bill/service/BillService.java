@@ -73,68 +73,22 @@ public class BillService {
             return Optional.empty();
     }
 
-    public Optional<BillDTO> findBillDTOByValue(Long value) {
-        Optional<Bill> bill = billRepo.findByValue(value);
-        if (bill.isPresent()) {
-            BillDTO billDTO = new BillDTO();
-            billDTO.setStatus(HttpStatus.OK.value());
-            billDTO.setMessage(Constants.KEY_SUCESSE);
-            billDTO.setUid(bill.get().toString());
-            billDTO.setTransactionNumber(bill.get().getTransactionNumber());
-            billDTO.setTrackingNumber(bill.get().getTrackingNumber());
-            billDTO.setTransactionDate(bill.get().getTransactionDate()); // System.currentTimeMillis()
-            billDTO.setBillStatus(bill.get().getBillStatus());
-            billDTO.setValue(bill.get().getValue());
-            billDTO.setOrgUid(bill.get().getOrgUid()); // اگر دارد
-            billDTO.setWalletUid(bill.get().getWallet().getUid().toString());
-            billDTO.setFactorUid(bill.get().getFactor().getUid().toString());
-            return Optional.ofNullable(billDTO);
+    public Optional<BillDTO> findBillDTO(Long value, String trackingNumber_TransactionNumber_Uid, short type) {
+        Optional<Bill> bill = Optional.empty();
+        switch (type) {
+            case 1:
+                bill = billRepo.findByValue(value);
+                break;
+            case 2:
+                bill = billRepo.findByTrackingNumber(trackingNumber_TransactionNumber_Uid); //trackingNumber
+                break;
+            case 3:
+                bill = billRepo.findByTransactionNumber(trackingNumber_TransactionNumber_Uid); //transactionNumber
+                break;
+            case 4:
+                bill = billRepo.findByUid(UUID.fromString(trackingNumber_TransactionNumber_Uid)); //uid
+                break;
         }
-        return Optional.empty();
-    }
-
-    public Optional<BillDTO> findBillDTOByTrackingNumber(String trackingNumber) {
-        Optional<Bill> bill = billRepo.findByTrackingNumber(trackingNumber);
-        if (bill.isPresent()) {
-            BillDTO billDTO = new BillDTO();
-            billDTO.setStatus(HttpStatus.OK.value());
-            billDTO.setMessage(Constants.KEY_SUCESSE);
-            billDTO.setUid(bill.get().toString());
-            billDTO.setTransactionNumber(bill.get().getTransactionNumber());
-            billDTO.setTrackingNumber(bill.get().getTrackingNumber());
-            billDTO.setTransactionDate(bill.get().getTransactionDate()); // System.currentTimeMillis()
-            billDTO.setBillStatus(bill.get().getBillStatus());
-            billDTO.setValue(bill.get().getValue());
-            billDTO.setOrgUid(bill.get().getOrgUid()); // اگر دارد
-            billDTO.setWalletUid(bill.get().getWallet().getUid().toString());
-            billDTO.setFactorUid(bill.get().getFactor().getUid().toString());
-            return Optional.ofNullable(billDTO);
-        }
-        return Optional.empty();
-    }
-
-    public Optional<BillDTO> findBillDTOByTransactionNumber(String transactionNumber) {
-        Optional<Bill> bill = billRepo.findByTransactionNumber(transactionNumber);
-        if (bill.isPresent()) {
-            BillDTO billDTO = new BillDTO();
-            billDTO.setStatus(HttpStatus.OK.value());
-            billDTO.setMessage(Constants.KEY_SUCESSE);
-            billDTO.setUid(bill.get().toString());
-            billDTO.setTransactionNumber(bill.get().getTransactionNumber());
-            billDTO.setTrackingNumber(bill.get().getTrackingNumber());
-            billDTO.setTransactionDate(bill.get().getTransactionDate()); // System.currentTimeMillis()
-            billDTO.setBillStatus(bill.get().getBillStatus());
-            billDTO.setValue(bill.get().getValue());
-            billDTO.setOrgUid(bill.get().getOrgUid()); // اگر دارد
-            billDTO.setWalletUid(bill.get().getWallet().getUid().toString());
-            billDTO.setFactorUid(bill.get().getFactor().getUid().toString());
-            return Optional.ofNullable(billDTO);
-        }
-        return Optional.empty();
-    }
-
-    public Optional<BillDTO> findBillDTOByUid(String uid) {
-        Optional<Bill> bill = billRepo.findByUid(UUID.fromString(uid));
         if (bill.isPresent()) {
             BillDTO billDTO = new BillDTO();
             billDTO.setStatus(HttpStatus.OK.value());

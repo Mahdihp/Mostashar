@@ -1,11 +1,9 @@
 package ir.mostashar.model.doc;
 
-import ir.mostashar.model.activity.Activity;
+import ir.mostashar.model.activity.ActivityLawyer;
 import ir.mostashar.model.calls.Call;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.lawyer.Lawyer;
-import ir.mostashar.model.user.User;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -59,7 +57,7 @@ public class Doc {
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "doc")
-    private Set<Activity> activities = new HashSet<>();
+    private Set<ActivityLawyer> activities = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fileid", nullable = false)

@@ -17,7 +17,6 @@ import ir.mostashar.model.role.repository.RoleRepo;
 import ir.mostashar.model.role.RoleName;
 import ir.mostashar.model.wallet.Wallet;
 import ir.mostashar.model.wallet.repository.WalletRepo;
-import ir.mostashar.model.wallet.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;

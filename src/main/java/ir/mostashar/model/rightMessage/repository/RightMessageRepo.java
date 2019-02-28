@@ -13,6 +13,8 @@ public interface RightMessageRepo extends JpaRepository<RightMessage,Long> {
 
     Optional<Boolean> existsByTitle(String title);
     Optional<RightMessage> findByUid(UUID uuid);
+
     Optional<RightMessage> findByTitle(String title);
+
 
 }

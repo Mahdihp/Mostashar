@@ -31,8 +31,8 @@ public class AssignDiscount {
 	@Column(unique = true , nullable = false)
 	private UUID uid;
 
-	@Column(name = "isactive")
-	private boolean isActive = false;
+	@Column(name = "active")
+	private boolean active = false;
 
 	@Column(name = "creationdate")
 	@CreatedDate
@@ -58,13 +58,4 @@ public class AssignDiscount {
 	public AssignDiscount() {
 	}
 
-	public AssignDiscount(UUID uid, boolean isActive, Long creationDate, Long modificationDate, Long expiryDate, User user, DiscountPack discountPack) {
-		this.uid = uid;
-		this.isActive = isActive;
-		this.creationDate = creationDate;
-		this.modificationDate = modificationDate;
-		this.expiryDate = expiryDate;
-		this.user = user;
-		this.discountPack = discountPack;
-	}
 }

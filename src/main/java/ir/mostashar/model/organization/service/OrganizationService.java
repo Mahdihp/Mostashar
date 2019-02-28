@@ -37,7 +37,7 @@ public class OrganizationService {
             org.setPassword(form.getPassword());
             org.setTerminalId(form.getTerminalId());
             org.setVerified(false);
-//            org.setExpiryDate(form.getDescription()); چطوری تعیین میشه
+            org.setExpiryDate(3L);// چطوری تعیین میشه
             orgRepository.save(org);
             return true;
         }

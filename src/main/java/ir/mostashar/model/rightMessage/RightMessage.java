@@ -30,8 +30,8 @@ public class RightMessage {
     @Column(name = "expirydate")
     private Long expiryDate;
 
-    @Column(name = "isactive")
-    private boolean isActive;
+    @Column(name = "active")
+    private boolean active;
 
     public RightMessage() {
     }

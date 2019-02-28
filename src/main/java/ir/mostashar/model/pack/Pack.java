@@ -34,8 +34,8 @@ public class Pack {
     @Column(name = "minute")
     private int  minute;
 
-    @Column(name = "isactive")
-    private boolean isActive = false;
+    @Column(name = "active")
+    private boolean active = false;
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
@@ -44,14 +44,11 @@ public class Pack {
     @EqualsAndHashCode.Exclude
     private Set<ConsumptionPack> consumptionpacks = new HashSet<>();
 
-    // این فیلد به نظر می رسد اضافی و بلا استفاده است چون قیمت هر بسته به صورت داینامیک از طریق مشاور تعیین می شود و نیازی به این ارتباط نیست
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "advicetypeid", nullable = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private AdviceType advicetype;
-
-
 
     public Pack() {
     }

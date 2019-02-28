@@ -33,16 +33,6 @@ public class WalletController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new FileDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_USER_NOT_FOUND));
     }
 
-    @PostMapping(value = "/addmoney", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> updateWallet(@RequestParam("id") String id, @RequestParam("userid") String userid, @RequestParam("money") int money) {
-        if (TextUtils.isEmpty(id) || TextUtils.isEmpty(userid) || money <= 0)
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new WalletDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_USER_NOT_FOUND));
-
-        if (walletService.addMoneyWallet(id, userid, money))
-            return ResponseEntity.status(HttpStatus.OK).body(new WalletDTO(HttpStatus.OK.value(), Constants.KEY_ADD_MONEY_WALLET));
-        else
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new WalletDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_USER_NOT_FOUND));
-    }
 
 
 }
