@@ -1,7 +1,6 @@
 package ir.mostashar.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
@@ -12,7 +11,7 @@ public class BaseDTO {
     private String message;
     private String userId;
     private String walletId;
-    private Boolean isActive;
+    private Boolean active;
 
 
     public BaseDTO() {
@@ -23,22 +22,22 @@ public class BaseDTO {
         this.message = message;
     }
 
-    public BaseDTO(Integer status, String message, Boolean isActive) {
+    public BaseDTO(Integer status, String message, Boolean active) {
         this.status = status;
         this.message = message;
-        this.isActive = isActive;
+        this.active = active;
     }
-    public BaseDTO(Integer status, String message, String userId, Boolean isActive) {
+    public BaseDTO(Integer status, String message, String userId, Boolean active) {
         this.status = status;
         this.message = message;
         this.userId = userId;
-        this.isActive = isActive;
+        this.active = active;
     }
-    public BaseDTO(Integer status, String message, String userId, String walletId, Boolean isActive) {
+    public BaseDTO(Integer status, String message, String userId, String walletId, Boolean active) {
         this.status = status;
         this.message = message;
         this.userId = userId;
         this.walletId = walletId;
-        this.isActive = isActive;
+        this.active = active;
     }
 }

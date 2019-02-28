@@ -4,6 +4,7 @@ import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.adviceType.repository.AdviceTypeRepo;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.repository.ClientRepo;
+import ir.mostashar.model.constant.Constant;
 import ir.mostashar.model.feature.Feature;
 import ir.mostashar.model.feature.repository.FeatureRepo;
 import ir.mostashar.model.file.File;
@@ -331,6 +332,16 @@ public class AppRunner implements ApplicationRunner {
         wallet7.setUid(UUID.fromString("119c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
         wallet7.setValue(0);
         wallet7.setUser(lawyer3);
+
+        Constant constant1=new Constant();
+        constant1.setUid(UUID.fromString("120c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+
+        Constant constant2=new Constant();
+        constant2.setUid(UUID.fromString("120c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+
+        Constant constant3=new Constant();
+        constant3.setUid(UUID.fromString("120c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+
 
         featureRepo.save(feature1);
         featureRepo.save(feature2);

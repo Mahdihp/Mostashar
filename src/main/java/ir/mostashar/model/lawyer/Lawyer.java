@@ -27,7 +27,7 @@ public class Lawyer extends User {
     private static final long serialVersionUID = 1L;
 
     @Column(name = "available")
-    private boolean available = false;
+    private Boolean available = false;
 
     @Column(name = "level")
     private int level = 1;
@@ -36,7 +36,7 @@ public class Lawyer extends User {
     private int pricePerMinute = 1;
 
     @Column(name = "verified")
-    private boolean verified = false;
+    private Boolean verified = false;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
     private Set<OfficeAddress> officeAddresses = new HashSet<>();

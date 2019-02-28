@@ -14,7 +14,7 @@ public class RightMessageForm {
     private String description;
     private Long creationDate;
     private Long expiryDate;
-    private boolean isActive;
+    private boolean active;
 
     public RightMessageForm() {
     }

@@ -20,7 +20,7 @@ public class PackDTO extends BaseDTO {
 
     private Long priceTotal;
 
-    private Boolean isActive = false;
+    private Boolean active;
 
     private String advicetypeUid;
 

@@ -22,8 +22,8 @@ public class ClientService {
     private ClientRepo clientRepo;
 
 
-    public Optional<Client> findClientByUidAndActive(String userid,boolean active) {
-        Optional<Client> client = clientRepo.findClientByUidAndActive(UUID.fromString(userid),active);
+    public Optional<Client> findClientByUidAndActive(String userid, boolean active) {
+        Optional<Client> client = clientRepo.findClientByUidAndActive(UUID.fromString(userid), active);
         if (client.isPresent())
             return Optional.ofNullable(client.get());
         else
@@ -50,7 +50,7 @@ public class ClientService {
                 bcDTO.setIsOnline(client.getOnline());
                 bcDTO.setScore(client.getScore());
                 bcDTO.setAvatarHashcode(client.getAvatarHashcode());
-                bcDTO.setIsActive(client.getActive());
+                bcDTO.setActive(client.getActive());
                 bcDTO.setMobileNumber(client.getMobileNumber());
                 bcDTO.setCreationDate(client.getCreationDate());
                 bcDTO.setModificationDate(client.getModificationDate());
@@ -61,7 +61,7 @@ public class ClientService {
                 bcDTO.setFieldOfStudy(client.getFieldOfStudy());
                 bcDTO.setTel(client.getTel());
                 bcDTO.setWalletId(client.getWallet().getId().toString());
-//            bcDTO.setVerificationCode(client.getVerificationCode());
+//                bcDTO.setVerificationCode(client.getVerificationCode());
                 dtoList.add(bcDTO);
             }
             lbcDTO.setData(dtoList);
@@ -71,7 +71,7 @@ public class ClientService {
     }
 
     public Optional<ClientDTO> findClientDTOByUid(String userid) {
-        Optional<Client> client = clientRepo.findClientByUidAndActive(UUID.fromString(userid),true);
+        Optional<Client> client = clientRepo.findClientByUidAndActive(UUID.fromString(userid), true);
         if (client.isPresent()) {
             ClientDTO bcDTO = new ClientDTO();
             bcDTO.setStatus(HttpStatus.OK.value());
@@ -88,7 +88,7 @@ public class ClientService {
             bcDTO.setIsOnline(client.get().getOnline());
             bcDTO.setScore(client.get().getScore());
             bcDTO.setAvatarHashcode(client.get().getAvatarHashcode());
-            bcDTO.setIsActive(client.get().getActive());
+            bcDTO.setActive(client.get().getActive());
             bcDTO.setMobileNumber(client.get().getMobileNumber());
             bcDTO.setCreationDate(client.get().getCreationDate());
             bcDTO.setModificationDate(client.get().getModificationDate());

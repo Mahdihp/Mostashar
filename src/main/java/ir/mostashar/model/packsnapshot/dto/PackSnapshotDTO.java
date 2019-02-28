@@ -15,7 +15,7 @@ public class PackSnapshotDTO extends BaseDTO {
     private Integer  packminute;
     private Integer  lawyerpriceperminute;
     private Integer  totalprice;
-    private Boolean isActive = false;
+    private Boolean active = false;
 
     private String adviceTypeuid;
 
