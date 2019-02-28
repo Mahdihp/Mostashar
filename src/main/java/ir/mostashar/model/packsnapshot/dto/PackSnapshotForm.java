@@ -25,7 +25,7 @@ public class PackSnapshotForm {
     private int  totalprice;
 
 
-    private boolean isActive = false;
+    private boolean active = false;
 
     @NotBlank
     private String advicetypeUid;

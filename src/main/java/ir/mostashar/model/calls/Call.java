@@ -4,7 +4,6 @@ import ir.mostashar.model.client.Client;
 import ir.mostashar.model.doc.Doc;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.request.Request;
-import ir.mostashar.model.wallet.Wallet;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,13 +21,13 @@ public class Call {
     @Column(unique = true, nullable = false)
     private UUID uid;
 
-//    @Column(name = "failedretriescount") // تعداد تلاش برای تماس
-//    private int failedRetriesCount;
+    @Column(name = "failedretriescount") // تعداد تلاش برای تماس تماس ها جمع میشه و همه را یهو میفرسته سمت سرور
+    private int failedRetriesCount;
 
-    @Column(name = "callstatus") //
-    private String callStatus;
+//    @Column(name = "callstatus") //
+//    private String callStatus;
 
-    @Column(name = "calltype")
+    @Column(name = "calltype") // voip or call center
     private int callType;
 
     @Column(name = "starttime")
@@ -37,8 +36,8 @@ public class Call {
     @Column(name = "endtime")
     private Long endTime;
 
-//    @Column(name = "creationdate")
-//    private Long creationDate;
+    @Column(name = "creationdate")
+    private Long creationDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clientid",nullable = false)

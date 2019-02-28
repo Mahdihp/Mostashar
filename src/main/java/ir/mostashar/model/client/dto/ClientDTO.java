@@ -30,7 +30,7 @@ public class ClientDTO extends BaseDTO {
 
     private String avatarHashcode;
 
-    private Boolean isActive = false;
+    private Boolean active = false;
 
     private Long mobileNumber;
 
