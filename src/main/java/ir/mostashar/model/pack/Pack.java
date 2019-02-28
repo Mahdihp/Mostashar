@@ -35,7 +35,7 @@ public class Pack {
     private int  minute;
 
     @Column(name = "active")
-    private boolean active = false;
+    private Boolean active = false;
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
