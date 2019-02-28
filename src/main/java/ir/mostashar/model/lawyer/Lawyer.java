@@ -30,10 +30,10 @@ public class Lawyer extends User {
     private Boolean available = false;
 
     @Column(name = "level")
-    private int level = 1;
+    private Integer level = 1;
 
     @Column(name = "priceperminute")
-    private int pricePerMinute = 1;
+    private Integer pricePerMinute = 1;
 
     @Column(name = "verified")
     private Boolean verified = false;
@@ -85,5 +85,6 @@ public class Lawyer extends User {
 
     public Lawyer() {
     }
+
 
 }

@@ -337,10 +337,10 @@ public class AppRunner implements ApplicationRunner {
         constant1.setUid(UUID.fromString("120c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
 
         Constant constant2=new Constant();
-        constant2.setUid(UUID.fromString("120c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        constant2.setUid(UUID.fromString("121c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
 
         Constant constant3=new Constant();
-        constant3.setUid(UUID.fromString("120c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        constant3.setUid(UUID.fromString("122c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
 
 
         featureRepo.save(feature1);

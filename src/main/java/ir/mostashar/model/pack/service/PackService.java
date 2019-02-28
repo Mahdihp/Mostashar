@@ -144,7 +144,7 @@ public class PackService {
             packDTO.setDescription(pack.get().getDescription());
             packDTO.setPriceTotal(0L);
             packDTO.setAdvicetypeUid(pack.get().getAdvicetype().getUid().toString());
-            packDTO.setActive(pack.get().isActive());
+            packDTO.setActive(pack.get().getActive());
             packDTO.setMinute(pack.get().getMinute());
 
             return Optional.ofNullable(packDTO);
@@ -161,7 +161,7 @@ public class PackService {
             packObj.setName(pack.getName());
             packObj.setDescription(pack.getDescription());
             packObj.setPriceTotal((long) (pack.getMinute() * pricePerminuteByLawyer));
-            packObj.setActive(pack.isActive());
+            packObj.setActive(pack.getActive());
 
             listPackDTO.add(packObj);
         }
