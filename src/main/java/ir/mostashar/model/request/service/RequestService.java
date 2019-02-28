@@ -4,6 +4,7 @@ import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.adviceType.repository.AdviceTypeRepo;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.repository.ClientRepo;
+import ir.mostashar.model.client.service.ClientService;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.repository.FileRepo;
 import ir.mostashar.model.request.Request;
@@ -29,7 +30,7 @@ public class RequestService {
     RequestRepo requestRepo;
 
     @Autowired
-    ClientRepo clientRepo;
+    ClientService clientService;
 
     @Autowired
     AdviceTypeRepo adviceTypeRepo;
@@ -48,11 +49,15 @@ public class RequestService {
      * @return
      */
     public UUID createRequest(RequestForm requestForm) {
-        Optional<AdviceType> adviceType = adviceTypeRepo.findAdviceTypeByUid(UUID.fromString(requestForm.getAdviceTypeId()));
-        Optional<Client> client = clientRepo.findByUid(UUID.fromString(requestForm.getClientId()));
-        Optional<File> file = fileRepo.findFileByUidAndDeleted(UUID.fromString(requestForm.getFileId()), false);
+
+        Optional<AdviceType> adviceType = adviceTypeRepo.findByUid(UUID.fromString(requestForm.getAdviceTypeId()));
+        Optional<Client> client = clientService.findClientByUidAndActive(requestForm.getUserId(),true);
+        Optional<File> file = fileRepo.findByUidAndDeleted(UUID.fromString(requestForm.getFileId()), false);
+
         Long maxRequestNumber = requestRepo.findMaxRequestNumber();
+
         System.out.println("Log-----------------maxRequestNumber " + maxRequestNumber);
+
         UUID uuid;
         if (adviceType.isPresent() && client.isPresent() && file.isPresent()) {
             Request request = new Request();
@@ -65,6 +70,7 @@ public class RequestService {
                 request.setRequestNumber(requestNumber);
             }
             request.setClient(client.get());
+            request.setCreationDate(System.currentTimeMillis());
             request.setAdvicetype(adviceType.get());
             request.setFile(file.get());
             request.setRequestNumber(request.getRequestNumber());
@@ -74,8 +80,8 @@ public class RequestService {
         return null;
     }
 
-    public Optional<Request> findByClientIdAndRequestId(String clientid, String requestid) {
-        Optional<Request> request = requestRepo.findRequestByClientUidAndUidAndDeleted(UUID.fromString(clientid), UUID.fromString(requestid), false);
+    public Optional<Request> findByUid(String requestUid) {
+        Optional<Request> request = requestRepo.findByUidAndDeleted(UUID.fromString(requestUid), false);
         if (request.isPresent())
             return request;
         else
@@ -89,7 +95,7 @@ public class RequestService {
      * @return true & false
      */
     public boolean deleteRequest(Request request) {
-//        Optional<Request> request = requestRepository.findRequestByClientUidAndUidAndDeleted(UUID.fromString(clientId), UUID.fromString(requestId), false);
+//        Optional<Request> request = requestRepository.findRequestByClientUidAndUidAndDeleted(UUID.fromString(userId), UUID.fromString(requestId), false);
         if (request != null) {
             request.setDeleted(true);
             requestRepo.save(request);
@@ -106,9 +112,9 @@ public class RequestService {
      * @return
      */
     public boolean updateRequest(RequestForm requestForm) {
-        Optional<Request> request = requestRepo.findRequestByUidAndDeleted(UUID.fromString(requestForm.getRequestId()), false);
-        Optional<AdviceType> adviceType = adviceTypeRepo.findAdviceTypeByUid(UUID.fromString(requestForm.getAdviceTypeId()));
-        Optional<File> file = fileRepo.findFileByUidAndDeleted(UUID.fromString(requestForm.getFileId()), false);
+        Optional<Request> request = requestRepo.findByUidAndDeleted(UUID.fromString(requestForm.getRequestId()), false);
+        Optional<AdviceType> adviceType = adviceTypeRepo.findByUid(UUID.fromString(requestForm.getAdviceTypeId()));
+        Optional<File> file = fileRepo.findByUidAndDeleted(UUID.fromString(requestForm.getFileId()), false);
         if (request.isPresent() && adviceType.isPresent() && file.isPresent()) {
 
 //            request.get().setStatus(RequestStatus.valueOf(requestForm.getStatus()));
@@ -130,7 +136,7 @@ public class RequestService {
      * @return RequestDTO
      */
     public Optional<RequestDTO> findRequestByClient(String clientId, String requestId) {
-        Optional<Request> request = requestRepo.findRequestByClientUidAndUidAndDeleted(UUID.fromString(clientId), UUID.fromString(requestId), false);
+        Optional<Request> request = requestRepo.findByClientUidAndDeleted(UUID.fromString(clientId), false);
         if (request.isPresent()) {
             RequestDTO requestDTO = new RequestDTO();
             requestDTO.setStatus(HttpStatus.OK.value());
@@ -173,19 +179,13 @@ public class RequestService {
         return Optional.empty();
     }
 
-    /**
-     * Chcek Duplicate Request in Table
-     *
-     * @param clientId
-     * @param requestId
-     * @return true or false
-     */
-    public boolean existsRequest(String clientId, String requestId) {
-        Optional<Boolean> aBoolean = requestRepo.existsRequestByFileUidAndClientUidAndDeleted(UUID.fromString(clientId), UUID.fromString(requestId), false);
+    /*public boolean existsRequest(String clientUid, String fileUid) {
+        Optional<Boolean> aBoolean = requestRepo
+                .existsRequestByFileUidAndClientUidAndDeleted(UUID.fromString(clientUid), UUID.fromString(fileUid), false);
         if (aBoolean.isPresent())
             return aBoolean.get();
         else
             return false;
-    }
+    }*/
 
 }

@@ -47,13 +47,4 @@ public class OfficeAddress {
         this.uid = uid;
     }
 
-    public OfficeAddress(UUID uid, String title, String address, Long tel, String description, Lawyer lawyer, Set<PresenceSchedule> presenceSchedule) {
-        this.uid = uid;
-        this.title = title;
-        this.address = address;
-        this.tel = tel;
-        this.description = description;
-        this.lawyer = lawyer;
-        this.presenceSchedule = presenceSchedule;
-    }
 }

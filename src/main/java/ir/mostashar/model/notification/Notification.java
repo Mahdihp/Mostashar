@@ -44,16 +44,5 @@ public class Notification {
 
     public Notification() {
     }
-
-    public Notification(UUID uid, String content, String targetUid, int type, Long pushDate, String notifParentUid, boolean deleted, Set<Reminder> reminders) {
-        this.uid = uid;
-        this.content = content;
-        this.targetUid = targetUid;
-        this.type = type;
-        this.pushDate = pushDate;
-        this.notifParentUid = notifParentUid;
-        this.deleted = deleted;
-        this.reminders = reminders;
-    }
 }
 

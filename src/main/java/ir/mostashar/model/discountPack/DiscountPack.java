@@ -36,11 +36,4 @@ public class DiscountPack {
     public DiscountPack() {
     }
 
-    public DiscountPack(UUID uid, String name, long value, int type, Set<AssignDiscount> assignDiscount) {
-        this.uid = uid;
-        this.name = name;
-        this.value = value;
-        this.type = type;
-        this.assignDiscount = assignDiscount;
-    }
 }

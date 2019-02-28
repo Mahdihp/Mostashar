@@ -12,10 +12,15 @@ import java.util.UUID;
 public interface WalletRepo extends JpaRepository<Wallet, Long> {
 
     Optional<Wallet> findByUid(UUID uuid);
-    Optional<Wallet> findByUidAndDeleted(UUID uuid,boolean isDelete);
 
-    Optional<Wallet> findByUidAndUserUidAndDeleted(UUID uuid,UUID userUid,boolean isDelete);
-    Optional<Wallet> findByUidAndUserUid(UUID uuid,UUID userUid);
+    Optional<Wallet> findByUidAndDeleted(UUID uuid, boolean isDelete);
+
+    Optional<Wallet> findByUidAndUserUidAndDeleted(UUID uuid, UUID userUid, boolean isDelete);
+
+    Optional<Wallet> findByUidAndUserUid(UUID uuid, UUID userUid);
 
     Optional<List<Wallet>> findAllByDeleted(boolean isDelete);
+
+    Optional<Boolean> existsByBankAccountNumberOrBankAccountSheba(String bankAccountName,String bankAccountSheba);
+
 }

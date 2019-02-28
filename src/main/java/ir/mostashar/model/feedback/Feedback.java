@@ -40,12 +40,4 @@ public class Feedback {
     public Feedback() {
     }
 
-    public Feedback(UUID uid, Long creationDate, String description, boolean read, Client client, Request request) {
-        this.uid = uid;
-        this.creationDate = creationDate;
-        this.description = description;
-        this.read = read;
-        this.client = client;
-        this.request = request;
-    }
 }

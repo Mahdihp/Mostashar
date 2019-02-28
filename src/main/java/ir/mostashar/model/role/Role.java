@@ -45,7 +45,5 @@ public class Role {
 	@JoinTable(name = "role_feature", joinColumns = @JoinColumn(name = "roleid", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "featureid", referencedColumnName = "id"))
 	private Set<Feature> features = new HashSet<>();
 
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
+
 }

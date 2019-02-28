@@ -35,19 +35,19 @@ public class AdviceType {
     private String description;
 
     @Column(name = "type")
-    private String type;
+    private short type;
 
-    @ManyToOne(cascade={CascadeType.ALL})
-    @JoinColumn(name="advicetypeid")
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "advicetypeid")
     private AdviceType adviceType;
 
-    @OneToMany(mappedBy="adviceType")
+    @OneToMany(mappedBy = "adviceType")
     private Set<AdviceType> subordinates = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "advicetype")
-    private Set<Pack> packs= new HashSet<>();
+    private Set<Pack> packs = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
@@ -57,18 +57,9 @@ public class AdviceType {
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "advicetype")
-    private Set<Request> requests=new HashSet<>();
+    private Set<Request> requests = new HashSet<>();
 
     public AdviceType() {
     }
 
-    public AdviceType(UUID uid, Long parent, String name, String description, String type, AdviceType adviceType, Set<AdviceType> subordinates) {
-        this.uid = uid;
-        this.parent = parent;
-        this.name = name;
-        this.description = description;
-        this.type = type;
-        this.adviceType = adviceType;
-        this.subordinates = subordinates;
-    }
 }

@@ -1,8 +1,7 @@
 package ir.mostashar.model.client.controller.v1;
 
 import ir.mostashar.model.BaseDTO;
-import ir.mostashar.model.client.dto.ClientDTO;
-import ir.mostashar.model.client.dto.SignUpForm;
+import ir.mostashar.model.client.dto.RegisterClientDTO;
 import ir.mostashar.model.client.dto.ValidateCode;
 import ir.mostashar.model.client.service.UserServiceImpl;
 import ir.mostashar.model.role.Role;
@@ -11,13 +10,16 @@ import ir.mostashar.model.user.User;
 import ir.mostashar.security.jwt.JwtResponse;
 import ir.mostashar.utils.Constants;
 import ir.mostashar.utils.DataUtil;
+import org.apache.http.impl.bootstrap.HttpServer;
+import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -28,49 +30,58 @@ public class AuthController {
 
     @Autowired
     UserServiceImpl userService;
+    public ResponseEntity<?> signUp1(HttpServletRequest httpRequest) {
 
-    @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> signUp(@RequestBody SignUpForm signUpForm) {
-        if (!DataUtil.isValidePhoneNumber(signUpForm.getPhoneNumber())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_PHONE_NUMBER_NOT_VALID, "", false));
-        }
-        if (userService.existsPhoneNumber(Long.valueOf(signUpForm.getPhoneNumber()))) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_REGISTER_ALREADY, "", false));
-        }
+        return null;
+    }
+
+    @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+//    public ResponseEntity<?> signUp(@Valid @RequestBody SignUpForm signUpForm) {
+    public ResponseEntity<?> signUp(@RequestParam("phoneNumber") String phoneNumber) {
+        if (!DataUtil.isValidePhoneNumber(phoneNumber))
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_PHONE_NUMBER_NOT_VALID, false));
+
+        if (userService.existsPhoneNumber(Long.valueOf(phoneNumber)))
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_REGISTER_ALREADY, false));
+
         Role role = new Role();
         role.setUid(UUID.randomUUID());
         role.setName(RoleName.ROLE_CLIENT);
         role.setUserDefined(true);
-        role.setDescription("client");
+        role.setDescription(RoleName.ROLE_CLIENT.name().toLowerCase());
 
-        Optional<String> uuid = userService.registerUser(signUpForm,role);
+        Optional<String> uuid = userService.registerUser(phoneNumber, role);
         if (uuid.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_REGISTER, uuid.get(), false));
         else
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new BaseDTO(500, Constants.KEY_CREATE_FILE_FAILED, "", false));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new BaseDTO(500, Constants.KEY_CREATE_FILE_FAILED, false));
 
     }
 
-    @PostMapping(value = "/validateCode", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> validateCode(@Valid @RequestBody ValidateCode validateCode) {
+    @PostMapping(value = "/validatecode", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> validateCode(@RequestParam("code") String code, @RequestParam("userId") String userId) {
+        if (TextUtils.isEmpty(code) && TextUtils.isEmpty(userId))
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_INVALID_CODE, false));
 
-        Optional<User> user = userService.findUserIdAndCode(validateCode.getUserid(), validateCode.getCode());
-
+        Optional<User> user = userService.findUserIdAndCode(userId, code);
+        ValidateCode validateCode = new ValidateCode(code, userId);
         if (user.isPresent()) {
             JwtResponse jwtResponse = userService.generateToken(validateCode);
 
             if (jwtResponse != null) {
-
-                userService.activeUser(true, user.get().getUid());
+                UUID walletUid = null;
+                if (userService.activateUser(true, user.get().getUid())) {
+                    walletUid = userService.createWallletUser(user.get());
+                }
                 System.out.println("Log------------------JwtResponse " + jwtResponse.toString());
-                ClientDTO clientDTO = new ClientDTO(HttpStatus.OK.value() , Constants.KEY_CODE_VERIFY, user.get().getUid().toString(), true, jwtResponse);
+                RegisterClientDTO registerClientDTO = new RegisterClientDTO(HttpStatus.OK.value(), Constants.KEY_CODE_VERIFY, user.get().getUid().toString(), walletUid.toString(), true, jwtResponse);
 
-                return ResponseEntity.status(HttpStatus.OK).body(clientDTO);
+                return ResponseEntity.status(HttpStatus.OK).body(registerClientDTO);
             } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new BaseDTO(HttpStatus.UNAUTHORIZED.value() , Constants.KEY_INVALID_CODE, "", false));
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new BaseDTO(HttpStatus.UNAUTHORIZED.value(), Constants.KEY_INVALID_CODE, "", false));
             }
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BaseDTO(HttpStatus.NOT_FOUND.value() , Constants.KEY_INVALID_CODE, "", false));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BaseDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_INVALID_CODE, false));
 
     }
 

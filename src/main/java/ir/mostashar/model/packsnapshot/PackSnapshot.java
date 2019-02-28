@@ -26,23 +26,23 @@ public class PackSnapshot {
     private UUID uid;
 
     @Column(name = "packname")
-    private String packname;
+    private String packName;
 
     @Column(name = "packdescription")
-    private String packdescription;
+    private String packDescription;
 
     @Column(name = "packminute")
-    private int  packminute;
+    private int packMinute;
 
     @Column(name = "lawyerpriceperminute")
-    private int  lawyerpriceperminute;
+    private int lawyerPricePerMinute;
 
     @Column(name = "totalprice")
-    private int  totalprice;
+    private int totalPrice;
 
 
-    @Column(name = "isactive")
-    private boolean isActive = false;
+    @Column(name = "active")
+    private boolean active = false;
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
@@ -59,8 +59,10 @@ public class PackSnapshot {
     private AdviceType advicetype;
 
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "lawyerid",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lawyerid", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Lawyer lawyer;
 
 

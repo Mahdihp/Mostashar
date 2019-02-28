@@ -34,8 +34,10 @@ public class DocService {
     @Autowired
     ClientRepo clientRepo;
 
-    public boolean createDoc(File file, int docType, MultipartFile multipartFile) {
+    public UUID createDoc(File file, int docType, MultipartFile multipartFile) {
         Doc doc = new Doc();
+        UUID uuid;
+
         byte[] arrayData = new byte[(int) multipartFile.getSize()];
         try {
 //            doc.setHashCode(String.valueOf(multipartFile.hashCode()));
@@ -43,9 +45,10 @@ public class DocService {
             doc.setData(multipartFile.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
-        doc.setUid(UUID.randomUUID());
+        uuid = UUID.randomUUID();
+        doc.setUid(uuid);
 //            doc.setChecksum(docForm.getChecksum());
         switch (docType) {
             case 0:
@@ -71,20 +74,18 @@ public class DocService {
                 break;
         }
         doc.setFile(file);
-
         doc.setCreationDate(System.currentTimeMillis());
         Doc save = docRepo.save(doc);
         if (save != null)
-            return true;
+            return uuid;
         else
-            return false;
+            return null;
     }
 
     public Optional<ListDocDTO> findAllByWithoutDataUid(String userId, String fileId) {
-        Optional<Client> client = clientRepo.findByUid(UUID.fromString(userId));
-        Optional<File> file = fileRepo.findFileByUidAndDeleted(UUID.fromString(fileId), false);
-        if (client.isPresent() && file.isPresent()) {
-            Optional<List<Doc>> docs = docRepo.findAllByFileUidAndDeleted(file.get().getUid() ,false);
+        Optional<File> file = fileRepo.findByUidAndClientUidAndDeleted(UUID.fromString(fileId), UUID.fromString(userId), false);
+        if (file.isPresent()) {
+            Optional<List<Doc>> docs = docRepo.findAllByFileUidAndDeleted(file.get().getUid(), false);
             if (docs.isPresent()) {
                 List<DocDTO> dtoList = new ArrayList<>();
                 ListDocDTO listDocDTO = new ListDocDTO();

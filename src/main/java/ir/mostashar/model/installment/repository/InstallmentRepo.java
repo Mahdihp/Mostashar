@@ -14,6 +14,7 @@ public interface InstallmentRepo extends JpaRepository<Installment,Long> {
 
     Optional<Installment> findByUid(UUID uuid);
     Optional<List<Installment>> findByConsumptionpackUid(UUID uuid);
+    Optional<Boolean> existsByInstallmentNumber(int installmentNumber);
 
 
 }

@@ -22,11 +22,11 @@ public class Call {
     @Column(unique = true, nullable = false)
     private UUID uid;
 
-    @Column(name = "failedretriescount")
-    private int failedRetriesCount;
+//    @Column(name = "failedretriescount") // تعداد تلاش برای تماس
+//    private int failedRetriesCount;
 
-    @Column(name = "status")
-    private String status;
+    @Column(name = "callstatus") //
+    private String callStatus;
 
     @Column(name = "calltype")
     private int callType;
@@ -37,8 +37,8 @@ public class Call {
     @Column(name = "endtime")
     private Long endTime;
 
-    @Column(name = "creationdate")
-    private Long creationDate;
+//    @Column(name = "creationdate")
+//    private Long creationDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clientid",nullable = false)
@@ -61,17 +61,4 @@ public class Call {
     public Call() {
     }
 
-    public Call(UUID uid, int failedRetriesCount, String status, int callType, Long startTime, Long endTime, Long creationDate, Client client, Lawyer lawyer, Request request, Doc doc) {
-        this.uid = uid;
-        this.failedRetriesCount = failedRetriesCount;
-        this.status = status;
-        this.callType = callType;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.creationDate = creationDate;
-        this.client = client;
-        this.lawyer = lawyer;
-        this.request = request;
-        this.doc = doc;
-    }
 }

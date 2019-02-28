@@ -1,19 +1,31 @@
 package ir.mostashar.model.pack.service;
 
 import ir.mostashar.model.adviceType.AdviceType;
-import ir.mostashar.model.adviceType.repository.AdviceTypeRepo;
-import ir.mostashar.model.consumptionPack.dto.ConsumptionPackForm;
-import ir.mostashar.model.consumptionPack.repository.ConsumptionPackRepo;
+import ir.mostashar.model.adviceType.service.AdviceTypeService;
+import ir.mostashar.model.client.Client;
+import ir.mostashar.model.client.service.ClientService;
+import ir.mostashar.model.consumptionPack.ConsumptionPack;
+import ir.mostashar.model.consumptionPack.service.ConsumptionPackService;
+import ir.mostashar.model.factor.service.FactorService;
+import ir.mostashar.model.lawyer.Lawyer;
+import ir.mostashar.model.lawyer.repository.LawyerRepo;
+import ir.mostashar.model.pack.BuyPack;
+import ir.mostashar.model.pack.BuyPackStatus;
 import ir.mostashar.model.pack.Pack;
 import ir.mostashar.model.pack.dto.ListPackDTO;
 import ir.mostashar.model.pack.dto.PackDTO;
-import ir.mostashar.model.pack.dto.PackForm;
+import ir.mostashar.model.pack.dto.BuyPackForm;
 import ir.mostashar.model.pack.repository.PackRepo;
+import ir.mostashar.model.packsnapshot.PackSnapshot;
+import ir.mostashar.model.packsnapshot.service.PackSnapshotService;
+import ir.mostashar.model.request.Request;
+import ir.mostashar.model.request.service.RequestService;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,11 +37,30 @@ public class PackService {
     @Autowired
     PackRepo packRepo;
 
-    @Autowired
-    AdviceTypeRepo adviceTypeRepo;
+//    @Autowired
+//    AdviceTypeRepo adviceTypeRepo;
 
     @Autowired
-    ConsumptionPackRepo consumptionPackRepo;
+    AdviceTypeService atService;
+
+    @Autowired
+    ConsumptionPackService cpService;
+
+    @Autowired
+    PackSnapshotService psService;
+
+    @Autowired
+    FactorService factorService;
+
+    @Autowired
+    RequestService requestService;
+
+    @Autowired
+    LawyerRepo lawyerRepo;
+
+    @Autowired
+    ClientService clientService;
+
 
     /**
      * first find Advicetype by uid
@@ -37,20 +68,23 @@ public class PackService {
      * three save new Pack
      * four retrun true
      *
-     * @param packForm
+     * @param buyPackForm
      */
-    public boolean createPack(PackForm packForm) {
+    public boolean createPack(BuyPackForm buyPackForm) {
         UUID uuid = UUID.randomUUID();
-        Optional<AdviceType> adviceType = adviceTypeRepo.findAdviceTypeByUid(UUID.fromString(packForm.getAdvicetypeUid()));
-        if (adviceType.isPresent()) {
-            Pack pack = new Pack();
-            pack.setUid(uuid);
-            pack.setMinute(packForm.getMinute());
-            pack.setDescription(packForm.getDescription());
-            pack.setActive(false);
-            pack.setAdvicetype(adviceType.get());
-            packRepo.save(pack);
-            return true;
+        Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(buyPackForm.getAdviceTypeId());
+        Optional<Boolean> existsPackByName = packRepo.existsPackByName(buyPackForm.getName());
+        if (existsPackByName.isPresent() && !existsPackByName.get()) {
+            if (adviceType.isPresent()) {
+                Pack pack = new Pack();
+                pack.setUid(uuid);
+                pack.setMinute(buyPackForm.getMinute());
+                pack.setDescription(buyPackForm.getDescription());
+                pack.setActive(false);
+                pack.setAdvicetype(adviceType.get());
+                packRepo.save(pack);
+                return true;
+            }
         }
         return false;
     }
@@ -72,14 +106,14 @@ public class PackService {
         return false;
     }
 
-    public boolean updatePack(PackForm packForm) {
-        Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(packForm.getUid()));
+    public boolean updatePack(BuyPackForm buyPackForm) {
+        Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(buyPackForm.getUid()));
         if (pack.isPresent()) {
-            Optional<AdviceType> adviceType = adviceTypeRepo.findAdviceTypeByUid(UUID.fromString(packForm.getAdvicetypeUid()));
-            pack.get().setName(packForm.getUid());
-            pack.get().setDescription(packForm.getDescription());
-            pack.get().setActive(packForm.isActive());
-            pack.get().setMinute(packForm.getMinute());
+            Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(buyPackForm.getAdviceTypeId());
+            pack.get().setName(buyPackForm.getUid());
+            pack.get().setDescription(buyPackForm.getDescription());
+            pack.get().setActive(buyPackForm.isActive());
+            pack.get().setMinute(buyPackForm.getMinute());
             if (adviceType.isPresent())
                 pack.get().setAdvicetype(adviceType.get());
 
@@ -88,9 +122,11 @@ public class PackService {
         }
         return false;
     }
+
     public Optional<Pack> findPackByName(String packName) {
         return packRepo.findPackByName(packName);
     }
+
     public Optional<Pack> findPackByUid(String uid) {
         return packRepo.findPackByUid(UUID.fromString(uid));
     }
@@ -135,21 +171,74 @@ public class PackService {
             return Optional.empty();
     }
 
-    public boolean createBuyPack(ConsumptionPackForm packForm,String lawyerUid) {
-        Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(packForm.getPackId()));
+    @Transactional
+    public Optional<BuyPackStatus> createBuyPack(BuyPackForm bpForm) {
+//        UUID factorUid;
+        UUID consumptionPackUid;
+        Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(bpForm.getPackId()));
+        Optional<Request> request = requestService.findByUid(bpForm.getRequestId());
+        Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(bpForm.getAdviceTypeId());
+        Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(bpForm.getLawyerId()));
+        Optional<Client> client = clientService.findClientByUidAndActive(bpForm.getUserId(),true);
 
-       /* if (pack.isPresent()) {
+        System.out.println("Log---createBuyPack--------------------:"+pack.isPresent());
+        System.out.println("Log---createBuyPack--------------------:"+request.isPresent());
+        System.out.println("Log---createBuyPack--------------------:"+adviceType.isPresent());
+        System.out.println("Log---createBuyPack--------------------:"+lawyer.isPresent());
+        System.out.println("Log---createBuyPack--------------------:"+client.isPresent());
+
+        if (pack.isPresent() && request.isPresent() && adviceType.isPresent() && lawyer.isPresent() && client.isPresent()) {
+
+            // insert into consumptionPack
             ConsumptionPack consumptionPack = new ConsumptionPack();
-            consumptionPack.setUid(UUID.randomUUID());
-            consumptionPack.setValue(packForm.getValue());
+            consumptionPackUid = UUID.randomUUID();
+            consumptionPack.setUid(consumptionPackUid);
+            consumptionPack.setConsumptionTime(0L);
+            consumptionPack.setBaseTime(bpForm.getMinute()); // سوال شود این چیه
+            consumptionPack.setType(adviceType.get().getType());
+            consumptionPack.setFirstInstallmentDate(System.currentTimeMillis()); // سوال شود این چیه
+            consumptionPack.setLastInstallmentDate(0L); // سوال شود این چیه
             consumptionPack.setPack(pack.get());
-            consumptionPack.setConsumptionTime(packForm.getConsumptionTime());
-            consumptionPack.setFirstInstallmentDate(packForm.getFirstInstallmentDate());
-            consumptionPack.setLastInstallmentDate(packForm.getLastInstallmentDate());
+            consumptionPack.setRequest(request.get());
+            if (!cpService.saveConsumptionPack(consumptionPack))
+                return Optional.ofNullable(new BuyPackStatus(BuyPack.ConsumptionPackError));
 
-        }*/
-       // And create PackSnapShot Object
-        return false;
+            // insert into packsanpshot
+
+            PackSnapshot psShot = new PackSnapshot();
+            psShot.setUid(UUID.randomUUID());
+            psShot.setPackName(pack.get().getName());
+            psShot.setPackDescription(bpForm.getDescription());
+            psShot.setPackMinute(pack.get().getMinute());
+            psShot.setLawyerPricePerMinute(bpForm.getLawyerPricePerMinute());
+            psShot.setTotalPrice(bpForm.getTotalPrice());
+            psShot.setActive(bpForm.isActive()); // روی چه حالتی باشه
+            psShot.setAdvicetype(adviceType.get());
+            psShot.setLawyer(lawyer.get());
+            if (!psService.savePackSnapShot(psShot))
+                return Optional.ofNullable(new BuyPackStatus(BuyPack.PackSnapshotError));
+
+
+            // insert into factor
+
+            /*Factor factor = new Factor();
+            factorUid = UUID.randomUUID();
+            factor.setUid(factorUid);
+            factor.setServiceDescription(""); //از کجا پر میشه
+            factor.setClientName(client.get().getFirstName() + " " + client.get().getLastName());
+            factor.setClientCode(""); // پرسیده شود
+            factor.setAddress(client.get().getAddress());
+            factor.setTel(client.get().getTel());
+            factor.setPostalCode(client.get().getPostalCode());
+            factor.setFactorNumber((factorService.getMaxFactorNumber() + 1) + "");
+            factor.setCreationDate(System.currentTimeMillis());
+            factor.setValue(bpForm.getTotalPrice()); // پرسیده شود
+            if (!factorService.saveFactor(factor))
+                return Optional.ofNullable(new BuyPackStatus(BuyPack.FactorError));*/
+
+            return Optional.ofNullable(new BuyPackStatus(BuyPack.ComplateAll));
+        }
+        return Optional.ofNullable(new BuyPackStatus(BuyPack.ErrorAll));
     }
 
 

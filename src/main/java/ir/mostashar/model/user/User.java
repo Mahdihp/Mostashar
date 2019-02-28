@@ -25,6 +25,7 @@ import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+@EqualsAndHashCode
 @ToString
 @Data
 @Entity
@@ -64,8 +65,8 @@ public class User implements Serializable {
     @Column(name = "birthdate")
     private Long birthDate;
 
-    @Column(name = "isonline")
-    private boolean isOnline = false;
+    @Column(name = "online")
+    private Boolean online = false;
 
     @Column(name = "score")
     private int score;
@@ -73,8 +74,8 @@ public class User implements Serializable {
     @Column(name = "avatarhashcode")
     private String avatarHashcode;
 
-    @Column(name = "isactive")
-    private boolean isActive = false;
+    @Column(name = "active")
+    private Boolean active = false;
 
     @Column(name = "mobilenumber",unique = true)
     private Long mobileNumber;
@@ -92,7 +93,7 @@ public class User implements Serializable {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
-            joinColumns = {@JoinColumn(name = "userid")},
+            joinColumns = {@JoinColumn(name = "userId")},
             inverseJoinColumns = {@JoinColumn(name = "roleid")})
     @EqualsAndHashCode.Exclude
     private Set<Role> roles = new HashSet<>();
@@ -126,10 +127,13 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user")
     private Set<SharingPerspectives> sharingPerspectives = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            mappedBy = "user")
+    @OneToMany(mappedBy = "user")
     private Set<UserPopularity> userPopularities = new HashSet<>();
+
+//    @OneToMany(cascade = CascadeType.ALL,
+//            fetch = FetchType.LAZY,
+//            mappedBy = "user")
+//    private Set<UserPopularity> userpopular = new HashSet<>();
 
 
     public User() {
@@ -139,4 +143,6 @@ public class User implements Serializable {
         this.uid = uid;
         this.mobileNumber = mobileNumber;
     }
+
+
 }

@@ -42,7 +42,7 @@ public class Wallet {
 	private Set<Bill> bills = new HashSet<>();
 
 	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "userid",nullable = false)
+	@JoinColumn(name = "userId",nullable = false)
 	private User user;
 
 	@OneToOne(fetch = FetchType.LAZY)

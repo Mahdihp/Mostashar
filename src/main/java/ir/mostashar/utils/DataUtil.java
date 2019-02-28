@@ -9,6 +9,9 @@ import java.util.regex.Pattern;
 public class DataUtil {
 
     public static boolean isValidePhoneNumber(String phone) {
+        if (phone.length() != 11)
+            return false;
+
         String PhoneNo_PATTERN = "(0)?([ ]|,|-|[()]){0,2}9[0-9]([ ]|,|-|[()]){0,2}(?:[0-9]([ ]|,|-|[()]){0,2}){8}";
         if (phone == null || phone.length() <= 0)
             return false;
@@ -19,7 +22,8 @@ public class DataUtil {
         else
             return false;
     }
-//    public static boolean isValidUUID(String uuid){
+
+    //    public static boolean isValidUUID(String uuid){
 ////        String uuidPattern = "[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}";
 //        String uuidPattern = "/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i";
 //        if (uuid == null || uuid.length() <= 0)
@@ -40,6 +44,7 @@ public class DataUtil {
             return false;
         }
     }
+
     public static String genarateRandomNumber() {
         long round = Math.round(Math.random() * 100000);
         return String.valueOf(round);

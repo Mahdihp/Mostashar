@@ -1,6 +1,5 @@
 package ir.mostashar.model.userpopularity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import ir.mostashar.model.user.User;
 import lombok.Data;
 
@@ -22,7 +21,7 @@ public class UserPopularity {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "userpopularid", nullable = false)
-    private User UserPopular;
+    @JoinColumn(name = "userpopu", nullable = false)
+    private User userPopu;
 
 }

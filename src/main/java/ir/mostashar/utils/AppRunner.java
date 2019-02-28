@@ -15,6 +15,8 @@ import ir.mostashar.model.pack.repository.PackRepo;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.repository.RoleRepo;
 import ir.mostashar.model.role.RoleName;
+import ir.mostashar.model.wallet.Wallet;
+import ir.mostashar.model.wallet.repository.WalletRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -46,6 +48,9 @@ public class AppRunner implements ApplicationRunner {
     @Autowired
     PackRepo packRepo;
 
+    @Autowired
+    WalletRepo walletRepo;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
         initDataBase();
@@ -69,6 +74,7 @@ public class AppRunner implements ApplicationRunner {
         client1.setTel(9134528901L);
         client1.setAddress("Qom1");
         client1.setVerificationCode("-1");
+        client1.setActive(true);
 
         Client client2 = new Client();
         client2.setUid(UUID.fromString("b6dc7528-1d44-4ae3-9dc0-c3b8213d45a6"));
@@ -76,6 +82,7 @@ public class AppRunner implements ApplicationRunner {
         client2.setTel(9329466051L);
         client2.setAddress("Qom2");
         client2.setVerificationCode("-1");
+        client2.setActive(true);
 
         Client client3 = new Client();
         client3.setUid(UUID.fromString("b7dc7528-1d44-4ae3-9dc0-c3b8213d45a6"));
@@ -83,6 +90,7 @@ public class AppRunner implements ApplicationRunner {
         client3.setTel(9161544275L);
         client3.setAddress("Qom3");
         client3.setVerificationCode("-1");
+        client3.setActive(true);
 
         Client client4 = new Client();
         client4.setUid(UUID.fromString("b8dc7528-1d44-4ae3-9dc0-c3b8213d45a6"));
@@ -90,6 +98,7 @@ public class AppRunner implements ApplicationRunner {
         client4.setTel(9161544277L);
         client4.setAddress("Qom4");
         client4.setVerificationCode("-1");
+        client4.setActive(true);
 
         Feature feature1 = new Feature();
         feature1.setUid(UUID.fromString("e6f9b9bd-9396-4b78-a5e8-569ff236d991"));
@@ -212,13 +221,13 @@ public class AppRunner implements ApplicationRunner {
         AdviceType adviceType1=new AdviceType();
         adviceType1.setUid(UUID.fromString("11482c33-b3a5-4401-a274-016bda28fdce"));
         adviceType1.setName("روانشناسی");
-        adviceType1.setType("1");
+        adviceType1.setType((short) 1);
         adviceType1.setDescription("مشاوره روانشناسی");
 
         AdviceType adviceType2=new AdviceType();
         adviceType2.setUid(UUID.fromString("12482c33-b3a5-4401-a274-016bda28fdce"));
         adviceType1.setName("حقوقی");
-        adviceType1.setType("2");
+        adviceType1.setType((short) 2);
         adviceType1.setDescription("مشاوره حقوقی");
 
 
@@ -288,6 +297,40 @@ public class AppRunner implements ApplicationRunner {
         lawyer3.setPricePerMinute(9000);
 
 
+        Wallet wallet1=new Wallet();
+        wallet1.setUid(UUID.fromString("113c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        wallet1.setValue(0);
+        wallet1.setUser(client1);
+
+        Wallet wallet2=new Wallet();
+        wallet2.setUid(UUID.fromString("114c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        wallet2.setValue(0);
+        wallet2.setUser(client2);
+
+        Wallet wallet3=new Wallet();
+        wallet3.setUid(UUID.fromString("115c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        wallet3.setValue(0);
+        wallet3.setUser(client3);
+
+        Wallet wallet4=new Wallet();
+        wallet4.setUid(UUID.fromString("116c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        wallet4.setValue(0);
+        wallet4.setUser(client4);
+
+        Wallet wallet5=new Wallet();
+        wallet5.setUid(UUID.fromString("117c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        wallet5.setValue(0);
+        wallet5.setUser(lawyer1);
+
+        Wallet wallet6=new Wallet();
+        wallet6.setUid(UUID.fromString("118c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        wallet6.setValue(0);
+        wallet6.setUser(lawyer2);
+
+        Wallet wallet7=new Wallet();
+        wallet7.setUid(UUID.fromString("119c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        wallet7.setValue(0);
+        wallet7.setUser(lawyer3);
 
         featureRepo.save(feature1);
         featureRepo.save(feature2);
@@ -320,6 +363,15 @@ public class AppRunner implements ApplicationRunner {
         lawyerRepo.save(lawyer1);
         lawyerRepo.save(lawyer2);
         lawyerRepo.save(lawyer3);
+
+        walletRepo.save(wallet1);
+        walletRepo.save(wallet2);
+        walletRepo.save(wallet3);
+        walletRepo.save(wallet4);
+        walletRepo.save(wallet5);
+        walletRepo.save(wallet6);
+        walletRepo.save(wallet7);
+
     }
 
 

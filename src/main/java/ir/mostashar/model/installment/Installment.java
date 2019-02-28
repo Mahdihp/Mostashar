@@ -35,10 +35,9 @@ public class Installment {
     @JoinColumn(name = "consumptionpackid", nullable = false)
     private ConsumptionPack consumptionpack;
 
-    @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "installment")
-    private Factor factor; // forign key from Factor
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "factorid", nullable = false)
+    private Factor factor;
 
     public Installment() {
     }

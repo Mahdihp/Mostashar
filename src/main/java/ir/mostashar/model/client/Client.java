@@ -35,7 +35,7 @@ public class Client extends User {
     @Column(name = "postalcode")
     private String postalCode;
 
-    @Column(name = "fieldofstudy")
+    @Column(name = "fieldofstudy") //رشته تحصیلی
     private String fieldOfStudy;
 
     @Column(name = "tel")

@@ -14,4 +14,9 @@ public class ListFactorDTO extends BaseDTO {
 
     public ListFactorDTO() {
     }
+
+    public ListFactorDTO(Integer status, String message, List<FactorDTO> data) {
+        super(status, message);
+        this.data = data;
+    }
 }

@@ -32,10 +32,4 @@ public class Expertise {
     public Expertise() {
     }
 
-    public Expertise(UUID uid, String name, String description, Set<Lawyer> lawyer) {
-        this.uid = uid;
-        this.name = name;
-        this.description = description;
-        this.lawyer = lawyer;
-    }
 }

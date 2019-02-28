@@ -19,9 +19,4 @@ public class FileForm {
     public FileForm() {
     }
 
-    public FileForm(@NotBlank String userId, @NotBlank String title, String description) {
-        this.userId = userId;
-        this.title = title;
-        this.description = description;
-    }
 }

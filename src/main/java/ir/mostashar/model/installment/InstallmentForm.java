@@ -23,6 +23,9 @@ public class InstallmentForm {
     @NotBlank
     private String consumptionPackUid;
 
+    @NotBlank
+    private String factoruid;
+
     public InstallmentForm() {
     }
 }

@@ -33,11 +33,4 @@ public class Constant {
     public Constant() {
     }
 
-    public Constant(UUID uid, String key, String value, String type, String description) {
-        this.uid = uid;
-        this.key = key;
-        this.value = value;
-        this.type = type;
-        this.description = description;
-    }
 }

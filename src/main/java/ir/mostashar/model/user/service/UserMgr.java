@@ -41,8 +41,8 @@ public class UserMgr {
 //        return userRepository.findByUsername(username);
 //    }
 
-//	public List<User> findAll() {
-//		return userRepository.findAll();
+//	public List<User> findAllListClientDTO() {
+//		return userRepository.findAllListClientDTO();
 //	}
 	
 //	public boolean hasAccess(String featureName) {

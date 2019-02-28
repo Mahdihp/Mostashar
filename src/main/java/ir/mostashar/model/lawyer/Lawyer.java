@@ -1,25 +1,23 @@
 package ir.mostashar.model.lawyer;
 
 import ir.mostashar.model.acceptRequest.AcceptRequest;
-import ir.mostashar.model.activity.Activity;
+import ir.mostashar.model.activity.ActivityLawyer;
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.answer.Answer;
 import ir.mostashar.model.calls.Call;
-import ir.mostashar.model.client.Client;
 import ir.mostashar.model.doc.Doc;
 import ir.mostashar.model.expertise.Expertise;
 import ir.mostashar.model.failRequest.FailRequest;
 import ir.mostashar.model.officeAddress.OfficeAddress;
 import ir.mostashar.model.organization.Organization;
+import ir.mostashar.model.packsnapshot.PackSnapshot;
 import ir.mostashar.model.presenceSchedule.PresenceSchedule;
 import ir.mostashar.model.user.User;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Data
 @Entity
@@ -28,8 +26,8 @@ public class Lawyer extends User {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "isavailable")
-    private boolean isAvailable = false;
+    @Column(name = "available")
+    private boolean available = false;
 
     @Column(name = "level")
     private int level = 1;
@@ -60,7 +58,6 @@ public class Lawyer extends User {
     @JoinColumn(name = "organizationid")
     private Organization organization;
 
-    // ارتباط یک طرفه با کلاس Lawyer
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
     private Set<FailRequest> failRequests;
 
@@ -68,7 +65,7 @@ public class Lawyer extends User {
     private Set<AcceptRequest> acceptRequests;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-    private Set<Activity> activities;
+    private Set<ActivityLawyer> activities;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
     private Set<Call> calls;
@@ -82,6 +79,9 @@ public class Lawyer extends User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "advicetype", nullable = false)
     private AdviceType advicetype;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    private Set<PackSnapshot> packSnapshots;
 
     public Lawyer() {
     }

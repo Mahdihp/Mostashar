@@ -31,18 +31,9 @@ public class Complain {
     private boolean read;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "userid", nullable = false)
+    @JoinColumn(name = "userId", nullable = false)
     private User user;
 
     public Complain() {
-    }
-
-    public Complain(UUID uid, String title, String description, Long creationDate, boolean read, User user) {
-        this.uid = uid;
-        this.title = title;
-        this.description = description;
-        this.creationDate = creationDate;
-        this.read = read;
-        this.user = user;
     }
 }

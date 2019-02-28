@@ -35,7 +35,7 @@ public class FileService {
      * @return
      */
     public UUID createFile(FileForm fileForm) {
-        Optional<Client> client = clientRepo.findByUid(UUID.fromString(fileForm.getUserId()));
+        Optional<Client> client = clientRepo.findClientByUidAndActive(UUID.fromString(fileForm.getUserId()),true);
         UUID uuid;
         if (client.isPresent()) {
             uuid = UUID.randomUUID();
@@ -57,8 +57,8 @@ public class FileService {
      * @param title
      * @return
      */
-    public boolean existTitleFile(String title, Client client) {
-        Optional<Boolean> aBoolean = fileRepo.existsByClientAndTitle(client, title);
+    public boolean existTitleFile(String title, Client client,boolean isDeleted) {
+        Optional<Boolean> aBoolean = fileRepo.existsByClientAndTitleAndDeleted(client, title,isDeleted);
         if (aBoolean.isPresent())
             return aBoolean.get();
         else
@@ -66,7 +66,7 @@ public class FileService {
     }
 
     public boolean deleteFileByUid(File file) {
-//        Optional<File> file = fileRepository.findFileByUidAndDeleted(UUID.fromString(fileId),false);
+//        Optional<File> file = fileRepository.findByUidAndDeleted(UUID.fromString(fileId),false);
         if (file != null ) {
             file.setDeleted(true);
             fileRepo.save(file);
@@ -76,7 +76,7 @@ public class FileService {
     }
 
     public boolean updateFile(FileUpdateForm fileUpdateForm) {
-        Optional<File> file = fileRepo.findFileByUidAndDeleted(UUID.fromString(fileUpdateForm.getUid()),false);
+        Optional<File> file = fileRepo.findByUidAndDeleted(UUID.fromString(fileUpdateForm.getUid()),false);
         if (file.isPresent()) {
             file.get().setTitle(fileUpdateForm.getTitle());
             file.get().setDescription(fileUpdateForm.getDescription());
@@ -88,7 +88,7 @@ public class FileService {
     }
 
     public Optional<FileDTO> findFileDTOByUid(String fileId) {
-        Optional<File> file = fileRepo.findFileByUidAndDeleted(UUID.fromString(fileId),false);
+        Optional<File> file = fileRepo.findByUidAndDeleted(UUID.fromString(fileId),false);
         if (file.isPresent()) {
             FileDTO fileDTO = new FileDTO();
             fileDTO.setStatus(HttpStatus.OK.value());
@@ -134,7 +134,7 @@ public class FileService {
     }
 
     public Optional<File> findFileByUid(String fileId) {
-        Optional<File> file = fileRepo.findFileByUidAndDeleted(UUID.fromString(fileId),false);
+        Optional<File> file = fileRepo.findByUidAndDeleted(UUID.fromString(fileId),false);
         if (file.isPresent())
             return Optional.ofNullable(file.get());
         else

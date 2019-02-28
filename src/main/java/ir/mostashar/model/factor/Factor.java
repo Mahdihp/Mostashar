@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "factors")
+@Table(name = "factors") // فاکتورها
 public class Factor {
 
     @Id
@@ -19,14 +19,11 @@ public class Factor {
     @Column(unique = true, nullable = false)
     private UUID uid;
 
-    @Column(name = "servicedescription")
-    private String serviceDescription;
+    @Column(name = "servicedescription") // توضیحی ثابت و خبری از خرید اون ایتم
+    private String serviceDescription; // مقدار این از کجا پر میشه
 
     @Column(name = "clientName")
-    private String clientName; // این چه اسمی هست
-
-    @Column(name = "clientcode")
-    private String clientCode; // این چه اسمی هست
+    private String clientName; // این برای چیه
 
     @Column(name = "address")
     private String address;
@@ -37,7 +34,7 @@ public class Factor {
     @Column(name = "postalcode")
     private String postalCode;
 
-    @Column(name = "factornumber")
+    @Column(name = "factornumber",unique = true)
     private String factorNumber;
 
     @Column(name = "creationdate")
@@ -50,11 +47,12 @@ public class Factor {
     private boolean deleted = false;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "billid", nullable = false)
+    @JoinColumn(name = "billid") // پرسیده شود ایا نال پذیر باشد یا خیر
     private Bill bill;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "installmentid", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "factor")
     private Installment installment;
 
     public Factor() {

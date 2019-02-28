@@ -1,5 +1,9 @@
 package ir.mostashar.model.installment.service;
 
+import ir.mostashar.model.consumptionPack.ConsumptionPack;
+import ir.mostashar.model.consumptionPack.service.ConsumptionPackService;
+import ir.mostashar.model.factor.Factor;
+import ir.mostashar.model.factor.service.FactorService;
 import ir.mostashar.model.installment.Installment;
 import ir.mostashar.model.installment.InstallmentForm;
 import ir.mostashar.model.installment.dto.InstallmentDTO;
@@ -24,17 +28,24 @@ public class InstallmentService {
     InstallmentRepo installmentRepo;
 
     @Autowired
-    PackService packService;
+    FactorService factorService;
+
+    @Autowired
+    ConsumptionPackService cpService;
 
     public boolean createInstallment(InstallmentForm iForm) {
-        Optional<Pack> pack = packService.findPackByUid(iForm.getConsumptionPackUid());
-        if (pack.isPresent()) {
+        Optional<Boolean> exists = installmentRepo.existsByInstallmentNumber(iForm.getInstallmentNumber());
+        Optional<ConsumptionPack> cPack = cpService.findByUid(iForm.getConsumptionPackUid());
+        Optional<Factor> factor = factorService.findByUid(iForm.getFactoruid());
+        if (exists.isPresent() && !exists.get() && cPack.isPresent() && factor.isPresent()) {
             Installment installment = new Installment();
             installment.setUid(UUID.randomUUID());
             installment.setCreationDate(System.currentTimeMillis());
             installment.setInstallmentNumber(iForm.getInstallmentNumber());
             installment.setInstallmentTotalNumber(iForm.getInstallmentTotalNumber());
             installment.setValue(iForm.getValue());
+            installment.setConsumptionpack(cPack.get());
+            installment.setFactor(factor.get());
             installmentRepo.save(installment);
             return true;
         }
@@ -43,14 +54,26 @@ public class InstallmentService {
 
     public boolean updateInstallment(InstallmentForm iForm) {
         Optional<Installment> installment = installmentRepo.findByUid(UUID.fromString(iForm.getUid()));
-        Optional<Pack> pack = packService.findPackByUid(iForm.getConsumptionPackUid());
-        if (installment.isPresent() && pack.isPresent()) {
+        Optional<ConsumptionPack> cPack = cpService.findByUid(iForm.getConsumptionPackUid());
+        Optional<Factor> factor = factorService.findByUid(iForm.getFactoruid());
+
+        if (installment.isPresent() && cPack.isPresent() && factor.isPresent()) {
             installment.get().setCreationDate(iForm.getCreationDate());
             installment.get().setInstallmentNumber(iForm.getInstallmentNumber());
             installment.get().setInstallmentTotalNumber(iForm.getInstallmentTotalNumber());
             installment.get().setValue(iForm.getValue());
+            installment.get().setConsumptionpack(cPack.get());
+            installment.get().setFactor(factor.get());
             installmentRepo.save(installment.get());
             return true;
+        }
+        return false;
+    }
+
+    public boolean deleteInstallment(String uid) {
+        Optional<Installment> installment = installmentRepo.findByUid(UUID.fromString(uid));
+        if (installment.isPresent()) {
+            installmentRepo.delete(installment.get());
         }
         return false;
     }

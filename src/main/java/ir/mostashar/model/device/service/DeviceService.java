@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.xml.ws.spi.http.HttpContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,6 +37,7 @@ public class DeviceService {
             device.setImei(deviceForm.getImei());
             device.setFireBaseRegId(deviceForm.getFireBaseRegId());
             device.setIpAddress(deviceForm.getIpAddress());
+
             device.setModel(deviceForm.getModel());
             deviceRepo.save(device);
             return true;

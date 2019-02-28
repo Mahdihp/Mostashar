@@ -22,7 +22,7 @@ public class OrganizationService {
     OrganizationRepo orgRepository;
 
     public boolean createOrganization(OrganizationForm form) {
-        Optional<Organization> orgOld = orgRepository.findByUsernameAndName(form.getUsername(), form.getName());
+        Optional<Organization> orgOld = orgRepository.findByUsernameOrName(form.getUsername(), form.getName());
         if (!orgOld.isPresent()) {
             Organization org = new Organization();
             org.setUid(UUID.randomUUID());
@@ -37,7 +37,7 @@ public class OrganizationService {
             org.setPassword(form.getPassword());
             org.setTerminalId(form.getTerminalId());
             org.setVerified(false);
-//            org.setExpiryDate(form.getDescription()); چطوری تعیین میشه
+            org.setExpiryDate(3L);// چطوری تعیین میشه
             orgRepository.save(org);
             return true;
         }
@@ -45,7 +45,7 @@ public class OrganizationService {
     }
 
     public boolean updateOrganization(OrganizationForm form) {
-        Optional<Organization> org = orgRepository.findByUsernameAndName(form.getUsername(), form.getName());
+        Optional<Organization> org = orgRepository.findByUsernameOrName(form.getUsername(), form.getName());
         if (org.isPresent()) {
             org.get().setAddress(form.getAddress());
             org.get().setAppStock(form.getAppStock());

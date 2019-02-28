@@ -35,9 +35,9 @@ public class SettingService {
     public boolean createSetting(SettingForm settingForm) {
         Optional<SettingType> settingType = settingTypesService.findSettingTypeByUid(settingForm.getUserUid());
         Optional<User> user = userService.findUserByUid(settingForm.getUserUid());
-        if (!settingType.isPresent() && user.isPresent()) {
+        if (settingType.isPresent() && user.isPresent()) {
             Optional<Boolean> settingT = settingRepo.existsBySettingType(settingType.get());
-            if (!settingT.isPresent()) {
+            if (settingT.isPresent() && !settingT.get()) {
                 Setting setting = new Setting();
                 setting.setUid(UUID.randomUUID());
                 setting.setDescription(settingForm.getDescription());

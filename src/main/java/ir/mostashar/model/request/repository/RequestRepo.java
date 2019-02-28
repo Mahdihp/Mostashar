@@ -14,11 +14,13 @@ import java.util.UUID;
 public interface RequestRepo extends JpaRepository<Request, Long> {
 
 
-    Optional<Request> findRequestByUidAndDeleted(UUID uuid,boolean isDeleted);
+    Optional<Request> findByUidAndDeleted(UUID uuid,boolean isDeleted);
+    Optional<Request> findByClientUidAndDeleted(UUID uuid,boolean isDeleted);
 
     Optional<List<Request>> findAllByClientUidAndDeleted(UUID uuid,boolean isDeleted);
 
-    Optional<Request> findRequestByClientUidAndUidAndDeleted(UUID client,UUID requestId,boolean isDeleted);
+//    Optional<Request> findRequestByClientUidAndUidAndDeleted(UUID client,UUID requestId,boolean isDeleted);
+
 
     Optional<Boolean> existsRequestByFileUidAndClientUidAndDeleted(UUID fileId,UUID clientId,boolean isDeleted);
 

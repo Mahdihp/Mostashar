@@ -7,18 +7,14 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class WalletForm {
 
+    @NotBlank
     private String walletId;
-
-    private int value;
 
     private String bankAccountName;
 
     private String bankAccountNumber;
 
     private String bankAccountSheba;
-
-    @NotBlank
-    private String userId;
 
     private String organizationId;
 

@@ -28,7 +28,7 @@ public class Request {
     @Column(unique = true, nullable = false)
     private UUID uid;
 
-    @Column(name = "requestnumber")
+    @Column(name = "requestnumber" , unique = true)
     private String requestNumber;
 
     @Column(name = "deleted")

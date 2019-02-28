@@ -42,17 +42,17 @@ public class PackSnapshotService {
 
 
     public boolean createPackSnapshot(PackSnapshotForm packForm) {
-        Optional<AdviceType> adviceType = adviceTypeRepo.findAdviceTypeByUid(UUID.fromString(packForm.getAdvicetypeUid()));
+        Optional<AdviceType> adviceType = adviceTypeRepo.findByUid(UUID.fromString(packForm.getAdvicetypeUid()));
         Optional<Pack> pack = packService.findPackByName(packForm.getPackname());
         Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(packForm.getLawyerUid()));
-        if (adviceType.isPresent() && pack.isPresent()) {
+        if (adviceType.isPresent() && pack.isPresent() && lawyer.isPresent()) {
             PackSnapshot packsnapshot = new PackSnapshot();
             packsnapshot.setUid(UUID.randomUUID());
-            packsnapshot.setPackname(pack.get().getName());
-            packsnapshot.setPackdescription(pack.get().getDescription());
-            packsnapshot.setPackminute(pack.get().getMinute());
-            packsnapshot.setLawyerpriceperminute(lawyer.get().getPricePerMinute());
-            packsnapshot.setTotalprice(lawyer.get().getPricePerMinute() * pack.get().getMinute());
+            packsnapshot.setPackName(pack.get().getName());
+            packsnapshot.setPackDescription(pack.get().getDescription());
+            packsnapshot.setPackMinute(pack.get().getMinute());
+            packsnapshot.setLawyerPricePerMinute(lawyer.get().getPricePerMinute());
+            packsnapshot.setTotalPrice(lawyer.get().getPricePerMinute() * pack.get().getMinute());
             packsnapshot.setActive(true);
             packsnapshot.setAdvicetype(adviceType.get());
             packsnapshot.setLawyer(lawyer.get());
@@ -62,6 +62,14 @@ public class PackSnapshotService {
         return false;
     }
 
+    public boolean savePackSnapShot(PackSnapshot packsnapshot) {
+        PackSnapshot packSnapshot = packsnapshotRepo.save(packsnapshot);
+        if (packSnapshot != null)
+            return true;
+        else
+            return false;
+
+    }
 
     public Optional<PackSnapshot> findPackSnapshotByUid(String uid) {
         return packsnapshotRepo.findPackByUid(UUID.fromString(uid));
@@ -75,11 +83,11 @@ public class PackSnapshotService {
 
                 PackSnapshotDTO packObj = new PackSnapshotDTO();
                 packsnapshot.setUid(UUID.randomUUID());
-                packsnapshot.setPackname(packsnapshot.getPackname());
-                packsnapshot.setPackdescription(packsnapshot.getPackdescription());
-                packsnapshot.setPackminute(packsnapshot.getPackminute());
-                packsnapshot.setLawyerpriceperminute(packsnapshot.getLawyer().getPricePerMinute());
-                packsnapshot.setTotalprice(packsnapshot.getTotalprice());
+                packsnapshot.setPackName(packsnapshot.getPackName());
+                packsnapshot.setPackDescription(packsnapshot.getPackDescription());
+                packsnapshot.setPackMinute(packsnapshot.getPackMinute());
+                packsnapshot.setLawyerPricePerMinute(packsnapshot.getLawyer().getPricePerMinute());
+                packsnapshot.setTotalPrice(packsnapshot.getTotalPrice());
                 packsnapshot.setActive(true);
                 packsnapshot.setAdvicetype(packsnapshot.getAdvicetype());
                 packsnapshot.setLawyer(packsnapshot.getLawyer());
