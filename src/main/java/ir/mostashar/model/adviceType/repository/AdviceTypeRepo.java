@@ -11,4 +11,5 @@ import java.util.UUID;
 public interface AdviceTypeRepo extends JpaRepository<AdviceType,Long> {
 
     Optional<AdviceType> findByUid(UUID uuid);
+    Optional<AdviceType> findByName(String name);
 }

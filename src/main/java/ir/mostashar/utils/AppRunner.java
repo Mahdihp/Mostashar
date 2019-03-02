@@ -198,76 +198,78 @@ public class AppRunner implements ApplicationRunner {
         client4.setRoles(roles4);
 
 
-        File file1=new File();
+        File file1 = new File();
         file1.setUid(UUID.fromString("b4482c10-b3a5-4401-a274-016bda28fdce"));
         file1.setTitle("Test File 1");
         file1.setDescription("Description Test 1");
         file1.setClient(client1);
         file1.setCreationDate(System.currentTimeMillis());
 
-        File file2=new File();
+        File file2 = new File();
         file2.setUid(UUID.fromString("b4482c11-b3a5-4401-a274-016bda28fdce"));
         file2.setTitle("Test File 2");
         file2.setDescription("Description Test 2");
         file2.setClient(client2);
         file2.setCreationDate(System.currentTimeMillis());
 
-        File file3=new File();
+        File file3 = new File();
         file3.setUid(UUID.fromString("b4482c12-b3a5-4401-a274-016bda28fdce"));
         file3.setTitle("Test File 3");
         file3.setDescription("Description Test 3");
         file3.setClient(client3);
         file3.setCreationDate(System.currentTimeMillis());
 
-        AdviceType adviceType1=new AdviceType();
+        // 1 = روانشناسی
+        // 2 = حقوق
+        AdviceType adviceType1 = new AdviceType();
         adviceType1.setUid(UUID.fromString("11482c33-b3a5-4401-a274-016bda28fdce"));
         adviceType1.setName("روانشناسی");
         adviceType1.setType((short) 1);
         adviceType1.setDescription("مشاوره روانشناسی");
 
-        AdviceType adviceType2=new AdviceType();
+        AdviceType adviceType2 = new AdviceType();
         adviceType2.setUid(UUID.fromString("12482c33-b3a5-4401-a274-016bda28fdce"));
-        adviceType1.setName("حقوقی");
+        adviceType1.setName("حقوق");
         adviceType1.setType((short) 2);
         adviceType1.setDescription("مشاوره حقوقی");
 
 
-        Pack pack1=new Pack();
+        Pack pack1 = new Pack();
         pack1.setUid(UUID.fromString("13482c33-b3a5-4401-a274-016bda28fdce"));
         pack1.setMinute(0);
         pack1.setName("5 دقیقه مشاوره");
         pack1.setAdvicetype(adviceType2);
         pack1.setActive(true);
 
-        Pack pack2=new Pack();
+        Pack pack2 = new Pack();
         pack2.setUid(UUID.fromString("14482c33-b3a5-4401-a274-016bda28fdce"));
         pack2.setMinute(10);
         pack2.setName("10 دقیقه مشاوره");
         pack2.setAdvicetype(adviceType2);
         pack2.setActive(true);
 
-        Pack pack3=new Pack();
+        Pack pack3 = new Pack();
         pack3.setUid(UUID.fromString("15482c33-b3a5-4401-a274-016bda28fdce"));
         pack3.setMinute(15);
         pack3.setName("15 دقیقه مشاوره");
         pack3.setAdvicetype(adviceType2);
         pack3.setActive(true);
 
-        Pack pack4=new Pack();
+        Pack pack4 = new Pack();
         pack4.setUid(UUID.fromString("16482c33-b3a5-4401-a274-016bda28fdce"));
         pack4.setMinute(30);
         pack4.setName("30 دقیقه مشاوره");
         pack4.setAdvicetype(adviceType2);
         pack4.setActive(true);
 
-        Pack pack5=new Pack();
+        Pack pack5 = new Pack();
         pack5.setUid(UUID.fromString("17482c33-b3a5-4401-a274-016bda28fdce"));
         pack5.setMinute(45);
         pack5.setName("45 دقیقه مشاوره");
         pack5.setAdvicetype(adviceType2);
         pack5.setActive(true);
 
-        Lawyer lawyer1=new Lawyer();
+        Lawyer lawyer1 = new Lawyer();
         lawyer1.setUid(UUID.fromString("110c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
         lawyer1.setLevel(1); // 3 level Lawyer
         lawyer1.setAdvicetype(adviceType1);
@@ -277,7 +279,7 @@ public class AppRunner implements ApplicationRunner {
         lawyer1.setVerificationCode("-1");
         lawyer1.setPricePerMinute(3000);
 
-        Lawyer lawyer2=new Lawyer();
+        Lawyer lawyer2 = new Lawyer();
         lawyer2.setUid(UUID.fromString("111c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
         lawyer2.setLevel(2); // 3 level Lawyer
         lawyer2.setAdvicetype(adviceType1);
@@ -287,7 +289,7 @@ public class AppRunner implements ApplicationRunner {
         lawyer2.setVerificationCode("-1");
         lawyer2.setPricePerMinute(6000);
 
-        Lawyer lawyer3=new Lawyer();
+        Lawyer lawyer3 = new Lawyer();
         lawyer3.setUid(UUID.fromString("112c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
         lawyer3.setLevel(3); // 3 level Lawyer
         lawyer3.setAdvicetype(adviceType1);
@@ -298,48 +300,48 @@ public class AppRunner implements ApplicationRunner {
         lawyer3.setPricePerMinute(9000);
 
 
-        Wallet wallet1=new Wallet();
+        Wallet wallet1 = new Wallet();
         wallet1.setUid(UUID.fromString("113c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
         wallet1.setValue(0);
         wallet1.setUser(client1);
 
-        Wallet wallet2=new Wallet();
+        Wallet wallet2 = new Wallet();
         wallet2.setUid(UUID.fromString("114c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
         wallet2.setValue(0);
         wallet2.setUser(client2);
 
-        Wallet wallet3=new Wallet();
+        Wallet wallet3 = new Wallet();
         wallet3.setUid(UUID.fromString("115c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
         wallet3.setValue(0);
         wallet3.setUser(client3);
 
-        Wallet wallet4=new Wallet();
+        Wallet wallet4 = new Wallet();
         wallet4.setUid(UUID.fromString("116c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
         wallet4.setValue(0);
         wallet4.setUser(client4);
 
-        Wallet wallet5=new Wallet();
+        Wallet wallet5 = new Wallet();
         wallet5.setUid(UUID.fromString("117c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
         wallet5.setValue(0);
         wallet5.setUser(lawyer1);
 
-        Wallet wallet6=new Wallet();
+        Wallet wallet6 = new Wallet();
         wallet6.setUid(UUID.fromString("118c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
         wallet6.setValue(0);
         wallet6.setUser(lawyer2);
 
-        Wallet wallet7=new Wallet();
+        Wallet wallet7 = new Wallet();
         wallet7.setUid(UUID.fromString("119c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
         wallet7.setValue(0);
         wallet7.setUser(lawyer3);
 
-        Constant constant1=new Constant();
+        Constant constant1 = new Constant();
         constant1.setUid(UUID.fromString("120c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
 
-        Constant constant2=new Constant();
+        Constant constant2 = new Constant();
         constant2.setUid(UUID.fromString("121c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
 
-        Constant constant3=new Constant();
+        Constant constant3 = new Constant();
         constant3.setUid(UUID.fromString("122c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
 
 

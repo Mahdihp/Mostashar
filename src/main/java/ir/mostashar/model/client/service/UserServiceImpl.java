@@ -1,5 +1,7 @@
 package ir.mostashar.model.client.service;
 
+import ir.mostashar.model.adviceType.AdviceType;
+import ir.mostashar.model.adviceType.service.AdviceTypeService;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.dto.*;
 import ir.mostashar.model.client.repository.ClientRepo;
@@ -53,9 +55,6 @@ public class UserServiceImpl implements UserDetailsService {
     private LawyerRepo lawyerRepo;
 
     @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
     private RoleRepo roleRepo;
 
     @Autowired
@@ -65,7 +64,7 @@ public class UserServiceImpl implements UserDetailsService {
     private WalletService walletService;
 
     @Autowired
-    private JwtProvider jwtProvider;
+    AdviceTypeService adviceTypeService;
 
     @Override
     @Transactional
@@ -78,27 +77,6 @@ public class UserServiceImpl implements UserDetailsService {
         return UserPrinciple.build(user);
     }
 
-    public JwtResponse generateToken(@Valid @RequestBody ValidateCode validateCode) {
-        Optional<User> userOptional = userRepo.findUserByUidAndVerificationCode(UUID.fromString(validateCode.getUserId()), validateCode.getCode());
-
-        if (userOptional.isPresent()) {
-
-            System.out.println("Log---------2--generateToken " + userOptional.get().getUsername());
-            System.out.println("Log---------2--generateToken " + userOptional.get().getPassword());
-
-
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            userOptional.get().getUsername(),
-                            "1")
-            );
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            String jwt = jwtProvider.generateJwtToken(authentication);
-            return new JwtResponse(jwt);
-        }
-        return null;
-    }
 
     public boolean existsPhoneNumber(long phoneNumber) {
         Optional<Boolean> aBoolean = userRepo.existsUserByMobileNumber(phoneNumber);
@@ -108,7 +86,7 @@ public class UserServiceImpl implements UserDetailsService {
             return false;
     }
 
-    public Optional<String> registerUser(String phoneNumber, Role role) {
+    public Optional<String> registerUser(String phoneNumber, int adviceName, Role role) {
 
         Set<Role> roles = new HashSet<>();
         switch (role.getName()) {
@@ -123,7 +101,7 @@ public class UserServiceImpl implements UserDetailsService {
                         .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
                 roles.add(lawyerRole);
 
-                return saveLawyer(phoneNumber, roles);
+                return saveLawyer(phoneNumber, adviceName, roles);
             case ROLE_CLIENT:
                 Role clientRole = roleRepo.findByName(RoleName.ROLE_CLIENT)
                         .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
@@ -141,7 +119,7 @@ public class UserServiceImpl implements UserDetailsService {
 
     }
 
-    private Optional<String> saveLawyer(String phoneNumber, Set<Role> roles) {
+    private Optional<String> saveLawyer(String phoneNumber, int advicetype, Set<Role> roles) {
         Lawyer lawyer = new Lawyer();
         UUID uuid = UUID.randomUUID();
         lawyer.setMobileNumber(Long.valueOf(phoneNumber));
@@ -149,11 +127,53 @@ public class UserServiceImpl implements UserDetailsService {
         lawyer.setVerificationCode(code);
         lawyer.setUid(uuid);
 
-        lawyer.setUsername(DataUtil.generateAlphaNumericRandomUserPass(8));
-        lawyer.setPassword(DataUtil.generateNumericRandomUserPass(8));
+        Optional<AdviceType> adviceType = Optional.empty();
+        switch (advicetype){
+            case 1:
+                adviceType = adviceTypeService.findAdviceTypeByName("روانشناسی");
+                if (adviceType.isPresent()) {
+                    lawyer.setAdvicetype(adviceType.get());
+                }
+                break;
+            case 2:
+                adviceType = adviceTypeService.findAdviceTypeByName("حقوق");
+                if (adviceType.isPresent()) {
+                    lawyer.setAdvicetype(adviceType.get());
+                }
+                break;
+        }
+
+
+        String user = DataUtil.generateAlphaNumericRandomUserPass(8);
+        lawyer.setUsername(user);
+        lawyer.setPassword(encoder.encode("1"));
 
         lawyer.setRoles(roles);
         Lawyer userSave = lawyerRepo.save(lawyer);
+
+        if (userSave != null) {
+            smsService.sendSms(phoneNumber, Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
+            return Optional.of(uuid.toString());
+        } else
+            return Optional.empty();
+    }
+
+    private Optional<String> saveClient(String phoneNumber, Set<Role> roles) {
+        Client client = new Client();
+        UUID uuid = UUID.randomUUID();
+        client.setMobileNumber(Long.valueOf(phoneNumber));
+        String code = DataUtil.genarateRandomNumber();
+        client.setVerificationCode(code);
+        client.setTel(Long.valueOf(phoneNumber));
+        client.setUid(uuid);
+
+
+        String user = DataUtil.generateAlphaNumericRandomUserPass(8);
+        client.setUsername(user);
+        client.setPassword(encoder.encode("1"));
+
+        client.setRoles(roles);
+        Client userSave = clientRepo.save(client);
 
         if (userSave != null) {
             smsService.sendSms(phoneNumber, Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
@@ -178,33 +198,10 @@ public class UserServiceImpl implements UserDetailsService {
         return null;
     }
 
-    private Optional<String> saveClient(String phoneNumber, Set<Role> roles) {
-        Client client = new Client();
-        UUID uuid = UUID.randomUUID();
-        client.setMobileNumber(Long.valueOf(phoneNumber));
-        String code = DataUtil.genarateRandomNumber();
-        client.setVerificationCode(code);
-        client.setTel(Long.valueOf(phoneNumber));
-        client.setUid(uuid);
 
-        String user = DataUtil.generateAlphaNumericRandomUserPass(8);
-        client.setUsername(user);
-        client.setPassword(encoder.encode("1"));
-
-        client.setRoles(roles);
-        Client userSave = clientRepo.save(client);
-
-        if (userSave != null) {
-            smsService.sendSms(phoneNumber, Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
-            return Optional.of(uuid.toString());
-        } else
-            return Optional.empty();
-    }
-
-
-    public Optional<User> findUserIdAndCode(String userid, String code) {
-        System.out.println("Log----------findUserIdAndCode " + userid + "  " + code);
-        Optional<User> user = userRepo.findUserByUidAndVerificationCode(UUID.fromString(userid), code);
+    public Optional<User> findUserUidAndCode(String uid, String code) {
+        System.out.println("Log----------findUserUidAndCode " + uid + "  " + code);
+        Optional<User> user = userRepo.findUserByUidAndVerificationCode(UUID.fromString(uid), code);
         if (user.isPresent())
             return Optional.ofNullable(user.get());
         else

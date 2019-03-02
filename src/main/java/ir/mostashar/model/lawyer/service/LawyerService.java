@@ -1,5 +1,8 @@
 package ir.mostashar.model.lawyer.service;
 
+import ir.mostashar.model.client.Client;
+import ir.mostashar.model.client.repository.ClientRepo;
+import ir.mostashar.model.client.service.UserPrinciple;
 import ir.mostashar.model.expertise.Expertise;
 import ir.mostashar.model.expertise.dto.ExpertiseDTO;
 import ir.mostashar.model.lawyer.Lawyer;
@@ -7,17 +10,28 @@ import ir.mostashar.model.lawyer.dto.LawyerDTO;
 import ir.mostashar.model.lawyer.dto.LawyerForm;
 import ir.mostashar.model.lawyer.dto.ListLawyerDTO;
 import ir.mostashar.model.lawyer.repository.LawyerRepo;
+import ir.mostashar.model.role.repository.RoleRepo;
+import ir.mostashar.model.user.User;
+import ir.mostashar.model.user.repository.UserRepo;
+import ir.mostashar.model.wallet.service.WalletService;
+import ir.mostashar.security.jwt.JwtProvider;
 import ir.mostashar.utils.Constants;
+import ir.mostashar.utils.SmsService;
 import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class LawyerService {
@@ -26,9 +40,15 @@ public class LawyerService {
     @Autowired
     LawyerRepo lawyerRepo;
 
-    public boolean createLawyer(LawyerForm lawyerForm) {
-        return false;
+
+    public Optional<Lawyer> findClientByUidAndActive(String userid, boolean active) {
+        Optional<Lawyer> lawyer = lawyerRepo.findClientByUidAndActive(UUID.fromString(userid), active);
+        if (lawyer.isPresent())
+            return Optional.ofNullable(lawyer.get());
+        else
+            return Optional.empty();
     }
+
 
     public Optional<Lawyer> findByUid(String uid) {
         Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(uid));
@@ -89,7 +109,7 @@ public class LawyerService {
         return Optional.empty();
     }
 
-    public Optional<ListLawyerDTO> findListLawyerDTOByUid(short queryType, String level_online_active_available_verified,boolean isBoolean) {
+    public Optional<ListLawyerDTO> findListLawyerDTO(short queryType, String level_online_active_available_verified, boolean isBoolean) {
         Optional<List<Lawyer>> list = Optional.empty();
         switch (queryType) {
             case 1:
@@ -107,7 +127,45 @@ public class LawyerService {
             case 5:
                 list = lawyerRepo.findAllByVerified(isBoolean);
                 break;
+        }
+        if (list.isPresent()) {
+            ListLawyerDTO llDTO = new ListLawyerDTO();
+            llDTO.setStatus(HttpStatus.OK.value());
+            llDTO.setMessage(Constants.KEY_SUCESSE);
 
+            List<LawyerDTO> dtoList = new ArrayList<>();
+            for (Lawyer lawyer : list.get()) {
+                LawyerDTO lawyerDTO = new LawyerDTO();
+                lawyerDTO.setId(lawyer.getUid().toString());
+                lawyerDTO.setFirstName(lawyer.getFirstName());
+                lawyerDTO.setLastName(lawyer.getLastName());
+                lawyerDTO.setUsername(lawyer.getUsername());
+                lawyerDTO.setPassword(lawyer.getPassword());
+                lawyerDTO.setNationalId(lawyer.getNationalId());
+                lawyerDTO.setBirthDate(lawyer.getBirthDate());
+                lawyerDTO.setOnline(lawyer.getOnline());
+                lawyerDTO.setScore(lawyer.getScore());
+                lawyerDTO.setAvatarHashcode(lawyer.getAvatarHashcode());
+                lawyerDTO.setActive(lawyer.getActive());
+                lawyerDTO.setMobileNumber(lawyer.getMobileNumber());
+//            lawyerDTO.setVerificationCode(lawyer.getVerificationCode());
+                lawyerDTO.setCreationDate(lawyer.getCreationDate());
+//            lawyerDTO.setModificationDate(lawyer.getModificationDate());
+                lawyerDTO.setRoleName(lawyer.getRoles().toString());
+                lawyerDTO.setAvailable(lawyer.getAvailable());
+                lawyerDTO.setLevel(lawyer.getLevel());
+                lawyerDTO.setPricePerMinute(lawyer.getPricePerMinute());
+                lawyerDTO.setVerified(lawyer.getVerified());
+                List<ExpertiseDTO> expertelist = new ArrayList<>();
+                lawyer.getExpertises().stream()
+                        .forEach(ex -> expertelist.add(new ExpertiseDTO(ex.getUid().toString(), ex.getName(), ex.getDescription())));
+                lawyerDTO.setExpertiseList(expertelist);
+                lawyerDTO.setOrganizationId(lawyer.getNationalId());
+                lawyerDTO.setAdvicetypeId(lawyer.getAdvicetype().getUid().toString());
+                dtoList.add(lawyerDTO);
+            }
+            llDTO.setData(dtoList);
+            return Optional.ofNullable(llDTO);
         }
 
         return Optional.empty();

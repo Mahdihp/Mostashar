@@ -24,5 +24,15 @@ public class AdviceTypeService {
             return Optional.empty();
     }
 
+    public Optional<AdviceType> findAdviceTypeByName(String name) {
+        Optional<AdviceType> adviceType = adviceTypeRepo.findByName(name);
+        if (adviceType.isPresent())
+            return Optional.ofNullable(adviceType.get());
+        else
+            return Optional.empty();
+    }
+
+
+
 
 }
