@@ -23,7 +23,7 @@ public class Reminder {
 	private UUID uid;
 
 	@Column(name = "read")
-	private boolean read;
+	private boolean read = false;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "userid", nullable = false)
