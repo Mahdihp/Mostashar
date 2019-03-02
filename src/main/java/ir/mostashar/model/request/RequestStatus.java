@@ -2,8 +2,7 @@ package ir.mostashar.model.request;
 
 public enum RequestStatus {
 
-    Waiting,
-    Canceled,
+    Canceled, // کنسل شدن درخواس توسط کاربر
     Processe,
-    Done
+    Done // پرونده تمام شده و مختومه شده
 }

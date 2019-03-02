@@ -63,7 +63,7 @@ public class PackService {
 
 
     /**
-     * first find Advicetype by uid
+     * first find Advicetype by id
      * two assing to setAdvicetype
      * three save new Pack
      * four retrun true
@@ -223,7 +223,7 @@ public class PackService {
 
             /*Factor factor = new Factor();
             factorUid = UUID.randomUUID();
-            factor.setUid(factorUid);
+            factor.setId(factorUid);
             factor.setServiceDescription(""); //از کجا پر میشه
             factor.setClientName(client.get().getFirstName() + " " + client.get().getLastName());
             factor.setClientCode(""); // پرسیده شود

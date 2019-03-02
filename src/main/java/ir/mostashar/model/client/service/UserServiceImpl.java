@@ -156,7 +156,7 @@ public class UserServiceImpl implements UserDetailsService {
         Lawyer userSave = lawyerRepo.save(lawyer);
 
         if (userSave != null) {
-            smsService.sendSms(String.valueOf(phoneNumber), Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
+            smsService.sendSms(phoneNumber, Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
             return Optional.of(uuid.toString());
         } else
             return Optional.empty();
@@ -195,7 +195,7 @@ public class UserServiceImpl implements UserDetailsService {
         Client userSave = clientRepo.save(client);
 
         if (userSave != null) {
-            smsService.sendSms(String.valueOf(phoneNumber), Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
+            smsService.sendSms(phoneNumber, Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
             return Optional.of(uuid.toString());
         } else
             return Optional.empty();

@@ -38,6 +38,8 @@ public class Request {
     @CreatedDate
     private Long creationDate;
 
+    private RequestStatus requestStatus;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clientid", nullable = false)
     private Client client;

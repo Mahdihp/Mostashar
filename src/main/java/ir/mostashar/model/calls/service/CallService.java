@@ -59,7 +59,7 @@ public class CallService {
 
     /**
      * First Uid Type Client or Lawyer or Request
-     * and later find from uid set
+     * and later find from id set
      *
      * @param uid
      * @param uidType

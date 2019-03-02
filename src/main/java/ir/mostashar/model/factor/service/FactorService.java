@@ -149,7 +149,7 @@ public class FactorService {
     public Optional<ListFactorDTO> findListFactorDTO(Long createDate, String userUid_factorNumber, short typeQuer) {
         Optional<List<Factor>> factors = Optional.empty();
         switch (typeQuer) {
-            case 1: // find by user uid
+            case 1: // find by user id
                 factors = Optional.empty();
                 break;
             case 2:
