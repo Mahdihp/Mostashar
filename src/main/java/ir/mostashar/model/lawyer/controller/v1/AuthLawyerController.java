@@ -33,13 +33,14 @@ public class AuthLawyerController {
     @Autowired
     JwtUtil jwtUtil;
 
-    public ResponseEntity<?> signUp1(HttpServletRequest httpRequest) {
+    @PostMapping(value = "/adddevice", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> addDevice(HttpServletRequest httpRequest) {
 
         return null;
     }
 
     @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> signUp(@RequestParam("phoneNumber") String phoneNumber,@RequestParam("advicetype") int advicetype) {
+    public ResponseEntity<?> signUp(@RequestParam("phoneNumber") String phoneNumber, @RequestParam("advicetype") int advicetype) {
         if (!DataUtil.isValidePhoneNumber(phoneNumber))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_PHONE_NUMBER_NOT_VALID, false));
 
@@ -52,7 +53,7 @@ public class AuthLawyerController {
         role.setUserDefined(true);
         role.setDescription(RoleName.ROLE_LAWYER.name().toLowerCase());
 
-        Optional<String> uuid = userService.registerUser(phoneNumber,advicetype, role);
+        Optional<String> uuid = userService.registerUser(phoneNumber, advicetype, role);
         if (uuid.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_REGISTER, uuid.get(), false));
         else

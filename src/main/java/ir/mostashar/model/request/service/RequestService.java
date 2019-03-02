@@ -7,6 +7,8 @@ import ir.mostashar.model.client.repository.ClientRepo;
 import ir.mostashar.model.client.service.ClientService;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.repository.FileRepo;
+import ir.mostashar.model.notification.Notification;
+import ir.mostashar.model.notification.service.NotificationService;
 import ir.mostashar.model.request.Request;
 import ir.mostashar.model.request.dto.ListRequestDTO;
 import ir.mostashar.model.request.dto.RequestDTO;
@@ -37,6 +39,9 @@ public class RequestService {
 
     @Autowired
     FileRepo fileRepo;
+
+    @Autowired
+    NotificationService notificationService;
 
     @Value("${mostashar.app.requestNumber}")
     private String requestNumber;

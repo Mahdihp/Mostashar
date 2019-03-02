@@ -33,7 +33,8 @@ public class AuthClientController {
     @Autowired
     JwtUtil  jwtUtil;
 
-    public ResponseEntity<?> signUp1(HttpServletRequest httpRequest) {
+    @PostMapping(value = "/adddevice", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> addDevice(HttpServletRequest httpRequest) {
 
         return null;
     }
@@ -52,7 +53,7 @@ public class AuthClientController {
         role.setUserDefined(true);
         role.setDescription(RoleName.ROLE_CLIENT.name().toLowerCase());
 
-        Optional<String> uuid = userService.registerUser(phoneNumber,"", role);
+        Optional<String> uuid = userService.registerUser(phoneNumber,-1, role);
         if (uuid.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_REGISTER, uuid.get(), false));
         else

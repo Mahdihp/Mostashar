@@ -1,32 +1,14 @@
 package ir.mostashar.model.lawyer.service;
 
-import ir.mostashar.model.client.Client;
-import ir.mostashar.model.client.repository.ClientRepo;
-import ir.mostashar.model.client.service.UserPrinciple;
-import ir.mostashar.model.expertise.Expertise;
 import ir.mostashar.model.expertise.dto.ExpertiseDTO;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.lawyer.dto.LawyerDTO;
-import ir.mostashar.model.lawyer.dto.LawyerForm;
 import ir.mostashar.model.lawyer.dto.ListLawyerDTO;
 import ir.mostashar.model.lawyer.repository.LawyerRepo;
-import ir.mostashar.model.role.repository.RoleRepo;
-import ir.mostashar.model.user.User;
-import ir.mostashar.model.user.repository.UserRepo;
-import ir.mostashar.model.wallet.service.WalletService;
-import ir.mostashar.security.jwt.JwtProvider;
 import ir.mostashar.utils.Constants;
-import ir.mostashar.utils.SmsService;
-import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;

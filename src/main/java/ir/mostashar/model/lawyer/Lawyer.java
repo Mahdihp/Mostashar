@@ -14,6 +14,7 @@ import ir.mostashar.model.packsnapshot.PackSnapshot;
 import ir.mostashar.model.presenceSchedule.PresenceSchedule;
 import ir.mostashar.model.user.User;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -78,6 +79,7 @@ public class Lawyer extends User {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "advicetype", nullable = false)
+    @EqualsAndHashCode.Exclude
     private AdviceType advicetype;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")

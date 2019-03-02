@@ -2,7 +2,9 @@ package ir.mostashar.model.notification;
 
 
 import ir.mostashar.model.reminder.Reminder;
+import ir.mostashar.model.request.Request;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -24,20 +26,25 @@ public class Notification {
     @Column(name = "content")
     private String content;
 
-    @Column(name = "targetuid")
-    private String targetUid;
+//    @Column(name = "targetuid")
+//    private String targetUid;
 
     @Column(name = "type")
     private int type;
 
-    @Column(name = "pushdate")
-    private Long pushDate;
+    @Column(name = "creationdate", updatable = false)
+    @CreatedDate
+    private Long creationDate;
 
     @Column(name = "notifParentuid")
     private String notifParentUid;
 
     @Column(name = "deleted")
     private boolean deleted = false;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "requestid" , unique = true)
+    private Request request;
 
     @OneToMany(mappedBy = "notification")
     private Set<Reminder> reminders = new HashSet<>();
