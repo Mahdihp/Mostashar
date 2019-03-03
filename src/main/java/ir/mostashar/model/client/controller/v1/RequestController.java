@@ -1,5 +1,7 @@
 package ir.mostashar.model.client.controller.v1;
 
+import ir.mostashar.model.acceptRequest.service.AcceptRequestService;
+import ir.mostashar.model.lawyer.dto.LawyerDTO;
 import ir.mostashar.model.notification.dto.NotificationForm;
 import ir.mostashar.model.notification.service.NotificationService;
 import ir.mostashar.model.request.Request;
@@ -28,6 +30,9 @@ public class RequestController {
 
     @Autowired
     NotificationService notificationService;
+
+    @Autowired
+    AcceptRequestService arService;
 
     // ایا امکان ایجاد درخواست های مکرر و تکراری برای یه پرونده وجود دارد؟
     // چطوری جلو هک و ارسال درخواست تکرای را بگیریم
@@ -85,5 +90,23 @@ public class RequestController {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
+
+    @PostMapping(value = "/assinglawyerrequest", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> acceptedLawyerByClient(@RequestParam("lawyerid") String lawyerId,@RequestParam("requestid") String requestId) {
+        if (arService.assignLawyerToRequest(lawyerId,requestId,true))
+            return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_ASSIGN_LAWYER_TO_REQUEST));
+        else
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
+    }
+
+    @PostMapping(value = "/rejectlawyerrequest", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> rejectedLawyerByClient(@RequestParam("lawyerid") String lawyerId,@RequestParam("requestid") String requestId) {
+        if (arService.assignLawyerToRequest(lawyerId,requestId,false))
+            return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_REJECT_LAWYER_TO_REQUEST));
+        else
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
+    }
+
+
 
 }

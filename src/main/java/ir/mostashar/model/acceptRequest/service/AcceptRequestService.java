@@ -48,6 +48,16 @@ public class AcceptRequestService {
         return false;
     }
 
+    public boolean assignLawyerToRequest(String lawyerUid, String requestUid,boolean isAssign) {
+        Optional<AcceptRequest> acceptRequest = arRepository.findByRequestUidAndLawyerUid(UUID.fromString(lawyerUid), UUID.fromString(requestUid));
+        if (acceptRequest.isPresent()) {
+            acceptRequest.get().setAcceptedByClient(isAssign);
+            arRepository.save(acceptRequest.get());
+            return true;
+        }
+        return false;
+    }
+
     public boolean deleteAcceptRequest(String uid) {
         Optional<AcceptRequest> acceptRequest = arRepository.findByUid(UUID.fromString(uid));
         if (acceptRequest.isPresent()) {

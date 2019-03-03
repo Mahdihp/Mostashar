@@ -74,4 +74,7 @@ public class Constants {
     public static final String KEY_ADD_ACCEPT_REQUEST = "درخواست شما ثبت شد.";
 
     public static final String KEY_ADD_FAIL_REQUEST = "رد درخواست شما ثبت شد.";
+
+    public static final String KEY_ASSIGN_LAWYER_TO_REQUEST = "مشاور مورد نظر برای درخواست شما انتخاب شد.";
+    public static final String KEY_REJECT_LAWYER_TO_REQUEST = "مشاور مورد نظر از درخواست شما برداشته شد.";
 }

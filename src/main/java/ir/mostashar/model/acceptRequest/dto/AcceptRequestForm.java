@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class AcceptRequestForm {
 
-    private String uid;
+    private String Id;
 
     @NotBlank
     private String lawyerId;
