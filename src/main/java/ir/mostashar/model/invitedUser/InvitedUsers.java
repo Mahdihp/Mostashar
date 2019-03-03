@@ -36,12 +36,21 @@ public class InvitedUsers {
 	@Column(name = "invitedusername")
 	private String invitedUsername;
 
+	@Column(name = "textmessage")
+	private String textMessage;
+
+	@Column(name = "invitedcode")
+	private String invitedCode;
+
+	@Column(name = "invitedphonenumber")
+	private String invitedPhoneNumber;
+
 	@Column(name = "creationdate")
 	@CreatedDate
 	private Long  creationDate;
 	
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "userid", nullable = false)
     @JsonIgnore
     private User user;
 

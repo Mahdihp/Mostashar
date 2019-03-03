@@ -39,6 +39,7 @@ public class Request {
     @CreatedDate
     private Long creationDate;
 
+    @Column(name = "requeststatus")
     private RequestStatus requestStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -80,6 +81,7 @@ public class Request {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "advicetypeid", nullable = false)
     private AdviceType advicetype;
+
 
     public Request() {
     }

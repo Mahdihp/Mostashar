@@ -66,4 +66,12 @@ public class Constants {
     public static final String KEY_UPDATE_WALLET = "اطلاعات کیف پول بروز شد.";
     public static final String KEY_ADD_MONEY_WALLET = "کیف پول شارژ شد.";
     public static final String KEY_NOT_FOUND_CALL = "تماسی با مشخصات مورد نظر پیدا نشد.";
+
+    public static final String KEY_NOTIFY_CREATE_REQUEST = "درخواست رسیدگی به درخواست :";
+    public static final String KEY_NOT_FOUND_FILE_USER = "چنین شماره پرونده ای یا شماره کاربری پیدا نشد.";
+    public static final String KEY_NOT_FOUND_ONLINE = "مشاور آنلاینی موجود نیست.";
+
+    public static final String KEY_ADD_ACCEPT_REQUEST = "درخواست شما ثبت شد.";
+
+    public static final String KEY_ADD_FAIL_REQUEST = "رد درخواست شما ثبت شد.";
 }

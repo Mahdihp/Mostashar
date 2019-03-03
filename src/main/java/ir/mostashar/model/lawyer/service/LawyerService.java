@@ -91,7 +91,7 @@ public class LawyerService {
         return Optional.empty();
     }
 
-    public Optional<ListLawyerDTO> findListLawyerDTO(short queryType, String level_online_active_available_verified, boolean isBoolean) {
+    public Optional<ListLawyerDTO> findListLawyerDTO(int queryType, String level_online_active_available_verified, boolean isBoolean) {
         Optional<List<Lawyer>> list = Optional.empty();
         switch (queryType) {
             case 1:
@@ -151,6 +151,16 @@ public class LawyerService {
         }
 
         return Optional.empty();
+    }
+
+    public boolean setOnline(String lawyerUid,boolean isOnline) {
+        Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(lawyerUid));
+        if (lawyer.isPresent()) {
+            lawyer.get().setOnline(isOnline);
+            lawyerRepo.save(lawyer.get());
+            return true;
+        }
+        return false;
     }
 
 }

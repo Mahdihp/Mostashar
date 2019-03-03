@@ -53,7 +53,7 @@ public class User implements Serializable {
     @Column(name = "fathername")
     private String fatherName;
 
-    @Column(unique = true)
+    @Column(name = "username",unique = true)
     private String username;
 
     @Column(name = "password")

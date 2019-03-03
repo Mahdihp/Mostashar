@@ -27,23 +27,27 @@ public class LawyerDTO extends BaseDTO {
     private String password;
     private String nationalId;
     private Long birthDate;
-    private Boolean online = false;
-    private int score;
+    private Boolean online ;
+    private Integer score;
     private String avatarHashcode;
-    private Boolean active = false;
+    private Boolean active ;
     private Long mobileNumber;
     private String verificationCode;
     private Long creationDate;
     private Long modificationDate;
     private String roleName;
-    private Boolean available = false;
-    private Integer level = 1;
-    private Integer pricePerMinute = 1;
-    private Boolean verified = false;
+    private Boolean available;
+    private Integer level ;
+    private Integer pricePerMinute ;
+    private Boolean verified ;
     private List<ExpertiseDTO> expertiseList;
     private String organizationId;
     private String advicetypeId;
 
     public LawyerDTO() {
+    }
+
+    public LawyerDTO(Integer status, String message) {
+        super(status, message);
     }
 }

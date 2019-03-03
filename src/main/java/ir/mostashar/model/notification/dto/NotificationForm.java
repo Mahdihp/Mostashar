@@ -1,9 +1,11 @@
 package ir.mostashar.model.notification.dto;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 
+@ToString
 @Data
 public class NotificationForm {
 
@@ -21,5 +23,11 @@ public class NotificationForm {
     private String requestId;
 
     public NotificationForm() {
+    }
+
+    public NotificationForm(@NotBlank String content, Long creationDate, @NotBlank String requestId) {
+        this.content = content;
+        this.creationDate = creationDate;
+        this.requestId = requestId;
     }
 }

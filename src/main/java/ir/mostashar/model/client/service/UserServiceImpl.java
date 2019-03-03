@@ -171,6 +171,7 @@ public class UserServiceImpl implements UserDetailsService {
         String user = DataUtil.generateAlphaNumericRandomUserPass(8);
         client.setUsername(user);
         client.setPassword(encoder.encode("1"));
+        client.setScore(10);
 
         client.setRoles(roles);
         Client userSave = clientRepo.save(client);

@@ -32,8 +32,8 @@ public class FailRequestService {
     RequestRepo requestRepo;
 
     public boolean createFailRequest(FailRequestForm frForm) {
-        Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(frForm.getLawyerUid()));
-        Optional<Request> request = requestRepo.findByUidAndDeleted(UUID.fromString(frForm.getRequestUid()), false);
+        Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(frForm.getLawyerId()));
+        Optional<Request> request = requestRepo.findByUidAndDeleted(UUID.fromString(frForm.getRequestId()), false);
         if (lawyer.isPresent() && request.isPresent()) {
             FailRequest failRequest = new FailRequest();
             failRequest.setUid(UUID.randomUUID());

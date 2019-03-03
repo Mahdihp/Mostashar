@@ -29,8 +29,8 @@ public class AcceptRequest {
     @Column(name = "finishedtimefile")
     private Long finishedTimeFile;
 
-    @Column(name = "requeststatus")
-    private RequestStatus requestStatus;
+    @Column(name = "acceptedbyclient")
+    private boolean acceptedByClient;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lawyerid",nullable = false)

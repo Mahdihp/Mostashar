@@ -25,6 +25,8 @@ public class BuyPackForm {
 
     private int  minute;
 
+
+
     /**
      * نرخ هر مشاور در هر دقیقه
      */

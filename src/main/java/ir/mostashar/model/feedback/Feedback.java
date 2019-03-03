@@ -29,6 +29,9 @@ public class Feedback {
     @Column(name = "read")
     private boolean read;
 
+    @Column(name = "score")
+    private int score;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clientid", nullable = false)
     private Client client;

@@ -7,17 +7,15 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class FailRequestForm  {
 
-    private String uid;
-
-    private Long creationDate;
+    private String Id;
 
     private String description;
 
     @NotBlank
-    private String lawyerUid;
+    private String lawyerId;
 
     @NotBlank
-    private String requestUid;
+    private String requestId;
 
     public FailRequestForm() {
     }

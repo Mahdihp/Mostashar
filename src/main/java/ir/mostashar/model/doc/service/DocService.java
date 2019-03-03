@@ -2,6 +2,7 @@ package ir.mostashar.model.doc.service;
 
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.repository.ClientRepo;
+import ir.mostashar.model.client.service.UserServiceImpl;
 import ir.mostashar.model.doc.Doc;
 import ir.mostashar.model.doc.DocType;
 import ir.mostashar.model.doc.dto.DocDTO;
@@ -9,6 +10,7 @@ import ir.mostashar.model.doc.dto.ListDocDTO;
 import ir.mostashar.model.doc.repository.DocRepo;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.repository.FileRepo;
+import ir.mostashar.model.user.User;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,6 +35,9 @@ public class DocService {
 
     @Autowired
     ClientRepo clientRepo;
+
+    @Autowired
+    UserServiceImpl userService;
 
     public UUID createDoc(File file, int docType, MultipartFile multipartFile) {
         Doc doc = new Doc();
@@ -108,17 +113,23 @@ public class DocService {
         return Optional.empty();
     }
 
-    public Optional<DocDTO> findByWithoutDataUid(String docId) {
-        Optional<Doc> doc = docRepo.findByUidAndDeleted(UUID.fromString(docId), false);
+    public Optional<DocDTO> findByWithoutDataUid(String docId, String userid, String fileId) {
+        Optional<User> user = userService.findUserByUid(userid);
+        if (!user.isPresent())
+            return Optional.empty();
+
+        Optional<Doc> doc = docRepo.findByUidAndFileUidAndDeleted(UUID.fromString(docId),UUID.fromString(fileId), false);
         if (doc.isPresent()) {
-            DocDTO docDTO = new DocDTO();
-            docDTO.setDocId(doc.get().getUid().toString());
-            docDTO.setStatus(HttpStatus.OK.value());
-            docDTO.setMessage(Constants.KEY_SUCESSE);
-            docDTO.setCreationDate(doc.get().getCreationDate());
-            docDTO.setDocType(doc.get().getDocType().type + "");
-            docDTO.setFileId(doc.get().getFile().getUid().toString());
-            return Optional.ofNullable(docDTO);
+            if (doc.get().getFile().getUid().toString().equals(fileId)) {
+                DocDTO docDTO = new DocDTO();
+                docDTO.setDocId(doc.get().getUid().toString());
+                docDTO.setStatus(HttpStatus.OK.value());
+                docDTO.setMessage(Constants.KEY_SUCESSE);
+                docDTO.setCreationDate(doc.get().getCreationDate());
+                docDTO.setDocType(doc.get().getDocType().type + "");
+                docDTO.setFileId(doc.get().getFile().getUid().toString());
+                return Optional.ofNullable(docDTO);
+            }
         }
         return Optional.empty();
     }
@@ -132,8 +143,12 @@ public class DocService {
     }
 
 
-    public Optional<Doc> findByUid(String docid) {
-        Optional<Doc> doc = docRepo.findByUidAndDeleted(UUID.fromString(docid), false);
+    public Optional<Doc> findByUid(String docId, String userid, String fileId) {
+        Optional<User> user = userService.findUserByUid(userid);
+        if (!user.isPresent())
+            return Optional.empty();
+
+        Optional<Doc> doc = docRepo.findByUidAndFileUidAndDeleted(UUID.fromString(docId),UUID.fromString(fileId), false);
         if (doc.isPresent())
             return doc;
         else
@@ -141,8 +156,12 @@ public class DocService {
 
     }
 
-    public boolean deleteDoc(String docUid) {
-        Optional<Doc> doc = docRepo.findByUidAndDeleted(UUID.fromString(docUid), false);
+    public boolean deleteDoc(String docId, String userid, String fileId) {
+        Optional<User> user = userService.findUserByUid(userid);
+        if (!user.isPresent())
+            return false;
+
+        Optional<Doc> doc = docRepo.findByUidAndFileUidAndDeleted(UUID.fromString(docId),UUID.fromString(fileId), false);
         if (doc.isPresent()) {
             doc.get().setDeleted(true);
             docRepo.save(doc.get());

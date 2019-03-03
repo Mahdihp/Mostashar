@@ -9,17 +9,11 @@ public class AcceptRequestForm {
 
     private String uid;
 
-    private Long acceptDate;
-
-    private Long verified;
-
-    private Long finishedTimeFile;
+    @NotBlank
+    private String lawyerId;
 
     @NotBlank
-    private String lawyerUid;
-
-    @NotBlank
-    private String requestUid;
+    private String requestId;
 
     public AcceptRequestForm() {
     }

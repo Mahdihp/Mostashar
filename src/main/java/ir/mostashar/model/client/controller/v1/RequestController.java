@@ -1,5 +1,7 @@
 package ir.mostashar.model.client.controller.v1;
 
+import ir.mostashar.model.notification.dto.NotificationForm;
+import ir.mostashar.model.notification.service.NotificationService;
 import ir.mostashar.model.request.Request;
 import ir.mostashar.model.request.dto.ListRequestDTO;
 import ir.mostashar.model.request.dto.RequestDTO;
@@ -23,16 +25,26 @@ public class RequestController {
 
     @Autowired
     RequestService requestService;
+
+    @Autowired
+    NotificationService notificationService;
+
     // ایا امکان ایجاد درخواست های مکرر و تکراری برای یه پرونده وجود دارد؟
     // چطوری جلو هک و ارسال درخواست تکرای را بگیریم
     @PostMapping(value = "/createrequest", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> createRequest(@Valid @RequestBody RequestForm requestForm) {
         UUID requestId = requestService.createRequest(requestForm);
         if (requestId != null) {
+            String content = Constants.KEY_NOTIFY_CREATE_REQUEST + "\n";
+            content += " شماره پرونده: " + requestForm.getFileNumber() + "\n";
+            content += " شماره درخواست: " + requestId.toString() + "\n";
+            NotificationForm nForm = new NotificationForm(content, System.currentTimeMillis(), requestId.toString());
 
+            System.out.println("Log---createRequest--------------------:"+nForm.toString());
+            notificationService.createNotification(nForm);
             return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_CREATE_REQUEST_SUCSSES, requestId.toString()));
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_USER));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_FILE_USER));
         }
     }
 
@@ -45,8 +57,8 @@ public class RequestController {
         }
     }
 
-    @GetMapping(value = "/request", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> findRequestByClient(@RequestParam("clientid") String clientid, @RequestParam("requestid") String requestid) {
+    @PostMapping(value = "/request", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> findRequestByClient(@RequestParam("userId") String clientid, @RequestParam("requestid") String requestid) {
         Optional<RequestDTO> request = requestService.findRequestByClient(clientid, requestid);
         if (request.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(request.get());
@@ -54,8 +66,8 @@ public class RequestController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
 
-    @GetMapping(value = "/requests", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> findAllRequestByClient(@RequestParam("clientid") String clientid) {
+    @PostMapping(value = "/requests", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> findAllRequestByClient(@RequestParam("userId") String clientid) {
         Optional<ListRequestDTO> allRequestClient = requestService.findAllRequestClient(clientid);
         if (allRequestClient.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(allRequestClient.get());
