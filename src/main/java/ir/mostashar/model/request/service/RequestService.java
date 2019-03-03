@@ -196,9 +196,9 @@ public class RequestService {
         return Optional.empty();
     }
 
-    /*public boolean existsRequest(String clientUid, String fileUid) {
+    /*public boolean existsRequest(String clientId, String fileUid) {
         Optional<Boolean> aBoolean = requestRepo
-                .existsRequestByFileUidAndClientUidAndDeleted(UUID.fromString(clientUid), UUID.fromString(fileUid), false);
+                .existsRequestByFileUidAndClientUidAndDeleted(UUID.fromString(clientId), UUID.fromString(fileUid), false);
         if (aBoolean.isPresent())
             return aBoolean.get();
         else

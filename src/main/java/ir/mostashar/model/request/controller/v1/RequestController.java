@@ -1,4 +1,4 @@
-package ir.mostashar.model.client.controller.v1;
+package ir.mostashar.model.request.controller.v1;
 
 import ir.mostashar.model.acceptRequest.service.AcceptRequestService;
 import ir.mostashar.model.lawyer.dto.LawyerDTO;
@@ -23,7 +23,7 @@ import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/client")
+@RequestMapping("/api/v1/request")
 public class RequestController {
 
     @Autowired

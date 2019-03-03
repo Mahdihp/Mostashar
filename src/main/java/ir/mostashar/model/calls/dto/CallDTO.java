@@ -8,7 +8,7 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CallDTO extends BaseDTO {
 
-    private String id;
+    private String callId;
 
     private Integer failedRetriesCount;
 
@@ -28,7 +28,7 @@ public class CallDTO extends BaseDTO {
 
     private String requestId;
 
-    private String docid;
+    private String docId;
 
     public CallDTO() {
     }

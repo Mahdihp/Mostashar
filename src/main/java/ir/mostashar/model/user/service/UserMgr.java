@@ -26,13 +26,13 @@ public class UserMgr {
         		if(savedRole != null && savedRole.isPresent()){
         			savedRoles.add(savedRole.get());
         		} else {
-        			role.setId(UUID.randomUUID());
+        			role.setFactorId(UUID.randomUUID());
         			savedRoles.add(roleMgr.save(role));
         		}
         	}
         }
         user.setRoles(savedRoles);
-        user.setId(UUID.randomUUID());
+        user.setFactorId(UUID.randomUUID());
         
         return userRepository.save(user);
     }*/

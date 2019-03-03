@@ -78,7 +78,7 @@ public class UserPopularityService {
                 userPopularityDTO.setStatus(HttpStatus.OK.value());
                 userPopularityDTO.setMessage(Constants.KEY_SUCESSE);
 
-//                userPopularityDTO.setUserId(byUserPopular.get().getUser().getId().toString());
+//                userPopularityDTO.setUserId(byUserPopular.get().getUser().getFactorId().toString());
                 userPopularityDTO.setUserPopularId(byUserPopular.get().getUserPopu().getUid().toString());
                 return Optional.ofNullable(userPopularityDTO);
             }
@@ -97,7 +97,7 @@ public class UserPopularityService {
             List<UserPopularityDTO> dtoList = new ArrayList<>();
             for (UserPopularity userPopularity : allByUser.get()) {
                 UserPopularityDTO userPopularityDTO = new UserPopularityDTO();
-//                userPopularityDTO.setUserId(userPopularity.getUser().getId().toString());
+//                userPopularityDTO.setUserId(userPopularity.getUser().getFactorId().toString());
                 userPopularityDTO.setUserPopularId(userPopularity.getUserPopu().getUid().toString());
                 dtoList.add(userPopularityDTO);
             }

@@ -36,7 +36,7 @@ public class ActivityLawyer {
     private Lawyer lawyer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "docid", nullable = true)
+    @JoinColumn(name = "docId", nullable = true)
     private Doc doc;
 
     @ManyToOne(fetch = FetchType.LAZY)

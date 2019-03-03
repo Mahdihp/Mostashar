@@ -1,4 +1,4 @@
-package ir.mostashar.model.bill.controller;
+package ir.mostashar.model.bill.controller.v1;
 
 
 import ir.mostashar.model.bill.dto.BillDTO;
@@ -19,7 +19,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/client")
+@RequestMapping("/api/v1/bill")
 public class BillController {
 
     @Autowired

@@ -81,7 +81,7 @@ public class BillService {
                 bill = billRepo.findByTransactionNumber(trackingNumber_TransactionNumber_Uid); //transactionNumber
                 break;
             case 4:
-                bill = billRepo.findByUid(UUID.fromString(trackingNumber_TransactionNumber_Uid)); //id
+                bill = billRepo.findByUid(UUID.fromString(trackingNumber_TransactionNumber_Uid)); //callId
                 break;
         }
         if (bill.isPresent()) {

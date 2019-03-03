@@ -1,7 +1,8 @@
-package ir.mostashar.model.calls.controller;
+package ir.mostashar.model.calls.controller.v1;
 
 
 import ir.mostashar.model.calls.dto.CallDTO;
+import ir.mostashar.model.calls.dto.CallForm;
 import ir.mostashar.model.calls.dto.ListCallDTO;
 import ir.mostashar.model.calls.service.CallService;
 import ir.mostashar.utils.Constants;
@@ -20,6 +21,14 @@ public class CallController {
 
     @Autowired
     private CallService callService;
+
+    @PostMapping(value = "/createcall", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> createCall(@RequestBody CallForm callForm) {
+        if (callService.createCall(callForm))
+            return ResponseEntity.status(HttpStatus.OK).body(new CallDTO(HttpStatus.OK.value(), Constants.KEY_SUCESSE));
+        else
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new CallDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_CLIENT_LAWYER));
+    }
 
 
     @PostMapping(value = "/clientcalls", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})

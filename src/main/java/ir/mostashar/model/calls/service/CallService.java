@@ -37,10 +37,10 @@ public class CallService {
     private RequestService requestService;
 
     public boolean createCall(CallForm callForm) {
-        Optional<Client> client = clientService.findClientByUidAndActive(callForm.getClientUid(), false);
-//        lawyer = lawyerService.
-        Optional<Request> request = requestService.findByUid(callForm.getRequestUid());
-        if (client.isPresent() && request.isPresent()) {
+        Optional<Client> client = clientService.findClientByUidAndActive(callForm.getClientId(), false);
+        Optional<Lawyer> lawyer = lawyerService.findLawyerUidAndActive(callForm.getLawyerId(), true);
+        Optional<Request> request = requestService.findByUid(callForm.getRequestId());
+        if (client.isPresent() && request.isPresent() && lawyer.isPresent()) {
             Call call = new Call();
             call.setUid(UUID.randomUUID());
             call.setFailedRetriesCount(callForm.getFailedRetriesCount());
@@ -51,7 +51,8 @@ public class CallService {
             call.setCreationDate(System.currentTimeMillis());
             call.setClient(client.get());
             call.setRequest(request.get());
-            // wait for lawyer service
+            call.setLawyer(lawyer.get());
+            callRepo.save(call);
             return false;
         }
         return false;
@@ -59,7 +60,7 @@ public class CallService {
 
     /**
      * First Uid Type Client or Lawyer or Request
-     * and later find from id set
+     * and later find from callId set
      *
      * @param uid
      * @param uidType
@@ -85,7 +86,7 @@ public class CallService {
             List<CallDTO> dtoList = new ArrayList<>();
             for (Call call : list.get()) {
                 CallDTO callDTO = new CallDTO();
-                callDTO.setId(call.getUid().toString());
+                callDTO.setCallId(call.getUid().toString());
                 callDTO.setFailedRetriesCount(call.getFailedRetriesCount());
 //                callDTO.setCallStatus(call.getCallStatus());
                 callDTO.setCallType(call.getCallType());

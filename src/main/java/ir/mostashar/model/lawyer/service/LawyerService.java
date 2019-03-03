@@ -23,8 +23,8 @@ public class LawyerService {
     LawyerRepo lawyerRepo;
 
 
-    public Optional<Lawyer> findClientByUidAndActive(String userid, boolean active) {
-        Optional<Lawyer> lawyer = lawyerRepo.findClientByUidAndActive(UUID.fromString(userid), active);
+    public Optional<Lawyer> findLawyerUidAndActive(String userid, boolean active) {
+        Optional<Lawyer> lawyer = lawyerRepo.findByUidAndActive(UUID.fromString(userid), active);
         if (lawyer.isPresent())
             return Optional.ofNullable(lawyer.get());
         else

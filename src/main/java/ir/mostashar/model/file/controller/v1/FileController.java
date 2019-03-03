@@ -1,4 +1,4 @@
-package ir.mostashar.model.client.controller.v1;
+package ir.mostashar.model.file.controller.v1;
 
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.dto.FileForm;
@@ -28,7 +28,7 @@ import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/client")
+@RequestMapping("/api/v1/file")
 public class FileController {
 
     @Autowired
@@ -124,7 +124,7 @@ public class FileController {
     }
 
     @PostMapping(value = "/doc", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> findDocByUid(@RequestParam("docid") String docId, @RequestParam("userid") String userid, @RequestParam("fileid") String fileId) {
+    public ResponseEntity<?> findDocByUid(@RequestParam("docId") String docId, @RequestParam("userid") String userid, @RequestParam("fileid") String fileId) {
         Optional<DocDTO> doc = docService.findByWithoutDataUid(docId,userid,fileId);
         if (doc.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(doc.get());
@@ -142,7 +142,7 @@ public class FileController {
     }
 
     @PostMapping(value = "/docdata", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<?> findDocDataByUid(@RequestParam("docid") String docId, @RequestParam("userid") String userid, @RequestParam("fileid") String fileId) {
+    public ResponseEntity<?> findDocDataByUid(@RequestParam("docId") String docId, @RequestParam("userid") String userid, @RequestParam("fileid") String fileId) {
         Optional<Doc> doc = docService.findByUid(docId,userid,fileId);
         if (doc.isPresent()) {
             HttpHeaders headers = new HttpHeaders();
@@ -155,7 +155,7 @@ public class FileController {
     }
 
     @PostMapping(value = "/removedoc", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> removeDocByUid(@RequestParam("docid") String docId, @RequestParam("userid") String userid, @RequestParam("fileid") String fileId) {
+    public ResponseEntity<?> removeDocByUid(@RequestParam("docId") String docId, @RequestParam("userid") String userid, @RequestParam("fileid") String fileId) {
         if (docService.deleteDoc(docId,userid,fileId))
             return ResponseEntity.status(HttpStatus.OK).body(new FileDTO(HttpStatus.OK.value(), Constants.KEY_DELETE_DOC));
         else

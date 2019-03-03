@@ -25,14 +25,11 @@ import java.util.UUID;
 @RequestMapping("/api/v1/client")
 public class ClientController {
 
-
     @Autowired
     LawyerRepo lawyerRepo;
 
     @Autowired
     PackService packService;
-
-
 
     @PostMapping(value = "/packs", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findAllPackByLawyer(@RequestParam("lawyerid") String lawyerid) {

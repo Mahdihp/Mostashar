@@ -45,14 +45,14 @@ public class RoleService {
 				if (savedFeature != null && savedFeature.isPresent()) {
 					featuresSet.add(savedFeature.get());
 				} else {
-					feature.setId(UUID.randomUUID());
+					feature.setFactorId(UUID.randomUUID());
 					featuresSet.add(featureRepo.save(feature));
 				}
 			}
 			role.setFeatures(featuresSet);
 		}
 
-		role.setId(UUID.randomUUID());
+		role.setFactorId(UUID.randomUUID());
 */
 		return false;
 	}

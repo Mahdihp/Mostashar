@@ -14,7 +14,7 @@ public interface LawyerRepo extends JpaRepository<Lawyer,Long> {
     Boolean existsByUsername(String username);
     Boolean existsUserByMobileNumber(long phoneNumber);
     Optional<Lawyer> findByUid(UUID uuid);
-    Optional<Lawyer> findClientByUidAndActive(UUID uuid,boolean isActive);
+    Optional<Lawyer> findByUidAndActive(UUID uuid, boolean isActive);
 
     Optional<List<Lawyer>> findAllByOnline(boolean isOnline);
     Optional<List<Lawyer>> findAllByLevel(short level);

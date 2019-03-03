@@ -31,7 +31,7 @@ public class SettingType {
     private short type;
 
     @OneToMany
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "callId")
     private Set<Setting> setting;
 
     public SettingType() {

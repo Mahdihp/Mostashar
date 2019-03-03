@@ -56,6 +56,8 @@ public class Constants {
     public static final String KEY_FAIL_PACKSNAPSHOT = "مشکلی در ثبت اسنپ شات رخ داد";
 
     public static final String KEY_FAIL_FACTOR = "مشکلی در ثبت فاکتور رخ داد.";
+    public static final String KEY_NOT_FOUND_FACTOR = "فاکتوری موجود نیست.";
+    public static final String KEY_ADD_FACTOR = "فاکتور مورد نظر ثبت شد.";
 
     public static final String KEY_NOT_FOUND_USER = "کاربری با این مشخصات پیدا نشد.";
 
