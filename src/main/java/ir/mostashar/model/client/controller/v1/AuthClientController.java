@@ -24,7 +24,7 @@ import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/auth/client")
+@RequestMapping("/api/v1/client/auth")
 public class AuthClientController {
 
     @Autowired

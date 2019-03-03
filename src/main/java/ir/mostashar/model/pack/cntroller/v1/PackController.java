@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/client")
+@RequestMapping("/api/v1/pack")
 public class PackController {
 
     @Autowired

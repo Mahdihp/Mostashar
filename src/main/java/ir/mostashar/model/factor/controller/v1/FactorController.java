@@ -1,4 +1,4 @@
-package ir.mostashar.model.factor.controller;
+package ir.mostashar.model.factor.controller.v1;
 
 
 import ir.mostashar.model.bill.service.BillService;
@@ -20,7 +20,7 @@ import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/client")
+@RequestMapping("/api/v1/factor")
 public class FactorController {
 
     @Autowired

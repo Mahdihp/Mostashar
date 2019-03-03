@@ -345,15 +345,15 @@ public class AppRunner implements ApplicationRunner {
         constant3.setUid(UUID.fromString("122c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
 
 
-        featureRepo.save(feature1);
-        featureRepo.save(feature2);
-        featureRepo.save(feature3);
-        featureRepo.save(feature4);
-
         roleRepo.save(role1);
         roleRepo.save(role2);
         roleRepo.save(role3);
         roleRepo.save(role4);
+
+        featureRepo.save(feature1);
+        featureRepo.save(feature2);
+        featureRepo.save(feature3);
+        featureRepo.save(feature4);
 
         clientRepo.save(client1);
         clientRepo.save(client2);
