@@ -24,8 +24,8 @@ public class FactorController {
 
 
     @PostMapping(value = "/userfactors", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> findAllUserFactor(@RequestParam("userid") String userid) {
-//        Optional<ListFactorDTO> factors = factorService.fi.findListFactorDTOByUserUid(userid);
+    public ResponseEntity<?> findAllUserFactor(@RequestParam("userid") String userid,@RequestParam("walletid") String walletId) {
+//        Optional<ListFactorDTO> factors = factorService.findListFactorDTOByUserUid(userid);
 //        if (factors.isPresent()) {
 //            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(factors.get());
 //        }

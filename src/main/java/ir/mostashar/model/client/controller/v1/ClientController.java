@@ -23,13 +23,15 @@ import java.util.UUID;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1/client")
-public class PackController {
+public class ClientController {
+
 
     @Autowired
     LawyerRepo lawyerRepo;
 
     @Autowired
     PackService packService;
+
 
 
     @PostMapping(value = "/packs", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})

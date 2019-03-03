@@ -77,4 +77,10 @@ public class Constants {
 
     public static final String KEY_ASSIGN_LAWYER_TO_REQUEST = "مشاور مورد نظر برای درخواست شما انتخاب شد.";
     public static final String KEY_REJECT_LAWYER_TO_REQUEST = "مشاور مورد نظر از درخواست شما برداشته شد.";
+
+    public static final String KEY_ADD_BILL_ADD_WALLET = "صورت حساب شما ثبت و به کیف پول شما اضافه شد.";
+
+    public static final String KEY_NOT_FOUND_WALLET = "کیف پول شما پیدا نشد.";
+
+    public static final String KEY_NOT_FOUND_BILL = "صورت حسابی موجود نیست.";
 }

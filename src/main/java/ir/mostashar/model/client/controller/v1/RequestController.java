@@ -5,6 +5,7 @@ import ir.mostashar.model.lawyer.dto.LawyerDTO;
 import ir.mostashar.model.notification.dto.NotificationForm;
 import ir.mostashar.model.notification.service.NotificationService;
 import ir.mostashar.model.request.Request;
+import ir.mostashar.model.request.RequestStatus;
 import ir.mostashar.model.request.dto.ListRequestDTO;
 import ir.mostashar.model.request.dto.RequestDTO;
 import ir.mostashar.model.request.dto.RequestForm;
@@ -45,7 +46,7 @@ public class RequestController {
             content += " شماره درخواست: " + requestId.toString() + "\n";
             NotificationForm nForm = new NotificationForm(content, System.currentTimeMillis(), requestId.toString());
 
-            System.out.println("Log---createRequest--------------------:"+nForm.toString());
+            System.out.println("Log---createRequest--------------------:" + nForm.toString());
             notificationService.createNotification(nForm);
             return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_CREATE_REQUEST_SUCSSES, requestId.toString()));
         } else {
@@ -92,19 +93,21 @@ public class RequestController {
     }
 
     @PostMapping(value = "/assinglawyerrequest", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> acceptedLawyerByClient(@RequestParam("lawyerid") String lawyerId,@RequestParam("requestid") String requestId) {
-        if (arService.assignLawyerToRequest(lawyerId,requestId,true))
+    public ResponseEntity<?> acceptedLawyerByClient(@RequestParam("lawyerid") String lawyerId, @RequestParam("requestid") String requestId) {
+        if (arService.assignLawyerToRequest(lawyerId, requestId, true)) {
+            requestService.updateStatusRequest(requestId, RequestStatus.WAIT_PEYMENT);
             return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_ASSIGN_LAWYER_TO_REQUEST));
-        else
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
 
     @PostMapping(value = "/rejectlawyerrequest", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> rejectedLawyerByClient(@RequestParam("lawyerid") String lawyerId,@RequestParam("requestid") String requestId) {
-        if (arService.assignLawyerToRequest(lawyerId,requestId,false))
+    public ResponseEntity<?> rejectedLawyerByClient(@RequestParam("lawyerid") String lawyerId, @RequestParam("requestid") String requestId) {
+        if (arService.assignLawyerToRequest(lawyerId, requestId, false)) {
+            requestService.updateStatusRequest(requestId, RequestStatus.SELECT_LAWYER);
             return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_REJECT_LAWYER_TO_REQUEST));
-        else
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
 
 

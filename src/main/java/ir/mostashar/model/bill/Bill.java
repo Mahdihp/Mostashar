@@ -20,10 +20,10 @@ public class Bill {
     @Column(unique = true, nullable = false)
     private UUID uid;
 
-    @Column(name = "transactionnumber")
+    @Column(name = "transactionnumber") // ایا باید یونیک باشد.
     private String transactionNumber;
 
-    @Column(name = "trackingnumber")
+    @Column(name = "trackingnumber") // ایا باید یونیک باشد.
     private String trackingNumber;
 
     @Column(name = "transactiondate")

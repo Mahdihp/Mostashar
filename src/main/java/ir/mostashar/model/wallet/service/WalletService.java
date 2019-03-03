@@ -137,6 +137,14 @@ public class WalletService {
         return false;
     }
 
+    public Optional<Wallet> findByWalletUidAndUserUid(String walletUid, String userUid) {
+        Optional<Wallet> wallet = walletRepo.findByUidAndUserUid(UUID.fromString(walletUid), UUID.fromString(userUid));
+        if(wallet.isPresent()) {
+            return Optional.ofNullable(wallet.get());
+        }
+        return Optional.empty();
+    }
+
     public Optional<Wallet> findByUid(String uid) {
         Optional<Wallet> wallet = walletRepo.findByUid(UUID.fromString(uid));
         if (wallet.isPresent()) {
@@ -145,8 +153,8 @@ public class WalletService {
         return Optional.empty();
     }
 
-    public Optional<Wallet> findByUid(String uid, boolean isDelete) {
-        Optional<Wallet> wallet = walletRepo.findByUidAndDeleted(UUID.fromString(uid), isDelete);
+    public Optional<Wallet> findByUid(String uid, boolean isDeleted) {
+        Optional<Wallet> wallet = walletRepo.findByUidAndDeleted(UUID.fromString(uid), isDeleted);
         if (wallet.isPresent()) {
             return Optional.ofNullable(wallet.get());
         }

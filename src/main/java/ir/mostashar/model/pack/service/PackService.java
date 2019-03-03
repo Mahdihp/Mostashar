@@ -173,7 +173,7 @@ public class PackService {
 
     @Transactional
     public Optional<BuyPackStatus> createBuyPack(BuyPackForm bpForm) {
-//        UUID factorUid;
+//        UUID factorId;
         UUID consumptionPackUid;
         Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(bpForm.getPackId()));
         Optional<Request> request = requestService.findByUid(bpForm.getRequestId());
@@ -222,8 +222,8 @@ public class PackService {
             // insert into factor
 
             /*Factor factor = new Factor();
-            factorUid = UUID.randomUUID();
-            factor.setId(factorUid);
+            factorId = UUID.randomUUID();
+            factor.setId(factorId);
             factor.setServiceDescription(""); //از کجا پر میشه
             factor.setClientName(client.get().getFirstName() + " " + client.get().getLastName());
             factor.setClientCode(""); // پرسیده شود

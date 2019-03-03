@@ -60,7 +60,7 @@ public class LawyerController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new LawyerDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_LAWYER));
     }
 
-    @PostMapping(value = "/acceptrequest", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    @PostMapping(value = "/acceptrequest", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> acceptRequest(@Valid @RequestBody AcceptRequestForm arForm) {
         if (arService.createAcceptRequest(arForm))
             return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_ADD_ACCEPT_REQUEST));
@@ -68,7 +68,7 @@ public class LawyerController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new LawyerDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
 
-    @PostMapping(value = "/failrequest", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    @PostMapping(value = "/failrequest", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> failRequest(@Valid @RequestBody FailRequestForm frForm) {
         if (frService.createFailRequest(frForm))
             return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_ADD_FAIL_REQUEST));

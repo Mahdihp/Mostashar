@@ -17,8 +17,8 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/packs")
-public class PackageController {
+@RequestMapping("/api/v1/client")
+public class PackController {
 
     @Autowired
     PackService packService;
@@ -30,7 +30,7 @@ public class PackageController {
      * @param buyPackForm
      * @return
      */
-    @PostMapping(value = "/createpackage", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    @PostMapping(value = "/createpack", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> createPackage(@Valid @RequestBody BuyPackForm buyPackForm) {
         if (!packService.existsPack(buyPackForm.getName())) {
             if (packService.createPack(buyPackForm)) {
@@ -40,9 +40,9 @@ public class PackageController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_DUPLICATE_PACK));
     }
 
-    @PostMapping(value = "/removepackage{uid}", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> removePackage(@PathVariable(value = "uid") String uid) {
-        Optional<Pack> pack = packService.findPackByUid(uid);
+    @PostMapping(value = "/removepack", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> removePackage(@RequestParam("packid") String packUid) {
+        Optional<Pack> pack = packService.findPackByUid(packUid);
         if (pack.isPresent()) {
             if (packService.deletePack(pack.get())) {
                 return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_DELETE_PACK));
@@ -51,7 +51,7 @@ public class PackageController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_NOT_FOUND_PACK));
     }
 
-    @PostMapping(value = "/updatepackage", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    @PostMapping(value = "/updatepack", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> updatePackage(@Valid @RequestBody BuyPackForm buyPackForm) {
         if (packService.updatePack(buyPackForm))
             return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_UPDATE_PACK_SUCESSE));
@@ -59,9 +59,9 @@ public class PackageController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_NOT_FOUND_PACK));
     }
 
-    @PostMapping(value = "/{uid}", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> findPackByUid(@PathVariable(value = "uid") String uid) {
-        Optional<PackDTO> packDTO = packService.findPackDTOByUid(uid);
+    @PostMapping(value = "/pack", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> findPackByUid(@RequestParam("packid") String packUid) {
+        Optional<PackDTO> packDTO = packService.findPackDTOByUid(packUid);
         if (packDTO.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(packDTO.get());
         else
