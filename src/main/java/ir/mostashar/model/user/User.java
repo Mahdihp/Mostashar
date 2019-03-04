@@ -30,15 +30,15 @@ import org.springframework.data.annotation.LastModifiedDate;
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "users", schema="public")
+@Table(name = "users", schema = "public")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-//    @SequenceGenerator(name = "USERS_ID_SEQ", sequenceName = "USERS_ID_SEQ", allocationSize = 1)
+    //    @SequenceGenerator(name = "USERS_ID_SEQ", sequenceName = "USERS_ID_SEQ", allocationSize = 1)
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USERS_ID_SEQ")
-    @Column (name = "id",unique = true, nullable = false)
+    @Column(name = "callId", unique = true, nullable = false)
     private long id;
 
     @Column(unique = true, nullable = false)
@@ -53,7 +53,7 @@ public class User implements Serializable {
     @Column(name = "fathername")
     private String fatherName;
 
-    @Column(unique = true)
+    @Column(name = "username",unique = true)
     private String username;
 
     @Column(name = "password")
@@ -77,7 +77,7 @@ public class User implements Serializable {
     @Column(name = "active")
     private Boolean active = false;
 
-    @Column(name = "mobilenumber",unique = true)
+    @Column(name = "mobilenumber", unique = true)
     private Long mobileNumber;
 
     @Column(name = "verificationcode")
@@ -87,7 +87,7 @@ public class User implements Serializable {
     @CreatedDate
     private Long creationDate;
 
-    @Column(name = "modificationdate",updatable = true)
+    @Column(name = "modificationdate", updatable = true)
     @LastModifiedDate
     private Long modificationDate;
 
@@ -129,12 +129,6 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "user")
     private Set<UserPopularity> userPopularities = new HashSet<>();
-
-//    @OneToMany(cascade = CascadeType.ALL,
-//            fetch = FetchType.LAZY,
-//            mappedBy = "user")
-//    private Set<UserPopularity> userpopular = new HashSet<>();
-
 
     public User() {
     }

@@ -9,18 +9,20 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BillDTO extends BaseDTO {
 
-    private String uid;
+    private String Id;
     private String transactionNumber;
     private String trackingNumber;
     private Long transactionDate;
     private String billStatus;
     private Long value;
-    private String orgUid;
-    private String walletUid;
-    private String factorUid;
+    private String orgId;
+    private String walletId;
+    private String factorId;
 
     public BillDTO() {
     }
 
-
+    public BillDTO(Integer status, String message) {
+        super(status, message);
+    }
 }

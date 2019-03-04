@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class FactorForm {
 
-    private String uid;
+    private String factorId;
 
     private String serviceDescription;
 
@@ -30,6 +30,7 @@ public class FactorForm {
 
     private boolean deleted = false;
 
-    private String billUid;
+    @NotBlank
+    private String billId;
 
 }

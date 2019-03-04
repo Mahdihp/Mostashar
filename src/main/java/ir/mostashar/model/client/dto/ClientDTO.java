@@ -8,7 +8,7 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClientDTO extends BaseDTO {
 
-    private String uid;
+    private String id;
 
     private String firstName;
 

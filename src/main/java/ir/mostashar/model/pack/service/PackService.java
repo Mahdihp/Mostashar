@@ -63,7 +63,7 @@ public class PackService {
 
 
     /**
-     * first find Advicetype by uid
+     * first find Advicetype by callId
      * two assing to setAdvicetype
      * three save new Pack
      * four retrun true
@@ -144,7 +144,7 @@ public class PackService {
             packDTO.setDescription(pack.get().getDescription());
             packDTO.setPriceTotal(0L);
             packDTO.setAdvicetypeUid(pack.get().getAdvicetype().getUid().toString());
-            packDTO.setActive(pack.get().isActive());
+            packDTO.setActive(pack.get().getActive());
             packDTO.setMinute(pack.get().getMinute());
 
             return Optional.ofNullable(packDTO);
@@ -161,7 +161,7 @@ public class PackService {
             packObj.setName(pack.getName());
             packObj.setDescription(pack.getDescription());
             packObj.setPriceTotal((long) (pack.getMinute() * pricePerminuteByLawyer));
-            packObj.setActive(pack.isActive());
+            packObj.setActive(pack.getActive());
 
             listPackDTO.add(packObj);
         }
@@ -173,7 +173,7 @@ public class PackService {
 
     @Transactional
     public Optional<BuyPackStatus> createBuyPack(BuyPackForm bpForm) {
-//        UUID factorUid;
+//        UUID factorId;
         UUID consumptionPackUid;
         Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(bpForm.getPackId()));
         Optional<Request> request = requestService.findByUid(bpForm.getRequestId());
@@ -222,8 +222,8 @@ public class PackService {
             // insert into factor
 
             /*Factor factor = new Factor();
-            factorUid = UUID.randomUUID();
-            factor.setUid(factorUid);
+            factorId = UUID.randomUUID();
+            factor.setFactorId(factorId);
             factor.setServiceDescription(""); //از کجا پر میشه
             factor.setClientName(client.get().getFirstName() + " " + client.get().getLastName());
             factor.setClientCode(""); // پرسیده شود

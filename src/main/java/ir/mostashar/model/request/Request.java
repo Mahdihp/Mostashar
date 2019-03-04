@@ -8,6 +8,7 @@ import ir.mostashar.model.consumptionPack.ConsumptionPack;
 import ir.mostashar.model.failRequest.FailRequest;
 import ir.mostashar.model.feedback.Feedback;
 import ir.mostashar.model.file.File;
+import ir.mostashar.model.notification.Notification;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -37,6 +38,9 @@ public class Request {
     @Column(name = "creationdate", updatable = false)
     @CreatedDate
     private Long creationDate;
+
+    @Column(name = "requeststatus")
+    private RequestStatus requestStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clientid", nullable = false)
@@ -69,9 +73,15 @@ public class Request {
             mappedBy = "request")
     private Set<AcceptRequest> acceptRequests = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "request")
+    private Set<Notification> notifications = new HashSet<>();
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "advicetypeid", nullable = false)
     private AdviceType advicetype;
+
 
     public Request() {
     }

@@ -10,6 +10,7 @@ import ir.mostashar.model.file.dto.ListFileDTO;
 import ir.mostashar.model.file.repository.FileRepo;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,9 @@ public class FileService {
     @Autowired
     FileRepo fileRepo;
 
+    @Value("${mostashar.app.fileNumber}")
+    private String fileNumber;
+
     /**
      * create file from client
      *
@@ -41,6 +45,12 @@ public class FileService {
             uuid = UUID.randomUUID();
             File file = new File();
             file.setUid(uuid);
+            Long maxFileNumber = fileRepo.findMaxFileNumber();
+            if (maxFileNumber!= null){
+                file.setFileNumber(String.valueOf(maxFileNumber));
+            }else{
+                file.setFileNumber(fileNumber);
+            }
             file.setTitle(fileForm.getTitle());
             file.setDescription(fileForm.getDescription());
             file.setCreationDate(System.currentTimeMillis());
@@ -94,12 +104,13 @@ public class FileService {
             fileDTO.setStatus(HttpStatus.OK.value());
             fileDTO.setMessage(Constants.KEY_SUCESSE);
             fileDTO.setFileId(file.get().getUid().toString());
+            fileDTO.setFileNumber(file.get().getFileNumber());
             fileDTO.setTitle(file.get().getTitle());
             fileDTO.setDescription(file.get().getDescription());
             fileDTO.setCreationDate(file.get().getCreationDate());
             fileDTO.setModificationDate(file.get().getModificationDate());
             if (file.get().getClient() != null)
-                fileDTO.setClientid(file.get().getClient().getUid().toString());
+                fileDTO.setUserId(file.get().getClient().getUid().toString());
 
             return Optional.ofNullable(fileDTO);
         }
@@ -119,11 +130,12 @@ public class FileService {
                 FileDTO fileDTO = new FileDTO();
                 fileDTO.setFileId(file.getUid().toString());
                 fileDTO.setTitle(file.getTitle());
+                fileDTO.setFileNumber(file.getFileNumber());
                 fileDTO.setDescription(file.getDescription());
                 fileDTO.setCreationDate(file.getCreationDate());
                 fileDTO.setModificationDate(file.getModificationDate());
                 if (file.getClient() != null)
-                    fileDTO.setClientid(file.getClient().getUid().toString());
+                    fileDTO.setUserId(file.getClient().getUid().toString());
 
                 dtoList.add(fileDTO);
             }

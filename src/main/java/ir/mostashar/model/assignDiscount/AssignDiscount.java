@@ -32,7 +32,7 @@ public class AssignDiscount {
 	private UUID uid;
 
 	@Column(name = "active")
-	private boolean active = false;
+	private Boolean active = false;
 
 	@Column(name = "creationdate")
 	@CreatedDate

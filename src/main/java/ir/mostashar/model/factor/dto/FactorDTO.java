@@ -8,7 +8,7 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FactorDTO extends BaseDTO {
 
-    private String uid;
+    private String factorId;
     private String serviceDescription;
     private String clientName;
     private String clientCode;
@@ -18,14 +18,19 @@ public class FactorDTO extends BaseDTO {
     private String factorNumber;
     private Long creationDate;
     private Long value;
-    private Boolean deleted = false;
+    private Boolean deleted;
     private String billUid;
-    private String installmentUid;
+    private String installmentId;
 
     public FactorDTO() {
     }
 
     public FactorDTO(Integer status, String message) {
         super(status, message);
+    }
+
+    public FactorDTO(Integer status, String message, String factorId) {
+        super(status, message);
+        this.factorId = factorId;
     }
 }

@@ -2,8 +2,9 @@ package ir.mostashar.model.request;
 
 public enum RequestStatus {
 
-    Waiting,
-    Canceled,
-    Processe,
-    Done
+    SELECT_LAWYER, //  در انتظار انتخاب مشاور
+    WAIT_PEYMENT,// در انتظار خرید بسته
+    WAIT_CALL, // در انتظار تماس از طرف مشاور
+    CANCELED, // کنسل شدن درخواس توسط کاربر
+    DONE // پرونده تمام شده و مختومه شده
 }

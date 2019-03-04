@@ -24,7 +24,7 @@ public class DeviceService {
     DeviceRepo deviceRepo;
 
     /**
-     * Cehck duplicate by User id & Later Create Object
+     * Cehck duplicate by User callId & Later Create Object
      *
      * @param deviceForm
      * @return

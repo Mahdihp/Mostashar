@@ -1,13 +1,11 @@
 package ir.mostashar.model.client.controller.v1;
 
-import ir.mostashar.model.file.dto.ListFileDTO;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.lawyer.repository.LawyerRepo;
-import ir.mostashar.model.pack.BuyPack;
 import ir.mostashar.model.pack.BuyPackStatus;
 import ir.mostashar.model.pack.dto.BuyPackDTO;
-import ir.mostashar.model.pack.dto.ListPackDTO;
 import ir.mostashar.model.pack.dto.BuyPackForm;
+import ir.mostashar.model.pack.dto.ListPackDTO;
 import ir.mostashar.model.pack.dto.PackDTO;
 import ir.mostashar.model.pack.service.PackService;
 import ir.mostashar.utils.Constants;
@@ -25,14 +23,13 @@ import java.util.UUID;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1/client")
-public class PackController {
+public class ClientController {
 
     @Autowired
     LawyerRepo lawyerRepo;
 
     @Autowired
     PackService packService;
-
 
     @PostMapping(value = "/packs", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findAllPackByLawyer(@RequestParam("lawyerid") String lawyerid) {
@@ -68,5 +65,10 @@ public class PackController {
         }
         return null;
     }
+
+    // درخواست اعمال کد تخفیف
+    // Update Scsore per peyment price User.
+
+
 
 }

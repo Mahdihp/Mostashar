@@ -39,7 +39,7 @@ public class ClientService {
             List<ClientDTO> dtoList = new ArrayList<>();
             for (Client client : clients) {
                 ClientDTO bcDTO = new ClientDTO();
-                bcDTO.setUid(client.getUid().toString());
+                bcDTO.setId(client.getUid().toString());
                 bcDTO.setFirstName(client.getFirstName());
                 bcDTO.setLastName(client.getLastName());
                 bcDTO.setFatherName(client.getFatherName());
@@ -77,7 +77,7 @@ public class ClientService {
             bcDTO.setStatus(HttpStatus.OK.value());
             bcDTO.setMessage(Constants.KEY_SUCESSE);
 
-            bcDTO.setUid(client.get().getUid().toString());
+            bcDTO.setId(client.get().getUid().toString());
             bcDTO.setFirstName(client.get().getFirstName());
             bcDTO.setLastName(client.get().getLastName());
             bcDTO.setFatherName(client.get().getFatherName());

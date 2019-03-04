@@ -14,6 +14,7 @@ public interface AcceptRequestRepo extends JpaRepository<AcceptRequest, Long> {
     Optional<Boolean> removeByUid(UUID uuid);
 
     Optional<AcceptRequest> findByUid(UUID uuid);
+    Optional<AcceptRequest> findByRequestUidAndLawyerUid(UUID requestUid,UUID lawyerUid);
 
     List<AcceptRequest> findAll();
 

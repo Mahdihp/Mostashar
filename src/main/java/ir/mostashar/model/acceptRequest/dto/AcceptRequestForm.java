@@ -7,19 +7,13 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class AcceptRequestForm {
 
-    private String uid;
-
-    private Long acceptDate;
-
-    private Long verified;
-
-    private Long finishedTimeFile;
+    private String Id;
 
     @NotBlank
-    private String lawyerUid;
+    private String lawyerId;
 
     @NotBlank
-    private String requestUid;
+    private String requestId;
 
     public AcceptRequestForm() {
     }

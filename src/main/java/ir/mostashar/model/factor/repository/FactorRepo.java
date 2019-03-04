@@ -14,9 +14,10 @@ public interface FactorRepo extends JpaRepository<Factor,Long> {
 
     Optional<Factor> findByUid(UUID uuid);
 
-    Optional<List<Factor>> findAllByClientNameAndDeleted(String clientName,boolean isDelete);
-    Optional<List<Factor>> findAllByFactorNumberAndDeleted(String factorNumber,boolean isDelete);
-    Optional<List<Factor>> findAllByCreationDateAndDeleted(Long createDate,boolean isDelete);
+    Optional<List<Factor>> findAllByClientNameAndDeleted(String clientName,boolean isDeleted);
+    Optional<List<Factor>> findAllByFactorNumberAndDeleted(String factorNumber,boolean isDeleted);
+    Optional<List<Factor>> findAllByCreationDateAndDeleted(Long createDate,boolean isDeleted);
+    Optional<List<Factor>> findAllByBillUidAndDeleted(UUID uuid,boolean isDeleted);
 
 
     @Query("SELECT max(fa.factorNumber) FROM Factor fa")

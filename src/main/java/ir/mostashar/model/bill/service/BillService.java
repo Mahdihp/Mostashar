@@ -5,8 +5,6 @@ import ir.mostashar.model.bill.dto.BillDTO;
 import ir.mostashar.model.bill.dto.BillForm;
 import ir.mostashar.model.bill.dto.ListBillDTO;
 import ir.mostashar.model.bill.repository.BillRepo;
-import ir.mostashar.model.factor.Factor;
-import ir.mostashar.model.factor.service.FactorService;
 import ir.mostashar.model.wallet.Wallet;
 import ir.mostashar.model.wallet.service.WalletService;
 import ir.mostashar.utils.Constants;
@@ -14,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class BillService {
@@ -29,7 +24,7 @@ public class BillService {
     WalletService walletService;
 
     public boolean createBill(BillForm billForm) {
-        Optional<Wallet> wallet = walletService.findByUid(billForm.getWalletUid(), false);
+        Optional<Wallet> wallet = walletService.findByUid(billForm.getWalletId(), false);
         Optional<Boolean> exists = billRepo.existsByTransactionNumber(billForm.getTransactionNumber());
 
         if (wallet.isPresent() && exists.isPresent() && !exists.get()) {
@@ -40,7 +35,7 @@ public class BillService {
             bill.setTransactionDate(billForm.getTransactionDate()); // System.currentTimeMillis()
             bill.setBillStatus(billForm.getBillStatus());
             bill.setValue(billForm.getValue());
-            bill.setOrgUid(billForm.getOrgUid()); // اگر دارد
+            bill.setOrgUid(billForm.getOrgId()); // اگر دارد
             bill.setWallet(wallet.get());
             billRepo.save(bill);
             return true;
@@ -49,15 +44,15 @@ public class BillService {
     }
 
     public boolean updateBill(BillForm billForm) {
-        Optional<Wallet> wallet = walletService.findByUid(billForm.getWalletUid(), false);
-        Optional<Bill> bill = billRepo.findByUid(UUID.fromString(billForm.getUid()));
+        Optional<Wallet> wallet = walletService.findByUid(billForm.getWalletId(), false);
+        Optional<Bill> bill = billRepo.findByUid(UUID.fromString(billForm.getId()));
         if (bill.isPresent() && wallet.isPresent()) {
             bill.get().setTransactionNumber(billForm.getTransactionNumber());
             bill.get().setTrackingNumber(billForm.getTrackingNumber());
             bill.get().setTransactionDate(billForm.getTransactionDate()); // System.currentTimeMillis()
             bill.get().setBillStatus(billForm.getBillStatus());
             bill.get().setValue(billForm.getValue());
-            bill.get().setOrgUid(billForm.getOrgUid()); // اگر دارد
+            bill.get().setOrgUid(billForm.getOrgId()); // اگر دارد
             bill.get().setWallet(wallet.get());
             billRepo.save(bill.get());
             return true;
@@ -73,7 +68,7 @@ public class BillService {
             return Optional.empty();
     }
 
-    public Optional<BillDTO> findBillDTO(Long value, String trackingNumber_TransactionNumber_Uid, short type) {
+    public Optional<BillDTO> findBillDTO(int type, Long value, String trackingNumber_TransactionNumber_Uid) {
         Optional<Bill> bill = Optional.empty();
         switch (type) {
             case 1:
@@ -86,23 +81,49 @@ public class BillService {
                 bill = billRepo.findByTransactionNumber(trackingNumber_TransactionNumber_Uid); //transactionNumber
                 break;
             case 4:
-                bill = billRepo.findByUid(UUID.fromString(trackingNumber_TransactionNumber_Uid)); //uid
+                bill = billRepo.findByUid(UUID.fromString(trackingNumber_TransactionNumber_Uid)); //callId
                 break;
         }
         if (bill.isPresent()) {
             BillDTO billDTO = new BillDTO();
             billDTO.setStatus(HttpStatus.OK.value());
             billDTO.setMessage(Constants.KEY_SUCESSE);
-            billDTO.setUid(bill.get().toString());
+            billDTO.setId(bill.get().toString());
             billDTO.setTransactionNumber(bill.get().getTransactionNumber());
             billDTO.setTrackingNumber(bill.get().getTrackingNumber());
             billDTO.setTransactionDate(bill.get().getTransactionDate()); // System.currentTimeMillis()
             billDTO.setBillStatus(bill.get().getBillStatus());
             billDTO.setValue(bill.get().getValue());
-            billDTO.setOrgUid(bill.get().getOrgUid()); // اگر دارد
-            billDTO.setWalletUid(bill.get().getWallet().getUid().toString());
-            billDTO.setFactorUid(bill.get().getFactor().getUid().toString());
+            billDTO.setOrgId(bill.get().getOrgUid()); // اگر دارد
+            billDTO.setWalletId(bill.get().getWallet().getUid().toString());
+            billDTO.setFactorId(bill.get().getFactor().getUid().toString());
             return Optional.ofNullable(billDTO);
+        }
+        return Optional.empty();
+    }
+
+    public Optional<ListBillDTO> findListBillDTOByWalletUid(String walletUid) {
+        Optional<List<Bill>> bills = billRepo.findByWalletUid(UUID.fromString(walletUid));
+        if (bills.isPresent()) {
+            ListBillDTO lbDTO = new ListBillDTO();
+            lbDTO.setStatus(HttpStatus.OK.value());
+            lbDTO.setMessage(Constants.KEY_SUCESSE);
+            List<BillDTO> dtoList = new ArrayList<>();
+            for (Bill bill : bills.get()) {
+                BillDTO billDTO = new BillDTO();
+                billDTO.setId(bill.toString());
+                billDTO.setTransactionNumber(bill.getTransactionNumber());
+                billDTO.setTrackingNumber(bill.getTrackingNumber());
+                billDTO.setTransactionDate(bill.getTransactionDate()); // System.currentTimeMillis()
+                billDTO.setBillStatus(bill.getBillStatus());
+                billDTO.setValue(bill.getValue());
+                billDTO.setOrgId(bill.getOrgUid()); // اگر دارد
+                billDTO.setWalletId(bill.getWallet().getUid().toString());
+                billDTO.setFactorId(bill.getFactor().getUid().toString());
+                dtoList.add(billDTO);
+            }
+            lbDTO.setData(dtoList);
+            return Optional.ofNullable(lbDTO);
         }
         return Optional.empty();
     }
@@ -116,15 +137,15 @@ public class BillService {
             List<BillDTO> dtoList = new ArrayList<>();
             for (Bill bill : bills.get()) {
                 BillDTO billDTO = new BillDTO();
-                billDTO.setUid(bill.toString());
+                billDTO.setId(bill.toString());
                 billDTO.setTransactionNumber(bill.getTransactionNumber());
                 billDTO.setTrackingNumber(bill.getTrackingNumber());
                 billDTO.setTransactionDate(bill.getTransactionDate()); // System.currentTimeMillis()
                 billDTO.setBillStatus(bill.getBillStatus());
                 billDTO.setValue(bill.getValue());
-                billDTO.setOrgUid(bill.getOrgUid()); // اگر دارد
-                billDTO.setWalletUid(bill.getWallet().getUid().toString());
-                billDTO.setFactorUid(bill.getFactor().getUid().toString());
+                billDTO.setOrgId(bill.getOrgUid()); // اگر دارد
+                billDTO.setWalletId(bill.getWallet().getUid().toString());
+                billDTO.setFactorId(bill.getFactor().getUid().toString());
                 dtoList.add(billDTO);
             }
             lbDTO.setData(dtoList);

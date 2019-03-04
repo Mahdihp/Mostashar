@@ -7,7 +7,10 @@ import ir.mostashar.model.client.repository.ClientRepo;
 import ir.mostashar.model.client.service.ClientService;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.repository.FileRepo;
+import ir.mostashar.model.notification.Notification;
+import ir.mostashar.model.notification.service.NotificationService;
 import ir.mostashar.model.request.Request;
+import ir.mostashar.model.request.RequestStatus;
 import ir.mostashar.model.request.dto.ListRequestDTO;
 import ir.mostashar.model.request.dto.RequestDTO;
 import ir.mostashar.model.request.dto.RequestForm;
@@ -38,6 +41,9 @@ public class RequestService {
     @Autowired
     FileRepo fileRepo;
 
+    @Autowired
+    NotificationService notificationService;
+
     @Value("${mostashar.app.requestNumber}")
     private String requestNumber;
 
@@ -51,7 +57,7 @@ public class RequestService {
     public UUID createRequest(RequestForm requestForm) {
 
         Optional<AdviceType> adviceType = adviceTypeRepo.findByUid(UUID.fromString(requestForm.getAdviceTypeId()));
-        Optional<Client> client = clientService.findClientByUidAndActive(requestForm.getUserId(),true);
+        Optional<Client> client = clientService.findClientByUidAndActive(requestForm.getUserId(), true);
         Optional<File> file = fileRepo.findByUidAndDeleted(UUID.fromString(requestForm.getFileId()), false);
 
         Long maxRequestNumber = requestRepo.findMaxRequestNumber();
@@ -70,6 +76,7 @@ public class RequestService {
                 request.setRequestNumber(requestNumber);
             }
             request.setClient(client.get());
+            request.setRequestStatus(RequestStatus.SELECT_LAWYER);
             request.setCreationDate(System.currentTimeMillis());
             request.setAdvicetype(adviceType.get());
             request.setFile(file.get());
@@ -78,6 +85,16 @@ public class RequestService {
             return uuid;
         }
         return null;
+    }
+
+    public boolean updateStatusRequest(String uid, RequestStatus requestStatus) {
+        Optional<Request> request = requestRepo.findByUidAndDeleted(UUID.fromString(uid), false);
+        if (request.isPresent()) {
+            request.get().setRequestStatus(requestStatus);
+            requestRepo.save(request.get());
+            return true;
+        }
+        return false;
     }
 
     public Optional<Request> findByUid(String requestUid) {
@@ -142,7 +159,7 @@ public class RequestService {
             requestDTO.setStatus(HttpStatus.OK.value());
             requestDTO.setMessage(Constants.KEY_SUCESSE);
             requestDTO.setRequestId(request.get().getUid().toString());
-//            requestDTO.setRequestStatus(request.get().getStatus().name());
+            requestDTO.setRequestStatus(request.get().getRequestStatus().name());
             requestDTO.setRequestNumber(request.get().getRequestNumber());
 
             requestDTO.setClientId(request.get().getClient().getUid().toString());
@@ -162,7 +179,7 @@ public class RequestService {
             for (Request request : requestList.get()) {
                 RequestDTO requestDTO = new RequestDTO();
                 requestDTO.setRequestId(request.getUid().toString());
-//                requestDTO.setRequestStatus(request.getStatus().name());
+                requestDTO.setRequestStatus(request.getRequestStatus().name());
                 requestDTO.setRequestNumber(request.getRequestNumber());
 
                 requestDTO.setClientId(request.getClient().getUid().toString());
@@ -179,9 +196,9 @@ public class RequestService {
         return Optional.empty();
     }
 
-    /*public boolean existsRequest(String clientUid, String fileUid) {
+    /*public boolean existsRequest(String clientId, String fileUid) {
         Optional<Boolean> aBoolean = requestRepo
-                .existsRequestByFileUidAndClientUidAndDeleted(UUID.fromString(clientUid), UUID.fromString(fileUid), false);
+                .existsRequestByFileUidAndClientUidAndDeleted(UUID.fromString(clientId), UUID.fromString(fileUid), false);
         if (aBoolean.isPresent())
             return aBoolean.get();
         else

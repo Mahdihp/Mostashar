@@ -20,6 +20,7 @@ public interface BillRepo extends JpaRepository<Bill, Long> {
     Optional<Bill> findByTrackingNumber(String trackingNumber);
 
     Optional<List<Bill>> findByTransactionDate(Long transactionDate);
+    Optional<List<Bill>> findByWalletUid(UUID walletUid);
 
     Optional<Boolean> existsByTransactionNumber(String transactionNumber);
 }

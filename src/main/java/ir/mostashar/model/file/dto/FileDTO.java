@@ -10,11 +10,12 @@ import lombok.Data;
 public class FileDTO extends BaseDTO {
 
     private String fileId;
+    private String fileNumber;
     private String title;
     private String description;
     private Long creationDate;
     private Long modificationDate;
-    private String clientid;
+    private String userId;
 
     public FileDTO() {
     }

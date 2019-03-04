@@ -16,6 +16,9 @@ public class RequestForm {
     private String fileId;
 
     @NotBlank
+    private String fileNumber;
+
+    @NotBlank
     private String adviceTypeId;
 
     public RequestForm() {

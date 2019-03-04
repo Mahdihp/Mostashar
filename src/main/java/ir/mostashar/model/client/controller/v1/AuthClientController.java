@@ -8,12 +8,11 @@ import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.RoleName;
 import ir.mostashar.model.user.User;
 import ir.mostashar.security.jwt.JwtResponse;
+import ir.mostashar.security.jwt.JwtUtil;
 import ir.mostashar.utils.Constants;
 import ir.mostashar.utils.DataUtil;
-import org.apache.http.impl.bootstrap.HttpServer;
 import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,18 +24,22 @@ import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/auth")
-public class AuthController {
+@RequestMapping("/api/v1/client/auth")
+public class AuthClientController {
 
     @Autowired
     UserServiceImpl userService;
-    public ResponseEntity<?> signUp1(HttpServletRequest httpRequest) {
+
+    @Autowired
+    JwtUtil  jwtUtil;
+
+    @PostMapping(value = "/adddevice", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> addDevice(HttpServletRequest httpRequest) {
 
         return null;
     }
 
     @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-//    public ResponseEntity<?> signUp(@Valid @RequestBody SignUpForm signUpForm) {
     public ResponseEntity<?> signUp(@RequestParam("phoneNumber") String phoneNumber) {
         if (!DataUtil.isValidePhoneNumber(phoneNumber))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_PHONE_NUMBER_NOT_VALID, false));
@@ -50,7 +53,7 @@ public class AuthController {
         role.setUserDefined(true);
         role.setDescription(RoleName.ROLE_CLIENT.name().toLowerCase());
 
-        Optional<String> uuid = userService.registerUser(phoneNumber, role);
+        Optional<String> uuid = userService.registerUser(phoneNumber,-1, role);
         if (uuid.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_REGISTER, uuid.get(), false));
         else
@@ -63,10 +66,10 @@ public class AuthController {
         if (TextUtils.isEmpty(code) && TextUtils.isEmpty(userId))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_INVALID_CODE, false));
 
-        Optional<User> user = userService.findUserIdAndCode(userId, code);
+        Optional<User> user = userService.findUserUidAndCode(userId, code);
         ValidateCode validateCode = new ValidateCode(code, userId);
         if (user.isPresent()) {
-            JwtResponse jwtResponse = userService.generateToken(validateCode);
+            JwtResponse jwtResponse = jwtUtil.generateToken(validateCode);
 
             if (jwtResponse != null) {
                 UUID walletUid = null;

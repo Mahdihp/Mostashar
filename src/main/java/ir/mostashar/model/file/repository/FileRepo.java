@@ -3,6 +3,7 @@ package ir.mostashar.model.file.repository;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.file.File;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,6 +21,9 @@ public interface FileRepo extends JpaRepository<File,Long> {
     Optional<List<File>> findAllByDeleted(boolean isDeleted);
     Optional<List<File>> findAllByClientUidAndDeleted(UUID uuid,boolean isDeleted);
 
+
+    @Query("SELECT max(fi.fileNumber) FROM File fi")
+    Long findMaxFileNumber();
 
 
 }

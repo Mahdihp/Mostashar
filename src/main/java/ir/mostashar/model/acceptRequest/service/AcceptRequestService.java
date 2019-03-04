@@ -32,8 +32,8 @@ public class AcceptRequestService {
     RequestRepo requestRepo;
 
     public boolean createAcceptRequest(AcceptRequestForm arForm) {
-        Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(arForm.getLawyerUid()));
-        Optional<Request> request = requestRepo.findByUidAndDeleted(UUID.fromString(arForm.getRequestUid()), false);
+        Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(arForm.getLawyerId()));
+        Optional<Request> request = requestRepo.findByUidAndDeleted(UUID.fromString(arForm.getRequestId()), false);
         if (lawyer.isPresent() && request.isPresent()) {
             AcceptRequest ar = new AcceptRequest();
             ar.setUid(UUID.randomUUID());
@@ -43,6 +43,16 @@ public class AcceptRequestService {
             ar.setLawyer(lawyer.get());
             ar.setRequest(request.get());
             arRepository.save(ar);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean assignLawyerToRequest(String lawyerUid, String requestUid,boolean isAssign) {
+        Optional<AcceptRequest> acceptRequest = arRepository.findByRequestUidAndLawyerUid(UUID.fromString(lawyerUid), UUID.fromString(requestUid));
+        if (acceptRequest.isPresent()) {
+            acceptRequest.get().setAcceptedByClient(isAssign);
+            arRepository.save(acceptRequest.get());
             return true;
         }
         return false;
