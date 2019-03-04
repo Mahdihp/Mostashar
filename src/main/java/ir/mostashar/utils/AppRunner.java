@@ -38,9 +38,6 @@ public class AppRunner implements ApplicationRunner {
     RoleRepo roleRepo;
 
     @Autowired
-    FeatureRepo featureRepo;
-
-    @Autowired
     FileRepo fileRepo;
 
     @Autowired
@@ -145,52 +142,77 @@ public class AppRunner implements ApplicationRunner {
         role4.setUserDefined(true);
         role4.setDescription("lawyer");
 
-        Set<Feature> features1 = new HashSet<>();
-        Set<Feature> features2 = new HashSet<>();
         Set<Feature> features3 = new HashSet<>();
         Set<Feature> features4 = new HashSet<>();
 
+
+        Set<Feature> features1 = new HashSet<>();
         features1.add(feature1);
         features1.add(feature2);
         features1.add(feature3);
         features1.add(feature4);
+        role1.setFeatures(features1);
 
-        features2.add(feature2);
-        features2.add(feature3);
-        features2.add(feature4);
+        Feature feature22 = new Feature();
+        feature22.setUid(UUID.fromString("e1f9b9bd-9396-4b78-a5e8-569ff236d992"));
+        feature22.setDescription("ACCESS_TO_UPDATE_ONE");
+        feature22.setName("ACCESS_TO_UPDATE_ONE");
 
-        features3.add(feature3);
-        features3.add(feature4);
+        Feature feature33 = new Feature();
+        feature33.setUid(UUID.fromString("e3f9b9bd-9396-4b78-a5e8-569ff236d992"));
+        feature33.setDescription("ACCESS_TO_UPDATE_ONE");
+        feature33.setName("ACCESS_TO_UPDATE_ONE");
 
-        features4.add(feature3);
-        features4.add(feature4);
+        Feature feature44 = new Feature();
+        feature44.setUid(UUID.fromString("e4f9b9bd-9396-4b78-a5e8-569ff236d991"));
+        feature44.setDescription("ACCESS_TO_UPDATE_ONE");
+        feature44.setName("ACCESS_TO_UPDATE_ONE");
+
+        Set<Feature> features2 = new HashSet<>();
+        features2.add(feature22);
+        features2.add(feature33);
+        features2.add(feature44);
+        role2.setFeatures(features2);
+
+        Feature feature333 = new Feature();
+        feature333.setUid(UUID.fromString("e4f9b9bd-9396-4b78-a5e8-569ff236d992"));
+        feature333.setDescription("ACCESS_TO_UPDATE_ONE");
+        feature333.setName("ACCESS_TO_UPDATE_ONE");
+
+        Feature feature444 = new Feature();
+        feature444.setUid(UUID.fromString("e5f9b9bd-9396-4b78-a5e8-569ff236d991"));
+        feature444.setDescription("ACCESS_TO_UPDATE_ONE");
+        feature444.setName("ACCESS_TO_UPDATE_ONE");
+
+        features3.add(feature333);
+        role3.setFeatures(features3);
+
+        Feature feature4444 = new Feature();
+        feature4444.setUid(UUID.fromString("e7f9b9bd-9396-4b78-a5e8-569ff236d991"));
+        feature4444.setDescription("ACCESS_TO_UPDATE_ONE");
+        feature4444.setName("ACCESS_TO_UPDATE_ONE");
+        features4.add(feature4444);
+        role4.setFeatures(features4);
 
 
         Set<Role> roles1 = new HashSet<>();
-        Set<Role> roles2 = new HashSet<>();
-        Set<Role> roles3 = new HashSet<>();
-        Set<Role> roles4 = new HashSet<>();
-
         roles1.add(role1);
         roles1.add(role2);
         roles1.add(role3);
         roles1.add(role4);
 
-        roles2.add(role1);
+        Set<Role> roles2 = new HashSet<>();
         roles2.add(role2);
         roles2.add(role3);
         roles2.add(role4);
 
+        Set<Role> roles3 = new HashSet<>();
         roles3.add(role3);
         roles3.add(role4);
 
-        roles4.add(role3);
+        Set<Role> roles4 = new HashSet<>();
         roles4.add(role4);
 
-        role1.setFeatures(features1);
-        role2.setFeatures(features2);
-        role3.setFeatures(features3);
-        role4.setFeatures(features4);
 
         client1.setRoles(roles1);
         client2.setRoles(roles2);
@@ -350,10 +372,6 @@ public class AppRunner implements ApplicationRunner {
         roleRepo.save(role3);
         roleRepo.save(role4);
 
-        featureRepo.save(feature1);
-        featureRepo.save(feature2);
-        featureRepo.save(feature3);
-        featureRepo.save(feature4);
 
         clientRepo.save(client1);
         clientRepo.save(client2);
