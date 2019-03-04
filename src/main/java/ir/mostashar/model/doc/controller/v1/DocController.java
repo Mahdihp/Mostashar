@@ -1,6 +1,7 @@
 package ir.mostashar.model.doc.controller.v1;
 
 
+import io.swagger.annotations.ApiOperation;
 import ir.mostashar.model.doc.Doc;
 import ir.mostashar.model.doc.dto.DocDTO;
 import ir.mostashar.model.doc.dto.ListDocDTO;
@@ -31,7 +32,7 @@ public class DocController {
     @Autowired
     FileService fileService;
 
-
+    @ApiOperation(value = "Create Document Client", notes = "doctype : 0=Audio, 1=Video, 2=PDF, 3=Picture, 4=Text, 5=ZipFile, 6=RARFile"+"\n"+ "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/createdoc", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> createDocument(@RequestParam("file") MultipartFile file, @RequestParam(value = "fileid") String fileid, @RequestParam(value = "doctype") int docType) {
         Optional<File> fileByUid = fileService.findFileByUid(fileid);
@@ -42,7 +43,7 @@ public class DocController {
         }
         return null;
     }
-
+    @ApiOperation(value = "Find One Document Without Data", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/doc", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findDocByUid(@RequestParam("docId") String docId, @RequestParam("userid") String userid, @RequestParam("fileid") String fileId) {
         Optional<DocDTO> doc = docService.findByWithoutDataUid(docId,userid,fileId);
@@ -52,6 +53,7 @@ public class DocController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new FileDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_DOC));
     }
 
+    @ApiOperation(value = "Find All Document Without Data", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/docs", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findAllDocByUid(@RequestParam("userid") String userid, @RequestParam("fileid") String fileid) {
         Optional<ListDocDTO> docs = docService.findAllByWithoutDataUid(userid, fileid);
@@ -61,6 +63,7 @@ public class DocController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new FileDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_DOC));
     }
 
+    @ApiOperation(value = "Download Data Document", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/docdata", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public ResponseEntity<?> findDocDataByUid(@RequestParam("docId") String docId, @RequestParam("userid") String userid, @RequestParam("fileid") String fileId) {
         Optional<Doc> doc = docService.findByUid(docId,userid,fileId);
@@ -74,6 +77,7 @@ public class DocController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new FileDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_DOC));
     }
 
+    @ApiOperation(value = "Delete Document", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/removedoc", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> removeDocByUid(@RequestParam("docId") String docId, @RequestParam("userid") String userid, @RequestParam("fileid") String fileId) {
         if (docService.deleteDoc(docId,userid,fileId))

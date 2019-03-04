@@ -20,7 +20,7 @@ import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/factor")
+@RequestMapping("/api/v1/factors")
 public class FactorController {
 
     @Autowired

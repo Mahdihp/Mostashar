@@ -12,6 +12,7 @@ import java.util.UUID;
 public interface ReminderRepo extends JpaRepository<Reminder, Long> {
 
     Optional<Reminder> findByUid(UUID uuid);
+    Optional<Reminder> findByNotificationUid(UUID uuid);
     Optional<Reminder> findByUserUid(UUID uuid);
     Optional<List<Reminder>> findAllByNotificationUid(UUID uuid);
 

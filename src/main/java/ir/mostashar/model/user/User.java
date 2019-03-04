@@ -35,11 +35,10 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    //    @SequenceGenerator(name = "USERS_ID_SEQ", sequenceName = "USERS_ID_SEQ", allocationSize = 1)
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USERS_ID_SEQ")
-    @Column(name = "callId", unique = true, nullable = false)
-    private long id;
+    @Column(unique = true, nullable = false)
+    private Long id;
 
     @Column(unique = true, nullable = false)
     private UUID uid;

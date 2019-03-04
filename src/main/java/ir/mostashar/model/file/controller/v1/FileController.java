@@ -1,5 +1,6 @@
 package ir.mostashar.model.file.controller.v1;
 
+import io.swagger.annotations.ApiOperation;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.dto.FileForm;
 import ir.mostashar.model.client.dto.FileUpdateForm;
@@ -46,6 +47,7 @@ public class FileController {
      * @param fileForm
      * @return
      */
+    @ApiOperation(value = "Create File Client", notes ="RequestBody :" + MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PostMapping(value = "/createfile", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> createFile(@Valid @RequestBody FileForm fileForm) {
         Optional<Client> client = clientService.findClientByUidAndActive(fileForm.getUserId(), true);
@@ -70,6 +72,7 @@ public class FileController {
      * @param fileId
      * @return
      */
+    @ApiOperation(value = "Delete File Client", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/removefile", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> removeFile(@RequestParam("fileid") String fileId) {
         Optional<File> file = fileService.findFileByUid(fileId);
@@ -83,6 +86,7 @@ public class FileController {
         return null;
     }
 
+    @ApiOperation(value = "Update File Client", notes ="RequestBody :" + MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PostMapping(value = "/updatefile", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> updateFile(@Valid @RequestBody FileUpdateForm fileUpdateForm) {
         if (fileService.updateFile(fileUpdateForm)) {
@@ -91,6 +95,7 @@ public class FileController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ListFileDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_FILE));
     }
 
+    @ApiOperation(value = "Find One File By fileId", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/file", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findFileByClient(@RequestParam("fileid") String fileId) {
         Optional<FileDTO> file = fileService.findFileDTOByUid(fileId);
@@ -100,6 +105,7 @@ public class FileController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ListFileDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_FILE));
     }
 
+    @ApiOperation(value = "Find All File By userId", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/files", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findAllFileByClient(@RequestParam("userId") String userId) {
         Optional<ListFileDTO> allFileByUserId = fileService.findAllFileByUserId(userId);

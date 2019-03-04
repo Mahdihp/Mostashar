@@ -128,7 +128,7 @@ public class UserServiceImpl implements UserDetailsService {
         lawyer.setUid(uuid);
 
         Optional<AdviceType> adviceType = Optional.empty();
-        switch (advicetype){
+        switch (advicetype) {
             case 1:
                 adviceType = adviceTypeService.findAdviceTypeByName("روانشناسی");
                 if (adviceType.isPresent()) {
@@ -229,4 +229,9 @@ public class UserServiceImpl implements UserDetailsService {
     }
 
 
+    public void deleteUser(String userId) {
+        Optional<User> user = userRepo.findUserByUid(UUID.fromString(userId));
+        if (user.isPresent())
+            userRepo.delete(user.get());
+    }
 }

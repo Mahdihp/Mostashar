@@ -54,6 +54,18 @@ public class ReminderService {
         }
         return false;
     }
+
+    public boolean setReadReminderByNotify(String notifyUid,boolean isRead) {
+        Optional<Reminder> reminder = reminderRepo.findByNotificationUid(UUID.fromString(notifyUid));
+        if (reminder.isPresent()) {
+            reminder.get().setRead(isRead);
+            reminderRepo.save(reminder.get());
+            return true;
+        }
+        return false;
+    }
+
+
     public boolean setReadReminder(String uid) {
         Optional<Reminder> reminder = reminderRepo.findByUid(UUID.fromString(uid));
         if (reminder.isPresent()) {
@@ -88,7 +100,7 @@ public class ReminderService {
         return Optional.empty();
     }
 
-    public Optional<ListReminderDTO> findListReminderDTOByUid(String notifUid) {
+    public Optional<ListReminderDTO> findListReminderDTOByNotifyUid(String notifUid) {
         Optional<List<Reminder>> list = reminderRepo.findAllByNotificationUid(UUID.fromString(notifUid));
         if (list.isPresent()) {
             ListReminderDTO lrDTO = new ListReminderDTO();

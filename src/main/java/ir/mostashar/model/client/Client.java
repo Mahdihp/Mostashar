@@ -1,9 +1,8 @@
 package ir.mostashar.model.client;
 
-import ir.mostashar.model.calls.Call;
+import ir.mostashar.model.call.Call;
 import ir.mostashar.model.feedback.Feedback;
 import ir.mostashar.model.file.File;
-import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.question.Question;
 import ir.mostashar.model.request.Request;
 import ir.mostashar.model.user.User;
@@ -12,10 +11,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 
 @EqualsAndHashCode

@@ -8,7 +8,7 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClientDTO extends BaseDTO {
 
-    private String id;
+    private String userId;
 
     private String firstName;
 
@@ -24,13 +24,13 @@ public class ClientDTO extends BaseDTO {
 
     private Long birthDate;
 
-    private Boolean isOnline = false;
+    private Boolean isOnline ;
 
     private Integer score;
 
     private String avatarHashcode;
 
-    private Boolean active = false;
+    private Boolean active ;
 
     private Long mobileNumber;
 

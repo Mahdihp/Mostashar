@@ -194,7 +194,7 @@ public class PackService {
             consumptionPackUid = UUID.randomUUID();
             consumptionPack.setUid(consumptionPackUid);
             consumptionPack.setConsumptionTime(0L);
-            consumptionPack.setBaseTime(bpForm.getMinute()); // سوال شود این چیه
+            consumptionPack.setBaseTime(bpForm.getMinute());
             consumptionPack.setType(adviceType.get().getType());
             consumptionPack.setFirstInstallmentDate(System.currentTimeMillis()); // سوال شود این چیه
             consumptionPack.setLastInstallmentDate(0L); // سوال شود این چیه

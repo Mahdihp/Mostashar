@@ -1,10 +1,10 @@
-package ir.mostashar.model.calls.service;
+package ir.mostashar.model.call.service;
 
-import ir.mostashar.model.calls.Call;
-import ir.mostashar.model.calls.dto.CallDTO;
-import ir.mostashar.model.calls.dto.CallForm;
-import ir.mostashar.model.calls.dto.ListCallDTO;
-import ir.mostashar.model.calls.repository.CallRepo;
+import ir.mostashar.model.call.Call;
+import ir.mostashar.model.call.dto.CallDTO;
+import ir.mostashar.model.call.dto.CallForm;
+import ir.mostashar.model.call.dto.ListCallDTO;
+import ir.mostashar.model.call.repository.CallRepo;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.service.ClientService;
 import ir.mostashar.model.lawyer.Lawyer;

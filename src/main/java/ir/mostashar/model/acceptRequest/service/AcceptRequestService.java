@@ -5,6 +5,7 @@ import ir.mostashar.model.acceptRequest.dto.AcceptRequestDTO;
 import ir.mostashar.model.acceptRequest.dto.AcceptRequestForm;
 import ir.mostashar.model.acceptRequest.dto.ListAcceptRequestDTO;
 import ir.mostashar.model.acceptRequest.repository.AcceptRequestRepo;
+import ir.mostashar.model.file.File;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.lawyer.repository.LawyerRepo;
 import ir.mostashar.model.request.Request;
@@ -37,7 +38,7 @@ public class AcceptRequestService {
         if (lawyer.isPresent() && request.isPresent()) {
             AcceptRequest ar = new AcceptRequest();
             ar.setUid(UUID.randomUUID());
-            ar.setAcceptDate(System.currentTimeMillis());
+            ar.setCreationDate(System.currentTimeMillis());
             ar.setFinishedTimeFile(null);
             ar.setVerified(null); // پرسیده شود.
             ar.setLawyer(lawyer.get());
@@ -82,36 +83,41 @@ public class AcceptRequestService {
             arDTO.setStatus(HttpStatus.OK.value());
             arDTO.setMessage(Constants.KEY_SUCESSE);
 
-            arDTO.setUid(acceptRequest.get().getUid().toString());
-            arDTO.setAcceptDate(acceptRequest.get().getAcceptDate());
+            arDTO.setAcceptRequesId(acceptRequest.get().getUid().toString());
+            arDTO.setCreationDate(acceptRequest.get().getCreationDate());
             arDTO.setFinishedTimeFile(acceptRequest.get().getFinishedTimeFile());
             arDTO.setVerified(acceptRequest.get().getVerified());
-            arDTO.setRequestUid(acceptRequest.get().getRequest().getUid().toString());
-            arDTO.setLawyerUid(acceptRequest.get().getLawyer().getUid().toString());
+            arDTO.setRequestId(acceptRequest.get().getRequest().getUid().toString());
+            arDTO.setLawyerId(acceptRequest.get().getLawyer().getUid().toString());
             return Optional.ofNullable(arDTO);
         }
         return Optional.empty();
     }
 
 
-    public Optional<ListAcceptRequestDTO> findListAcceptRequestDTO() {
-        List<AcceptRequest> list = arRepository.findAll();
-        if (list != null) {
+    public Optional<ListAcceptRequestDTO> findListAcceptRequestDTO(String requestUid,String fileUid) {
+        Optional<List<AcceptRequest>> list = arRepository.findAllByRequestUid(UUID.fromString(requestUid));
+        if (list.isPresent()) {
+            if (list.get().size() > 0) {
+                File file = list.get().get(0).getRequest().getFile();
+                if (!file.getUid().toString().equals(fileUid))
+                    return Optional.empty();
+            }
             ListAcceptRequestDTO larDTO = new ListAcceptRequestDTO();
             larDTO.setStatus(HttpStatus.OK.value());
             larDTO.setMessage(Constants.KEY_SUCESSE);
             List<AcceptRequestDTO> dtoList = new ArrayList<>();
-            for (AcceptRequest ar : list) {
+            for (AcceptRequest ar : list.get()) {
                 AcceptRequestDTO arDTO = new AcceptRequestDTO();
                 arDTO.setStatus(HttpStatus.OK.value());
                 arDTO.setMessage(Constants.KEY_SUCESSE);
 
-                arDTO.setUid(ar.getUid().toString());
-                arDTO.setAcceptDate(ar.getAcceptDate());
+                arDTO.setAcceptRequesId(ar.getUid().toString());
+                arDTO.setCreationDate(ar.getCreationDate());
                 arDTO.setFinishedTimeFile(ar.getFinishedTimeFile());
                 arDTO.setVerified(ar.getVerified());
-                arDTO.setRequestUid(ar.getRequest().getUid().toString());
-                arDTO.setLawyerUid(ar.getLawyer().getUid().toString());
+                arDTO.setRequestId(ar.getRequest().getUid().toString());
+                arDTO.setLawyerId(ar.getLawyer().getUid().toString());
                 dtoList.add(arDTO);
             }
             larDTO.setData(dtoList);
@@ -129,15 +135,13 @@ public class AcceptRequestService {
             List<AcceptRequestDTO> dtoList = new ArrayList<>();
             for (AcceptRequest ar : allByLawyerUid.get()) {
                 AcceptRequestDTO arDTO = new AcceptRequestDTO();
-                arDTO.setStatus(HttpStatus.OK.value());
-                arDTO.setMessage(Constants.KEY_SUCESSE);
 
-                arDTO.setUid(ar.getUid().toString());
-                arDTO.setAcceptDate(ar.getAcceptDate());
+                arDTO.setAcceptRequesId(ar.getUid().toString());
+                arDTO.setCreationDate(ar.getCreationDate());
                 arDTO.setFinishedTimeFile(ar.getFinishedTimeFile());
                 arDTO.setVerified(ar.getVerified());
-                arDTO.setRequestUid(ar.getRequest().getUid().toString());
-                arDTO.setLawyerUid(ar.getLawyer().getUid().toString());
+                arDTO.setRequestId(ar.getRequest().getUid().toString());
+                arDTO.setLawyerId(ar.getLawyer().getUid().toString());
                 dtoList.add(arDTO);
             }
             larDTO.setData(dtoList);

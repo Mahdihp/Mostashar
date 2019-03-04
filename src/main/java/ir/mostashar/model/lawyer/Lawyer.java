@@ -4,7 +4,7 @@ import ir.mostashar.model.acceptRequest.AcceptRequest;
 import ir.mostashar.model.activity.ActivityLawyer;
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.answer.Answer;
-import ir.mostashar.model.calls.Call;
+import ir.mostashar.model.call.Call;
 import ir.mostashar.model.doc.Doc;
 import ir.mostashar.model.expertise.Expertise;
 import ir.mostashar.model.failRequest.FailRequest;
@@ -15,6 +15,7 @@ import ir.mostashar.model.presenceSchedule.PresenceSchedule;
 import ir.mostashar.model.user.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -60,9 +61,12 @@ public class Lawyer extends User {
     private Organization organization;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    @EqualsAndHashCode.Exclude
     private Set<FailRequest> failRequests;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<AcceptRequest> acceptRequests;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
@@ -80,6 +84,7 @@ public class Lawyer extends User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "advicetype", nullable = false)
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private AdviceType advicetype;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")

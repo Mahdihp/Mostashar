@@ -1,5 +1,6 @@
 package ir.mostashar.model.lawyer.controller.v1;
 
+import io.swagger.annotations.ApiOperation;
 import ir.mostashar.model.BaseDTO;
 import ir.mostashar.model.client.dto.RegisterClientDTO;
 import ir.mostashar.model.client.dto.ValidateCode;
@@ -24,7 +25,7 @@ import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/lawyer/auth")
+@RequestMapping("/api/v1/lawyers/auth")
 public class AuthLawyerController {
 
     @Autowired
@@ -39,6 +40,7 @@ public class AuthLawyerController {
         return null;
     }
 
+    @ApiOperation(value = "Login Lawyer with phoneNumber & advicetype", notes = " 1 = روانشناسی ,2 = حقوق : advicetype" +"\n"+ " RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> signUp(@RequestParam("phoneNumber") String phoneNumber, @RequestParam("advicetype") int advicetype) {
         if (!DataUtil.isValidePhoneNumber(phoneNumber))
