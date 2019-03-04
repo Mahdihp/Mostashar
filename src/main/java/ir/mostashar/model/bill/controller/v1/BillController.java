@@ -5,6 +5,8 @@ import ir.mostashar.model.bill.dto.BillDTO;
 import ir.mostashar.model.bill.dto.BillForm;
 import ir.mostashar.model.bill.dto.ListBillDTO;
 import ir.mostashar.model.bill.service.BillService;
+import ir.mostashar.model.request.RequestStatus;
+import ir.mostashar.model.request.service.RequestService;
 import ir.mostashar.model.wallet.Wallet;
 import ir.mostashar.model.wallet.service.WalletService;
 import ir.mostashar.utils.Constants;
@@ -14,12 +16,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/bill")
+@RequestMapping("/api/v1/bills")
 public class BillController {
 
     @Autowired
@@ -28,10 +31,15 @@ public class BillController {
     @Autowired
     WalletService walletService;
 
+    @Autowired
+    RequestService requestService;
+
+    @Transactional
     @PostMapping(value = "/createbill", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> createBill(@Valid @RequestBody BillForm billForm) {
         if (billService.createBill(billForm)) {
             if (walletService.addMoneyWallet(billForm.getWalletId(), billForm.getUserId(), billForm.getValue())) {
+                requestService.updateStatusRequest(billForm.getRequestId(), RequestStatus.WAIT_CALL);
                 return ResponseEntity.status(HttpStatus.OK).body(new BillDTO(HttpStatus.OK.value(), Constants.KEY_ADD_BILL_ADD_WALLET));
             }
         }

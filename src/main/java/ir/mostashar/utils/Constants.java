@@ -30,6 +30,7 @@ public class Constants {
     public static final String KEY_NOT_FOUND_PACK = "بسته مورد نظر یافت نشد.";
     public static final String KEY_UPDATE_PACK_SUCESSE = "بسته مورد نظر با موفقیت ویرایش شد.";
     public static final String KEY_NOT_FOUND_LAWYER_PACK = "بسته ای برای این مشاور موجود نیست.";
+    public static final String KEY_NOT_FOUND_ACCEPTED = "درخواست پذیرفته شده ای موجود نیست.";
 
 
     public static final String KEY_SUCESSE = "sucesse!";
@@ -79,10 +80,14 @@ public class Constants {
 
     public static final String KEY_ASSIGN_LAWYER_TO_REQUEST = "مشاور مورد نظر برای درخواست شما انتخاب شد.";
     public static final String KEY_REJECT_LAWYER_TO_REQUEST = "مشاور مورد نظر از درخواست شما برداشته شد.";
+    public static final String KEY_NOT_FOUND_FAILS = "هیچ درخواست رد شده ای موجود نیست.";
 
     public static final String KEY_ADD_BILL_ADD_WALLET = "صورت حساب شما ثبت و به کیف پول شما اضافه شد.";
 
     public static final String KEY_NOT_FOUND_WALLET = "کیف پول شما پیدا نشد.";
 
     public static final String KEY_NOT_FOUND_BILL = "صورت حسابی موجود نیست.";
+    public static final String KEY_NOT_FOUND_LAWYER_ACCEPT = "مشاوری برای درخواست شما پیدا نشد.";
+    public static final String KEY_READ_REQUEST = "درخواست توسط مشاور دیده شد.";
+    public static final String KEY_NOT_FOUND_LAWYER_READ = "هیچ مشاوری درخواست شما را نخوانده است.";
 }

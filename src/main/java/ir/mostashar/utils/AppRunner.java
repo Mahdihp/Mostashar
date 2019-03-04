@@ -1,5 +1,7 @@
 package ir.mostashar.utils;
 
+import ir.mostashar.model.acceptRequest.AcceptRequest;
+import ir.mostashar.model.acceptRequest.repository.AcceptRequestRepo;
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.adviceType.repository.AdviceTypeRepo;
 import ir.mostashar.model.client.Client;
@@ -11,8 +13,16 @@ import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.repository.FileRepo;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.lawyer.repository.LawyerRepo;
+import ir.mostashar.model.notification.Notification;
+import ir.mostashar.model.notification.repository.NotificationRepo;
 import ir.mostashar.model.pack.Pack;
 import ir.mostashar.model.pack.repository.PackRepo;
+import ir.mostashar.model.reminder.Reminder;
+import ir.mostashar.model.reminder.repository.ReminderRepo;
+import ir.mostashar.model.request.Request;
+import ir.mostashar.model.request.RequestStatus;
+import ir.mostashar.model.request.repository.RequestRepo;
+import ir.mostashar.model.request.service.RequestService;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.repository.RoleRepo;
 import ir.mostashar.model.role.RoleName;
@@ -48,6 +58,18 @@ public class AppRunner implements ApplicationRunner {
 
     @Autowired
     WalletRepo walletRepo;
+
+    @Autowired
+    RequestRepo requestRepo;
+
+    @Autowired
+    NotificationRepo nRepo;
+
+    @Autowired
+    ReminderRepo reminderRepo;
+
+    @Autowired
+    AcceptRequestRepo acceptRequestRepo;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -97,6 +119,21 @@ public class AppRunner implements ApplicationRunner {
         client4.setAddress("Qom4");
         client4.setVerificationCode("-1");
         client4.setActive(true);
+
+        // 1 = روانشناسی
+        // 2 = حقوق
+        AdviceType adviceType1 = new AdviceType();
+        adviceType1.setUid(UUID.fromString("11482c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType1.setName("روانشناسی");
+        adviceType1.setType((short) 1);
+        adviceType1.setDescription("مشاوره روانشناسی");
+
+        AdviceType adviceType2 = new AdviceType();
+        adviceType2.setUid(UUID.fromString("12482c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType1.setName("حقوق");
+        adviceType1.setType((short) 2);
+        adviceType1.setDescription("مشاوره حقوقی");
+
 
         Feature feature1 = new Feature();
         feature1.setUid(UUID.fromString("e6f9b9bd-9396-4b78-a5e8-569ff236d991"));
@@ -241,19 +278,21 @@ public class AppRunner implements ApplicationRunner {
         file3.setClient(client3);
         file3.setCreationDate(System.currentTimeMillis());
 
-        // 1 = روانشناسی
-        // 2 = حقوق
-        AdviceType adviceType1 = new AdviceType();
-        adviceType1.setUid(UUID.fromString("11482c33-b3a5-4401-a274-016bda28fdce"));
-        adviceType1.setName("روانشناسی");
-        adviceType1.setType((short) 1);
-        adviceType1.setDescription("مشاوره روانشناسی");
+        Request request1=new Request();
+        request1.setUid(UUID.fromString("b4482c13-b3a5-4401-a274-016bda28fdce"));
+        request1.setRequestStatus(RequestStatus.SELECT_LAWYER);
+        request1.setRequestNumber("1000");
+        request1.setCreationDate(System.currentTimeMillis());
+        request1.setClient(client1);
+        request1.setFile(file1);
+        request1.setAdvicetype(adviceType1);
 
-        AdviceType adviceType2 = new AdviceType();
-        adviceType2.setUid(UUID.fromString("12482c33-b3a5-4401-a274-016bda28fdce"));
-        adviceType1.setName("حقوق");
-        adviceType1.setType((short) 2);
-        adviceType1.setDescription("مشاوره حقوقی");
+        Notification notify1 =new Notification();
+        notify1.setUid(UUID.fromString("b4482c14-b3a5-4401-a274-016bda28fdce"));
+        notify1.setCreationDate(System.currentTimeMillis());
+        notify1.setContent(Constants.KEY_NOTIFY_CREATE_REQUEST);
+        notify1.setRequest(request1);
+
 
 
         Pack pack1 = new Pack();
@@ -292,7 +331,7 @@ public class AppRunner implements ApplicationRunner {
         pack5.setActive(true);
 
         Lawyer lawyer1 = new Lawyer();
-        lawyer1.setUid(UUID.fromString("110c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        lawyer1.setUid(UUID.fromString("7cf2431f-e816-4122-90d9-7cd84e64716c"));
         lawyer1.setLevel(1); // 3 level Lawyer
         lawyer1.setAdvicetype(adviceType1);
         lawyer1.setAvailable(true);
@@ -302,7 +341,7 @@ public class AppRunner implements ApplicationRunner {
         lawyer1.setPricePerMinute(3000);
 
         Lawyer lawyer2 = new Lawyer();
-        lawyer2.setUid(UUID.fromString("111c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        lawyer2.setUid(UUID.fromString("95c424c0-3e56-11e9-b475-0800200c9a66"));
         lawyer2.setLevel(2); // 3 level Lawyer
         lawyer2.setAdvicetype(adviceType1);
         lawyer2.setAvailable(true);
@@ -312,7 +351,7 @@ public class AppRunner implements ApplicationRunner {
         lawyer2.setPricePerMinute(6000);
 
         Lawyer lawyer3 = new Lawyer();
-        lawyer3.setUid(UUID.fromString("112c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        lawyer3.setUid(UUID.fromString("9b64b9d0-3e56-11e9-b475-0800200c9a66"));
         lawyer3.setLevel(3); // 3 level Lawyer
         lawyer3.setAdvicetype(adviceType1);
         lawyer3.setAvailable(true);
@@ -320,6 +359,19 @@ public class AppRunner implements ApplicationRunner {
         lawyer3.setMobileNumber(9164528901L);
         lawyer3.setVerificationCode("-1");
         lawyer3.setPricePerMinute(9000);
+
+        Reminder reminder1=new Reminder()  ;
+        reminder1.setUid(UUID.fromString("b4482c15-b3a5-4401-a274-016bda28fdce"));
+        reminder1.setRead(true);
+        reminder1.setUser(lawyer1);
+        reminder1.setNotification(notify1);
+
+        AcceptRequest acceptRequest1=new AcceptRequest();
+        acceptRequest1.setUid(UUID.fromString("b4482c16-b3a5-4401-a274-016bda28fdce"));
+        acceptRequest1.setLawyer(lawyer1);
+        acceptRequest1.setRequest(request1);
+        acceptRequest1.setCreationDate(System.currentTimeMillis());
+
 
 
         Wallet wallet1 = new Wallet();
@@ -382,8 +434,14 @@ public class AppRunner implements ApplicationRunner {
         fileRepo.save(file2);
         fileRepo.save(file3);
 
+
         adviceTypeRepo.save(adviceType1);
         adviceTypeRepo.save(adviceType2);
+
+        requestRepo.save(request1);
+
+        nRepo.save(notify1);
+
 
         packRepo.save(pack1);
         packRepo.save(pack2);
@@ -394,6 +452,9 @@ public class AppRunner implements ApplicationRunner {
         lawyerRepo.save(lawyer1);
         lawyerRepo.save(lawyer2);
         lawyerRepo.save(lawyer3);
+
+        reminderRepo.save(reminder1);
+        acceptRequestRepo.save(acceptRequest1);
 
         walletRepo.save(wallet1);
         walletRepo.save(wallet2);

@@ -17,13 +17,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.Optional;
 import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/request")
+@RequestMapping("/api/v1/requests")
 public class RequestController {
 
     @Autowired
@@ -35,8 +36,7 @@ public class RequestController {
     @Autowired
     AcceptRequestService arService;
 
-    // ایا امکان ایجاد درخواست های مکرر و تکراری برای یه پرونده وجود دارد؟
-    // چطوری جلو هک و ارسال درخواست تکرای را بگیریم
+    @Transactional
     @PostMapping(value = "/createrequest", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> createRequest(@Valid @RequestBody RequestForm requestForm) {
         UUID requestId = requestService.createRequest(requestForm);
@@ -46,7 +46,7 @@ public class RequestController {
             content += " شماره درخواست: " + requestId.toString() + "\n";
             NotificationForm nForm = new NotificationForm(content, System.currentTimeMillis(), requestId.toString());
 
-            System.out.println("Log---createRequest--------------------:" + nForm.toString());
+            System.out.println("Log---createRequest--------------------:" + nForm.getRequestId());
             notificationService.createNotification(nForm);
             return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_CREATE_REQUEST_SUCSSES, requestId.toString()));
         } else {
@@ -92,23 +92,7 @@ public class RequestController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
 
-    @PostMapping(value = "/assinglawyerrequest", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> acceptedLawyerByClient(@RequestParam("lawyerid") String lawyerId, @RequestParam("requestid") String requestId) {
-        if (arService.assignLawyerToRequest(lawyerId, requestId, true)) {
-            requestService.updateStatusRequest(requestId, RequestStatus.WAIT_PEYMENT);
-            return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_ASSIGN_LAWYER_TO_REQUEST));
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
-    }
 
-    @PostMapping(value = "/rejectlawyerrequest", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> rejectedLawyerByClient(@RequestParam("lawyerid") String lawyerId, @RequestParam("requestid") String requestId) {
-        if (arService.assignLawyerToRequest(lawyerId, requestId, false)) {
-            requestService.updateStatusRequest(requestId, RequestStatus.SELECT_LAWYER);
-            return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_REJECT_LAWYER_TO_REQUEST));
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
-    }
 
 
 

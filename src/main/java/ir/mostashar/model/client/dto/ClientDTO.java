@@ -24,13 +24,13 @@ public class ClientDTO extends BaseDTO {
 
     private Long birthDate;
 
-    private Boolean isOnline = false;
+    private Boolean isOnline ;
 
     private Integer score;
 
     private String avatarHashcode;
 
-    private Boolean active = false;
+    private Boolean active ;
 
     private Long mobileNumber;
 

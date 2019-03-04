@@ -58,6 +58,13 @@ public class NotificationService {
         return false;
     }
 
+    public Optional<Notification> findByRequestUid(String requestUid) {
+        Optional<Notification> notification = notificationRepo.findByRequestUid(UUID.fromString(requestUid));
+        if (notification.isPresent())
+            return Optional.ofNullable(notification.get());
+        else
+            return Optional.empty();
+    }
 
     public Optional<Notification> findByUid(String uid) {
         Optional<Notification> notification = notificationRepo.findByRequestUid(UUID.fromString(uid));

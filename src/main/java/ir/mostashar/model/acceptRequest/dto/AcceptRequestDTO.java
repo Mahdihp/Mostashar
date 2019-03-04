@@ -9,17 +9,17 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AcceptRequestDTO extends BaseDTO {
 
-    private String uid;
+    private String AcceptRequesId;
 
-    private Long acceptDate;
+    private Long creationDate;
 
     private Long verified;
 
     private Long finishedTimeFile;
 
-    private String lawyerUid;
+    private String lawyerId;
 
-    private String requestUid;
+    private String requestId;
 
     public AcceptRequestDTO() {
     }

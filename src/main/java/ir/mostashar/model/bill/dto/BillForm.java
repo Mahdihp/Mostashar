@@ -28,6 +28,9 @@ public class BillForm {
     @NotBlank
     private String walletId;
 
+    @NotBlank
+    private String requestId;
+
     public BillForm() {
     }
 }

@@ -4,6 +4,7 @@ import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.request.Request;
 import ir.mostashar.model.request.RequestStatus;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -20,8 +21,9 @@ public class AcceptRequest {
     @Column(unique = true, nullable = false)
     private UUID uid;
 
-    @Column(name = "acceptdate")
-    private Long acceptDate;
+    @Column(name = "creationdate", updatable = false)
+    @CreatedDate
+    private Long creationDate;
 
     @Column(name = "verified")
     private Long verified;
