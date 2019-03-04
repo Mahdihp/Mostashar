@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.hibernate.annotations.NaturalId;
 
-@ToString
+
 @Data
 @Entity
 @Table(name = "roles")
@@ -40,6 +40,8 @@ public class Role {
     private boolean userDefined;
 
     @ManyToMany(mappedBy = "roles")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<User> users = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY,
@@ -48,6 +50,7 @@ public class Role {
             joinColumns = {@JoinColumn(name = "roleid")},
             inverseJoinColumns = {@JoinColumn(name = "featureid")})
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<Feature> features = new HashSet<>();
 
 

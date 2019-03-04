@@ -1,5 +1,6 @@
 package ir.mostashar.model.pack.cntroller.v1;
 
+import io.swagger.annotations.ApiOperation;
 import ir.mostashar.model.BaseDTO;
 import ir.mostashar.model.pack.Pack;
 import ir.mostashar.model.pack.dto.PackDTO;
@@ -30,6 +31,7 @@ public class PackController {
      * @param buyPackForm
      * @return
      */
+    @ApiOperation(value = "Create Pack", notes ="RequestBody :" + MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PostMapping(value = "/createpack", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> createPackage(@Valid @RequestBody BuyPackForm buyPackForm) {
         if (!packService.existsPack(buyPackForm.getName())) {
@@ -39,6 +41,7 @@ public class PackController {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_DUPLICATE_PACK));
     }
+
 
     @PostMapping(value = "/removepack", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> removePackage(@RequestParam("packid") String packUid) {

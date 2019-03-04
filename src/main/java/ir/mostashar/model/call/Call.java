@@ -1,4 +1,4 @@
-package ir.mostashar.model.calls;
+package ir.mostashar.model.call;
 
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.doc.Doc;
@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "calls")
+@Table(name = "call")
 public class Call {
 
     @Id

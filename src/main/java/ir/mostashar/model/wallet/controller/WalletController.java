@@ -1,5 +1,6 @@
 package ir.mostashar.model.wallet.controller;
 
+import io.swagger.annotations.ApiOperation;
 import ir.mostashar.model.client.dto.FileForm;
 import ir.mostashar.model.file.dto.FileDTO;
 import ir.mostashar.model.file.dto.ListFileDTO;
@@ -25,6 +26,7 @@ public class WalletController {
     @Autowired
     private WalletService walletService;
 
+    @ApiOperation(value = "Update Wallet", notes ="RequestBody :" + MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PostMapping(value = "/updatewallet", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> updateWallet(@Valid @RequestBody WalletForm walletForm) {
         if (walletService.updateWallet(walletForm, false))

@@ -1,6 +1,6 @@
-package ir.mostashar.model.calls.repository;
+package ir.mostashar.model.call.repository;
 
-import ir.mostashar.model.calls.Call;
+import ir.mostashar.model.call.Call;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

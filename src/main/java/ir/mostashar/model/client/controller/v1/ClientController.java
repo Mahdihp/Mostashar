@@ -1,5 +1,6 @@
 package ir.mostashar.model.client.controller.v1;
 
+import io.swagger.annotations.Api;
 import ir.mostashar.model.acceptRequest.dto.ListAcceptRequestDTO;
 import ir.mostashar.model.acceptRequest.service.AcceptRequestService;
 import ir.mostashar.model.client.dto.ClientDTO;
@@ -29,11 +30,11 @@ import javax.validation.Valid;
 import java.util.Optional;
 import java.util.UUID;
 
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1/clients")
 public class ClientController {
-    //خادمی
 
     @Autowired
     LawyerRepo lawyerRepo;

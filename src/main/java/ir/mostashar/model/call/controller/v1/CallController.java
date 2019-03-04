@@ -1,10 +1,10 @@
-package ir.mostashar.model.calls.controller.v1;
+package ir.mostashar.model.call.controller.v1;
 
 
-import ir.mostashar.model.calls.dto.CallDTO;
-import ir.mostashar.model.calls.dto.CallForm;
-import ir.mostashar.model.calls.dto.ListCallDTO;
-import ir.mostashar.model.calls.service.CallService;
+import ir.mostashar.model.call.dto.CallDTO;
+import ir.mostashar.model.call.dto.CallForm;
+import ir.mostashar.model.call.dto.ListCallDTO;
+import ir.mostashar.model.call.service.CallService;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

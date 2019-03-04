@@ -1,7 +1,7 @@
 package ir.mostashar.model.doc;
 
 import ir.mostashar.model.activity.ActivityLawyer;
-import ir.mostashar.model.calls.Call;
+import ir.mostashar.model.call.Call;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.lawyer.Lawyer;
 import lombok.Data;

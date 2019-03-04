@@ -1,4 +1,4 @@
-package ir.mostashar.model.calls.dto;
+package ir.mostashar.model.call.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import ir.mostashar.model.BaseDTO;

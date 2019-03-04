@@ -1,4 +1,4 @@
-package ir.mostashar.model.calls.dto;
+package ir.mostashar.model.call.dto;
 
 import lombok.Data;
 

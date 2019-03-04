@@ -1,5 +1,6 @@
 package ir.mostashar.model.request.controller.v1;
 
+import io.swagger.annotations.ApiOperation;
 import ir.mostashar.model.acceptRequest.service.AcceptRequestService;
 import ir.mostashar.model.lawyer.dto.LawyerDTO;
 import ir.mostashar.model.notification.dto.NotificationForm;
@@ -36,6 +37,7 @@ public class RequestController {
     @Autowired
     AcceptRequestService arService;
 
+    @ApiOperation(value = "Create Request", notes ="RequestBody :" + MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Transactional
     @PostMapping(value = "/createrequest", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> createRequest(@Valid @RequestBody RequestForm requestForm) {
@@ -54,6 +56,7 @@ public class RequestController {
         }
     }
 
+    @ApiOperation(value = "Update Request", notes ="RequestBody :" + MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PostMapping(value = "/updaterequest", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> updateRequest(@Valid @RequestBody RequestForm requestForm) {
         if (requestService.updateRequest(requestForm)) {
@@ -63,6 +66,7 @@ public class RequestController {
         }
     }
 
+    @ApiOperation(value = "Find One Request", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/request", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findRequestByClient(@RequestParam("userId") String clientid, @RequestParam("requestid") String requestid) {
         Optional<RequestDTO> request = requestService.findRequestByClient(clientid, requestid);
@@ -72,6 +76,7 @@ public class RequestController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
 
+    @ApiOperation(value = "Find All Request", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/requests", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findAllRequestByClient(@RequestParam("userId") String clientid) {
         Optional<ListRequestDTO> allRequestClient = requestService.findAllRequestClient(clientid);
@@ -81,6 +86,7 @@ public class RequestController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
 
+    @ApiOperation(value = "Delete Request", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/removerequest", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> removeRequest(@RequestParam("requestid") String requestid) {
         Optional<Request> request = requestService.findByUid(requestid);

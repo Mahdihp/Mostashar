@@ -1,5 +1,7 @@
 package ir.mostashar.model.client.controller.v1;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import ir.mostashar.model.BaseDTO;
 import ir.mostashar.model.client.dto.RegisterClientDTO;
 import ir.mostashar.model.client.dto.ValidateCode;
@@ -22,6 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 import java.util.UUID;
 
+
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1/clients/auth")
@@ -35,10 +39,11 @@ public class AuthClientController {
 
     @PostMapping(value = "/adddevice", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> addDevice(HttpServletRequest httpRequest) {
-
         return null;
     }
 
+
+    @ApiOperation(value = "Login Client with phoneNumber", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> signUp(@RequestParam("phoneNumber") String phoneNumber) {
         if (!DataUtil.isValidePhoneNumber(phoneNumber))
@@ -61,6 +66,7 @@ public class AuthClientController {
 
     }
 
+    @ApiOperation(value = "Validate Code", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/validatecode", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> validateCode(@RequestParam("code") String code, @RequestParam("userId") String userId) {
         if (TextUtils.isEmpty(code) && TextUtils.isEmpty(userId))
@@ -88,4 +94,12 @@ public class AuthClientController {
 
     }
 
+    @ApiOperation(value = "Delete Client", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/delete", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> deleteUser(@RequestParam("userid") String userId) {
+        userService.deleteUser(userId);
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_DELETE_USER, false));
+    }
+
 }
+

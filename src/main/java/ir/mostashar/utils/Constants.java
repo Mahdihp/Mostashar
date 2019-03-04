@@ -90,4 +90,6 @@ public class Constants {
     public static final String KEY_NOT_FOUND_LAWYER_ACCEPT = "مشاوری برای درخواست شما پیدا نشد.";
     public static final String KEY_READ_REQUEST = "درخواست توسط مشاور دیده شد.";
     public static final String KEY_NOT_FOUND_LAWYER_READ = "هیچ مشاوری درخواست شما را نخوانده است.";
+    public static final String KEY_DELETE_USER = "کاربر مورد نظر حذف شده.";
+    public static final String KEY_UPDATE_PROFILE = "پروفایل بروز شد.";
 }

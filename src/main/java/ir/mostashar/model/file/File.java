@@ -53,6 +53,8 @@ public class File {
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "file")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<Request> requests = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL,
