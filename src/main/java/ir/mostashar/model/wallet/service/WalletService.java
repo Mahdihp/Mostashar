@@ -39,7 +39,7 @@ public class WalletService {
      * @return
      */
     public boolean createWallet(WalletForm walletForm) {
-        Optional<User> user = userRepo.findUserByUid(UUID.fromString(walletForm.getWalletId()));
+        Optional<User> user = userRepo.findUserByUid(UUID.fromString(walletForm.getUserId()));
         Optional<Boolean> exitWallet = walletRepo.existsByBankAccountNumberOrBankAccountSheba(walletForm.getBankAccountNumber(), walletForm.getBankAccountSheba());
         if (exitWallet.isPresent()) {
             if (!exitWallet.get()) {
@@ -61,6 +61,26 @@ public class WalletService {
             }
         }
         return false;
+    }
+
+    public UUID createOrgWallet(WalletForm walletForm) {
+        Optional<Wallet> wallet = walletRepo.findByOrganizationUidAndOrganizationNameAndDeleted(UUID.fromString(walletForm.getOrganizationId()), walletForm.getOrgUsername(), false);
+        Optional<Organization> org = orgRepository.findByUid(UUID.fromString(walletForm.getOrganizationId()));
+
+        UUID uid;
+        if (!wallet.isPresent() && org.isPresent()) {
+            Wallet newWallet = new Wallet();
+            uid = UUID.randomUUID();
+            newWallet.setUid(uid);
+            newWallet.setBankAccountName(walletForm.getBankAccountName());
+            newWallet.setBankAccountNumber(walletForm.getBankAccountNumber());
+            newWallet.setBankAccountSheba(walletForm.getBankAccountSheba());
+            newWallet.setValue(0);
+            newWallet.setOrganization(org.get());
+            walletRepo.save(newWallet);
+            return uid;
+        }
+        return null;
     }
 
     public boolean saveWallet(Wallet wallet) {
@@ -137,9 +157,10 @@ public class WalletService {
         return false;
     }
 
+
     public Optional<Wallet> findByWalletUidAndUserUid(String walletUid, String userUid) {
         Optional<Wallet> wallet = walletRepo.findByUidAndUserUid(UUID.fromString(walletUid), UUID.fromString(userUid));
-        if(wallet.isPresent()) {
+        if (wallet.isPresent()) {
             return Optional.ofNullable(wallet.get());
         }
         return Optional.empty();

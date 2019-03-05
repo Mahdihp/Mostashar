@@ -5,6 +5,8 @@ import ir.mostashar.model.organization.dto.ListOrganizationDTO;
 import ir.mostashar.model.organization.dto.OrganizationDTO;
 import ir.mostashar.model.organization.dto.OrganizationForm;
 import ir.mostashar.model.organization.repository.OrganizationRepo;
+import ir.mostashar.model.wallet.dto.WalletForm;
+import ir.mostashar.model.wallet.service.WalletService;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,9 @@ public class OrganizationService {
 
     @Autowired
     OrganizationRepo orgRepository;
+
+    @Autowired
+    WalletService walletService;
 
     public UUID createOrganization(OrganizationForm form) {
         Optional<Organization> orgOld = orgRepository.findByUsernameOrName(form.getUsername(), form.getName());
@@ -46,6 +51,8 @@ public class OrganizationService {
         return null;
     }
 
+
+
     public boolean updateOrganization(OrganizationForm form) {
         Optional<Organization> org = orgRepository.findByUsernameOrName(form.getUsername(), form.getName());
         if (org.isPresent()) {
@@ -67,8 +74,8 @@ public class OrganizationService {
         return false;
     }
 
-    public boolean verifiedOrganization(String orgUid,String userName,String password) {
-        Optional<Organization> orgOld = orgRepository.findByUidAndUsernameAndPassword(UUID.fromString(orgUid), userName,password);
+    public boolean verifiedOrganization(String orgUid, String userName, String password) {
+        Optional<Organization> orgOld = orgRepository.findByUidAndUsernameAndPassword(UUID.fromString(orgUid), userName, password);
         if (orgOld.isPresent()) {
             orgOld.get().setVerified(true);
             orgRepository.save(orgOld.get());
@@ -77,8 +84,8 @@ public class OrganizationService {
         return false;
     }
 
-    public boolean unVerifiedOrganization(String orgUid,String userName,String password) {
-        Optional<Organization> orgOld = orgRepository.findByUidAndUsernameAndPassword(UUID.fromString(orgUid), userName,password);
+    public boolean unVerifiedOrganization(String orgUid, String userName, String password) {
+        Optional<Organization> orgOld = orgRepository.findByUidAndUsernameAndPassword(UUID.fromString(orgUid), userName, password);
         if (orgOld.isPresent()) {
             orgOld.get().setVerified(false);
             orgRepository.save(orgOld.get());
@@ -104,8 +111,8 @@ public class OrganizationService {
             return Optional.empty();
     }
 
-    public Optional<OrganizationDTO> findByUidAndUsername(String orgUid,String username) {
-        Optional<Organization> orgOld = orgRepository.findByUidAndUsername(UUID.fromString(orgUid),username);
+    public Optional<OrganizationDTO> findByUidAndUsername(String orgUid, String username) {
+        Optional<Organization> orgOld = orgRepository.findByUidAndUsername(UUID.fromString(orgUid), username);
         if (orgOld.isPresent()) {
             OrganizationDTO orgDTO = new OrganizationDTO();
             orgDTO.setStatus(HttpStatus.OK.value());

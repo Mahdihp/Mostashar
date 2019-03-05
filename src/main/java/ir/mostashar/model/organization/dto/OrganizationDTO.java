@@ -9,6 +9,7 @@ import lombok.Data;
 public class OrganizationDTO extends BaseDTO {
 
     private String orgId;
+    private String walletId;
 
     private String name;
 
@@ -46,4 +47,7 @@ public class OrganizationDTO extends BaseDTO {
         super(status, message);
         this.orgId = orgId;
     }
+
+
+
 }

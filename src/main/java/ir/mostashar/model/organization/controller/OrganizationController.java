@@ -6,6 +6,8 @@ import ir.mostashar.model.factor.dto.FactorForm;
 import ir.mostashar.model.organization.dto.OrganizationDTO;
 import ir.mostashar.model.organization.dto.OrganizationForm;
 import ir.mostashar.model.organization.service.OrganizationService;
+import ir.mostashar.model.wallet.dto.WalletForm;
+import ir.mostashar.model.wallet.service.WalletService;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,10 @@ public class OrganizationController {
 
     @Autowired
     OrganizationService orgService;
+
+    @Autowired
+    WalletService walletService;
+
 
     @PostMapping(value = "/create", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> createOrgs(@Valid @RequestBody OrganizationForm orgForm) {
@@ -68,6 +74,17 @@ public class OrganizationController {
         else
             return ResponseEntity.status(HttpStatus.OK).body(new OrganizationDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_ORG));
 
+    }
+
+    @PostMapping(value = "/createwalletorg", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> createWalletOrg(@Valid @RequestBody WalletForm walletForm) {
+        UUID uid = walletService.createOrgWallet(walletForm);
+        if (uid != null) {
+            OrganizationDTO orgDTo = new OrganizationDTO(HttpStatus.OK.value(), Constants.KEY_SUCESSE);
+            orgDTo.setWalletId(uid.toString());
+            return ResponseEntity.status(HttpStatus.OK).body(orgDTo);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(new OrganizationDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_ORG));
     }
 
 
