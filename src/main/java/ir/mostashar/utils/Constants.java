@@ -92,4 +92,11 @@ public class Constants {
     public static final String KEY_NOT_FOUND_LAWYER_READ = "هیچ مشاوری درخواست شما را نخوانده است.";
     public static final String KEY_DELETE_USER = "کاربر مورد نظر حذف شده.";
     public static final String KEY_UPDATE_PROFILE = "پروفایل بروز شد.";
+
+    public static final String KEY_ADD_ORG = "اطلاعات سازمان ثبت شد.";
+    public static final String KEY_UPDATE_ORG = "اطلاعات سازمان بروز شد.";
+    public static final String KEY_NOT_FOUND_ORG = "سازمانی با این اطلاعات پیدا نشد.";
+
+    public static final String KEY_VERIFIED_ORG = "سازمان مورد نظر تایید شد.";
+    public static final String KEY_UNVERIFIED_ORG = "سازمان مورد نظر رد شد.";
 }

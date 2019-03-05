@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -33,7 +34,7 @@ public class FactorController {
     WalletService walletService;
 
     @PostMapping(value = "/createfactor", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> createFactor(@RequestBody FactorForm factorForm) {
+    public ResponseEntity<?> createFactor(@Valid @RequestBody FactorForm factorForm) {
         UUID factorUid = factorService.createFactor(factorForm);
         if (factorUid != null)
             return ResponseEntity.status(HttpStatus.OK).body(new FactorDTO(HttpStatus.OK.value(), Constants.KEY_ADD_FACTOR , factorUid.toString()));

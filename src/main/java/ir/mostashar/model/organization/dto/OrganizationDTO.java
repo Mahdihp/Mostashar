@@ -8,7 +8,7 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrganizationDTO extends BaseDTO {
 
-    private String orgUid;
+    private String orgId;
 
     private String name;
 
@@ -32,10 +32,18 @@ public class OrganizationDTO extends BaseDTO {
 
     private Long appStock;
 
+    private Boolean verified;
+
+
     public OrganizationDTO() {
     }
 
     public OrganizationDTO(Integer status, String message) {
         super(status, message);
+    }
+
+    public OrganizationDTO(Integer status, String message, String orgId) {
+        super(status, message);
+        this.orgId = orgId;
     }
 }

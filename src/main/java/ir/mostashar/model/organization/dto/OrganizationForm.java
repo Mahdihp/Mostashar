@@ -2,17 +2,22 @@ package ir.mostashar.model.organization.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+
 @Data
 public class OrganizationForm {
 
-    private String orgUid;
+    private String orgId;
 
+    @NotBlank
     private String name;
 
     private String description;
 
+    @NotBlank
     private String address;
 
+    @NotBlank
     private String tel;
 
     private long terminalId;
@@ -21,15 +26,11 @@ public class OrganizationForm {
 
     private String password;
 
-    private Long creationDate;
-
     private Long expiryDate;
 
     private Long orgStock;
 
     private Long appStock;
-
-    private boolean isVerified;
 
     public OrganizationForm() {
     }
