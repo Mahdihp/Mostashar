@@ -4,6 +4,8 @@ import ir.mostashar.model.acceptRequest.AcceptRequest;
 import ir.mostashar.model.acceptRequest.dto.AcceptRequestForm;
 import ir.mostashar.model.acceptRequest.dto.ListAcceptRequestDTO;
 import ir.mostashar.model.acceptRequest.service.AcceptRequestService;
+import ir.mostashar.model.bill.dto.ListBillDTO;
+import ir.mostashar.model.bill.service.BillService;
 import ir.mostashar.model.failRequest.FailRequest;
 import ir.mostashar.model.failRequest.dto.FailRequestForm;
 import ir.mostashar.model.failRequest.dto.ListFailRequestDTO;
@@ -47,6 +49,9 @@ public class LawyerController {
 
     @Autowired
     ReminderService reminderService;
+
+    @Autowired
+    BillService billService;
 
     @PostMapping(value = "/adddevice", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> addDevice(HttpServletRequest httpRequest) {
@@ -153,6 +158,15 @@ public class LawyerController {
             return ResponseEntity.status(HttpStatus.OK).body(list.get());
         else
             return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_FAILS));
+    }
+
+    @PostMapping(value = "/bills", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> findAllBillsLawyer(@RequestParam("lawyerid") String lawyerUid,@RequestParam("walletid") String walletUid) {
+        Optional<ListBillDTO> list = billService.findListBillDTOByWalletUid(walletUid, lawyerUid);
+        if (list.isPresent())
+            return ResponseEntity.status(HttpStatus.OK).body(list.get());
+        else
+            return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_BILL));
     }
 
 

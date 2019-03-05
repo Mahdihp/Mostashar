@@ -1,6 +1,7 @@
 package ir.mostashar.model.bill.repository;
 
 import ir.mostashar.model.bill.Bill;
+import ir.mostashar.model.bill.BillType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -21,6 +22,9 @@ public interface BillRepo extends JpaRepository<Bill, Long> {
 
     Optional<List<Bill>> findByTransactionDate(Long transactionDate);
     Optional<List<Bill>> findByWalletUid(UUID walletUid);
+
+
+    Optional<List<Bill>> findByBillStatus(BillType billType);
 
     Optional<Boolean> existsByTransactionNumber(String transactionNumber);
 }

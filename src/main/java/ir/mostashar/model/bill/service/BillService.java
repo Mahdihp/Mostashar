@@ -1,6 +1,7 @@
 package ir.mostashar.model.bill.service;
 
 import ir.mostashar.model.bill.Bill;
+import ir.mostashar.model.bill.BillType;
 import ir.mostashar.model.bill.dto.BillDTO;
 import ir.mostashar.model.bill.dto.BillForm;
 import ir.mostashar.model.bill.dto.ListBillDTO;
@@ -68,7 +69,7 @@ public class BillService {
             return Optional.empty();
     }
 
-    public Optional<BillDTO> findBillDTO(int type, Long value, String trackingNumber_TransactionNumber_Uid) {
+    public Optional<BillDTO> findBillDTO(int type,Long value, String trackingNumber_TransactionNumber_Uid) {
         Optional<Bill> bill = Optional.empty();
         switch (type) {
             case 1:
@@ -81,8 +82,9 @@ public class BillService {
                 bill = billRepo.findByTransactionNumber(trackingNumber_TransactionNumber_Uid); //transactionNumber
                 break;
             case 4:
-                bill = billRepo.findByUid(UUID.fromString(trackingNumber_TransactionNumber_Uid)); //callId
+                bill = billRepo.findByUid(UUID.fromString(trackingNumber_TransactionNumber_Uid)); // Uid
                 break;
+
         }
         if (bill.isPresent()) {
             BillDTO billDTO = new BillDTO();
@@ -102,9 +104,11 @@ public class BillService {
         return Optional.empty();
     }
 
-    public Optional<ListBillDTO> findListBillDTOByWalletUid(String walletUid) {
+    public Optional<ListBillDTO> findListBillDTOByWalletUid(String walletUid,String userUid) {
+        Optional<Wallet> wallet = walletService.findByUid(userUid, false);
         Optional<List<Bill>> bills = billRepo.findByWalletUid(UUID.fromString(walletUid));
-        if (bills.isPresent()) {
+
+        if (wallet.isPresent() && bills.isPresent()) {
             ListBillDTO lbDTO = new ListBillDTO();
             lbDTO.setStatus(HttpStatus.OK.value());
             lbDTO.setMessage(Constants.KEY_SUCESSE);

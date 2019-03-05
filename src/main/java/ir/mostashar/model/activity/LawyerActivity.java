@@ -21,7 +21,7 @@ public class LawyerActivity {
     private UUID uid;
 
     @Column(name = "type")
-    private int type;
+    private LawyerActivityType type;
 
     @Column(name = "title")
     private String title;
@@ -46,5 +46,6 @@ public class LawyerActivity {
 
     public LawyerActivity() {
     }
+
 
 }

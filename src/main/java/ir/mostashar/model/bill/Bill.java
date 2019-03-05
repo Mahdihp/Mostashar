@@ -32,6 +32,9 @@ public class Bill {
     @Column(name = "billstatus")
     private String billStatus;
 
+    @Column(name = "billtype")
+    private BillType billType;
+
     @Column(name = "value")
     private long value;
 

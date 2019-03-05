@@ -29,7 +29,7 @@ import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/file")
+@RequestMapping("/api/v1/files")
 public class FileController {
 
     @Autowired

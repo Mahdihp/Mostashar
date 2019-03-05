@@ -27,7 +27,7 @@ import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/v1/doc")
+@RequestMapping("/api/v1/docs")
 public class DocController {
 
     @Autowired
@@ -119,7 +119,7 @@ public class DocController {
                 laForm.setDescription(Constants.KEY_DOWNLAOD_DOC_FROM_LAWYER);
                 laForm.setFileId(fileUid);
                 laForm.setDocid(docUid);
-//                laForm.setType(doc.get().getDocType().type);
+                laForm.setType(13);
                 laService.createLawyerActivity(laForm);
             }
             return ResponseEntity.status(HttpStatus.OK).body(new FileDTO(HttpStatus.OK.value(), Constants.KEY_DELETE_DOC));

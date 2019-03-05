@@ -46,18 +46,7 @@ public class BillController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BillDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_WALLET));
     }
 
-    @PostMapping(value = "/bills", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> findBillByUserAndWallet(@RequestParam("userid") String userId, @RequestParam("walletid") String walletId) {
-        Optional<Wallet> wallet = walletService.findByWalletUidAndUserUid(walletId, userId);
-        if (wallet.isPresent()) {
-            Optional<ListBillDTO> bills = billService.findListBillDTOByWalletUid(wallet.get().getUid().toString());
-            if (bills.isPresent())
-                return ResponseEntity.status(HttpStatus.OK).body(bills.get());
-            else
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BillDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_BILL));
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BillDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_WALLET));
-    }
+
 
 
 }

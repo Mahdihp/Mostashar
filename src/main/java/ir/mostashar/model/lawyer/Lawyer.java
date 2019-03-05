@@ -41,18 +41,26 @@ public class Lawyer extends User {
     private Boolean verified = false;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<OfficeAddress> officeAddresses = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<Answer> answer;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<PresenceSchedule> presenceSchedules = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "lawyer_expertise",
             joinColumns = {@JoinColumn(name = "lawyerid")},
             inverseJoinColumns = {@JoinColumn(name = "expertiseid")})
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<Expertise> expertises = new HashSet<>();
 
 

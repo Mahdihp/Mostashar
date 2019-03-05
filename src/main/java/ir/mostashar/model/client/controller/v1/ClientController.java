@@ -3,6 +3,9 @@ package ir.mostashar.model.client.controller.v1;
 import io.swagger.annotations.Api;
 import ir.mostashar.model.acceptRequest.dto.ListAcceptRequestDTO;
 import ir.mostashar.model.acceptRequest.service.AcceptRequestService;
+import ir.mostashar.model.bill.dto.BillDTO;
+import ir.mostashar.model.bill.dto.ListBillDTO;
+import ir.mostashar.model.bill.service.BillService;
 import ir.mostashar.model.client.dto.ClientDTO;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.lawyer.repository.LawyerRepo;
@@ -18,6 +21,7 @@ import ir.mostashar.model.reminder.dto.ListReminderDTO;
 import ir.mostashar.model.reminder.service.ReminderService;
 import ir.mostashar.model.request.RequestStatus;
 import ir.mostashar.model.request.service.RequestService;
+import ir.mostashar.model.wallet.Wallet;
 import ir.mostashar.utils.Constants;
 import ir.mostashar.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +57,9 @@ public class ClientController {
 
     @Autowired
     NotificationService nService;
+
+    @Autowired
+    BillService billService;
 
     /**
      * find All Lawyer Read Request File
@@ -165,6 +172,15 @@ public class ClientController {
             }
         }
         return null;
+    }
+
+    @PostMapping(value = "/bills", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> findAllBillsClient(@RequestParam("clientid") String clientUid,@RequestParam("walletid") String walletUid) {
+        Optional<ListBillDTO> list = billService.findListBillDTOByWalletUid(walletUid, clientUid);
+        if (list.isPresent())
+            return ResponseEntity.status(HttpStatus.OK).body(list.get());
+        else
+            return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_BILL));
     }
 
     // درخواست اعمال کد تخفیف
