@@ -76,8 +76,8 @@ public class OrganizationController {
 
     }
 
-    @PostMapping(value = "/createwalletorg", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> createWalletOrg(@Valid @RequestBody WalletForm walletForm) {
+    @PostMapping(value = "/updatewalletorg", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> updateWalletOrg(@Valid @RequestBody WalletForm walletForm) {
         UUID uid = walletService.createOrgWallet(walletForm);
         if (uid != null) {
             OrganizationDTO orgDTo = new OrganizationDTO(HttpStatus.OK.value(), Constants.KEY_SUCESSE);
@@ -86,6 +86,10 @@ public class OrganizationController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(new OrganizationDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_ORG));
     }
+
+
+
+
 
 
 }
