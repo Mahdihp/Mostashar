@@ -106,6 +106,7 @@ public class User implements Serializable {
     private Wallet wallet;
 
     @OneToMany(mappedBy = "user")
+    @EqualsAndHashCode.Exclude
     private Set<Setting> settings = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
@@ -115,18 +116,22 @@ public class User implements Serializable {
     private Set<InvitedUsers> invitedUsers = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
+    @EqualsAndHashCode.Exclude
     private Set<AssignDiscount> assignDiscounts;
 
     @OneToMany(mappedBy = "user")
+    @EqualsAndHashCode.Exclude
     private Set<Device> devices = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
+    @EqualsAndHashCode.Exclude
     private Set<Reminder> reminders = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
     private Set<SharingPerspectives> sharingPerspectives = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
+    @EqualsAndHashCode.Exclude
     private Set<UserPopularity> userPopularities = new HashSet<>();
 
     public User() {

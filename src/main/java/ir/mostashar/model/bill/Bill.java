@@ -4,6 +4,7 @@ package ir.mostashar.model.bill;
 import ir.mostashar.model.factor.Factor;
 import ir.mostashar.model.wallet.Wallet;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.UUID;

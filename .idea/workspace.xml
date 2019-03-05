@@ -5,13 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1e01327f-4aba-4542-b594-13cb3ce25ace" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/controller/v1/ProfileLawyerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/dto/LawyerProfileForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/dto/AssignDiscountForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/repository/AssignDiscountRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/service/AssignDiscountService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/feedback/dto/FeedBackDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/feedback/dto/FeedBackForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/feedback/dto/ListFeedBackDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/feedback/repository/FeedbackRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/feedback/service/FeedbackService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/ProfileClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/ProfileClientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/service/LawyerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/service/LawyerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/AssignDiscount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/AssignDiscount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/bill/Bill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/bill/Bill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/feedback/Feedback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/feedback/FeedBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/request/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/request/Request.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/user/User.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -49,38 +57,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/AssignDiscount.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="359">
+              <caret line="53" column="46" selection-start-line="53" selection-start-column="46" selection-end-line="53" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/controller/v1/ProfileLawyerController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/service/AssignDiscountService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="48" column="23" lean-forward="true" selection-start-line="48" selection-start-column="23" selection-end-line="48" selection-end-column="23" />
+            <state relative-caret-position="238">
+              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/service/LawyerService.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/repository/AssignDiscountRepo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
-              <caret line="187" selection-start-line="187" selection-end-line="187" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/Lawyer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="95" column="14" selection-start-line="95" selection-end-line="96" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/ProfileClientController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="43" column="140" lean-forward="true" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="140" />
+            <state relative-caret-position="255">
+              <caret line="15" column="69" selection-start-line="15" selection-start-column="69" selection-end-line="15" selection-end-column="69" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -90,8 +95,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -202,20 +207,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/service/UserServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/controller/v1/AuthLawyerController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/AuthClientController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/config/Swagger2Config.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/pack/cntroller/v1/PackController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/request/controller/v1/RequestController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/dto/ClientProfileForm.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/file/File.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/request/Request.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/role/Role.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/dto/ClientDTO.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/service/ClientService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/user/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/factor/controller/v1/FactorController.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/organization/dto/OrganizationForm.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/organization/repository/OrganizationRepo.java" />
@@ -242,7 +234,6 @@
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/activity/dto/LawyerActivityForm.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/activity/LawyerActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/Lawyer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/bill/Bill.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/bill/BillType.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/bill/service/BillService.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/controller/v1/LawyerController.java" />
@@ -253,6 +244,20 @@
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/service/LawyerService.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/ProfileClientController.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/controller/v1/ProfileLawyerController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/feature/service/FeedbackService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/feedback/repository/FeedbackRepo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/feedback/dto/FeedBackForm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/feedback/Feedback.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/feedback/FeedBack.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/feedback/dto/FeedBackDTO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/feedback/dto/ListFeedBackDTO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/feedback/service/FeedbackService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/bill/Bill.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/user/User.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/repository/AssignDiscountRepo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/AssignDiscount.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/service/AssignDiscountService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/dto/AssignDiscountForm.java" />
       </list>
     </option>
   </component>
@@ -353,7 +358,7 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="mostashar" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="assignDiscount" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="mostashar" type="b2602c69:ProjectViewProjectNode" />
@@ -363,8 +368,8 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="mostashar" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="v1" type="462c0819:PsiDirectoryNode" />
+              <item name="assignDiscount" type="462c0819:PsiDirectoryNode" />
+              <item name="repository" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="mostashar" type="b2602c69:ProjectViewProjectNode" />
@@ -374,7 +379,8 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="mostashar" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
-              <item name="lawyer" type="462c0819:PsiDirectoryNode" />
+              <item name="assignDiscount" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="mostashar" type="b2602c69:ProjectViewProjectNode" />
@@ -384,8 +390,7 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="mostashar" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
-              <item name="lawyer" type="462c0819:PsiDirectoryNode" />
-              <item name="v1" type="462c0819:PsiDirectoryNode" />
+              <item name="invitedUser" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="mostashar" type="b2602c69:ProjectViewProjectNode" />
@@ -446,11 +451,11 @@
       <recent name="ir.mostashar.model.request.dto" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="ir.mostashar.model.assignDiscount.dto" />
+      <recent name="ir.mostashar.model.feedback.dto" />
       <recent name="ir.mostashar.model.lawyer.dto" />
       <recent name="ir.mostashar.model.bill" />
       <recent name="ir.mostashar.model.activity.dto" />
-      <recent name="ir.mostashar.model.client.dto" />
-      <recent name="ir.mostashar.model.reminder.dto" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -638,14 +643,7 @@
       <workItem from="1551511527159" duration="11707000" />
       <workItem from="1551592186739" duration="20799000" />
       <workItem from="1551678835157" duration="22996000" />
-      <workItem from="1551764805277" duration="15119000" />
-    </task>
-    <task id="LOCAL-00055" summary="Create PackSnapshot Operation">
-      <created>1550733450088</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1550733450088</updated>
+      <workItem from="1551764805277" duration="18910000" />
     </task>
     <task id="LOCAL-00056" summary="Create PackSnapshot Operation">
       <created>1550734366997</created>
@@ -983,11 +981,18 @@
       <option name="project" value="LOCAL" />
       <updated>1551780024390</updated>
     </task>
-    <option name="localTasksCounter" value="104" />
+    <task id="LOCAL-00104" summary="Create Profile Lawyer Controller">
+      <created>1551781629597</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1551781629598</updated>
+    </task>
+    <option name="localTasksCounter" value="105" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="531687000" />
+    <option name="totallyTimeSpent" value="535478000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1002,7 +1007,7 @@
     <frame x="1366" y="-1" width="1024" height="768" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.28760162" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.25813007" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -1085,7 +1090,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Create &amp; Test UserPopularity Service &amp; Controller Operation" />
     <MESSAGE value="Create &amp; Test Buy Pack Controller Operation" />
     <MESSAGE value="Create &amp; Test Wallet Service &amp; Controller Operation.&#10;Add Money to Wallet." />
     <MESSAGE value="Create &amp; Test Factor Controller." />
@@ -1110,7 +1114,8 @@
     <MESSAGE value="Create Organization Controller v3" />
     <MESSAGE value="Create Lawyer Activity Service v1." />
     <MESSAGE value="Create Bill List Users." />
-    <option name="LAST_COMMIT_MESSAGE" value="Create Bill List Users." />
+    <MESSAGE value="Create Profile Lawyer Controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create Profile Lawyer Controller" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1129,93 +1134,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/dto/ClientProfileForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/file/File.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="57" selection-start-line="57" selection-end-line="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/acceptRequest/AcceptRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="37" column="51" lean-forward="true" selection-start-line="37" selection-start-column="51" selection-end-line="37" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/request/Request.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="55" column="4" selection-start-line="55" selection-start-column="4" selection-end-line="55" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/role/Role.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="53" column="4" selection-start-line="53" selection-start-column="4" selection-end-line="53" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/dto/ClientDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-389">
-          <caret line="10" column="25" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/service/ClientService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="66" column="57" lean-forward="true" selection-start-line="66" selection-start-column="57" selection-end-line="66" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="41">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/organization/dto/OrganizationForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/factor/controller/v1/FactorController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-165">
-          <caret line="19" column="22" lean-forward="true" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/wallet/controller/WalletController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="28" column="4" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/organization/repository/OrganizationRepo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="13" column="62" selection-start-line="13" selection-start-column="62" selection-end-line="13" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/wallet/Wallet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
@@ -1459,24 +1377,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/bill/Bill.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-270">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/controller/v1/LawyerController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="34" column="29" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/user/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1719">
-          <caret line="129" column="67" lean-forward="true" selection-start-line="43" selection-start-column="4" selection-end-line="129" selection-end-column="67" />
         </state>
       </provider>
     </entry>
@@ -1494,13 +1398,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/service/LawyerService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="187" selection-start-line="187" selection-end-line="187" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/ProfileClientController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -1510,8 +1407,136 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/controller/v1/ProfileLawyerController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="48" column="23" lean-forward="true" selection-start-line="48" selection-start-column="23" selection-end-line="48" selection-end-column="23" />
+        <state relative-caret-position="153">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/userFeedback/UserFeedBack.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="22" column="25" lean-forward="true" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/service/LawyerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="120" column="52" lean-forward="true" selection-start-line="119" selection-start-column="12" selection-end-line="120" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/feedback/FeedBack.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="13" column="18" selection-start-line="13" selection-start-column="18" selection-end-line="13" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/feedback/dto/FeedBackDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="20" lean-forward="true" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#537#538#0" expanded="true" />
+            <element signature="e#575#576#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/BaseDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" selection-start-line="5" selection-end-line="6" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/feedback/dto/ListFeedBackDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="4" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/feedback/dto/FeedBackForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="29" lean-forward="true" selection-start-line="7" selection-start-column="3" selection-end-line="15" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/feedback/service/FeedbackService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-29">
+          <caret line="73" column="41" selection-start-line="73" selection-start-column="41" selection-end-line="73" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/feedback/repository/FeedbackRepo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="39" lean-forward="true" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/bill/Bill.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="512">
+          <caret line="45" column="50" selection-start-line="45" selection-start-column="50" selection-end-line="45" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/user/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="99" column="24" lean-forward="true" selection-start-line="99" selection-start-column="24" selection-end-line="99" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/repository/AssignDiscountRepo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="69" selection-start-line="15" selection-start-column="69" selection-end-line="15" selection-end-column="69" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/dto/AssignDiscountForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="33" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/AssignDiscount.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="53" column="46" selection-start-line="53" selection-start-column="46" selection-end-line="53" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/service/AssignDiscountService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

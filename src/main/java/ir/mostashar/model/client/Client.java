@@ -1,7 +1,7 @@
 package ir.mostashar.model.client;
 
 import ir.mostashar.model.call.Call;
-import ir.mostashar.model.feedback.Feedback;
+import ir.mostashar.model.feedback.FeedBack;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.question.Question;
 import ir.mostashar.model.request.Request;
@@ -44,7 +44,7 @@ public class Client extends User {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
     @EqualsAndHashCode.Exclude
-    private Set<Feedback> feedbacks = new HashSet<>();
+    private Set<FeedBack> feedBacks = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
     @EqualsAndHashCode.Exclude

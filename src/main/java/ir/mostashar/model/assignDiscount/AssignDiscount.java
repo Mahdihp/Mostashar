@@ -47,8 +47,7 @@ public class AssignDiscount {
 	private Long expiryDate;
 
 	@ManyToOne
-	@JoinColumn( nullable=false)
-    @JsonIgnore
+	@JoinColumn(name = "userid",nullable=false)
     private User user;
 
 	@ManyToOne

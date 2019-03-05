@@ -6,7 +6,7 @@ import ir.mostashar.model.call.Call;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.consumptionPack.ConsumptionPack;
 import ir.mostashar.model.failRequest.FailRequest;
-import ir.mostashar.model.feedback.Feedback;
+import ir.mostashar.model.feedback.FeedBack;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.notification.Notification;
 import lombok.Data;
@@ -73,7 +73,7 @@ public class Request {
             cascade = CascadeType.ALL,
             mappedBy = "request")
     @EqualsAndHashCode.Exclude
-    private Feedback feedback;
+    private FeedBack feedback;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fileid")

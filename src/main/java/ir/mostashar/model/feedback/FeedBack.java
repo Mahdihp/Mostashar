@@ -10,8 +10,8 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "feedbacks")
-public class Feedback {
+@Table(name = "feedBacks")
+public class FeedBack {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,7 @@ public class Feedback {
     private String description;
 
     @Column(name = "read")
-    private boolean read;
+    private boolean read = false;
 
     @Column(name = "score")
     private int score;
@@ -40,7 +40,7 @@ public class Feedback {
     @JoinColumn(name = "requestid", nullable = false)
     private Request request;
 
-    public Feedback() {
+    public FeedBack() {
     }
 
 }
