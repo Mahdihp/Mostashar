@@ -1,8 +1,11 @@
 package ir.mostashar.model.lawyer.service;
 
+import ir.mostashar.model.adviceType.AdviceType;
+import ir.mostashar.model.adviceType.service.AdviceTypeService;
 import ir.mostashar.model.expertise.dto.ExpertiseDTO;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.lawyer.dto.LawyerDTO;
+import ir.mostashar.model.lawyer.dto.LawyerProfileForm;
 import ir.mostashar.model.lawyer.dto.ListLawyerDTO;
 import ir.mostashar.model.lawyer.repository.LawyerRepo;
 import ir.mostashar.utils.Constants;
@@ -22,6 +25,8 @@ public class LawyerService {
     @Autowired
     LawyerRepo lawyerRepo;
 
+    @Autowired
+    AdviceTypeService adviceTypeService;
 
     public Optional<Lawyer> findLawyerUidAndActive(String userid, boolean active) {
         Optional<Lawyer> lawyer = lawyerRepo.findByUidAndActive(UUID.fromString(userid), active);
@@ -153,7 +158,7 @@ public class LawyerService {
         return Optional.empty();
     }
 
-    public boolean setOnline(String lawyerUid,boolean isOnline) {
+    public boolean setOnline(String lawyerUid, boolean isOnline) {
         Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(lawyerUid));
         if (lawyer.isPresent()) {
             lawyer.get().setOnline(isOnline);
@@ -163,4 +168,27 @@ public class LawyerService {
         return false;
     }
 
+    public boolean updateLawyer(LawyerProfileForm lpForm) {
+        Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(lpForm.getLawyerId()));
+        Optional<AdviceType> adviceType = adviceTypeService.findAdviceTypeByUid(lpForm.getAdvicetypeId());
+        if (lawyer.isPresent() && adviceType.isPresent()) {
+
+            lawyer.get().setFirstName(lawyer.get().getFirstName());
+            lawyer.get().setLastName(lawyer.get().getLastName());
+            lawyer.get().setUsername(lawyer.get().getUsername());
+            lawyer.get().setPassword(lawyer.get().getPassword());
+            lawyer.get().setNationalId(lawyer.get().getNationalId());
+            lawyer.get().setBirthDate(lawyer.get().getBirthDate());
+            lawyer.get().setScore(lawyer.get().getScore());
+            lawyer.get().setAvatarHashcode(lawyer.get().getAvatarHashcode());
+            lawyer.get().setMobileNumber(lawyer.get().getMobileNumber());
+            lawyer.get().setCreationDate(lawyer.get().getCreationDate());
+            lawyer.get().setLevel(lawyer.get().getLevel());
+            lawyer.get().setPricePerMinute(lawyer.get().getPricePerMinute());
+            lawyer.get().setAdvicetype(adviceType.get());
+            lawyerRepo.save(lawyer.get());
+            return true;
+        }
+        return false;
+    }
 }
