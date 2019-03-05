@@ -80,7 +80,7 @@ public class AppRunner implements ApplicationRunner {
     public void initDataBase() {
 
         long countAll = clientRepo.count();
-        System.out.println("Log---------------- Client Count " + countAll);
+        System.out.println("Log---initDataBase-Client Count:"+countAll);
         if (countAll <= 0)
             insertToDb();
     }

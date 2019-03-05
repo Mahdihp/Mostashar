@@ -99,4 +99,7 @@ public class Constants {
 
     public static final String KEY_VERIFIED_ORG = "سازمان مورد نظر تایید شد.";
     public static final String KEY_UNVERIFIED_ORG = "سازمان مورد نظر رد شد.";
+    public static final String KEY_ADD_DOC_FROM_LAWYER = "مستندی از طرف مشاور درج شد.";
+    public static final String KEY_DOWNLOAD_DOC = "مستند دانلود شد.";
+    public static final String KEY_DOWNLAOD_DOC_FROM_LAWYER = "مستند مودر نظر توسط مشاور دانلود شد.";
 }

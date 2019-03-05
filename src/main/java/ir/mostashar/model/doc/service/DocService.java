@@ -142,6 +142,14 @@ public class DocService {
         return null;
     }
 
+    public Optional<Doc> findByUid(String docId) {
+        Optional<Doc> doc = docRepo.findByUid(UUID.fromString(docId));
+        if (doc.isPresent())
+            return doc;
+        else
+            return Optional.empty();
+
+    }
 
     public Optional<Doc> findByUid(String docId, String userid, String fileId) {
         Optional<User> user = userService.findUserByUid(userid);

@@ -1,7 +1,7 @@
 package ir.mostashar.model.lawyer;
 
 import ir.mostashar.model.acceptRequest.AcceptRequest;
-import ir.mostashar.model.activity.ActivityLawyer;
+import ir.mostashar.model.activity.LawyerActivity;
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.answer.Answer;
 import ir.mostashar.model.call.Call;
@@ -70,7 +70,7 @@ public class Lawyer extends User {
     private Set<AcceptRequest> acceptRequests;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-    private Set<ActivityLawyer> activities;
+    private Set<LawyerActivity> activities;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
     private Set<Call> calls;
