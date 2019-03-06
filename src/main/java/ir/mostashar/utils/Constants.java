@@ -92,4 +92,17 @@ public class Constants {
     public static final String KEY_NOT_FOUND_LAWYER_READ = "هیچ مشاوری درخواست شما را نخوانده است.";
     public static final String KEY_DELETE_USER = "کاربر مورد نظر حذف شده.";
     public static final String KEY_UPDATE_PROFILE = "پروفایل بروز شد.";
+
+    public static final String KEY_ADD_ORG = "اطلاعات سازمان ثبت شد.";
+    public static final String KEY_UPDATE_ORG = "اطلاعات سازمان بروز شد.";
+    public static final String KEY_NOT_FOUND_ORG = "سازمانی با این اطلاعات پیدا نشد.";
+
+    public static final String KEY_VERIFIED_ORG = "سازمان مورد نظر تایید شد.";
+    public static final String KEY_UNVERIFIED_ORG = "سازمان مورد نظر رد شد.";
+    public static final String KEY_ADD_DOC_FROM_LAWYER = "مستندی از طرف مشاور درج شد.";
+    public static final String KEY_DOWNLOAD_DOC = "مستند دانلود شد.";
+    public static final String KEY_DOWNLAOD_DOC_FROM_LAWYER = "مستند مودر نظر توسط مشاور دانلود شد.";
+    public static final String KEY_CREATE_ASSIGN_DISCOUNT = "کد تخفیف ساخته شد.";
+    public static final String KEY_ACTIVEED = "فعال شد.";
+    public static final String KEY_DIACTIVE = "غیر فعال شد.";
 }

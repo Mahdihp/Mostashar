@@ -4,6 +4,7 @@ package ir.mostashar.model.bill;
 import ir.mostashar.model.factor.Factor;
 import ir.mostashar.model.wallet.Wallet;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -32,6 +33,9 @@ public class Bill {
     @Column(name = "billstatus")
     private String billStatus;
 
+    @Column(name = "billtype")
+    private BillType billType;
+
     @Column(name = "value")
     private long value;
 
@@ -39,7 +43,7 @@ public class Bill {
     private String orgUid;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "billid", nullable = false)
+    @JoinColumn(name = "walletid", nullable = false)
     private Wallet wallet;
 
     @OneToOne(fetch = FetchType.LAZY,

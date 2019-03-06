@@ -1,6 +1,6 @@
 package ir.mostashar.model.file;
 
-import ir.mostashar.model.activity.ActivityLawyer;
+import ir.mostashar.model.activity.LawyerActivity;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.doc.Doc;
 import ir.mostashar.model.request.Request;
@@ -71,7 +71,7 @@ public class File {
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "file")
-    private Set<ActivityLawyer> activities = new HashSet<>();
+    private Set<LawyerActivity> activities = new HashSet<>();
 
     public File() {
     }

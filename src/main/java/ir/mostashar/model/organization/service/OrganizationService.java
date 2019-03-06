@@ -5,6 +5,8 @@ import ir.mostashar.model.organization.dto.ListOrganizationDTO;
 import ir.mostashar.model.organization.dto.OrganizationDTO;
 import ir.mostashar.model.organization.dto.OrganizationForm;
 import ir.mostashar.model.organization.repository.OrganizationRepo;
+import ir.mostashar.model.wallet.dto.WalletForm;
+import ir.mostashar.model.wallet.service.WalletService;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,11 +23,16 @@ public class OrganizationService {
     @Autowired
     OrganizationRepo orgRepository;
 
-    public boolean createOrganization(OrganizationForm form) {
+    @Autowired
+    WalletService walletService;
+
+    public UUID createOrganization(OrganizationForm form) {
         Optional<Organization> orgOld = orgRepository.findByUsernameOrName(form.getUsername(), form.getName());
+        UUID uuid;
         if (!orgOld.isPresent()) {
             Organization org = new Organization();
-            org.setUid(UUID.randomUUID());
+            uuid = UUID.randomUUID();
+            org.setUid(uuid);
             org.setAddress(form.getAddress());
             org.setAppStock(form.getAppStock());
             org.setCreationDate(System.currentTimeMillis());
@@ -39,10 +46,12 @@ public class OrganizationService {
             org.setVerified(false);
             org.setExpiryDate(3L);// چطوری تعیین میشه
             orgRepository.save(org);
-            return true;
+            return uuid;
         }
-        return false;
+        return null;
     }
+
+
 
     public boolean updateOrganization(OrganizationForm form) {
         Optional<Organization> org = orgRepository.findByUsernameOrName(form.getUsername(), form.getName());
@@ -57,7 +66,7 @@ public class OrganizationService {
             org.get().setTel(form.getTel());
             org.get().setPassword(form.getPassword());
             org.get().setTerminalId(form.getTerminalId());
-            org.get().setVerified(form.isVerified());
+//            org.get().setVerified(form.());
             org.get().setExpiryDate(form.getExpiryDate()); //چطوری تعیین میشه
             orgRepository.save(org.get());
             return true;
@@ -65,8 +74,8 @@ public class OrganizationService {
         return false;
     }
 
-    public boolean setVerifiedOrganization(String orgUid) {
-        Optional<Organization> orgOld = orgRepository.findByUidAndVerified(UUID.fromString(orgUid), false);
+    public boolean verifiedOrganization(String orgUid, String userName, String password) {
+        Optional<Organization> orgOld = orgRepository.findByUidAndUsernameAndPassword(UUID.fromString(orgUid), userName, password);
         if (orgOld.isPresent()) {
             orgOld.get().setVerified(true);
             orgRepository.save(orgOld.get());
@@ -75,8 +84,8 @@ public class OrganizationService {
         return false;
     }
 
-    public boolean deleteVerifiedOrganization(String orgUid) {
-        Optional<Organization> orgOld = orgRepository.findByUidAndVerified(UUID.fromString(orgUid), true);
+    public boolean unVerifiedOrganization(String orgUid, String userName, String password) {
+        Optional<Organization> orgOld = orgRepository.findByUidAndUsernameAndPassword(UUID.fromString(orgUid), userName, password);
         if (orgOld.isPresent()) {
             orgOld.get().setVerified(false);
             orgRepository.save(orgOld.get());
@@ -102,13 +111,13 @@ public class OrganizationService {
             return Optional.empty();
     }
 
-    public Optional<OrganizationDTO> findByVerified(String orgUid, boolean isVerified) {
-        Optional<Organization> orgOld = orgRepository.findByUidAndVerified(UUID.fromString(orgUid), isVerified);
+    public Optional<OrganizationDTO> findByUidAndUsername(String orgUid, String username) {
+        Optional<Organization> orgOld = orgRepository.findByUidAndUsername(UUID.fromString(orgUid), username);
         if (orgOld.isPresent()) {
             OrganizationDTO orgDTO = new OrganizationDTO();
             orgDTO.setStatus(HttpStatus.OK.value());
             orgDTO.setMessage(Constants.KEY_SUCESSE);
-            orgDTO.setOrgUid(orgOld.get().getUid().toString());
+            orgDTO.setOrgId(orgOld.get().getUid().toString());
             orgDTO.setName(orgOld.get().getName());
             orgDTO.setDescription(orgOld.get().getDescription());
             orgDTO.setAddress(orgOld.get().getAddress());
@@ -135,7 +144,7 @@ public class OrganizationService {
             List<OrganizationDTO> dtoList = new ArrayList<>();
             for (Organization org : orgs.get()) {
                 OrganizationDTO orgDTO = new OrganizationDTO();
-                orgDTO.setOrgUid(org.getUid().toString());
+                orgDTO.setOrgId(org.getUid().toString());
                 orgDTO.setName(org.getName());
                 orgDTO.setDescription(org.getDescription());
                 orgDTO.setAddress(org.getAddress());

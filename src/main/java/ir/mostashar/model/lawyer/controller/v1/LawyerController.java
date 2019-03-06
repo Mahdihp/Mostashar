@@ -1,10 +1,12 @@
 package ir.mostashar.model.lawyer.controller.v1;
 
-import ir.mostashar.model.acceptRequest.AcceptRequest;
+import io.swagger.annotations.ApiOperation;
+import ir.mostashar.model.BaseDTO;
 import ir.mostashar.model.acceptRequest.dto.AcceptRequestForm;
 import ir.mostashar.model.acceptRequest.dto.ListAcceptRequestDTO;
 import ir.mostashar.model.acceptRequest.service.AcceptRequestService;
-import ir.mostashar.model.failRequest.FailRequest;
+import ir.mostashar.model.bill.dto.ListBillDTO;
+import ir.mostashar.model.bill.service.BillService;
 import ir.mostashar.model.failRequest.dto.FailRequestForm;
 import ir.mostashar.model.failRequest.dto.ListFailRequestDTO;
 import ir.mostashar.model.failRequest.service.FailRequestService;
@@ -14,8 +16,6 @@ import ir.mostashar.model.lawyer.service.LawyerService;
 import ir.mostashar.model.notification.Notification;
 import ir.mostashar.model.notification.service.NotificationService;
 import ir.mostashar.model.reminder.service.ReminderService;
-import ir.mostashar.model.request.dto.RequestDTO;
-import ir.mostashar.model.request.dto.RequestForm;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,6 +47,9 @@ public class LawyerController {
 
     @Autowired
     ReminderService reminderService;
+
+    @Autowired
+    BillService billService;
 
     @PostMapping(value = "/adddevice", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> addDevice(HttpServletRequest httpRequest) {
@@ -155,5 +158,19 @@ public class LawyerController {
             return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_FAILS));
     }
 
+    @PostMapping(value = "/bills", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> findAllBillsLawyer(@RequestParam("lawyerid") String lawyerUid,@RequestParam("walletid") String walletUid) {
+        Optional<ListBillDTO> list = billService.findListBillDTOByWalletUid(walletUid, lawyerUid);
+        if (list.isPresent())
+            return ResponseEntity.status(HttpStatus.OK).body(list.get());
+        else
+            return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_BILL));
+    }
 
+    @ApiOperation(value = "Delete Lawyer", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/deletelawyer", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> deleteLawyer(@RequestParam("mobilenumber") String mobilenumber) {
+        lawyerService.deleteLawyer(mobilenumber);
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_DELETE_USER, false));
+    }
 }

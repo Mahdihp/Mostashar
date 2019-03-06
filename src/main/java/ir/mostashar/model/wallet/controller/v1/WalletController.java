@@ -1,4 +1,4 @@
-package ir.mostashar.model.wallet.controller;
+package ir.mostashar.model.wallet.controller.v1;
 
 import io.swagger.annotations.ApiOperation;
 import ir.mostashar.model.client.dto.FileForm;
@@ -34,6 +34,9 @@ public class WalletController {
         else
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new FileDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_USER_NOT_FOUND));
     }
+
+
+
 
 
 

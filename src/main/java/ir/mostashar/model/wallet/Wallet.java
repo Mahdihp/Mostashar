@@ -10,6 +10,7 @@ import ir.mostashar.model.bill.Bill;
 import ir.mostashar.model.organization.Organization;
 import ir.mostashar.model.user.User;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
@@ -39,10 +40,11 @@ public class Wallet {
 	private boolean deleted = false;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "wallet")
+	@EqualsAndHashCode.Exclude
 	private Set<Bill> bills = new HashSet<>();
 
 	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "userId",nullable = false)
+	@JoinColumn(name = "userid",nullable = false)
 	private User user;
 
 	@OneToOne(fetch = FetchType.LAZY)

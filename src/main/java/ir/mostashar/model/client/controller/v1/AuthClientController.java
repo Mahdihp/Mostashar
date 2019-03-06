@@ -1,6 +1,5 @@
 package ir.mostashar.model.client.controller.v1;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import ir.mostashar.model.BaseDTO;
 import ir.mostashar.model.client.dto.RegisterClientDTO;
@@ -37,20 +36,15 @@ public class AuthClientController {
     @Autowired
     JwtUtil  jwtUtil;
 
-    @PostMapping(value = "/adddevice", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> addDevice(HttpServletRequest httpRequest) {
-        return null;
-    }
 
-
-    @ApiOperation(value = "Login Client with phoneNumber", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "Login Client with mobileNumber", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> signUp(@RequestParam("phoneNumber") String phoneNumber) {
-        if (!DataUtil.isValidePhoneNumber(phoneNumber))
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_PHONE_NUMBER_NOT_VALID, false));
+    public ResponseEntity<?> signUp(@RequestParam("mobilenumber") String mobileNumber) {
+        if (!DataUtil.isValideMobileNumber(mobileNumber))
+            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_PHONE_NUMBER_NOT_VALID));
 
-        if (userService.existsPhoneNumber(Long.valueOf(phoneNumber)))
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_REGISTER_ALREADY, false));
+        if (userService.existsMobileNumber(Long.valueOf(mobileNumber)))
+            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_REGISTER_ALREADY));
 
         Role role = new Role();
         role.setUid(UUID.randomUUID());
@@ -58,7 +52,7 @@ public class AuthClientController {
         role.setUserDefined(true);
         role.setDescription(RoleName.ROLE_CLIENT.name().toLowerCase());
 
-        Optional<String> uuid = userService.registerUser(phoneNumber,-1, role);
+        Optional<String> uuid = userService.registerUser(mobileNumber,-1, role);
         if (uuid.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_REGISTER, uuid.get(), false));
         else
@@ -94,12 +88,6 @@ public class AuthClientController {
 
     }
 
-    @ApiOperation(value = "Delete Client", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @PostMapping(value = "/delete", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> deleteUser(@RequestParam("userid") String userId) {
-        userService.deleteUser(userId);
-        return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_DELETE_USER, false));
-    }
 
 }
 

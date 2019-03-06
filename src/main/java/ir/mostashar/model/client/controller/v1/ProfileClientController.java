@@ -41,7 +41,7 @@ public class ProfileClientController {
     @Autowired
     ClientService clientService;
 
-    @PostMapping(value = "/profile", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    @PostMapping(value = "/profile", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> updateProfile(@Valid @RequestBody ClientProfileForm cpForm) {
         if (clientService.updateClient(cpForm))
             return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_UPDATE_PROFILE));
@@ -50,7 +50,7 @@ public class ProfileClientController {
     }
 
     @PostMapping(value = "/profile/", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> updateProfile(@RequestParam("userid") String userUid) {
+    public ResponseEntity<?> findClientProfile(@RequestParam("userid") String userUid) {
         Optional<ClientDTO> clientDTO = clientService.findClientDTOByUid(userUid);
         if (clientDTO.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(clientDTO.get());

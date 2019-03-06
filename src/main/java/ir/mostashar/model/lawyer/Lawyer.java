@@ -1,7 +1,7 @@
 package ir.mostashar.model.lawyer;
 
 import ir.mostashar.model.acceptRequest.AcceptRequest;
-import ir.mostashar.model.activity.ActivityLawyer;
+import ir.mostashar.model.activity.LawyerActivity;
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.answer.Answer;
 import ir.mostashar.model.call.Call;
@@ -41,18 +41,26 @@ public class Lawyer extends User {
     private Boolean verified = false;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<OfficeAddress> officeAddresses = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<Answer> answer;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<PresenceSchedule> presenceSchedules = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "lawyer_expertise",
             joinColumns = {@JoinColumn(name = "lawyerid")},
             inverseJoinColumns = {@JoinColumn(name = "expertiseid")})
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<Expertise> expertises = new HashSet<>();
 
 
@@ -70,7 +78,7 @@ public class Lawyer extends User {
     private Set<AcceptRequest> acceptRequests;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-    private Set<ActivityLawyer> activities;
+    private Set<LawyerActivity> activities;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
     private Set<Call> calls;

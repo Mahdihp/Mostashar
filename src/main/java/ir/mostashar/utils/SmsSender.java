@@ -51,7 +51,7 @@ public class SmsSender {
                     System.out.println(send.getSender());
                     System.out.println(send.getMessage());
                     System.out.println(send.getDate());
-                    System.out.println("Log---------sended...");
+                    System.out.println("Log---------sended");
                 } catch (Exception e1) {
                     return;
                 }

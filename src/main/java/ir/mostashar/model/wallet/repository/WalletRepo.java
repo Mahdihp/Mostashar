@@ -17,10 +17,13 @@ public interface WalletRepo extends JpaRepository<Wallet, Long> {
 
     Optional<Wallet> findByUidAndUserUidAndDeleted(UUID uuid, UUID userUid, boolean isDelete);
 
+    Optional<Wallet> findByOrganizationUidAndOrganizationNameAndDeleted(UUID orgUid, String orgUsername, boolean isDelete);
+    Optional<Wallet> findByUidAndOrganizationUidAndDeleted(UUID uid,UUID orgUid, boolean isDelete);
+
     Optional<Wallet> findByUidAndUserUid(UUID uuid, UUID userUid);
 
     Optional<List<Wallet>> findAllByDeleted(boolean isDelete);
 
-    Optional<Boolean> existsByBankAccountNumberOrBankAccountSheba(String bankAccountName,String bankAccountSheba);
+    Optional<Boolean> existsByBankAccountNumberOrBankAccountSheba(String bankAccountName, String bankAccountSheba);
 
 }

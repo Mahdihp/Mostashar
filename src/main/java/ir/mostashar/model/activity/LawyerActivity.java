@@ -1,5 +1,6 @@
 package ir.mostashar.model.activity;
 import ir.mostashar.model.doc.Doc;
+import ir.mostashar.model.doc.DocType;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.lawyer.Lawyer;
 import lombok.Data;
@@ -9,8 +10,8 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "activitylawyers")
-public class ActivityLawyer {
+@Table(name = "lawyeractivitys")
+public class LawyerActivity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +21,7 @@ public class ActivityLawyer {
     private UUID uid;
 
     @Column(name = "type")
-    private int type;
+    private LawyerActivityType type;
 
     @Column(name = "title")
     private String title;
@@ -32,18 +33,19 @@ public class ActivityLawyer {
     private Long creationDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lawyerid",nullable = true)
+    @JoinColumn(name = "lawyerid")
     private Lawyer lawyer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "docId", nullable = true)
+    @JoinColumn(name = "docId")
     private Doc doc;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fileid", nullable = true)
+    @JoinColumn(name = "fileid")
     private File file;
 
-    public ActivityLawyer() {
+    public LawyerActivity() {
     }
+
 
 }
