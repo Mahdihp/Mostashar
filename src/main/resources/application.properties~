@@ -1,13 +1,13 @@
 ## Spring DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
 spring.datasource.url=jdbc:postgresql://localhost:5432/mostashar
 spring.datasource.username=mostashar
-spring.datasource.password=root
+spring.datasource.password=asdasd
 
 # The SQL dialect makes Hibernate generate better SQL for the chosen database
 #spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.PostgreSQLDialect
 
 # Hibernate ddl auto (none, create, create-drop, validate, update)
-spring.jpa.hibernate.ddl-auto=update
+spring.jpa.hibernate.ddl-auto=create-drop
 spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
 #spring.datasource.driver-class-name=org.postgresql.Driver
 
@@ -19,7 +19,6 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 
 debug=true
 mostashar.app.requestNumber = 1000
-mostashar.app.fileNumber=1000
 mostashar.app.factorNumber = 971000
 
 mostashar.app.jwtSecret=jwtMostasharSecretKey

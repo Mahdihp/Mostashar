@@ -82,6 +82,7 @@ public class ClientService {
                 bcDTO.setWalletId(client.getWallet().getUid().toString());
 //                bcDTO.setVerificationCode(client.getVerificationCode());
                 dtoList.add(bcDTO);
+
             }
             lbcDTO.setData(dtoList);
             return Optional.ofNullable(lbcDTO);
