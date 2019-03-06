@@ -167,7 +167,7 @@ public class LawyerController {
             return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_BILL));
     }
 
-    @ApiOperation(value = "Delete Client", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "Delete Lawyer", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/deletelawyer", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> deleteLawyer(@RequestParam("mobilenumber") String mobilenumber) {
         lawyerService.deleteLawyer(mobilenumber);
