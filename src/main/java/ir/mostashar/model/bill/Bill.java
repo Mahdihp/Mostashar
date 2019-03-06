@@ -43,7 +43,7 @@ public class Bill {
     private String orgUid;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "billid", nullable = false)
+    @JoinColumn(name = "walletid", nullable = false)
     private Wallet wallet;
 
     @OneToOne(fetch = FetchType.LAZY,

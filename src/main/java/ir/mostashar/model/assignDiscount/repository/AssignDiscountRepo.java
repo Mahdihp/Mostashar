@@ -14,5 +14,7 @@ public interface AssignDiscountRepo extends JpaRepository<AssignDiscount,Long> {
     Optional<AssignDiscount> findByUid(UUID uid);
     Optional<AssignDiscount> findByUserUid(UUID uid);
     Optional<List<AssignDiscount>> findAllByActive(boolean isActive);
+    Optional<List<AssignDiscount>> findAllByUserUidAndActive(UUID uid,boolean isActive);
+    Optional<List<AssignDiscount>> findAllByUserUid(UUID uid);
 
 }

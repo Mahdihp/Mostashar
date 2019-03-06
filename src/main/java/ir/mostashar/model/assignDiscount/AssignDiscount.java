@@ -2,14 +2,7 @@ package ir.mostashar.model.assignDiscount;
 
 import java.util.UUID;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import ir.mostashar.model.discountPack.DiscountPack;
 
@@ -46,13 +39,13 @@ public class AssignDiscount {
 	@CreatedDate
 	private Long expiryDate;
 
-	@ManyToOne
-	@JoinColumn(name = "userid",nullable=false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "userid", nullable = false)
     private User user;
 
-	@ManyToOne
-    @JoinColumn(name="discountpackid", nullable=false)
-    private DiscountPack discountPack;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "discountpackid", nullable = false)
+    private DiscountPack discountpack;
 
 	public AssignDiscount() {
 	}

@@ -33,6 +33,15 @@ public class DiscountPackService {
         }
     }
 
+    public Optional<DiscountPack> findDiscountPackByUid(String uid) {
+        Optional<DiscountPack> discountPack = discountPackRepo.findByUid(UUID.fromString(uid));
+        if (discountPack.isPresent())
+            return Optional.ofNullable(discountPack.get());
+        else
+            return Optional.empty();
+    }
+
+
     public Optional<DiscountPackDTO> findAllByUid(String uid) {
         Optional<DiscountPack> discountPack = discountPackRepo.findByUid(UUID.fromString(uid));
         if (discountPack.isPresent()) {

@@ -4,11 +4,14 @@ import ir.mostashar.model.acceptRequest.AcceptRequest;
 import ir.mostashar.model.acceptRequest.repository.AcceptRequestRepo;
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.adviceType.repository.AdviceTypeRepo;
+import ir.mostashar.model.assignDiscount.AssignDiscount;
+import ir.mostashar.model.assignDiscount.repository.AssignDiscountRepo;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.repository.ClientRepo;
 import ir.mostashar.model.constant.Constant;
+import ir.mostashar.model.discountPack.DiscountPack;
+import ir.mostashar.model.discountPack.repository.DiscountPackRepo;
 import ir.mostashar.model.feature.Feature;
-import ir.mostashar.model.feature.repository.FeatureRepo;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.repository.FileRepo;
 import ir.mostashar.model.lawyer.Lawyer;
@@ -22,7 +25,6 @@ import ir.mostashar.model.reminder.repository.ReminderRepo;
 import ir.mostashar.model.request.Request;
 import ir.mostashar.model.request.RequestStatus;
 import ir.mostashar.model.request.repository.RequestRepo;
-import ir.mostashar.model.request.service.RequestService;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.repository.RoleRepo;
 import ir.mostashar.model.role.RoleName;
@@ -70,6 +72,12 @@ public class AppRunner implements ApplicationRunner {
 
     @Autowired
     AcceptRequestRepo acceptRequestRepo;
+
+    @Autowired
+    DiscountPackRepo discountPackRepo;
+
+    @Autowired
+    AssignDiscountRepo assignDiscountRepo;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -119,6 +127,23 @@ public class AppRunner implements ApplicationRunner {
         client4.setAddress("Qom4");
         client4.setVerificationCode("-1");
         client4.setActive(true);
+
+        DiscountPack discountPack1=new DiscountPack();
+        discountPack1.setUid(UUID.fromString("11502c33-b3a5-4401-a274-016bda28fdce"));
+        discountPack1.setName("بسته تخفیفی 5 دقیقه ای ");
+        discountPack1.setValue(5);
+
+        DiscountPack discountPack2=new DiscountPack();
+        discountPack2.setUid(UUID.fromString("11602c33-b3a5-4401-a274-016bda28fdce"));
+        discountPack2.setName("بسته تخفیفی 10 دقیقه ای ");
+        discountPack2.setValue(10);
+
+        DiscountPack discountPack3=new DiscountPack();
+        discountPack3.setUid(UUID.fromString("11702c33-b3a5-4401-a274-016bda28fdce"));
+        discountPack3.setName("بسته تخفیفی 20 دقیقه ای ");
+        discountPack3.setValue(20);
+
+
 
         // 1 = روانشناسی
         // 2 = حقوق
@@ -419,6 +444,21 @@ public class AppRunner implements ApplicationRunner {
         constant3.setUid(UUID.fromString("122c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
 
 
+        AssignDiscount assignDiscount1=new AssignDiscount();
+        assignDiscount1.setUid(UUID.fromString("11902c33-b3a5-4401-a274-016bda28fdce"));
+        assignDiscount1.setActive(true);
+        assignDiscount1.setCreationDate(System.currentTimeMillis());
+        assignDiscount1.setDiscountpack(discountPack1);
+        assignDiscount1.setUser(lawyer1);
+
+        AssignDiscount assignDiscount2=new AssignDiscount();
+        assignDiscount2.setUid(UUID.fromString("12002c33-b3a5-4401-a274-016bda28fdce"));
+        assignDiscount2.setActive(true);
+        assignDiscount2.setCreationDate(System.currentTimeMillis());
+        assignDiscount2.setDiscountpack(discountPack2);
+        assignDiscount2.setUser(lawyer1);
+
+
         roleRepo.save(role1);
         roleRepo.save(role2);
         roleRepo.save(role3);
@@ -463,6 +503,13 @@ public class AppRunner implements ApplicationRunner {
         walletRepo.save(wallet5);
         walletRepo.save(wallet6);
         walletRepo.save(wallet7);
+
+        discountPackRepo.save(discountPack1);
+        discountPackRepo.save(discountPack2);
+        discountPackRepo.save(discountPack3);
+
+        assignDiscountRepo.save(assignDiscount1);
+        assignDiscountRepo.save(assignDiscount2);
 
     }
 

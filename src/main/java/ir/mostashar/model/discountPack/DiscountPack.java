@@ -2,8 +2,10 @@ package ir.mostashar.model.discountPack;
 
 import ir.mostashar.model.assignDiscount.AssignDiscount;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -28,9 +30,9 @@ public class DiscountPack {
     @Column(name = "type")
     private int type;
 
-    @OneToMany
-    @JoinColumn(name = "discountpack")
-    private Set<AssignDiscount> assignDiscount;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "discountpack")
+    @EqualsAndHashCode.Exclude
+    private Set<AssignDiscount> assignDiscounts= new HashSet<>();
 
 
     public DiscountPack() {

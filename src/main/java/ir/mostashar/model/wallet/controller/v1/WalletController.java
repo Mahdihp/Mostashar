@@ -1,4 +1,4 @@
-package ir.mostashar.model.wallet.controller;
+package ir.mostashar.model.wallet.controller.v1;
 
 import io.swagger.annotations.ApiOperation;
 import ir.mostashar.model.client.dto.FileForm;
