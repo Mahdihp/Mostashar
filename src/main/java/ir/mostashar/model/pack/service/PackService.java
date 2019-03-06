@@ -2,10 +2,13 @@ package ir.mostashar.model.pack.service;
 
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.adviceType.service.AdviceTypeService;
+import ir.mostashar.model.assignDiscount.AssignDiscount;
+import ir.mostashar.model.assignDiscount.service.AssignDiscountService;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.service.ClientService;
 import ir.mostashar.model.consumptionPack.ConsumptionPack;
 import ir.mostashar.model.consumptionPack.service.ConsumptionPackService;
+import ir.mostashar.model.discountPack.DiscountPack;
 import ir.mostashar.model.factor.service.FactorService;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.lawyer.repository.LawyerRepo;
@@ -21,6 +24,7 @@ import ir.mostashar.model.packsnapshot.service.PackSnapshotService;
 import ir.mostashar.model.request.Request;
 import ir.mostashar.model.request.service.RequestService;
 import ir.mostashar.utils.Constants;
+import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -61,6 +65,8 @@ public class PackService {
     @Autowired
     ClientService clientService;
 
+    @Autowired
+    AssignDiscountService adService;
 
     /**
      * first find Advicetype by callId
@@ -179,13 +185,13 @@ public class PackService {
         Optional<Request> request = requestService.findByUid(bpForm.getRequestId());
         Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(bpForm.getAdviceTypeId());
         Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(bpForm.getLawyerId()));
-        Optional<Client> client = clientService.findClientByUidAndActive(bpForm.getUserId(),true);
+        Optional<Client> client = clientService.findClientByUidAndActive(bpForm.getUserId(), true);
 
-        System.out.println("Log---createBuyPack--------------------:"+pack.isPresent());
-        System.out.println("Log---createBuyPack--------------------:"+request.isPresent());
-        System.out.println("Log---createBuyPack--------------------:"+adviceType.isPresent());
-        System.out.println("Log---createBuyPack--------------------:"+lawyer.isPresent());
-        System.out.println("Log---createBuyPack--------------------:"+client.isPresent());
+        System.out.println("Log---createBuyPack--------------------:" + pack.isPresent());
+        System.out.println("Log---createBuyPack--------------------:" + request.isPresent());
+        System.out.println("Log---createBuyPack--------------------:" + adviceType.isPresent());
+        System.out.println("Log---createBuyPack--------------------:" + lawyer.isPresent());
+        System.out.println("Log---createBuyPack--------------------:" + client.isPresent());
 
         if (pack.isPresent() && request.isPresent() && adviceType.isPresent() && lawyer.isPresent() && client.isPresent()) {
 
@@ -211,7 +217,13 @@ public class PackService {
             psShot.setPackDescription(bpForm.getDescription());
             psShot.setPackMinute(pack.get().getMinute());
             psShot.setLawyerPricePerMinute(bpForm.getLawyerPricePerMinute());
+
+            // Add Off price Pack اعمال کد تخفیف
+//            if (!addOffPackPrice(psShot,bpForm.getAssignDiscountId(), bpForm.getTotalPrice())) {
+//            }
             psShot.setTotalPrice(bpForm.getTotalPrice());
+
+
             psShot.setActive(bpForm.isActive()); // روی چه حالتی باشه
             psShot.setAdvicetype(adviceType.get());
             psShot.setLawyer(lawyer.get());
@@ -239,6 +251,22 @@ public class PackService {
             return Optional.ofNullable(new BuyPackStatus(BuyPack.ComplateAll));
         }
         return Optional.ofNullable(new BuyPackStatus(BuyPack.ErrorAll));
+    }
+
+    private boolean addOffPackPrice(PackSnapshot psShot, String assignDiscountId, int totalPrice) {
+        if (!TextUtils.isEmpty(assignDiscountId)) {
+            Optional<AssignDiscount> byUid = adService.findByUid(assignDiscountId);
+            if (byUid.isPresent()) {
+                DiscountPack discountpack = byUid.get().getDiscountpack();
+                if (discountpack != null) {
+                    System.out.println("Log---createBuyPack-------------------Add-AssignDiscount");
+                    int finalTotal = discountpack.getValue() - totalPrice;
+                    psShot.setTotalPrice(finalTotal);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 

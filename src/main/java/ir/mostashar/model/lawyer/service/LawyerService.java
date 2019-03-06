@@ -191,4 +191,10 @@ public class LawyerService {
         }
         return false;
     }
+
+    public void deleteLawyer(String mobilenumber) {
+        Optional<Lawyer> lawyer = lawyerRepo.findByMobileNumber(mobilenumber);
+        if (lawyer.isPresent())
+            lawyerRepo.delete(lawyer.get());
+    }
 }

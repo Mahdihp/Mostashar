@@ -13,6 +13,7 @@ public class AssignDiscountDTO extends BaseDTO {
     private Boolean active ;
     private Long creationDate;
     private String userId;
+    private String code;
     private String discountpackId;
     private Long expiryDate;
 

@@ -12,6 +12,9 @@ public class AssignDiscountForm {
     private Boolean active;
 
     @NotBlank
+    private String code;
+
+    @NotBlank
     private Long expiryDate;
 
     @NotBlank

@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserDetailsService {
     }
 
 
-    public boolean existsPhoneNumber(long phoneNumber) {
+    public boolean existsMobileNumber(long phoneNumber) {
         Optional<Boolean> aBoolean = userRepo.existsUserByMobileNumber(phoneNumber);
         if (aBoolean.isPresent())
             return aBoolean.get();
@@ -229,9 +229,5 @@ public class UserServiceImpl implements UserDetailsService {
     }
 
 
-    public void deleteUser(String userId) {
-        Optional<User> user = userRepo.findUserByUid(UUID.fromString(userId));
-        if (user.isPresent())
-            userRepo.delete(user.get());
-    }
+
 }

@@ -34,19 +34,13 @@ public class AuthLawyerController {
     @Autowired
     JwtUtil jwtUtil;
 
-    @PostMapping(value = "/adddevice", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> addDevice(HttpServletRequest httpRequest) {
-
-        return null;
-    }
-
     @ApiOperation(value = "Login Lawyer with phoneNumber & advicetype", notes = " 1 = روانشناسی ,2 = حقوق : advicetype" +"\n"+ " RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> signUp(@RequestParam("phoneNumber") String phoneNumber, @RequestParam("advicetype") int advicetype) {
-        if (!DataUtil.isValidePhoneNumber(phoneNumber))
+        if (!DataUtil.isValideMobileNumber(phoneNumber))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_PHONE_NUMBER_NOT_VALID, false));
 
-        if (userService.existsPhoneNumber(Long.valueOf(phoneNumber)))
+        if (userService.existsMobileNumber(Long.valueOf(phoneNumber)))
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_REGISTER_ALREADY, false));
 
         Role role = new Role();

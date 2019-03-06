@@ -11,7 +11,7 @@ public class DiscountPackDTO extends BaseDTO {
 
     private String discountPackId;
     private String name;
-    private Long value;
+    private Integer value;
     private Integer type;
 
     public DiscountPackDTO() {

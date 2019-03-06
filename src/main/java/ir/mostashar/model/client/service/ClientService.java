@@ -5,6 +5,7 @@ import ir.mostashar.model.client.dto.ClientDTO;
 import ir.mostashar.model.client.dto.ClientProfileForm;
 import ir.mostashar.model.client.dto.ListClientDTO;
 import ir.mostashar.model.client.repository.ClientRepo;
+import ir.mostashar.model.user.User;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -116,5 +117,12 @@ public class ClientService {
             return Optional.ofNullable(bcDTO);
         }
         return Optional.empty();
+    }
+
+
+    public void deleteClient(String mobilenumber) {
+        Optional<Client> client = clientRepo.findByMobileNumber(mobilenumber);
+        if (client.isPresent())
+            clientRepo.delete(client.get());
     }
 }

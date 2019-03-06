@@ -12,6 +12,7 @@ import ir.mostashar.model.discountPack.service.DiscountPackService;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.lawyer.service.LawyerService;
 import ir.mostashar.utils.Constants;
+import ir.mostashar.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,7 @@ public class AssignDiscountService {
             assignDiscount.setExpiryDate(adForm.getExpiryDate());
             assignDiscount.setDiscountpack(discountPack.get());
             assignDiscount.setUser(lawyer.get());
+            assignDiscount.setCode(DataUtil.generateOffPackCode(8));
             adRepo.save(assignDiscount);
             return true;
         }
@@ -57,6 +59,8 @@ public class AssignDiscountService {
             assignDiscount.get().setCreationDate(System.currentTimeMillis());
             assignDiscount.get().setActive(adForm.getActive());
             assignDiscount.get().setExpiryDate(adForm.getExpiryDate());
+            assignDiscount.get().setCode(adForm.getCode());
+
 //            assignDiscount.get().setDiscountpack(assignDiscount.get().getDiscountpack());
 //            assignDiscount.get().setUser(assignDiscount.get().getUser());
             adRepo.save(assignDiscount.get());
@@ -104,6 +108,7 @@ public class AssignDiscountService {
             adDTO.setActive(assignDiscount.get().getActive());
             adDTO.setUserId(assignDiscount.get().getUser().getUid().toString());
             adDTO.setDiscountpackId(assignDiscount.get().getDiscountpack().getUid().toString());
+            adDTO.setCode(assignDiscount.get().getCode());
             return Optional.ofNullable(adDTO);
         }
         return Optional.empty();
@@ -135,6 +140,8 @@ public class AssignDiscountService {
                 adDTO.setActive(assignDiscount.getActive());
                 adDTO.setUserId(assignDiscount.getUser().getUid().toString());
                 adDTO.setDiscountpackId(assignDiscount.getDiscountpack().getUid().toString());
+                adDTO.setCode(assignDiscount.getCode());
+
                 dtoList.add(adDTO);
             }
             return Optional.ofNullable(ladDTP);

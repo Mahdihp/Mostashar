@@ -13,7 +13,7 @@ public class DiscountPackForm {
     private String name;
 
     @NotBlank
-    private long value;
+    private int value;
     private int type;
 
     public DiscountPackForm() {

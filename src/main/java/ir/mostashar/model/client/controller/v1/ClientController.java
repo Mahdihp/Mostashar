@@ -1,12 +1,15 @@
 package ir.mostashar.model.client.controller.v1;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import ir.mostashar.model.BaseDTO;
 import ir.mostashar.model.acceptRequest.dto.ListAcceptRequestDTO;
 import ir.mostashar.model.acceptRequest.service.AcceptRequestService;
 import ir.mostashar.model.bill.dto.BillDTO;
 import ir.mostashar.model.bill.dto.ListBillDTO;
 import ir.mostashar.model.bill.service.BillService;
 import ir.mostashar.model.client.dto.ClientDTO;
+import ir.mostashar.model.client.service.ClientService;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.lawyer.repository.LawyerRepo;
 import ir.mostashar.model.notification.Notification;
@@ -61,19 +64,23 @@ public class ClientController {
     @Autowired
     BillService billService;
 
+    @Autowired
+    ClientService clientService;
+
     /**
      * find All Lawyer Read Request File
+     *
      * @param requestId
      * @return
      */
     @PostMapping(value = "/readlawyers", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findReadLawyers(@RequestParam("requestid") String requestId) {
         Optional<Notification> notification = nService.findByRequestUid(requestId);
-        if (notification.isPresent()){
+        if (notification.isPresent()) {
             Optional<ListReminderDTO> list = reminderService.findListReminderDTOByNotifyUid(notification.get().getUid().toString());
-            if (list.isPresent()){
+            if (list.isPresent()) {
                 return ResponseEntity.status(HttpStatus.OK).body(list.get());
-            }else{
+            } else {
                 return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_LAWYER_READ));
             }
         }
@@ -82,6 +89,7 @@ public class ClientController {
 
     /**
      * Find All Lawyer Accept Request File
+     *
      * @param fileId
      * @param requestId
      * @return
@@ -98,6 +106,7 @@ public class ClientController {
     /**
      * Assign Lawyer to Request File
      * Update RequestStatus Feild to WAIT_PEYMENT
+     *
      * @param lawyerId
      * @param requestId
      * @return
@@ -114,6 +123,7 @@ public class ClientController {
     /**
      * Reject Lawyer from Client.
      * Update RequestStatus Feild to SELECT_LAWYER
+     *
      * @param lawyerId
      * @param requestId
      * @return
@@ -129,6 +139,7 @@ public class ClientController {
 
     /**
      * Find All Packs.
+     *
      * @param lawyerid
      * @return
      */
@@ -151,6 +162,7 @@ public class ClientController {
      * Buy Pack
      * Add ConsumptionPack Table
      * Add PackSnapshot Table
+     *
      * @param buyPackForm
      * @return
      */
@@ -175,7 +187,7 @@ public class ClientController {
     }
 
     @PostMapping(value = "/bills", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> findAllBillsClient(@RequestParam("clientid") String clientUid,@RequestParam("walletid") String walletUid) {
+    public ResponseEntity<?> findAllBillsClient(@RequestParam("clientid") String clientUid, @RequestParam("walletid") String walletUid) {
         Optional<ListBillDTO> list = billService.findListBillDTOByWalletUid(walletUid, clientUid);
         if (list.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(list.get());
@@ -187,4 +199,10 @@ public class ClientController {
     // Update Score per peyment price User.
 
 
+    @ApiOperation(value = "Delete Client", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/deleteclient", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> deleteClient(@RequestParam("mobilenumber") String mobilenumber) {
+        clientService.deleteClient(mobilenumber);
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_DELETE_USER, false));
+    }
 }

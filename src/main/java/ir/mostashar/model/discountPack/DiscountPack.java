@@ -25,7 +25,7 @@ public class DiscountPack {
     private String name;
 
     @Column(name = "value")
-    private long value;
+    private int value;
 
     @Column(name = "type")
     private int type;

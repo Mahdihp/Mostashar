@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class DataUtil {
 
-    public static boolean isValidePhoneNumber(String phone) {
+    public static boolean isValideMobileNumber(String phone) {
         if (phone.length() != 11)
             return false;
 
@@ -49,7 +49,9 @@ public class DataUtil {
         long round = Math.round(Math.random() * 100000);
         return String.valueOf(round);
     }
-
+    public static String generateOffPackCode(int count) {
+        return  RandomStringUtils.randomAlphanumeric(count);
+    }
     public static String generateAlphaNumericRandomUserPass(int count) {
         String s = RandomStringUtils.randomAlphanumeric(count);
 //        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
