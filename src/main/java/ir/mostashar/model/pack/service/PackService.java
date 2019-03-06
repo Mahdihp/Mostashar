@@ -8,10 +8,9 @@ import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.service.ClientService;
 import ir.mostashar.model.consumptionPack.ConsumptionPack;
 import ir.mostashar.model.consumptionPack.service.ConsumptionPackService;
-import ir.mostashar.model.discountPack.DiscountPack;
 import ir.mostashar.model.factor.service.FactorService;
 import ir.mostashar.model.lawyer.Lawyer;
-import ir.mostashar.model.lawyer.repository.LawyerRepo;
+import ir.mostashar.model.lawyer.service.LawyerService;
 import ir.mostashar.model.pack.BuyPack;
 import ir.mostashar.model.pack.BuyPackStatus;
 import ir.mostashar.model.pack.Pack;
@@ -24,7 +23,6 @@ import ir.mostashar.model.packsnapshot.service.PackSnapshotService;
 import ir.mostashar.model.request.Request;
 import ir.mostashar.model.request.service.RequestService;
 import ir.mostashar.utils.Constants;
-import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -60,7 +58,7 @@ public class PackService {
     RequestService requestService;
 
     @Autowired
-    LawyerRepo lawyerRepo;
+    LawyerService lawyerService;
 
     @Autowired
     ClientService clientService;
@@ -184,7 +182,7 @@ public class PackService {
         Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(bpForm.getPackId()));
         Optional<Request> request = requestService.findByUid(bpForm.getRequestId());
         Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(bpForm.getAdviceTypeId());
-        Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(bpForm.getLawyerId()));
+        Optional<Lawyer> lawyer = lawyerService.findByUid(bpForm.getLawyerId());
         Optional<Client> client = clientService.findClientByUidAndActive(bpForm.getUserId(), true);
 
         System.out.println("Log---createBuyPack--------------------:" + pack.isPresent());
@@ -218,18 +216,15 @@ public class PackService {
             psShot.setPackMinute(pack.get().getMinute());
             psShot.setLawyerPricePerMinute(bpForm.getLawyerPricePerMinute());
 
-            // Add Off price Pack اعمال کد تخفیف
-//            if (!addOffPackPrice(psShot,bpForm.getAssignDiscountId(), bpForm.getTotalPrice())) {
-//            }
+            // Add Off اعمال کد تخفیف
+
             psShot.setTotalPrice(bpForm.getTotalPrice());
-
-
             psShot.setActive(bpForm.isActive()); // روی چه حالتی باشه
             psShot.setAdvicetype(adviceType.get());
             psShot.setLawyer(lawyer.get());
+            addScore(bpForm.getLawyerId(), bpForm.getCodeOff());
             if (!psService.savePackSnapShot(psShot))
                 return Optional.ofNullable(new BuyPackStatus(BuyPack.PackSnapshotError));
-
 
             // insert into factor
 
@@ -253,20 +248,11 @@ public class PackService {
         return Optional.ofNullable(new BuyPackStatus(BuyPack.ErrorAll));
     }
 
-    private boolean addOffPackPrice(PackSnapshot psShot, String assignDiscountId, int totalPrice) {
-        if (!TextUtils.isEmpty(assignDiscountId)) {
-            Optional<AssignDiscount> byUid = adService.findByUid(assignDiscountId);
-            if (byUid.isPresent()) {
-                DiscountPack discountpack = byUid.get().getDiscountpack();
-                if (discountpack != null) {
-                    System.out.println("Log---createBuyPack-------------------Add-AssignDiscount");
-                    int finalTotal = discountpack.getValue() - totalPrice;
-                    psShot.setTotalPrice(finalTotal);
-                    return true;
-                }
-            }
+    private void addScore(String lawyerUid, String codeOff) {
+        Optional<AssignDiscount> assignDiscount = adService.findByCodeOff(codeOff);
+        if (assignDiscount.isPresent()) {
+            lawyerService.addScore(lawyerUid,10);
         }
-        return false;
     }
 
 

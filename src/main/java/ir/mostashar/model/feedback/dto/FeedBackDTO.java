@@ -14,7 +14,7 @@ public class FeedBackDTO extends BaseDTO {
     private String description;
     private Boolean read;
     private int score;
-    private String clientId;
+    private String lawyerId;
     private String requestId;
 
     public FeedBackDTO() {

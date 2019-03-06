@@ -27,8 +27,8 @@ public class AssignDiscount {
 	@Column(name = "active")
 	private Boolean active = false;
 
-	@Column(name = "code")
-	private String code;
+	@Column(name = "codeoff")
+	private String codeOff;
 
 	@Column(name = "creationdate")
 	@CreatedDate

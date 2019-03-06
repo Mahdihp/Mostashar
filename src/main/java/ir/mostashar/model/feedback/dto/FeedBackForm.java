@@ -11,7 +11,7 @@ public class FeedBackForm {
     private boolean read = false;
     private int score;
 
-    private String clientId;
+    private String lawyerId;
 
     private String requestId;
 }

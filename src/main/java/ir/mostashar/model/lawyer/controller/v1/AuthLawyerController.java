@@ -58,7 +58,7 @@ public class AuthLawyerController {
     }
 
     @PostMapping(value = "/validatecode", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> validateCode(@RequestParam("code") String code, @RequestParam("userId") String userId) {
+    public ResponseEntity<?> validateCode(@RequestParam("codeOff") String code, @RequestParam("userId") String userId) {
         if (TextUtils.isEmpty(code) && TextUtils.isEmpty(userId))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_INVALID_CODE, false));
 

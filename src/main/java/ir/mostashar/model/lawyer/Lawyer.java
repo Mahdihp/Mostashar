@@ -8,6 +8,7 @@ import ir.mostashar.model.call.Call;
 import ir.mostashar.model.doc.Doc;
 import ir.mostashar.model.expertise.Expertise;
 import ir.mostashar.model.failRequest.FailRequest;
+import ir.mostashar.model.feedback.FeedBack;
 import ir.mostashar.model.officeAddress.OfficeAddress;
 import ir.mostashar.model.organization.Organization;
 import ir.mostashar.model.packsnapshot.PackSnapshot;
@@ -88,6 +89,10 @@ public class Lawyer extends User {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
     private Set<Answer> answers;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    @EqualsAndHashCode.Exclude
+    private Set<FeedBack> feedBacks = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "advicetype", nullable = false)

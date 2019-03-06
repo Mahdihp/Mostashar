@@ -197,4 +197,14 @@ public class LawyerService {
         if (lawyer.isPresent())
             lawyerRepo.delete(lawyer.get());
     }
+
+    public void addScore(String lawyerUid, int score) {
+        Optional<Lawyer> lawyer = lawyerRepo.findByMobileNumber(lawyerUid);
+        if (lawyer.isPresent()) {
+            int totalScore = lawyer.get().getScore();
+            totalScore += score;
+            lawyer.get().setScore(totalScore);
+            lawyerRepo.save(lawyer.get());
+        }
+    }
 }

@@ -25,7 +25,7 @@ public class BuyPackForm {
 
     private int  minute;
 
-    private String assignDiscountId; // کد تخفیف
+    private String codeOff; // کد تخفیف
 
     /**
      * نرخ هر مشاور در هر دقیقه

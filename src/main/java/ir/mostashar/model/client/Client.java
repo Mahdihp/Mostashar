@@ -44,10 +44,6 @@ public class Client extends User {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
     @EqualsAndHashCode.Exclude
-    private Set<FeedBack> feedBacks = new HashSet<>();
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
-    @EqualsAndHashCode.Exclude
     private Set<Request> requests = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")

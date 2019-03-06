@@ -1,10 +1,8 @@
 package ir.mostashar.model.feedback;
 
-import ir.mostashar.model.client.Client;
+import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.request.Request;
 import lombok.Data;
-import org.aspectj.apache.bcel.generic.InstructionConstants;
-
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -33,8 +31,8 @@ public class FeedBack {
     private int score;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "clientid", nullable = false)
-    private Client client;
+    @JoinColumn(name = "lawyerid", nullable = false)
+    private Lawyer lawyer;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "requestid", nullable = false)
