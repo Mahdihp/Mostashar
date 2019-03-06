@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface AssignDiscountRepo extends JpaRepository<AssignDiscount,Long> {
 
     Optional<AssignDiscount> findByUid(UUID uid);
-    Optional<AssignDiscount> findByUserUid(UUID uid);
+    Optional<AssignDiscount> findByUidAndUserUid(UUID uid,UUID lawyerUid);
     Optional<List<AssignDiscount>> findAllByActive(boolean isActive);
     Optional<List<AssignDiscount>> findAllByUserUidAndActive(UUID uid,boolean isActive);
     Optional<List<AssignDiscount>> findAllByUserUid(UUID uid);

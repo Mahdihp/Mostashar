@@ -65,6 +65,16 @@ public class AssignDiscountService {
         return false;
     }
 
+    public boolean activeAssignDiscount(String uid,String lawyerUid, boolean isActive) {
+        Optional<AssignDiscount> assignDiscount = adRepo.findByUidAndUserUid(UUID.fromString(uid), UUID.fromString(lawyerUid));
+        if (assignDiscount.isPresent()) {
+            assignDiscount.get().setActive(isActive);
+            adRepo.save(assignDiscount.get());
+            return true;
+        }
+        return false;
+    }
+
     public boolean deleteAssignDiscount(String uid) {
         Optional<AssignDiscount> assignDiscount = adRepo.findByUid(UUID.fromString(uid));
         if (assignDiscount.isPresent()) {

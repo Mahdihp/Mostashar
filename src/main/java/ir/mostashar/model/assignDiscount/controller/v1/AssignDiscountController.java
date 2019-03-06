@@ -4,6 +4,7 @@ package ir.mostashar.model.assignDiscount.controller.v1;
 import io.swagger.annotations.ApiOperation;
 import ir.mostashar.model.assignDiscount.dto.AssignDiscountDTO;
 import ir.mostashar.model.assignDiscount.dto.AssignDiscountForm;
+import ir.mostashar.model.assignDiscount.dto.ListAssignDiscountDTO;
 import ir.mostashar.model.assignDiscount.service.AssignDiscountService;
 import ir.mostashar.model.file.dto.FileDTO;
 import ir.mostashar.model.wallet.dto.WalletDTO;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -34,6 +36,31 @@ public class AssignDiscountController {
         else
             return ResponseEntity.status(HttpStatus.OK).body(new AssignDiscountDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_LAWYER));
 
+    }
+
+    @PostMapping(value = "/all", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> findAll(@RequestParam("lawyerid") String lawyerUid) {
+        Optional<ListAssignDiscountDTO> list = adService.findAllDTOByUid(3, lawyerUid);
+        if (list.isPresent())
+            return ResponseEntity.status(HttpStatus.OK).body(list.get());
+        else
+            return ResponseEntity.status(HttpStatus.OK).body(new AssignDiscountDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_LAWYER));
+    }
+
+    @PostMapping(value = "/active", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> activeAssignDiscount(@RequestParam("lawyerid") String lawyerUid, @RequestParam("assigndiscountid") String assigndiscountuid) {
+        if (adService.activeAssignDiscount(assigndiscountuid, lawyerUid, true))
+            return ResponseEntity.status(HttpStatus.OK).body(new AssignDiscountDTO(HttpStatus.OK.value(), Constants.KEY_ACTIVEED));
+        else
+            return ResponseEntity.status(HttpStatus.OK).body(new AssignDiscountDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_LAWYER));
+    }
+
+    @PostMapping(value = "/diactive", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> diactiveAssignDiscount(@RequestParam("lawyerid") String lawyerUid, @RequestParam("assigndiscountid") String assigndiscountuid) {
+        if (adService.activeAssignDiscount(assigndiscountuid, lawyerUid, false))
+            return ResponseEntity.status(HttpStatus.OK).body(new AssignDiscountDTO(HttpStatus.OK.value(), Constants.KEY_DIACTIVE));
+        else
+            return ResponseEntity.status(HttpStatus.OK).body(new AssignDiscountDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_LAWYER));
     }
 
 

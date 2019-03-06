@@ -103,4 +103,6 @@ public class Constants {
     public static final String KEY_DOWNLOAD_DOC = "مستند دانلود شد.";
     public static final String KEY_DOWNLAOD_DOC_FROM_LAWYER = "مستند مودر نظر توسط مشاور دانلود شد.";
     public static final String KEY_CREATE_ASSIGN_DISCOUNT = "کد تخفیف ساخته شد.";
+    public static final String KEY_ACTIVEED = "فعال شد.";
+    public static final String KEY_DIACTIVE = "غیر فعال شد.";
 }
