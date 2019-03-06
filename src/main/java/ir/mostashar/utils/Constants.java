@@ -105,4 +105,5 @@ public class Constants {
     public static final String KEY_CREATE_ASSIGN_DISCOUNT = "کد تخفیف ساخته شد.";
     public static final String KEY_ACTIVEED = "فعال شد.";
     public static final String KEY_DIACTIVE = "غیر فعال شد.";
+    public static final String KEY_NOT_FOUND_REMINDERS = "نوتیفی موجود نیست.";
 }

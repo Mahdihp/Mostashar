@@ -86,10 +86,12 @@ public class UserPopularityService {
         return Optional.empty();
     }
 
-    public Optional<ListUserPopularityDTO> findListUserPopularityDTODTOByUser(String user) {
+    public Optional<ListUserPopularityDTO> findAllDTOByUser(String user) {
         Optional<User> userOptional = userService.findUserByUid(user);
         Optional<List<UserPopularity>> allByUser = upRepo.findAllByUser(userOptional.get());
+
         if (allByUser.isPresent()) {
+
             ListUserPopularityDTO lupDTO = new ListUserPopularityDTO();
             lupDTO.setStatus(HttpStatus.OK.value());
             lupDTO.setMessage(Constants.KEY_SUCESSE);
@@ -99,6 +101,7 @@ public class UserPopularityService {
                 UserPopularityDTO userPopularityDTO = new UserPopularityDTO();
 //                userPopularityDTO.setUserId(userPopularity.getUser().getFactorId().toString());
                 userPopularityDTO.setUserPopularId(userPopularity.getUserPopu().getUid().toString());
+//                userPopularityDTO.setAdviceName(userPopularity.getUserPopu().getA().toString());
                 dtoList.add(userPopularityDTO);
             }
             lupDTO.setData(dtoList);

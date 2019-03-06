@@ -10,6 +10,8 @@ import ir.mostashar.model.bill.service.BillService;
 import ir.mostashar.model.failRequest.dto.FailRequestForm;
 import ir.mostashar.model.failRequest.dto.ListFailRequestDTO;
 import ir.mostashar.model.failRequest.service.FailRequestService;
+import ir.mostashar.model.feedback.dto.FeedBackForm;
+import ir.mostashar.model.feedback.service.FeedbackService;
 import ir.mostashar.model.lawyer.dto.LawyerDTO;
 import ir.mostashar.model.lawyer.dto.ListLawyerDTO;
 import ir.mostashar.model.lawyer.service.LawyerService;
@@ -51,10 +53,13 @@ public class LawyerController {
     @Autowired
     BillService billService;
 
-    @PostMapping(value = "/adddevice", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> addDevice(HttpServletRequest httpRequest) {
+    @Autowired
+    FeedbackService feedbackService;
 
-        return null;
+    @PostMapping(value = "/addfeedback", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> addFeedBack(@Valid @RequestBody FeedBackForm fbForm) {
+        feedbackService.createFeedback(fbForm);
+        return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_ONLINE));
     }
 
     /**
@@ -67,7 +72,7 @@ public class LawyerController {
         if (list.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(list.get());
         else
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new LawyerDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_ONLINE));
+            return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_ONLINE));
     }
 
     /**
@@ -81,7 +86,7 @@ public class LawyerController {
         if (lawyerService.setOnline(lawyerId, online))
             return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_SUCESSE));
         else
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new LawyerDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_LAWYER));
+            return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_LAWYER));
     }
 
     /**
@@ -96,7 +101,7 @@ public class LawyerController {
             reminderService.setReadReminder(notify.get().getUid().toString());
             return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_READ_REQUEST));
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new LawyerDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
+        return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
 
     /**
@@ -114,7 +119,7 @@ public class LawyerController {
                 return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_ADD_ACCEPT_REQUEST));
             }
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new LawyerDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
+        return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
 
     /**
@@ -127,7 +132,7 @@ public class LawyerController {
         if (frService.createFailRequest(frForm))
             return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_ADD_FAIL_REQUEST));
         else
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new LawyerDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_NOT_FOUND_REQUEST));
+            return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
 
     /**

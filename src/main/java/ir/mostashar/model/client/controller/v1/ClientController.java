@@ -77,7 +77,7 @@ public class ClientController {
     public ResponseEntity<?> findReadLawyers(@RequestParam("requestid") String requestId) {
         Optional<Notification> notification = nService.findByRequestUid(requestId);
         if (notification.isPresent()) {
-            Optional<ListReminderDTO> list = reminderService.findListReminderDTOByNotifyUid(notification.get().getUid().toString());
+            Optional<ListReminderDTO> list = reminderService.findAllDTO(1,notification.get().getUid().toString());
             if (list.isPresent()) {
                 return ResponseEntity.status(HttpStatus.OK).body(list.get());
             } else {
@@ -205,4 +205,7 @@ public class ClientController {
         clientService.deleteClient(mobilenumber);
         return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_DELETE_USER, false));
     }
+
+
+
 }

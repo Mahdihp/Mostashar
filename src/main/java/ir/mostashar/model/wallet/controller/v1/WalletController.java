@@ -32,7 +32,7 @@ public class WalletController {
         if (walletService.updateWallet(walletForm, false))
             return ResponseEntity.status(HttpStatus.OK).body(new WalletDTO(HttpStatus.OK.value(), Constants.KEY_UPDATE_WALLET));
         else
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new FileDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_USER_NOT_FOUND));
+            return ResponseEntity.status(HttpStatus.OK).body(new FileDTO(HttpStatus.OK.value(), Constants.KEY_USER_NOT_FOUND));
     }
 
 

@@ -10,6 +10,7 @@ public class UserPopularityDTO extends BaseDTO {
 
     private String userId;
     private String userPopularId;
+    private String adviceName;
 
     public UserPopularityDTO() {
     }

@@ -117,7 +117,7 @@ public class FileService {
         return Optional.empty();
     }
 
-    public Optional<ListFileDTO> findAllFileByUserId(String clientUid) {
+    public Optional<ListFileDTO> findAllFileByClientUid(String clientUid) {
         Optional<List<File>> fileList = fileRepo.findAllByClientUidAndDeleted(UUID.fromString(clientUid),false);
         if (fileList.isPresent()) {
 

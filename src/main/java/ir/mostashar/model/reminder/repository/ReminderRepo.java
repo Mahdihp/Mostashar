@@ -15,6 +15,7 @@ public interface ReminderRepo extends JpaRepository<Reminder, Long> {
     Optional<Reminder> findByNotificationUid(UUID uuid);
     Optional<Reminder> findByUserUid(UUID uuid);
     Optional<List<Reminder>> findAllByNotificationUid(UUID uuid);
+    Optional<List<Reminder>> findAllByUserUid(UUID uuid);
 
 
 

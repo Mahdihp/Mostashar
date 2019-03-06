@@ -100,8 +100,17 @@ public class ReminderService {
         return Optional.empty();
     }
 
-    public Optional<ListReminderDTO> findListReminderDTOByNotifyUid(String notifUid) {
-        Optional<List<Reminder>> list = reminderRepo.findAllByNotificationUid(UUID.fromString(notifUid));
+    public Optional<ListReminderDTO> findAllDTO(int queryType,String notifyUid_lawyerUid) {
+        Optional<List<Reminder>> list = Optional.empty() ;
+        switch (queryType){
+            case 1:
+                reminderRepo.findAllByNotificationUid(UUID.fromString(notifyUid_lawyerUid));
+                break;
+            case 2:
+                reminderRepo.findAllByUserUid(UUID.fromString(notifyUid_lawyerUid));
+                break;
+        }
+
         if (list.isPresent()) {
             ListReminderDTO lrDTO = new ListReminderDTO();
             lrDTO.setStatus(HttpStatus.OK.value());

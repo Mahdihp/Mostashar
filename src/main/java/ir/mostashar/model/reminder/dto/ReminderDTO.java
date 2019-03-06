@@ -15,4 +15,8 @@ public class ReminderDTO extends BaseDTO {
 
     public ReminderDTO() {
     }
+
+    public ReminderDTO(Integer status, String message) {
+        super(status, message);
+    }
 }
