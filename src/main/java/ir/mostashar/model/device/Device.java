@@ -47,7 +47,7 @@ public class Device {
 
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "userId", nullable = false)
+	@JoinColumn(name = "clientId", nullable = false)
 	@JsonIgnore
 	private User user;
 

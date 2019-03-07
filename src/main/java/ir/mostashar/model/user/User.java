@@ -94,7 +94,7 @@ public class User implements Serializable {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
-            joinColumns = {@JoinColumn(name = "userId")},
+            joinColumns = {@JoinColumn(name = "clientId")},
             inverseJoinColumns = {@JoinColumn(name = "roleid")})
     @EqualsAndHashCode.Exclude
     private Set<Role> roles = new HashSet<>();

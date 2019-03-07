@@ -112,7 +112,7 @@ public class AssignDiscountService {
             adDTO.setCreationDate(assignDiscount.get().getCreationDate());
             adDTO.setExpiryDate(assignDiscount.get().getExpiryDate());
             adDTO.setActive(assignDiscount.get().getActive());
-            adDTO.setUserId(assignDiscount.get().getUser().getUid().toString());
+            adDTO.setClientId(assignDiscount.get().getUser().getUid().toString());
             adDTO.setDiscountpackId(assignDiscount.get().getDiscountpack().getUid().toString());
             adDTO.setCode(assignDiscount.get().getCodeOff());
             return Optional.ofNullable(adDTO);
@@ -144,7 +144,7 @@ public class AssignDiscountService {
                 adDTO.setCreationDate(assignDiscount.getCreationDate());
                 adDTO.setExpiryDate(assignDiscount.getExpiryDate());
                 adDTO.setActive(assignDiscount.getActive());
-                adDTO.setUserId(assignDiscount.getUser().getUid().toString());
+                adDTO.setClientId(assignDiscount.getUser().getUid().toString());
                 adDTO.setDiscountpackId(assignDiscount.getDiscountpack().getUid().toString());
                 adDTO.setCode(assignDiscount.getCodeOff());
 

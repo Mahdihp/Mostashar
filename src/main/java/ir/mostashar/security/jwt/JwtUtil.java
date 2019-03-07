@@ -8,10 +8,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
+import java.util.Base64;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -33,14 +35,13 @@ public class JwtUtil {
 
         if (userOptional.isPresent()) {
 
-            System.out.println("Log---------2--generateToken " + userOptional.get().getUsername());
-            System.out.println("Log---------2--generateToken " + userOptional.get().getPassword());
-
+            System.out.println("Log-----------generateToken Username " + userOptional.get().getUsername());
+            System.out.println("Log-----------generateToken Password " + userOptional.get().getPassword());
 
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             userOptional.get().getUsername(),
-                            "1")
+                            userOptional.get().getUsername())
             );
 
             SecurityContextHolder.getContext().setAuthentication(authentication);

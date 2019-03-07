@@ -41,7 +41,7 @@ public class FileController {
     FeedbackService feedbackService;
 
     /**
-     * First find client by userId & exists file title & Later Create File Record
+     * First find client by clientId & exists file title & Later Create File Record
      *
      * @param fileForm
      * @return
@@ -104,7 +104,7 @@ public class FileController {
             return ResponseEntity.status(HttpStatus.OK).body(new ListFileDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_FILE));
     }
 
-    @ApiOperation(value = "Find All File By userId", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "Find All File By clientId", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/files", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findAllFileByClient(@RequestParam("clientid") String clientUid) {
         Optional<ListFileDTO> allFileByUserId = fileService.findAllFileByClientUid(clientUid);

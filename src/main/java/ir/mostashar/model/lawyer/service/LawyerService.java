@@ -2,6 +2,7 @@ package ir.mostashar.model.lawyer.service;
 
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.adviceType.service.AdviceTypeService;
+import ir.mostashar.model.client.Client;
 import ir.mostashar.model.expertise.dto.ExpertiseDTO;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.lawyer.dto.LawyerDTO;
@@ -309,5 +310,29 @@ public class LawyerService {
             return Optional.ofNullable(lawyer.get());
         else
             return Optional.empty();
+    }
+
+    public Optional<Lawyer> findByMobileNumber(String mobileNumber) {
+        Optional<Lawyer> lawyer = lawyerRepo.findByMobileNumber(Long.valueOf(mobileNumber));
+        if (lawyer.isPresent())
+            return Optional.ofNullable(lawyer.get());
+        else
+            return Optional.empty();
+    }
+
+
+    public void updateCodeCerify(String mobileNumber,String code){
+        Optional<Lawyer> lawyer = lawyerRepo.findByMobileNumber(Long.parseLong(mobileNumber));
+        if (lawyer.isPresent()){
+            lawyer.get().setVerificationCode(code);
+            lawyer.get().setUid(UUID.randomUUID());
+            lawyerRepo.save(lawyer.get());
+        }
+    }
+
+    public void reSendCode(String mobileNumber) {
+        String code = DataUtil.genarateRandomNumber();
+        updateCodeCerify(mobileNumber,code);
+        smsService.sendSms(mobileNumber, Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
     }
 }

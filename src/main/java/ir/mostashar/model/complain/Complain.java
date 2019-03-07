@@ -31,7 +31,7 @@ public class Complain {
     private boolean read;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "clientId", nullable = false)
     private User user;
 
     public Complain() {

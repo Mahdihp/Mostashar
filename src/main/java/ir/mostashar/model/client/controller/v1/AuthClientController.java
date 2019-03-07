@@ -23,7 +23,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 
-
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1/clients/auth")
@@ -33,23 +32,20 @@ public class AuthClientController {
     ClientService clientService;
 
     @Autowired
-    JwtUtil  jwtUtil;
+    JwtUtil jwtUtil;
 
 
-    @ApiOperation(value = "Login Client with mobileNumber", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "Login Client with mobileNumber", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> signIn(@RequestParam("mobilenumber") String mobileNumber) {
         if (!DataUtil.isValideMobileNumber(mobileNumber))
             return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_PHONE_NUMBER_NOT_VALID));
 
         Optional<Client> client = clientService.findByMobileNumber(mobileNumber);
-        if (client.isPresent()){
-            if (client.get().getVerificationCode().equals("-1")){
-
-            }
+        if (client.isPresent()) {
+            clientService.reSendCode(mobileNumber);
+            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_LOGIN, client.get().getUid().toString(), false));
         }
-//        if (userService.existsMobileNumber(Long.valueOf(mobileNumber)))
-//            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_REGISTER_ALREADY));
 
         Role role = new Role();
         role.setUid(UUID.randomUUID());
@@ -65,9 +61,9 @@ public class AuthClientController {
 
     }
 
-    @ApiOperation(value = "Validate Code", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "Validate Code", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/validatecode", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> validateCode(@RequestParam("code") String code, @RequestParam("userId") String userId) {
+    public ResponseEntity<?> validateCode(@RequestParam("code") String code, @RequestParam("clientId") String userId) {
         if (TextUtils.isEmpty(code) && TextUtils.isEmpty(userId))
             return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_INVALID_CODE, false));
 

@@ -42,7 +42,7 @@ public class AccessEntry {
 
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "clientId", nullable = false)
     private User user;
 
     public AccessEntry() {

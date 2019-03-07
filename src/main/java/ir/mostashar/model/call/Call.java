@@ -40,7 +40,7 @@ public class Call {
     private Long creationDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId",nullable = false)
+    @JoinColumn(name = "clientId",nullable = false)
     private Client client;
 
     @ManyToOne(fetch = FetchType.LAZY)

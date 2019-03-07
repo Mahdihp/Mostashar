@@ -1,6 +1,6 @@
 package ir.mostashar.model.user.service;
 
-import ir.mostashar.model.client.service.UserPrinciple;
+import ir.mostashar.model.user.UserPrinciple;
 import ir.mostashar.model.user.User;
 import ir.mostashar.model.user.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;

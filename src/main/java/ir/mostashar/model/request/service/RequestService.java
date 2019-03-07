@@ -112,7 +112,7 @@ public class RequestService {
      * @return true & false
      */
     public boolean deleteRequest(Request request) {
-//        Optional<Request> request = requestRepository.findRequestByClientUidAndUidAndDeleted(UUID.fromString(userId), UUID.fromString(requestId), false);
+//        Optional<Request> request = requestRepository.findRequestByClientUidAndUidAndDeleted(UUID.fromString(clientId), UUID.fromString(requestId), false);
         if (request != null) {
             request.setDeleted(true);
             requestRepo.save(request);

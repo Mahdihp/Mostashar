@@ -21,7 +21,7 @@ import java.util.Set;
 @Table(name = "clients")
 public class Client extends User {
 
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
 
     @Column(name = "jobtitle")
     private String jobTitle;

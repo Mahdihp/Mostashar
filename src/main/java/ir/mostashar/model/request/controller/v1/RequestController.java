@@ -68,7 +68,7 @@ public class RequestController {
 
     @ApiOperation(value = "Find One Request", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/request", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> findRequestByClient(@RequestParam("userId") String clientid, @RequestParam("requestid") String requestid) {
+    public ResponseEntity<?> findRequestByClient(@RequestParam("clientId") String clientid, @RequestParam("requestid") String requestid) {
         Optional<RequestDTO> request = requestService.findRequestByClient(clientid, requestid);
         if (request.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(request.get());
@@ -78,7 +78,7 @@ public class RequestController {
 
     @ApiOperation(value = "Find All Request", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/requests", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> findAllRequestByClient(@RequestParam("userId") String clientid) {
+    public ResponseEntity<?> findAllRequestByClient(@RequestParam("clientId") String clientid) {
         Optional<ListRequestDTO> allRequestClient = requestService.findAllRequestClient(clientid);
         if (allRequestClient.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(allRequestClient.get());

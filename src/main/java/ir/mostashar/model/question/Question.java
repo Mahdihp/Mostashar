@@ -40,7 +40,7 @@ public class Question {
     private Long modificationDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "clientId", nullable = false)
     private Client client;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "question")

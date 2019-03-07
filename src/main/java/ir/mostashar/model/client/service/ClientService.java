@@ -84,7 +84,7 @@ public class ClientService {
             List<ClientDTO> dtoList = new ArrayList<>();
             for (Client client : clients) {
                 ClientDTO bcDTO = new ClientDTO();
-                bcDTO.setUserId(client.getUid().toString());
+                bcDTO.setClientId(client.getUid().toString());
                 bcDTO.setFirstName(client.getFirstName());
                 bcDTO.setLastName(client.getLastName());
                 bcDTO.setFatherName(client.getFatherName());
@@ -119,7 +119,7 @@ public class ClientService {
             bcDTO.setStatus(HttpStatus.OK.value());
             bcDTO.setMessage(Constants.KEY_SUCESSE);
 
-            bcDTO.setUserId(client.get().getUid().toString());
+            bcDTO.setClientId(client.get().getUid().toString());
             bcDTO.setFirstName(client.get().getFirstName());
             bcDTO.setLastName(client.get().getLastName());
             bcDTO.setFatherName(client.get().getFatherName());
@@ -179,7 +179,6 @@ public class ClientService {
     private Optional<String> saveClient(String phoneNumber, Set<Role> roles) {
         Client client = new Client();
         UUID uuid = UUID.randomUUID();
-        client.setMobileNumber(Long.valueOf(phoneNumber));
         String code = DataUtil.genarateRandomNumber();
         client.setVerificationCode(code);
         client.setTel(Long.valueOf(phoneNumber));
@@ -187,8 +186,13 @@ public class ClientService {
 
 
         String user = DataUtil.generateAlphaNumericRandomUserPass(8);
+//        String pass = DataUtil.generateAlphaNumericRandomUserPass(5);
+        System.out.println("Log---saveClient-username-------------------:"+user);
+
+        client.setMobileNumber(Long.valueOf(phoneNumber));
         client.setUsername(user);
-        client.setPassword(encoder.encode("1"));
+        client.setPassword(encoder.encode(user));
+
         client.setScore(10);
 
         client.setRoles(roles);
@@ -244,5 +248,19 @@ public class ClientService {
             return true;
         }
         return false;
+    }
+    public void updateCodeCerify(String mobileNumber,String code){
+        Optional<Client> client = clientRepo.findByMobileNumber(Long.parseLong(mobileNumber));
+        if (client.isPresent()){
+            client.get().setVerificationCode(code);
+            client.get().setUid(UUID.randomUUID());
+            clientRepo.save(client.get());
+        }
+    }
+
+    public void reSendCode(String mobileNumber) {
+        String code = DataUtil.genarateRandomNumber();
+        updateCodeCerify(mobileNumber,code);
+        smsService.sendSms(mobileNumber, Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
     }
 }

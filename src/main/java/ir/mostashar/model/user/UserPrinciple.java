@@ -1,14 +1,14 @@
-package ir.mostashar.model.client.service;
+package ir.mostashar.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ir.mostashar.model.role.Role;
-import ir.mostashar.model.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -18,8 +18,6 @@ public class UserPrinciple implements UserDetails {
     private Long id;
     private String uid;
     private String username;
-
-    @JsonIgnore
     private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
@@ -35,11 +33,10 @@ public class UserPrinciple implements UserDetails {
     public static UserPrinciple build(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
                 new SimpleGrantedAuthority(role.getName().name())
-
         ).collect(Collectors.toList());
 
         for (Role role : user.getRoles()) {
-            System.out.println("Log------------Role "+role.getName().name());
+            System.out.println("Log------------Role " + role.getName().name());
         }
 
 
@@ -101,5 +98,14 @@ public class UserPrinciple implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserPrinciple user = (UserPrinciple) o;
+        return Objects.equals(id, user.id);
     }
 }

@@ -1,7 +1,7 @@
 package ir.mostashar.security.jwt;
 
 import io.jsonwebtoken.*;
-import ir.mostashar.model.client.service.UserPrinciple;
+import ir.mostashar.model.user.UserPrinciple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,7 +24,7 @@ public class JwtProvider {
     public String generateJwtToken(Authentication authentication) {
 
         UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
-
+        System.out.println("Log---generateJwtToken11--------------------:"+userPrincipal.getUsername());
         return Jwts.builder()
 		                .setSubject((userPrincipal.getUsername()))
 		                .setIssuedAt(new Date())
