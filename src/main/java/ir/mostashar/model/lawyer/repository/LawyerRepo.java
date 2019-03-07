@@ -9,18 +9,18 @@ import java.util.UUID;
 
 public interface LawyerRepo extends JpaRepository<Lawyer,Long> {
 
-    Optional<Lawyer> findByUsername(String username);
-    Optional<Lawyer> findByMobileNumber(String mobileNumber);
-    Boolean existsByUsername(String username);
-    Boolean existsUserByMobileNumber(long phoneNumber);
     Optional<Lawyer> findByUid(UUID uuid);
+    Optional<Lawyer> findByUsername(String username);
+    Optional<Lawyer> findByMobileNumber(long mobileNumber);
     Optional<Lawyer> findByUidAndActive(UUID uuid, boolean isActive);
+    Optional<Lawyer> findByUidAndVerificationCode(UUID uid, String code);
 
-    Optional<List<Lawyer>> findAllByOnline(boolean isOnline);
+
     Optional<List<Lawyer>> findAllByLevel(short level);
+    Optional<List<Lawyer>> findAllByOnline(boolean isOnline);
     Optional<List<Lawyer>> findAllByActive(boolean isActive);
-    Optional<List<Lawyer>> findAllByAvailable(boolean isAvailable);
     Optional<List<Lawyer>> findAllByVerified(boolean isVerified);
+    Optional<List<Lawyer>> findAllByAvailable(boolean isAvailable);
 
 
 }

@@ -1,6 +1,6 @@
 package ir.mostashar.model.setting.service;
 
-import ir.mostashar.model.client.service.UserServiceImpl;
+import ir.mostashar.model.user.service.UserServiceImpl;
 import ir.mostashar.model.setting.Setting;
 import ir.mostashar.model.setting.dto.ListSettingDTO;
 import ir.mostashar.model.setting.dto.SettingDTO;

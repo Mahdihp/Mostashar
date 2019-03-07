@@ -1,20 +1,26 @@
 package ir.mostashar.model.client.service;
 
+import ir.mostashar.model.adviceType.service.AdviceTypeService;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.dto.ClientDTO;
 import ir.mostashar.model.client.dto.ClientProfileForm;
 import ir.mostashar.model.client.dto.ListClientDTO;
 import ir.mostashar.model.client.repository.ClientRepo;
+import ir.mostashar.model.role.Role;
+import ir.mostashar.model.role.RoleName;
+import ir.mostashar.model.role.repository.RoleRepo;
 import ir.mostashar.model.user.User;
+import ir.mostashar.model.wallet.Wallet;
+import ir.mostashar.model.wallet.service.WalletService;
 import ir.mostashar.utils.Constants;
+import ir.mostashar.utils.DataUtil;
+import ir.mostashar.utils.SmsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class ClientService {
@@ -22,6 +28,22 @@ public class ClientService {
 
     @Autowired
     private ClientRepo clientRepo;
+
+
+    @Autowired
+    private RoleRepo roleRepo;
+
+    @Autowired
+    private PasswordEncoder encoder;
+
+    @Autowired
+    private WalletService walletService;
+
+    @Autowired
+    private SmsService smsService;
+
+    @Autowired
+    AdviceTypeService adviceTypeService;
 
 
     public Optional<Client> findClientByUidAndActive(String userid, boolean active) {
@@ -122,8 +144,105 @@ public class ClientService {
 
 
     public void deleteClient(String mobilenumber) {
-        Optional<Client> client = clientRepo.findByMobileNumber(mobilenumber);
+        System.out.println("Log---deleteClient--------------------:"+mobilenumber);
+        Optional<Client> client = clientRepo.findByMobileNumber(Long.parseLong(mobilenumber));
         if (client.isPresent())
             clientRepo.delete(client.get());
+    }
+
+    public Optional<Client> findByMobileNumber(String mobileNumber) {
+        Optional<Client> client = clientRepo.findByMobileNumber(Long.valueOf(mobileNumber));
+        if (client.isPresent())
+            return Optional.ofNullable(client.get());
+        else
+            return Optional.empty();
+    }
+
+    public boolean existsMobileNumber(long phoneNumber) {
+        Optional<Boolean> aBoolean = clientRepo.existsUserByMobileNumber(phoneNumber);
+        if (aBoolean.isPresent())
+            return aBoolean.get();
+        else
+            return false;
+    }
+
+    public Optional<String> registerUser(String phoneNumber) {
+
+        Set<Role> roles = new HashSet<>();
+        Role clientRole = roleRepo.findByName(RoleName.ROLE_CLIENT)
+                .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+        roles.add(clientRole);
+        return saveClient(phoneNumber, roles);
+    }
+
+
+    private Optional<String> saveClient(String phoneNumber, Set<Role> roles) {
+        Client client = new Client();
+        UUID uuid = UUID.randomUUID();
+        client.setMobileNumber(Long.valueOf(phoneNumber));
+        String code = DataUtil.genarateRandomNumber();
+        client.setVerificationCode(code);
+        client.setTel(Long.valueOf(phoneNumber));
+        client.setUid(uuid);
+
+
+        String user = DataUtil.generateAlphaNumericRandomUserPass(8);
+        client.setUsername(user);
+        client.setPassword(encoder.encode("1"));
+        client.setScore(10);
+
+        client.setRoles(roles);
+        Client userSave = clientRepo.save(client);
+
+        if (userSave != null) {
+            smsService.sendSms(phoneNumber, Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
+            return Optional.of(uuid.toString());
+        }
+        return Optional.empty();
+    }
+
+    public UUID createWallletUser(User user) {
+        Optional<Wallet> wallet = walletService.findByUid(user.getUid().toString());
+        UUID uuid;
+        if (!wallet.isPresent()) {
+            Wallet newWallet = new Wallet();
+            uuid = UUID.randomUUID();
+            newWallet.setUid(uuid);
+            newWallet.setValue(0);
+            newWallet.setUser(user);
+//            newWallet.setOrganization(user);
+            walletService.saveWallet(newWallet);
+            return uuid;
+        }
+        return null;
+    }
+
+
+    public Optional<Client> findByUserUidAndCode(String uid, String code) {
+        System.out.println("Log----------findByUserUidAndCode " + uid + "  " + code);
+        Optional<Client> client = clientRepo.findByUidAndVerificationCode(UUID.fromString(uid), code);
+        if (client.isPresent())
+            return Optional.ofNullable(client.get());
+        else
+            return Optional.empty();
+    }
+
+    public Optional<Client> findUserByUid(String uid) {
+        Optional<Client> client = clientRepo.findByUid(UUID.fromString(uid));
+        if (client.isPresent())
+            return Optional.ofNullable(client.get());
+        else
+            return Optional.empty();
+    }
+
+    public boolean activateUser(boolean isactive, UUID userid) {
+        Optional<Client> client = clientRepo.findByUid(userid);
+        if (client.isPresent()) {
+            client.get().setActive(isactive);
+            client.get().setVerificationCode("-1");
+            clientRepo.save(client.get());
+            return true;
+        }
+        return false;
     }
 }

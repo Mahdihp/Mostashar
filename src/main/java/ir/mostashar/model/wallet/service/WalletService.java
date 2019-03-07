@@ -39,7 +39,7 @@ public class WalletService {
      * @return
      */
     public boolean createWallet(WalletForm walletForm) {
-        Optional<User> user = userRepo.findUserByUid(UUID.fromString(walletForm.getUserId()));
+        Optional<User> user = userRepo.findByUid(UUID.fromString(walletForm.getUserId()));
         Optional<Boolean> exitWallet = walletRepo.existsByBankAccountNumberOrBankAccountSheba(walletForm.getBankAccountNumber(), walletForm.getBankAccountSheba());
         if (exitWallet.isPresent()) {
             if (!exitWallet.get()) {
@@ -116,7 +116,7 @@ public class WalletService {
 //    }
 
     public boolean addMoneyWallet(String walletUid, String userUid, int money) {
-        Optional<User> user = userRepo.findUserByUid(UUID.fromString(userUid));
+        Optional<User> user = userRepo.findByUid(UUID.fromString(userUid));
         if (user.isPresent()) {
             Optional<Wallet> wallet = walletRepo.findByUidAndUserUidAndDeleted(UUID.fromString(walletUid), user.get().getUid(), false);
             if (wallet.isPresent()) {
@@ -131,7 +131,7 @@ public class WalletService {
     }
 
     public boolean minusMoneyWallet(String walletUid, String userUid, int money) {
-        Optional<User> user = userRepo.findUserByUid(UUID.fromString(userUid));
+        Optional<User> user = userRepo.findByUid(UUID.fromString(userUid));
         if (user.isPresent()) {
             Optional<Wallet> wallet = walletRepo.findByUidAndUserUidAndDeleted(UUID.fromString(walletUid), user.get().getUid(), false);
             if (wallet.isPresent()) {

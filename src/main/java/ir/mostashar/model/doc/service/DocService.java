@@ -1,8 +1,7 @@
 package ir.mostashar.model.doc.service;
 
-import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.repository.ClientRepo;
-import ir.mostashar.model.client.service.UserServiceImpl;
+import ir.mostashar.model.user.service.UserServiceImpl;
 import ir.mostashar.model.doc.Doc;
 import ir.mostashar.model.doc.DocType;
 import ir.mostashar.model.doc.dto.DocDTO;

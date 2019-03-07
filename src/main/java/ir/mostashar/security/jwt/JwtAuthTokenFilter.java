@@ -1,6 +1,6 @@
 package ir.mostashar.security.jwt;
 
-import ir.mostashar.model.client.service.UserServiceImpl;
+import ir.mostashar.model.user.service.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,8 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
                 String username = tokenProvider.getUserNameFromJwtToken(jwt);
 
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                UsernamePasswordAuthenticationToken authentication 
+
+                UsernamePasswordAuthenticationToken authentication
                 		= new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 

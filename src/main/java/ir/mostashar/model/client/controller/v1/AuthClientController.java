@@ -2,12 +2,12 @@ package ir.mostashar.model.client.controller.v1;
 
 import io.swagger.annotations.ApiOperation;
 import ir.mostashar.model.BaseDTO;
+import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.dto.RegisterClientDTO;
 import ir.mostashar.model.client.dto.ValidateCode;
-import ir.mostashar.model.client.service.UserServiceImpl;
+import ir.mostashar.model.client.service.ClientService;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.RoleName;
-import ir.mostashar.model.user.User;
 import ir.mostashar.security.jwt.JwtResponse;
 import ir.mostashar.security.jwt.JwtUtil;
 import ir.mostashar.utils.Constants;
@@ -19,7 +19,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -31,7 +30,7 @@ import java.util.UUID;
 public class AuthClientController {
 
     @Autowired
-    UserServiceImpl userService;
+    ClientService clientService;
 
     @Autowired
     JwtUtil  jwtUtil;
@@ -39,12 +38,18 @@ public class AuthClientController {
 
     @ApiOperation(value = "Login Client with mobileNumber", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> signUp(@RequestParam("mobilenumber") String mobileNumber) {
+    public ResponseEntity<?> signIn(@RequestParam("mobilenumber") String mobileNumber) {
         if (!DataUtil.isValideMobileNumber(mobileNumber))
-            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_PHONE_NUMBER_NOT_VALID));
+            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_PHONE_NUMBER_NOT_VALID));
 
-        if (userService.existsMobileNumber(Long.valueOf(mobileNumber)))
-            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_REGISTER_ALREADY));
+        Optional<Client> client = clientService.findByMobileNumber(mobileNumber);
+        if (client.isPresent()){
+            if (client.get().getVerificationCode().equals("-1")){
+
+            }
+        }
+//        if (userService.existsMobileNumber(Long.valueOf(mobileNumber)))
+//            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_REGISTER_ALREADY));
 
         Role role = new Role();
         role.setUid(UUID.randomUUID());
@@ -52,39 +57,39 @@ public class AuthClientController {
         role.setUserDefined(true);
         role.setDescription(RoleName.ROLE_CLIENT.name().toLowerCase());
 
-        Optional<String> uuid = userService.registerUser(mobileNumber,-1, role);
+        Optional<String> uuid = clientService.registerUser(mobileNumber);
         if (uuid.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_REGISTER, uuid.get(), false));
         else
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new BaseDTO(500, Constants.KEY_CREATE_FILE_FAILED, false));
+            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_CREATE_FILE_FAILED, false));
 
     }
 
     @ApiOperation(value = "Validate Code", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/validatecode", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> validateCode(@RequestParam("codeOff") String code, @RequestParam("userId") String userId) {
+    public ResponseEntity<?> validateCode(@RequestParam("code") String code, @RequestParam("userId") String userId) {
         if (TextUtils.isEmpty(code) && TextUtils.isEmpty(userId))
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_INVALID_CODE, false));
+            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_INVALID_CODE, false));
 
-        Optional<User> user = userService.findUserUidAndCode(userId, code);
+        Optional<Client> client = clientService.findByUserUidAndCode(userId, code);
         ValidateCode validateCode = new ValidateCode(code, userId);
-        if (user.isPresent()) {
+        if (client.isPresent()) {
             JwtResponse jwtResponse = jwtUtil.generateToken(validateCode);
 
             if (jwtResponse != null) {
                 UUID walletUid = null;
-                if (userService.activateUser(true, user.get().getUid())) {
-                    walletUid = userService.createWallletUser(user.get());
+                if (clientService.activateUser(true, client.get().getUid())) {
+                    walletUid = clientService.createWallletUser(client.get());
                 }
                 System.out.println("Log------------------JwtResponse " + jwtResponse.toString());
-                RegisterClientDTO registerClientDTO = new RegisterClientDTO(HttpStatus.OK.value(), Constants.KEY_CODE_VERIFY, user.get().getUid().toString(), walletUid.toString(), true, jwtResponse);
+                RegisterClientDTO registerClientDTO = new RegisterClientDTO(HttpStatus.OK.value(), Constants.KEY_CODE_VERIFY, client.get().getUid().toString(), walletUid.toString(), true, jwtResponse);
 
                 return ResponseEntity.status(HttpStatus.OK).body(registerClientDTO);
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new BaseDTO(HttpStatus.UNAUTHORIZED.value(), Constants.KEY_INVALID_CODE, "", false));
             }
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BaseDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_INVALID_CODE, false));
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_INVALID_CODE, false));
 
     }
 

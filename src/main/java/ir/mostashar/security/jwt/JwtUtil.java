@@ -29,7 +29,7 @@ public class JwtUtil {
 
 
     public JwtResponse generateToken(@Valid @RequestBody ValidateCode validateCode) {
-        Optional<User> userOptional = userRepo.findUserByUidAndVerificationCode(UUID.fromString(validateCode.getUserId()), validateCode.getCode());
+        Optional<User> userOptional = userRepo.findByUidAndVerificationCode(UUID.fromString(validateCode.getUserId()), validateCode.getCode());
 
         if (userOptional.isPresent()) {
 

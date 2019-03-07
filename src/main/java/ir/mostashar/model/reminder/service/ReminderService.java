@@ -1,6 +1,6 @@
 package ir.mostashar.model.reminder.service;
 
-import ir.mostashar.model.client.service.UserServiceImpl;
+import ir.mostashar.model.user.service.UserServiceImpl;
 import ir.mostashar.model.notification.Notification;
 import ir.mostashar.model.notification.service.NotificationService;
 import ir.mostashar.model.reminder.Reminder;

@@ -1,5 +1,6 @@
 package ir.mostashar.model.user.repository;
 
+import ir.mostashar.model.client.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -15,12 +16,10 @@ import java.util.UUID;
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {
 
+
+    Optional<User> findByUid(UUID uuid);
     Optional<User> findByUsername(String username);
-    Optional<User> findUserByUidAndVerificationCode(UUID uid,String code);
-
-    Optional<Boolean> existsUserByMobileNumber(long  phoneNumber);
-
-    Optional<User> findUserByUid(UUID uuid);
+    Optional<User> findByUidAndVerificationCode(UUID uid, String code);
 
 
     @Query("SELECT r.mobileNumber FROM User r")

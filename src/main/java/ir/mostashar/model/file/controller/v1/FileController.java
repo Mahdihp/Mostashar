@@ -5,7 +5,7 @@ import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.dto.FileForm;
 import ir.mostashar.model.client.dto.FileUpdateForm;
 import ir.mostashar.model.client.service.ClientService;
-import ir.mostashar.model.client.service.UserServiceImpl;
+import ir.mostashar.model.user.service.UserServiceImpl;
 import ir.mostashar.model.feedback.dto.ListFeedBackDTO;
 import ir.mostashar.model.feedback.service.FeedbackService;
 import ir.mostashar.model.file.File;

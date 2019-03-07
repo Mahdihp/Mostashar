@@ -4,10 +4,10 @@ import io.swagger.annotations.ApiOperation;
 import ir.mostashar.model.BaseDTO;
 import ir.mostashar.model.client.dto.RegisterClientDTO;
 import ir.mostashar.model.client.dto.ValidateCode;
-import ir.mostashar.model.client.service.UserServiceImpl;
+import ir.mostashar.model.lawyer.Lawyer;
+import ir.mostashar.model.lawyer.service.LawyerService;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.RoleName;
-import ir.mostashar.model.user.User;
 import ir.mostashar.security.jwt.JwtResponse;
 import ir.mostashar.security.jwt.JwtUtil;
 import ir.mostashar.utils.Constants;
@@ -19,7 +19,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,7 +28,7 @@ import java.util.UUID;
 public class AuthLawyerController {
 
     @Autowired
-    UserServiceImpl userService;
+    LawyerService lawyerService;
 
     @Autowired
     JwtUtil jwtUtil;
@@ -40,8 +39,8 @@ public class AuthLawyerController {
         if (!DataUtil.isValideMobileNumber(phoneNumber))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_PHONE_NUMBER_NOT_VALID, false));
 
-        if (userService.existsMobileNumber(Long.valueOf(phoneNumber)))
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_REGISTER_ALREADY, false));
+//        if (userService.existsMobileNumber(Long.valueOf(phoneNumber)))
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_REGISTER_ALREADY, false));
 
         Role role = new Role();
         role.setUid(UUID.randomUUID());
@@ -49,7 +48,7 @@ public class AuthLawyerController {
         role.setUserDefined(true);
         role.setDescription(RoleName.ROLE_LAWYER.name().toLowerCase());
 
-        Optional<String> uuid = userService.registerUser(phoneNumber, advicetype, role);
+        Optional<String> uuid = lawyerService.registerUser(phoneNumber, advicetype);
         if (uuid.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_REGISTER, uuid.get(), false));
         else
@@ -62,18 +61,18 @@ public class AuthLawyerController {
         if (TextUtils.isEmpty(code) && TextUtils.isEmpty(userId))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_INVALID_CODE, false));
 
-        Optional<User> user = userService.findUserUidAndCode(userId, code);
+        Optional<Lawyer> lawyer = lawyerService.findByUserUidAndCode(userId, code);
         ValidateCode validateCode = new ValidateCode(code, userId);
-        if (user.isPresent()) {
+        if (lawyer.isPresent()) {
             JwtResponse jwtResponse = jwtUtil.generateToken(validateCode);
 
             if (jwtResponse != null) {
                 UUID walletUid = null;
-                if (userService.activateUser(true, user.get().getUid())) {
-                    walletUid = userService.createWallletUser(user.get());
+                if (lawyerService.activateUser(true, lawyer.get().getUid())) {
+                    walletUid = lawyerService.createWallletUser(lawyer.get());
                 }
                 System.out.println("Log------------------JwtResponse " + jwtResponse.toString());
-                RegisterClientDTO registerClientDTO = new RegisterClientDTO(HttpStatus.OK.value(), Constants.KEY_CODE_VERIFY, user.get().getUid().toString(), walletUid.toString(), true, jwtResponse);
+                RegisterClientDTO registerClientDTO = new RegisterClientDTO(HttpStatus.OK.value(), Constants.KEY_CODE_VERIFY, lawyer.get().getUid().toString(), walletUid.toString(), true, jwtResponse);
 
                 return ResponseEntity.status(HttpStatus.OK).body(registerClientDTO);
             } else {

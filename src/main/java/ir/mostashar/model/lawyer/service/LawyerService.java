@@ -8,15 +8,21 @@ import ir.mostashar.model.lawyer.dto.LawyerDTO;
 import ir.mostashar.model.lawyer.dto.LawyerProfileForm;
 import ir.mostashar.model.lawyer.dto.ListLawyerDTO;
 import ir.mostashar.model.lawyer.repository.LawyerRepo;
+import ir.mostashar.model.role.Role;
+import ir.mostashar.model.role.RoleName;
+import ir.mostashar.model.role.repository.RoleRepo;
+import ir.mostashar.model.user.User;
+import ir.mostashar.model.wallet.Wallet;
+import ir.mostashar.model.wallet.service.WalletService;
 import ir.mostashar.utils.Constants;
+import ir.mostashar.utils.DataUtil;
+import ir.mostashar.utils.SmsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class LawyerService {
@@ -27,6 +33,19 @@ public class LawyerService {
 
     @Autowired
     AdviceTypeService adviceTypeService;
+
+    @Autowired
+    private PasswordEncoder encoder;
+
+    @Autowired
+    private SmsService smsService;
+
+    @Autowired
+    private WalletService walletService;
+
+
+    @Autowired
+    private RoleRepo roleRepo;
 
     public Optional<Lawyer> findLawyerUidAndActive(String userid, boolean active) {
         Optional<Lawyer> lawyer = lawyerRepo.findByUidAndActive(UUID.fromString(userid), active);
@@ -55,8 +74,8 @@ public class LawyerService {
                 lawyer = lawyerRepo.findByUsername(uid_userName_Mobile);
                 break;
             case 3:
-                String mobile = uid_userName_Mobile.substring(1, uid_userName_Mobile.length());
-                lawyer = lawyerRepo.findByMobileNumber(mobile);
+                System.out.println("Log---findLawyerDTOByUid--------------------:"+uid_userName_Mobile);
+                lawyer = lawyerRepo.findByMobileNumber(Long.parseLong(uid_userName_Mobile));
                 break;
         }
         if (lawyer.isPresent()) {
@@ -193,18 +212,102 @@ public class LawyerService {
     }
 
     public void deleteLawyer(String mobilenumber) {
-        Optional<Lawyer> lawyer = lawyerRepo.findByMobileNumber(mobilenumber);
+        Optional<Lawyer> lawyer = lawyerRepo.findByMobileNumber(Long.parseLong(mobilenumber));
         if (lawyer.isPresent())
             lawyerRepo.delete(lawyer.get());
     }
 
     public void addScore(String lawyerUid, int score) {
-        Optional<Lawyer> lawyer = lawyerRepo.findByMobileNumber(lawyerUid);
+        Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(lawyerUid));
         if (lawyer.isPresent()) {
             int totalScore = lawyer.get().getScore();
             totalScore += score;
             lawyer.get().setScore(totalScore);
             lawyerRepo.save(lawyer.get());
         }
+    }
+
+    public Optional<String> registerUser(String phoneNumber, int adviceName) {
+
+        Set<Role> roles = new HashSet<>();
+        Role lawyerRole = roleRepo.findByName(RoleName.ROLE_LAWYER)
+                .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+        roles.add(lawyerRole);
+        return saveLawyer(phoneNumber, adviceName, roles);
+    }
+
+    private Optional<String> saveLawyer(String phoneNumber, int advicetype, Set<Role> roles) {
+        Lawyer lawyer = new Lawyer();
+        UUID uuid = UUID.randomUUID();
+        lawyer.setMobileNumber(Long.valueOf(phoneNumber));
+        String code = DataUtil.genarateRandomNumber();
+        lawyer.setVerificationCode(code);
+        lawyer.setUid(uuid);
+
+        Optional<AdviceType> adviceType = Optional.empty();
+        switch (advicetype) {
+            case 1:
+                adviceType = adviceTypeService.findAdviceTypeByName("روانشناسی");
+                if (adviceType.isPresent()) {
+                    lawyer.setAdvicetype(adviceType.get());
+                }
+                break;
+            case 2:
+                adviceType = adviceTypeService.findAdviceTypeByName("حقوق");
+                if (adviceType.isPresent()) {
+                    lawyer.setAdvicetype(adviceType.get());
+                }
+                break;
+        }
+
+
+        String user = DataUtil.generateAlphaNumericRandomUserPass(8);
+        lawyer.setUsername(user);
+        lawyer.setPassword(encoder.encode("1"));
+
+        lawyer.setRoles(roles);
+        Lawyer userSave = lawyerRepo.save(lawyer);
+
+        if (userSave != null) {
+            smsService.sendSms(phoneNumber, Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
+            return Optional.of(uuid.toString());
+        } else
+            return Optional.empty();
+    }
+
+    public boolean activateUser(boolean isactive, UUID userid) {
+        Optional<Lawyer> lawyer = lawyerRepo.findByUid(userid);
+        if (lawyer.isPresent()) {
+            lawyer.get().setActive(isactive);
+            lawyer.get().setVerificationCode("-1");
+            lawyerRepo.save(lawyer.get());
+            return true;
+        }
+        return false;
+    }
+
+    public UUID createWallletUser(User user) {
+        Optional<Wallet> wallet = walletService.findByUid(user.getUid().toString());
+        UUID uuid;
+        if (!wallet.isPresent()) {
+            Wallet newWallet = new Wallet();
+            uuid = UUID.randomUUID();
+            newWallet.setUid(uuid);
+            newWallet.setValue(0);
+            newWallet.setUser(user);
+//            newWallet.setOrganization(user);
+            walletService.saveWallet(newWallet);
+            return uuid;
+        }
+        return null;
+    }
+
+    public Optional<Lawyer> findByUserUidAndCode(String uid, String code) {
+        System.out.println("Log----------findByUserUidAndCode " + uid + "  " + code);
+        Optional<Lawyer> lawyer = lawyerRepo.findByUidAndVerificationCode(UUID.fromString(uid), code);
+        if (lawyer.isPresent())
+            return Optional.ofNullable(lawyer.get());
+        else
+            return Optional.empty();
     }
 }

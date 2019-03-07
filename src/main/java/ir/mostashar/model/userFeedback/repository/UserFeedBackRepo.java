@@ -12,6 +12,6 @@ import java.util.UUID;
 public interface UserFeedBackRepo extends JpaRepository<UserFeedBack,Long> {
 
     Optional<UserFeedBack> findByUid(UUID uuid);
-    Optional<UserFeedBack> findByTitle(String title);
+    Optional<List<UserFeedBack>> findByTitleLike(String title);
     Optional<List<UserFeedBack>> findAllByRead(boolean isRead);
 }

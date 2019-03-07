@@ -1,6 +1,6 @@
 package ir.mostashar.model.userpopularity.service;
 
-import ir.mostashar.model.client.service.UserServiceImpl;
+import ir.mostashar.model.user.service.UserServiceImpl;
 import ir.mostashar.model.user.User;
 import ir.mostashar.model.userpopularity.UserPopularity;
 import ir.mostashar.model.userpopularity.dto.ListUserPopularityDTO;
