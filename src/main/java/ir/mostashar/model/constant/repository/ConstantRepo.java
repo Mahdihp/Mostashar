@@ -13,5 +13,6 @@ public interface ConstantRepo extends JpaRepository<Constant,Long> {
     Optional<Boolean> existsByKey(String key);
     Optional<Constant> findByUid(UUID uuid);
     Optional<Constant> findByKey(String key);
+    Optional<Constant> findByType(String type);
 
 }

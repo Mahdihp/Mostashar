@@ -12,6 +12,7 @@ import ir.mostashar.model.failRequest.dto.ListFailRequestDTO;
 import ir.mostashar.model.failRequest.service.FailRequestService;
 import ir.mostashar.model.feedback.dto.FeedBackForm;
 import ir.mostashar.model.feedback.service.FeedbackService;
+import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.lawyer.dto.LawyerDTO;
 import ir.mostashar.model.lawyer.dto.ListLawyerDTO;
 import ir.mostashar.model.lawyer.service.LawyerService;
@@ -164,8 +165,18 @@ public class LawyerController {
     }
 
     @PostMapping(value = "/bills", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> findAllBillsLawyer(@RequestParam("lawyerid") String lawyerUid,@RequestParam("walletid") String walletUid) {
+    public ResponseEntity<?> findAllBillsLawyer(@RequestParam("lawyerid") String lawyerUid,
+                                                @RequestParam("walletid") String walletUid) {
         Optional<ListBillDTO> list = billService.findListBillDTOByWalletUid(walletUid, lawyerUid);
+        if (list.isPresent())
+            return ResponseEntity.status(HttpStatus.OK).body(list.get());
+        else
+            return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_BILL));
+    }
+
+    @PostMapping(value = "/findbyid", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> findrankbyLawyerId(@RequestParam("lawyerid") String lawyerUid) {
+        Optional<Lawyer> list = lawyerService.findByUid(lawyerUid);
         if (list.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(list.get());
         else

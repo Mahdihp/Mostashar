@@ -53,6 +53,14 @@ public class ConstantService {
         return Optional.empty();
     }
 
+    public Optional<Constant> findConstantBytype(String type) {
+        Optional<Constant> constant = constantRepo.findByType(type);
+        if (constant.isPresent()) {
+            return Optional.ofNullable(constant.get());
+        }
+        return Optional.empty();
+    }
+
     public Optional<List<Constant>> findAllConstant() {
         List<Constant> list = constantRepo.findAll();
         if (list != null) {
