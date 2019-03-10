@@ -16,6 +16,6 @@ public interface DiscountPackRepo extends JpaRepository<DiscountPack, Long> {
     Optional<DiscountPack> findByUid(UUID uid);
 
     Optional<List<DiscountPack>> findAllByTitleLike(String title);
-    Optional<List<DiscountPack>> findAllByCodeOff(String code);
+    Optional<DiscountPack> findAllByCodeOff(String code);
 
 }

@@ -44,10 +44,10 @@ public class DiscountPackController {
         return ResponseEntity.status(HttpStatus.OK).body(new DiscountPackDTO(HttpStatus.OK.value(), Constants.KEY_SUCESSE));
     }
 
-    @ApiOperation(value = "Find DiscountPack", notes = "type=1 find by title" + "\n" + "type=2 find by code" + "\n" + "RequestBody :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "Find DiscountPack By title", notes = "RequestBody :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/all", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> findDiscountPack(@RequestParam("type") int type, @RequestParam("item") String title_codeOff) {
-        Optional<ListDiscountPackDTO> list = dpService.findAllDTO(type, title_codeOff);
+    public ResponseEntity<?> findDiscountPack(@RequestParam("title") String title) {
+        Optional<ListDiscountPackDTO> list = dpService.findAllDTO(title);
         if (list.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(list.get());
         else

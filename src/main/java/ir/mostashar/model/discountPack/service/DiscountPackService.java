@@ -53,6 +53,14 @@ public class DiscountPackService {
         }
     }
 
+    public Optional<DiscountPack> findByCodeOff(String codeOff) {
+        Optional<DiscountPack> discountPack = discountPackRepo.findAllByCodeOff(codeOff);
+        if (discountPack.isPresent())
+            return Optional.ofNullable(discountPack.get());
+        else
+            return Optional.empty();
+    }
+
     public Optional<DiscountPack> findByUid(String uid) {
         Optional<DiscountPack> discountPack = discountPackRepo.findByUid(UUID.fromString(uid));
         if (discountPack.isPresent())
@@ -78,16 +86,8 @@ public class DiscountPackService {
         return Optional.empty();
     }
 
-    public Optional<ListDiscountPackDTO> findAllDTO(int queryType, String title_codeoff) {
-        Optional<List<DiscountPack>> list = Optional.empty();
-        switch (queryType) {
-            case 1:
-                list = discountPackRepo.findAllByTitleLike(title_codeoff);
-                break;
-            case 2:
-                list = discountPackRepo.findAllByCodeOff(title_codeoff);
-                break;
-        }
+    public Optional<ListDiscountPackDTO> findAllDTO(String title) {
+        Optional<List<DiscountPack>> list = discountPackRepo.findAllByTitleLike(title);
         if (list.isPresent()) {
             ListDiscountPackDTO ldpDTP = new ListDiscountPackDTO();
             ldpDTP.setStatus(HttpStatus.OK.value());
