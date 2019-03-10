@@ -127,10 +127,10 @@ public class AssignDiscountService {
                 list = adRepo.findAllByActive(true); // all active
                 break;
             case 2:
-                list = adRepo.findAllByUserUidAndActive(UUID.fromString(uid), true); // all active and user uid
+                list = adRepo.findAllByUserUidAndActive(UUID.fromString(uid), true); // all active and user adminConfirmationId
                 break;
             case 3:
-                list = adRepo.findAllByUserUid(UUID.fromString(uid)); // all user uid
+                list = adRepo.findAllByUserUid(UUID.fromString(uid)); // all user adminConfirmationId
                 break;
         }
         if (list.isPresent()) {

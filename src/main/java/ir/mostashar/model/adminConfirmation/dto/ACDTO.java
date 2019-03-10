@@ -1,26 +1,25 @@
 package ir.mostashar.model.adminConfirmation.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import ir.mostashar.model.BaseDTO;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
 
 @Data
-public class AdminConfirmationForm {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class ACDTO extends BaseDTO {
 
     private String adminConfirmationId;
-
-    @NotBlank
     private String title;
     private String description;
     private String targetUid;
-
-    @NotBlank
     private String typeConfirmation;
-
+    private Boolean verified;
+    private Long creationDate;
+    private Long verifiedDate;
     private String lawyerId;
     private String userId;
 
-
-    public AdminConfirmationForm() {
+    public ACDTO() {
     }
 }

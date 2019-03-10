@@ -2,6 +2,7 @@ package ir.mostashar.model.lawyer;
 
 import ir.mostashar.model.acceptRequest.AcceptRequest;
 import ir.mostashar.model.activity.LawyerActivity;
+import ir.mostashar.model.adminConfirmation.AdminConfirmation;
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.answer.Answer;
 import ir.mostashar.model.call.Call;
@@ -71,28 +72,31 @@ public class Lawyer extends User {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
     @EqualsAndHashCode.Exclude
-    private Set<FailRequest> failRequests;
+    private Set<FailRequest> failRequests= new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<AcceptRequest> acceptRequests;
+    private Set<AcceptRequest> acceptRequests= new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-    private Set<LawyerActivity> activities;
+    private Set<LawyerActivity> activities= new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-    private Set<Call> calls;
+    private Set<Call> calls= new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-    private Set<Doc> docs;
+    private Set<Doc> docs= new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-    private Set<Answer> answers;
+    private Set<Answer> answers= new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    private Set<AdminConfirmation> adminConfirmations;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
     @EqualsAndHashCode.Exclude
-    private Set<FeedBack> feedBacks = new HashSet<>();
+    private Set<FeedBack> feedBacks= new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "advicetype", nullable = false)
@@ -101,7 +105,7 @@ public class Lawyer extends User {
     private AdviceType advicetype;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-    private Set<PackSnapshot> packSnapshots;
+    private Set<PackSnapshot> packSnapshots= new HashSet<>();
 
     public Lawyer() {
     }
