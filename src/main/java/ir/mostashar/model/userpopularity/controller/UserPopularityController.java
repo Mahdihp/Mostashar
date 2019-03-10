@@ -62,13 +62,5 @@ public class UserPopularityController {
 
     }
 
-    @ApiOperation(value = "Find All Lawyer Population Client", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @PostMapping(value = "/allpopu", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> findAllPopulationLawyer(@RequestParam("clientid") String clientid) {
-//        upService.findAllDTOByUser(clientid);
-        // ساختار جدول مشاور محبوب نیاز به ریدیزاین دارد احتمالا
-        return null;
-    }
-
 
 }

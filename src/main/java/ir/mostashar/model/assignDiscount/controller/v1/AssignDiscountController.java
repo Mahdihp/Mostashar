@@ -38,33 +38,17 @@ public class AssignDiscountController {
 
     }
 
-    @ApiOperation(value = "Find All AssignDiscount", notes = "RequestBody :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "Find All AssignDiscount By User", notes = "RequestBody :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/all", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> findAll(@RequestParam("lawyerid") String lawyerUid) {
-        Optional<ListAssignDiscountDTO> list = adService.findAllDTOByUid(3, lawyerUid);
+    public ResponseEntity<?> findAll(@RequestParam("userid") String userid) {
+        Optional<ListAssignDiscountDTO> list = adService.findAllDTOByUid(userid);
         if (list.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(list.get());
         else
             return ResponseEntity.status(HttpStatus.OK).body(new AssignDiscountDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_LAWYER));
     }
 
-    @ApiOperation(value = "Active AssignDiscount", notes = "RequestBody :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @PostMapping(value = "/active", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> activeAssignDiscount(@RequestParam("lawyerid") String lawyerUid, @RequestParam("assigndiscountid") String assigndiscountuid) {
-        if (adService.activeAssignDiscount(assigndiscountuid, lawyerUid, true))
-            return ResponseEntity.status(HttpStatus.OK).body(new AssignDiscountDTO(HttpStatus.OK.value(), Constants.KEY_ACTIVEED));
-        else
-            return ResponseEntity.status(HttpStatus.OK).body(new AssignDiscountDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_LAWYER));
-    }
 
-    @ApiOperation(value = "DiActive AssignDiscount", notes = "RequestBody :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @PostMapping(value = "/diactive", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> diactiveAssignDiscount(@RequestParam("lawyerid") String lawyerUid, @RequestParam("assigndiscountid") String assigndiscountuid) {
-        if (adService.activeAssignDiscount(assigndiscountuid, lawyerUid, false))
-            return ResponseEntity.status(HttpStatus.OK).body(new AssignDiscountDTO(HttpStatus.OK.value(), Constants.KEY_DIACTIVE));
-        else
-            return ResponseEntity.status(HttpStatus.OK).body(new AssignDiscountDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_LAWYER));
-    }
 
 
 }

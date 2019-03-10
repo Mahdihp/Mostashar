@@ -22,4 +22,8 @@ public class ACDTO extends BaseDTO {
 
     public ACDTO() {
     }
+
+    public ACDTO(Integer status, String message) {
+        super(status, message);
+    }
 }

@@ -10,10 +10,18 @@ import lombok.Data;
 public class DiscountPackDTO extends BaseDTO {
 
     private String discountPackId;
-    private String name;
+    private String title;
+    private String codeOff;
+    private Boolean active ;
+    private Long creationDate;
+    private Long expiryDate;
     private Integer value;
-    private Integer type;
+    private String type;
 
     public DiscountPackDTO() {
+    }
+
+    public DiscountPackDTO(Integer status, String message) {
+        super(status, message);
     }
 }

@@ -130,18 +130,24 @@ public class AppRunner implements ApplicationRunner {
 
         DiscountPack discountPack1=new DiscountPack();
         discountPack1.setUid(UUID.fromString("11502c33-b3a5-4401-a274-016bda28fdce"));
-        discountPack1.setName("بسته تخفیفی 5 دقیقه ای ");
+        discountPack1.setTitle("بسته تخفیفی 5 دقیقه ای ");
         discountPack1.setValue(5);
+        discountPack1.setCodeOff(DataUtil.generateOffPackCode(8));
+
+
+
 
         DiscountPack discountPack2=new DiscountPack();
         discountPack2.setUid(UUID.fromString("11602c33-b3a5-4401-a274-016bda28fdce"));
-        discountPack2.setName("بسته تخفیفی 10 دقیقه ای ");
+        discountPack2.setTitle("بسته تخفیفی 10 دقیقه ای ");
         discountPack2.setValue(10);
+        discountPack2.setCodeOff(DataUtil.generateOffPackCode(8));
 
         DiscountPack discountPack3=new DiscountPack();
         discountPack3.setUid(UUID.fromString("11702c33-b3a5-4401-a274-016bda28fdce"));
-        discountPack3.setName("بسته تخفیفی 20 دقیقه ای ");
+        discountPack3.setTitle("بسته تخفیفی 20 دقیقه ای ");
         discountPack3.setValue(20);
+        discountPack2.setCodeOff(DataUtil.generateOffPackCode(8));
 
 
 
@@ -446,17 +452,13 @@ public class AppRunner implements ApplicationRunner {
 
         AssignDiscount assignDiscount1=new AssignDiscount();
         assignDiscount1.setUid(UUID.fromString("11902c33-b3a5-4401-a274-016bda28fdce"));
-        assignDiscount1.setActive(true);
-        assignDiscount1.setCreationDate(System.currentTimeMillis());
-        assignDiscount1.setDiscountpack(discountPack1);
         assignDiscount1.setUser(lawyer1);
+        assignDiscount1.setDiscountpack(discountPack1);
 
         AssignDiscount assignDiscount2=new AssignDiscount();
         assignDiscount2.setUid(UUID.fromString("12002c33-b3a5-4401-a274-016bda28fdce"));
-        assignDiscount2.setActive(true);
-        assignDiscount2.setCreationDate(System.currentTimeMillis());
-        assignDiscount2.setDiscountpack(discountPack2);
         assignDiscount2.setUser(lawyer1);
+        assignDiscount2.setDiscountpack(discountPack2);
 
 
         roleRepo.save(role1);

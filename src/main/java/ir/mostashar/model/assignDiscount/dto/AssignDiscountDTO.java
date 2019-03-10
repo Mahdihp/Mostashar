@@ -9,13 +9,9 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AssignDiscountDTO extends BaseDTO {
 
-    private String AssignDiscountId;
-    private Boolean active ;
-    private Long creationDate;
+    private String assignDiscountId;
     private String userId;
-    private String code;
     private String discountpackId;
-    private Long expiryDate;
 
     public AssignDiscountDTO() {
     }
