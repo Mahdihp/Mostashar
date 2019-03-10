@@ -91,6 +91,15 @@ public class AdminConfirmationservice {
         return false;
     }
 
+    public boolean deleteAC(String uid,boolean isDeleted) {
+        Optional<AdminConfirmation> ac = acRepo.findByUid(UUID.fromString(uid));
+        if (ac.isPresent()) {
+            ac.get().setDeleted(isDeleted);
+            acRepo.save(ac.get());
+        }
+        return false;
+    }
+
     public Optional<AdminConfirmation> findACByUid(String uid) {
         Optional<AdminConfirmation> ac = acRepo.findByUid(UUID.fromString(uid));
         if (ac.isPresent())
