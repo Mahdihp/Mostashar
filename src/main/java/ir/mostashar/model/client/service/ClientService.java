@@ -62,14 +62,14 @@ public class ClientService {
             client.get().setFatherName(cpForm.getFatherName());
             client.get().setNationalId(cpForm.getNationalId());
             client.get().setBirthDate(cpForm.getBirthDate());
-            client.get().setAvatarHashcode(cpForm.getAvatarHashcode());
+//            client.get().setAvatarHashcode(cpForm.getAvatarHashcode());
 //            client.get().setActive(cpForm.getActive());
-            client.get().setMobileNumber(cpForm.getMobileNumber());
+            client.get().setMobileNumber(Long.valueOf(cpForm.getMobileNumber()));
             client.get().setJobTitle(cpForm.getJobTitle());
             client.get().setAddress(cpForm.getAddress());
             client.get().setPostalCode(cpForm.getPostalCode());
             client.get().setFieldOfStudy(cpForm.getFieldOfStudy());
-            client.get().setTel(cpForm.getTel());
+            client.get().setTel(Long.valueOf(cpForm.getTel()));
             clientRepo.save(client.get());
         }
         return false;
