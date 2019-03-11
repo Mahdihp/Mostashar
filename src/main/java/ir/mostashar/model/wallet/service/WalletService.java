@@ -225,7 +225,7 @@ public class WalletService {
             walletDTO.setBankAccountName(wallet.get().getBankAccountName());
             walletDTO.setBankAccountNumber(wallet.get().getBankAccountNumber());
             walletDTO.setBankAccountSheba(wallet.get().getBankAccountSheba());
-            walletDTO.setClientId(wallet.get().getUser().getUid().toString());
+            walletDTO.setUserId(wallet.get().getUser().getUid().toString());
             walletDTO.setOrganizationId(wallet.get().getOrganization().getUid().toString());
             return Optional.ofNullable(walletDTO);
         }
@@ -246,7 +246,7 @@ public class WalletService {
                 walletDTO.setBankAccountName(wallet.getBankAccountName());
                 walletDTO.setBankAccountNumber(wallet.getBankAccountNumber());
                 walletDTO.setBankAccountSheba(wallet.getBankAccountSheba());
-                walletDTO.setClientId(wallet.getUser().getUid().toString());
+                walletDTO.setUserId(wallet.getUser().getUid().toString());
                 walletDTO.setOrganizationId(wallet.getOrganization().getUid().toString());
                 dtoList.add(walletDTO);
             }

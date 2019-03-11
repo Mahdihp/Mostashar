@@ -82,7 +82,7 @@ public class LawyerService {
             LawyerDTO lawyerDTO = new LawyerDTO();
             lawyerDTO.setStatus(HttpStatus.OK.value());
             lawyerDTO.setMessage(Constants.KEY_SUCESSE);
-            lawyerDTO.setId(lawyer.get().getUid().toString());
+            lawyerDTO.setLawyerId(lawyer.get().getUid().toString());
             lawyerDTO.setFirstName(lawyer.get().getFirstName());
             lawyerDTO.setLastName(lawyer.get().getLastName());
             lawyerDTO.setUsername(lawyer.get().getUsername());
@@ -142,7 +142,7 @@ public class LawyerService {
             List<LawyerDTO> dtoList = new ArrayList<>();
             for (Lawyer lawyer : list.get()) {
                 LawyerDTO lawyerDTO = new LawyerDTO();
-                lawyerDTO.setId(lawyer.getUid().toString());
+                lawyerDTO.setLawyerId(lawyer.getUid().toString());
                 lawyerDTO.setFirstName(lawyer.getFirstName());
                 lawyerDTO.setLastName(lawyer.getLastName());
                 lawyerDTO.setUsername(lawyer.getUsername());
@@ -227,7 +227,7 @@ public class LawyerService {
         }
     }
 
-    public Optional<String> registerUser(String phoneNumber, int adviceName) {
+    public Optional<UUID> registerUser(String phoneNumber, int adviceName) {
 
         Set<Role> roles = new HashSet<>();
         Role lawyerRole = roleRepo.findByName(RoleName.ROLE_LAWYER)
@@ -236,7 +236,7 @@ public class LawyerService {
         return saveLawyer(phoneNumber, adviceName, roles);
     }
 
-    private Optional<String> saveLawyer(String phoneNumber, int advicetype, Set<Role> roles) {
+    private Optional<UUID> saveLawyer(String phoneNumber, int advicetype, Set<Role> roles) {
         Lawyer lawyer = new Lawyer();
         UUID uuid = UUID.randomUUID();
         lawyer.setMobileNumber(Long.valueOf(phoneNumber));
@@ -270,7 +270,7 @@ public class LawyerService {
 
         if (userSave != null) {
             smsService.sendSms(phoneNumber, Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
-            return Optional.of(uuid.toString());
+            return Optional.of(uuid);
         } else
             return Optional.empty();
     }

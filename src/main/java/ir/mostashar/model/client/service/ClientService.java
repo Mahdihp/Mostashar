@@ -166,7 +166,7 @@ public class ClientService {
             return false;
     }
 
-    public Optional<String> registerUser(String phoneNumber) {
+    public Optional<UUID> registerUser(String phoneNumber) {
 
         Set<Role> roles = new HashSet<>();
         Role clientRole = roleRepo.findByName(RoleName.ROLE_CLIENT)
@@ -176,7 +176,7 @@ public class ClientService {
     }
 
 
-    private Optional<String> saveClient(String phoneNumber, Set<Role> roles) {
+    private Optional<UUID> saveClient(String phoneNumber, Set<Role> roles) {
         Client client = new Client();
         UUID uuid = UUID.randomUUID();
         String code = DataUtil.genarateRandomNumber();
@@ -200,7 +200,7 @@ public class ClientService {
 
         if (userSave != null) {
             smsService.sendSms(phoneNumber, Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
-            return Optional.of(uuid.toString());
+            return Optional.of(uuid);
         }
         return Optional.empty();
     }

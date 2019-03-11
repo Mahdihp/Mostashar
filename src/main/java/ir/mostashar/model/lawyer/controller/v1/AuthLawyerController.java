@@ -2,10 +2,10 @@ package ir.mostashar.model.lawyer.controller.v1;
 
 import io.swagger.annotations.ApiOperation;
 import ir.mostashar.model.BaseDTO;
-import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.dto.RegisterClientDTO;
 import ir.mostashar.model.client.dto.ValidateCode;
 import ir.mostashar.model.lawyer.Lawyer;
+import ir.mostashar.model.lawyer.dto.LawyerDTO;
 import ir.mostashar.model.lawyer.service.LawyerService;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.RoleName;
@@ -34,11 +34,11 @@ public class AuthLawyerController {
     @Autowired
     JwtUtil jwtUtil;
 
-    @ApiOperation(value = "Login Lawyer with phoneNumber & advicetype", notes = " 1 = روانشناسی ,2 = حقوق : advicetype" +"\n"+ " RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> signUp(@RequestParam("mobilenumber") String mobileNumber, @RequestParam("advicetype") int advicetype) {
+    @ApiOperation(value = "SignIn Lawyer with phoneNumber & advicetype", notes = " 1 = روانشناسی ,2 = حقوق : advicetype" + "\n" + " RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/signin", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> signIn(@RequestParam("mobilenumber") String mobileNumber, @RequestParam("advicetype") int advicetype) {
         if (!DataUtil.isValideMobileNumber(mobileNumber))
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_PHONE_NUMBER_NOT_VALID, false));
+            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_PHONE_NUMBER_NOT_VALID, false));
 
         Optional<Lawyer> lawyer = lawyerService.findByMobileNumber(mobileNumber);
         if (lawyer.isPresent()) {
@@ -52,21 +52,22 @@ public class AuthLawyerController {
         role.setUserDefined(true);
         role.setDescription(RoleName.ROLE_LAWYER.name().toLowerCase());
 
-        Optional<String> uuid = lawyerService.registerUser(mobileNumber, advicetype);
-        if (uuid.isPresent())
-            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_REGISTER, uuid.get(), false));
+        Optional<UUID> lawyerId = lawyerService.registerUser(mobileNumber, advicetype);
+        if (lawyerId.isPresent())
+            return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_REGISTER, lawyerId.get().toString(), false));
         else
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new BaseDTO(500, Constants.KEY_CREATE_FILE_FAILED, false));
 
     }
 
-    @PostMapping(value = "/validatecode", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> validateCode(@RequestParam("codeOff") String code, @RequestParam("clientId") String userId) {
-        if (TextUtils.isEmpty(code) && TextUtils.isEmpty(userId))
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_INVALID_CODE, false));
+    @ApiOperation(value = "Validate Code", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/validationcode", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> validationCode(@RequestParam("codeoff") String code, @RequestParam("lawyerid") String lawyerId) {
+        if (TextUtils.isEmpty(code) && TextUtils.isEmpty(lawyerId))
+            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_INVALID_CODE, false));
 
-        Optional<Lawyer> lawyer = lawyerService.findByUserUidAndCode(userId, code);
-        ValidateCode validateCode = new ValidateCode(code, userId);
+        Optional<Lawyer> lawyer = lawyerService.findByUserUidAndCode(lawyerId, code);
+        ValidateCode validateCode = new ValidateCode(code, lawyerId);
         if (lawyer.isPresent()) {
             JwtResponse jwtResponse = jwtUtil.generateToken(validateCode);
 
@@ -80,10 +81,10 @@ public class AuthLawyerController {
 
                 return ResponseEntity.status(HttpStatus.OK).body(registerClientDTO);
             } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new BaseDTO(HttpStatus.UNAUTHORIZED.value(), Constants.KEY_INVALID_CODE, "", false));
+                return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_INVALID_CODE, "", false));
             }
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BaseDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_INVALID_CODE, false));
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_INVALID_CODE, false));
 
     }
 
