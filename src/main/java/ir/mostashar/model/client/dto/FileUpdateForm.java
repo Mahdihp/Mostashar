@@ -12,10 +12,9 @@ public class FileUpdateForm extends BaseDTO {
 
 
     @NotBlank
-    private String uid;
+    private String fileId;
 
-//    @NotBlank
-//    private String fileNumber;
+    private String fileNumber;
 
     @NotBlank
     private String title;

@@ -1,6 +1,5 @@
 package ir.mostashar.model.userpopularity.controller;
 
-import io.swagger.annotations.ApiOperation;
 import ir.mostashar.model.BaseDTO;
 import ir.mostashar.model.userpopularity.dto.ListUserPopularityDTO;
 import ir.mostashar.model.userpopularity.service.UserPopularityService;
@@ -41,7 +40,7 @@ public class UserPopularityController {
         System.out.println("Log---findAllUserPopularity--------------------1");
 
         if (TextUtils.isEmpty(userid))
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_NOT_FOUND_USER, false));
+            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_USER, false));
         Optional<ListUserPopularityDTO> allUserPopu = upService.findAllDTOByUser(userid);
 
         if (allUserPopu.isPresent())
@@ -53,7 +52,7 @@ public class UserPopularityController {
     @PostMapping(value = "/removeuserpopularity", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> deleteUserPopularity(@RequestParam("userid") String userid, @RequestParam("userpopu") String userpopu) {
         if (TextUtils.isEmpty(userid) && TextUtils.isEmpty(userpopu))
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_USER_NOT_FOUND, false));
+            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_USER_NOT_FOUND, false));
 
         if (upService.deleteUserPopularity(userid, userpopu))
             return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_DELETE_USER_POPULARITY, false));

@@ -108,4 +108,5 @@ public class Constants {
     public static final String KEY_NOT_FOUND_REMINDERS = "نوتیفی موجود نیست.";
     public static final String KEY_LOGIN = "ورود مجدد.";
     public static final String KEY_NOT_FOUND_AC = "درخواستی پیدا نشد.";
+    public static final String KEY_NOT_UPDATE = "امکان ویرایش وجود ندارد.";
 }

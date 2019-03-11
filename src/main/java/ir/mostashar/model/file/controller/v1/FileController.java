@@ -5,13 +5,15 @@ import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.dto.FileForm;
 import ir.mostashar.model.client.dto.FileUpdateForm;
 import ir.mostashar.model.client.service.ClientService;
-import ir.mostashar.model.user.service.UserServiceImpl;
 import ir.mostashar.model.feedback.dto.ListFeedBackDTO;
 import ir.mostashar.model.feedback.service.FeedbackService;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.dto.FileDTO;
 import ir.mostashar.model.file.dto.ListFileDTO;
 import ir.mostashar.model.file.service.FileService;
+import ir.mostashar.model.request.Request;
+import ir.mostashar.model.request.service.RequestService;
+import ir.mostashar.model.user.service.UserServiceImpl;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,6 +41,9 @@ public class FileController {
 
     @Autowired
     FeedbackService feedbackService;
+
+    @Autowired
+    RequestService requestService;
 
     /**
      * First find client by clientId & exists file title & Later Create File Record
@@ -88,6 +93,10 @@ public class FileController {
     @ApiOperation(value = "Update File Client", notes = "RequestBody :" + MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PostMapping(value = "/updatefile", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> updateFile(@Valid @RequestBody FileUpdateForm fileUpdateForm) {
+        Optional<Request> request = requestService.findByFileUid(fileUpdateForm.getFileId());
+        if (request.isPresent())
+            return ResponseEntity.status(HttpStatus.OK).body(new ListFileDTO(HttpStatus.OK.value(), Constants.KEY_NOT_UPDATE));
+
         if (fileService.updateFile(fileUpdateForm)) {
             return ResponseEntity.status(HttpStatus.OK).body(new ListFileDTO(HttpStatus.OK.value(), Constants.KEY_UPDATE_FILE));
         } else

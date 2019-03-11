@@ -2,7 +2,6 @@ package ir.mostashar.model.lawyer.service;
 
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.adviceType.service.AdviceTypeService;
-import ir.mostashar.model.client.Client;
 import ir.mostashar.model.expertise.dto.ExpertiseDTO;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.lawyer.dto.LawyerDTO;
@@ -65,7 +64,7 @@ public class LawyerService {
             return Optional.empty();
     }
 
-    public Optional<LawyerDTO> findLawyerDTOByUid(short queryType, String uid_userName_Mobile) {
+    public Optional<LawyerDTO> findLawyerDTOByUid(int queryType, String uid_userName_Mobile) {
         Optional<Lawyer> lawyer = Optional.empty();
         switch (queryType) {
             case 1:
