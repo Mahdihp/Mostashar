@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 import java.util.UUID;
 
-
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1/clients/auth")
@@ -34,7 +33,6 @@ public class AuthClientController {
 
     @Autowired
     JwtUtil jwtUtil;
-
 
     @ApiOperation(value = "SignIn Client with mobileNumber", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/signin", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
