@@ -27,7 +27,6 @@ public class LawyerDTO extends BaseDTO {
     private String verificationCode;
     private Long creationDate;
     private Long modificationDate;
-    private String roleName;
     private Boolean available;
     private Integer level;
     private Integer pricePerMinute;

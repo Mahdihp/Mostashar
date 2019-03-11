@@ -55,7 +55,7 @@ public class ClientService {
     }
 
     public boolean updateClient(ClientProfileForm cpForm) {
-        Optional<Client> client = clientRepo.findByUid(UUID.fromString(cpForm.getUserId()));
+        Optional<Client> client = clientRepo.findByUid(UUID.fromString(cpForm.getClientId()));
         if (client.isPresent()) {
             client.get().setFirstName(cpForm.getFirstName());
             client.get().setLastName(cpForm.getLastName());
@@ -63,7 +63,7 @@ public class ClientService {
             client.get().setNationalId(cpForm.getNationalId());
             client.get().setBirthDate(cpForm.getBirthDate());
             client.get().setAvatarHashcode(cpForm.getAvatarHashcode());
-            client.get().setActive(cpForm.getActive());
+//            client.get().setActive(cpForm.getActive());
             client.get().setMobileNumber(cpForm.getMobileNumber());
             client.get().setJobTitle(cpForm.getJobTitle());
             client.get().setAddress(cpForm.getAddress());

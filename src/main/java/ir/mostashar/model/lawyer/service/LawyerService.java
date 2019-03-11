@@ -97,7 +97,6 @@ public class LawyerService {
 //            lawyerDTO.setVerificationCode(lawyer.get().getVerificationCode());
             lawyerDTO.setCreationDate(lawyer.get().getCreationDate());
 //            lawyerDTO.setModificationDate(lawyer.get().getModificationDate());
-            lawyerDTO.setRoleName(lawyer.get().getRoles().toString());
             lawyerDTO.setAvailable(lawyer.get().getAvailable());
             lawyerDTO.setLevel(lawyer.get().getLevel());
             lawyerDTO.setPricePerMinute(lawyer.get().getPricePerMinute());
@@ -157,7 +156,6 @@ public class LawyerService {
 //            lawyerDTO.setVerificationCode(lawyer.getVerificationCode());
                 lawyerDTO.setCreationDate(lawyer.getCreationDate());
 //            lawyerDTO.setModificationDate(lawyer.getModificationDate());
-                lawyerDTO.setRoleName(lawyer.getRoles().toString());
                 lawyerDTO.setAvailable(lawyer.getAvailable());
                 lawyerDTO.setLevel(lawyer.getLevel());
                 lawyerDTO.setPricePerMinute(lawyer.getPricePerMinute());

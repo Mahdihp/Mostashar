@@ -5,20 +5,20 @@ import lombok.Data;
 @Data
 public class ClientProfileForm {
 
-    private String userId;
+    private String clientId;
     private String firstName;
     private String lastName;
     private String fatherName;
     private String nationalId;
-    private Boolean active ;
+    //    private Boolean active ;
     private Long birthDate;
-    private String avatarHashcode;
-    private Long mobileNumber;
+    //    private String avatarHashcode;
+    private String mobileNumber;
     private String jobTitle;
     private String address;
     private String postalCode;
     private String fieldOfStudy; //رشته تحصیلی
-    private Long tel;
+    private String tel;
 
     public ClientProfileForm() {
     }
