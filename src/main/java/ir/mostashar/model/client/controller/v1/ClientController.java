@@ -145,6 +145,7 @@ public class ClientController {
      * @param lawyerid
      * @return
      */
+    @ApiOperation(value = "List All Pack from Lawyer Price")
     @PostMapping(value = "/packs", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findAllPackByLawyer(@RequestParam("lawyerid") String lawyerid) {
         if (!DataUtil.isValidUUID(lawyerid))
