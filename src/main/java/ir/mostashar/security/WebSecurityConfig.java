@@ -53,12 +53,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().
-                authorizeRequests()
-                .antMatchers("/api/v1/**").permitAll()
+
+        http.cors().and().csrf().disable()
+                .authorizeRequests()
                 .antMatchers("/**").permitAll()
                 .antMatchers("/api/v1/clients/auth/**").permitAll()
-                .antMatchers("/api/v1/lawyer/auth/**").permitAll()
+                .antMatchers("/api/v1/lawyers/auth/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
@@ -66,4 +66,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
+
+
 }

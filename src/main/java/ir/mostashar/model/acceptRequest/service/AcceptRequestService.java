@@ -49,10 +49,20 @@ public class AcceptRequestService {
         return false;
     }
 
-    public boolean assignLawyerToRequest(String lawyerUid, String requestUid,boolean isAssign) {
-        Optional<AcceptRequest> acceptRequest = arRepository.findByRequestUidAndLawyerUid(UUID.fromString(lawyerUid), UUID.fromString(requestUid));
+    public boolean assignLawyerToRequest(String lawyerUid, String requestUid) {
+        Optional<AcceptRequest> acceptRequest = arRepository.findByRequestUidAndLawyerUid(UUID.fromString(requestUid), UUID.fromString(lawyerUid));
         if (acceptRequest.isPresent()) {
-            acceptRequest.get().setAcceptedByClient(isAssign);
+            acceptRequest.get().setAcceptedByClient(true);
+            arRepository.save(acceptRequest.get());
+            return true;
+        }
+        return false;
+    }
+
+    public boolean rejectLawyerToRequest(String lawyerUid, String requestUid) {
+        Optional<AcceptRequest> acceptRequest = arRepository.findByRequestUidAndLawyerUid(UUID.fromString(requestUid), UUID.fromString(lawyerUid));
+        if (acceptRequest.isPresent()) {
+            acceptRequest.get().setAcceptedByClient(false);
             arRepository.save(acceptRequest.get());
             return true;
         }
@@ -95,30 +105,29 @@ public class AcceptRequestService {
     }
 
 
-    public Optional<ListAcceptRequestDTO> findListAcceptRequestDTO(String requestUid,String fileUid) {
+    public Optional<ListAcceptRequestDTO> findAllDTO(String requestUid, String fileUid) {
+
         Optional<List<AcceptRequest>> list = arRepository.findAllByRequestUid(UUID.fromString(requestUid));
         if (list.isPresent()) {
-            if (list.get().size() > 0) {
-                File file = list.get().get(0).getRequest().getFile();
-                if (!file.getUid().toString().equals(fileUid))
-                    return Optional.empty();
-            }
             ListAcceptRequestDTO larDTO = new ListAcceptRequestDTO();
             larDTO.setStatus(HttpStatus.OK.value());
             larDTO.setMessage(Constants.KEY_SUCESSE);
             List<AcceptRequestDTO> dtoList = new ArrayList<>();
             for (AcceptRequest ar : list.get()) {
-                AcceptRequestDTO arDTO = new AcceptRequestDTO();
-                arDTO.setStatus(HttpStatus.OK.value());
-                arDTO.setMessage(Constants.KEY_SUCESSE);
 
-                arDTO.setAcceptRequesId(ar.getUid().toString());
-                arDTO.setCreationDate(ar.getCreationDate());
-                arDTO.setFinishedTimeFile(ar.getFinishedTimeFile());
-                arDTO.setVerified(ar.getVerified());
-                arDTO.setRequestId(ar.getRequest().getUid().toString());
-                arDTO.setLawyerId(ar.getLawyer().getUid().toString());
-                dtoList.add(arDTO);
+                File file = list.get().get(0).getRequest().getFile();
+                if (file.getUid().toString().equals(fileUid)) {
+
+                    AcceptRequestDTO arDTO = new AcceptRequestDTO();
+
+                    arDTO.setAcceptRequesId(ar.getUid().toString());
+                    arDTO.setCreationDate(ar.getCreationDate());
+                    arDTO.setFinishedTimeFile(ar.getFinishedTimeFile());
+                    arDTO.setVerified(ar.getVerified());
+                    arDTO.setRequestId(ar.getRequest().getUid().toString());
+                    arDTO.setLawyerId(ar.getLawyer().getUid().toString());
+                    dtoList.add(arDTO);
+                }
             }
             larDTO.setData(dtoList);
             return Optional.ofNullable(larDTO);
@@ -148,5 +157,14 @@ public class AcceptRequestService {
             return Optional.ofNullable(larDTO);
         }
         return Optional.empty();
+    }
+
+    public boolean existsAssingLawyer(String lawyerId, String requestId) {
+        Optional<AcceptRequest> acceptRequest = arRepository.findByRequestUidAndLawyerUid(UUID.fromString(requestId), UUID.fromString(lawyerId));
+        if (acceptRequest.isPresent()) {
+            if (acceptRequest.get().isAcceptedByClient())
+                return true;
+        }
+        return false;
     }
 }

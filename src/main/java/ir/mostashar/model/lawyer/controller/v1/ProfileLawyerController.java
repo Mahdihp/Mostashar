@@ -5,7 +5,6 @@ import ir.mostashar.model.bill.service.BillService;
 import ir.mostashar.model.failRequest.service.FailRequestService;
 import ir.mostashar.model.lawyer.dto.LawyerDTO;
 import ir.mostashar.model.lawyer.dto.LawyerProfileForm;
-import ir.mostashar.model.lawyer.dto.ListLawyerDTO;
 import ir.mostashar.model.lawyer.service.LawyerService;
 import ir.mostashar.model.notification.service.NotificationService;
 import ir.mostashar.model.reminder.service.ReminderService;
@@ -52,12 +51,12 @@ public class ProfileLawyerController {
     }
 
     @PostMapping(value = "/profile/", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    private ResponseEntity<?> findLawyewrProfile(@RequestParam("lawyerid") String lawyerUid) {
-        Optional<ListLawyerDTO> list = lawyerService.findListLawyerDTO(2, "", true);
+    private ResponseEntity<?> findLawyewrProfile(@RequestParam("lawyerid") String lawyerId) {
+        Optional<LawyerDTO> list = lawyerService.findLawyerDTOByUid(1, lawyerId);
         if (list.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(list.get());
         else
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new LawyerDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_ONLINE));
+            return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_LAWYER));
     }
 
 }

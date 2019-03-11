@@ -3,11 +3,9 @@ package ir.mostashar.model.request.service;
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.adviceType.repository.AdviceTypeRepo;
 import ir.mostashar.model.client.Client;
-import ir.mostashar.model.client.repository.ClientRepo;
 import ir.mostashar.model.client.service.ClientService;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.repository.FileRepo;
-import ir.mostashar.model.notification.Notification;
 import ir.mostashar.model.notification.service.NotificationService;
 import ir.mostashar.model.request.Request;
 import ir.mostashar.model.request.RequestStatus;
@@ -96,6 +94,15 @@ public class RequestService {
         }
         return false;
     }
+
+    public Optional<Request> findByFileUid(String fileUid) {
+        Optional<Request> request = requestRepo.findByFileUidAndDeleted(UUID.fromString(fileUid), false);
+        if (request.isPresent())
+            return request;
+        else
+            return Optional.empty();
+    }
+
 
     public Optional<Request> findByUid(String requestUid) {
         Optional<Request> request = requestRepo.findByUidAndDeleted(UUID.fromString(requestUid), false);

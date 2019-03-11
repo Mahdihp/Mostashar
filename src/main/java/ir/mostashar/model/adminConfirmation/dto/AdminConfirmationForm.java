@@ -7,16 +7,19 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class AdminConfirmationForm {
 
-    private String uid;
+    private String adminConfirmationId;
 
     @NotBlank
     private String title;
     private String description;
     private String targetUid;
-    private short targetType;
-    private boolean verified;
-    private boolean deleted;
-    private Long creationDate;
+
+    @NotBlank
+    private String typeConfirmation;
+
+    private String lawyerId;
+    private String userId;
+
 
     public AdminConfirmationForm() {
     }

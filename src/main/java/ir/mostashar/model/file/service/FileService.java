@@ -86,7 +86,7 @@ public class FileService {
     }
 
     public boolean updateFile(FileUpdateForm fileUpdateForm) {
-        Optional<File> file = fileRepo.findByUidAndDeleted(UUID.fromString(fileUpdateForm.getUid()),false);
+        Optional<File> file = fileRepo.findByUidAndDeleted(UUID.fromString(fileUpdateForm.getFileId()), false);
         if (file.isPresent()) {
             file.get().setTitle(fileUpdateForm.getTitle());
             file.get().setDescription(fileUpdateForm.getDescription());

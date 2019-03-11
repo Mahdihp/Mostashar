@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ir.mostashar.model.accessentry.AccessEntry;
+import ir.mostashar.model.adminConfirmation.AdminConfirmation;
 import ir.mostashar.model.assignDiscount.AssignDiscount;
 import ir.mostashar.model.complain.Complain;
 import ir.mostashar.model.invitedUser.InvitedUsers;
@@ -113,6 +114,9 @@ public class User implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<AccessEntry> accessEntries = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<AdminConfirmation> adminConfirmations = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<InvitedUsers> invitedUsers = new HashSet<>();

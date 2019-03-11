@@ -10,11 +10,22 @@ public class DiscountPackForm {
     private String discountPackId;
 
     @NotBlank
-    private String name;
+    private String title;
 
     @NotBlank
-    private int value;
-    private int type;
+    private String codeOff;
+
+    @NotBlank
+    private Boolean active ;
+
+    @NotBlank
+    private Long expiryDate;
+
+    @NotBlank
+    private Integer value;
+
+    @NotBlank
+    private String type;
 
     public DiscountPackForm() {
     }

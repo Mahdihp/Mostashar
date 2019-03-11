@@ -8,7 +8,7 @@ public class Constants {
     public static final String KEY_CODE_VERIFY = "حساب شما فعال شد.";
     public static final String KEY_INVALID_CODE = "کد تایید و نام کاربری اشتباه است.";
     public static final String KEY_OLD_ACTIVE = "حساب کاربری شما قبلا فعال شده است.";
-    public static final String KEY_SEND_VERIFY_CODE = "پیامک تایید مستشار:";
+    public static final String KEY_SEND_VERIFY_CODE = "کد تایید مستشار:" + "\n" + "سپاس از عضویت شما";
 
     public static final String KEY_USER_NOT_FOUND = "کاربر مورد نظر موجود نیست.";
 
@@ -107,4 +107,7 @@ public class Constants {
     public static final String KEY_DIACTIVE = "غیر فعال شد.";
     public static final String KEY_NOT_FOUND_REMINDERS = "نوتیفی موجود نیست.";
     public static final String KEY_LOGIN = "ورود مجدد.";
+    public static final String KEY_NOT_FOUND_AC = "درخواستی پیدا نشد.";
+    public static final String KEY_NOT_UPDATE = "امکان ویرایش وجود ندارد.";
+    public static final String KEY_ALDEADY_ACCEPT = "شما قبلا برای این درخواست مشاوری انتخاب نموده اید.";
 }

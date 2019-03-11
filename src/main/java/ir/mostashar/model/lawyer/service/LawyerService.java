@@ -2,7 +2,6 @@ package ir.mostashar.model.lawyer.service;
 
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.adviceType.service.AdviceTypeService;
-import ir.mostashar.model.client.Client;
 import ir.mostashar.model.expertise.dto.ExpertiseDTO;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.lawyer.dto.LawyerDTO;
@@ -65,7 +64,7 @@ public class LawyerService {
             return Optional.empty();
     }
 
-    public Optional<LawyerDTO> findLawyerDTOByUid(short queryType, String uid_userName_Mobile) {
+    public Optional<LawyerDTO> findLawyerDTOByUid(int queryType, String uid_userName_Mobile) {
         Optional<Lawyer> lawyer = Optional.empty();
         switch (queryType) {
             case 1:
@@ -83,7 +82,7 @@ public class LawyerService {
             LawyerDTO lawyerDTO = new LawyerDTO();
             lawyerDTO.setStatus(HttpStatus.OK.value());
             lawyerDTO.setMessage(Constants.KEY_SUCESSE);
-            lawyerDTO.setId(lawyer.get().getUid().toString());
+            lawyerDTO.setLawyerId(lawyer.get().getUid().toString());
             lawyerDTO.setFirstName(lawyer.get().getFirstName());
             lawyerDTO.setLastName(lawyer.get().getLastName());
             lawyerDTO.setUsername(lawyer.get().getUsername());
@@ -98,7 +97,6 @@ public class LawyerService {
 //            lawyerDTO.setVerificationCode(lawyer.get().getVerificationCode());
             lawyerDTO.setCreationDate(lawyer.get().getCreationDate());
 //            lawyerDTO.setModificationDate(lawyer.get().getModificationDate());
-            lawyerDTO.setRoleName(lawyer.get().getRoles().toString());
             lawyerDTO.setAvailable(lawyer.get().getAvailable());
             lawyerDTO.setLevel(lawyer.get().getLevel());
             lawyerDTO.setPricePerMinute(lawyer.get().getPricePerMinute());
@@ -143,7 +141,7 @@ public class LawyerService {
             List<LawyerDTO> dtoList = new ArrayList<>();
             for (Lawyer lawyer : list.get()) {
                 LawyerDTO lawyerDTO = new LawyerDTO();
-                lawyerDTO.setId(lawyer.getUid().toString());
+                lawyerDTO.setLawyerId(lawyer.getUid().toString());
                 lawyerDTO.setFirstName(lawyer.getFirstName());
                 lawyerDTO.setLastName(lawyer.getLastName());
                 lawyerDTO.setUsername(lawyer.getUsername());
@@ -158,7 +156,6 @@ public class LawyerService {
 //            lawyerDTO.setVerificationCode(lawyer.getVerificationCode());
                 lawyerDTO.setCreationDate(lawyer.getCreationDate());
 //            lawyerDTO.setModificationDate(lawyer.getModificationDate());
-                lawyerDTO.setRoleName(lawyer.getRoles().toString());
                 lawyerDTO.setAvailable(lawyer.getAvailable());
                 lawyerDTO.setLevel(lawyer.getLevel());
                 lawyerDTO.setPricePerMinute(lawyer.getPricePerMinute());
@@ -228,7 +225,7 @@ public class LawyerService {
         }
     }
 
-    public Optional<String> registerUser(String phoneNumber, int adviceName) {
+    public Optional<UUID> registerUser(String phoneNumber, int adviceName) {
 
         Set<Role> roles = new HashSet<>();
         Role lawyerRole = roleRepo.findByName(RoleName.ROLE_LAWYER)
@@ -237,7 +234,7 @@ public class LawyerService {
         return saveLawyer(phoneNumber, adviceName, roles);
     }
 
-    private Optional<String> saveLawyer(String phoneNumber, int advicetype, Set<Role> roles) {
+    private Optional<UUID> saveLawyer(String phoneNumber, int advicetype, Set<Role> roles) {
         Lawyer lawyer = new Lawyer();
         UUID uuid = UUID.randomUUID();
         lawyer.setMobileNumber(Long.valueOf(phoneNumber));
@@ -270,8 +267,8 @@ public class LawyerService {
         Lawyer userSave = lawyerRepo.save(lawyer);
 
         if (userSave != null) {
-            smsService.sendSms(phoneNumber, Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
-            return Optional.of(uuid.toString());
+            smsService.sendSms(phoneNumber, code);
+            return Optional.of(uuid);
         } else
             return Optional.empty();
     }
@@ -333,6 +330,6 @@ public class LawyerService {
     public void reSendCode(String mobileNumber) {
         String code = DataUtil.genarateRandomNumber();
         updateCodeCerify(mobileNumber,code);
-        smsService.sendSms(mobileNumber, Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
+        smsService.sendSms(mobileNumber, code);
     }
 }

@@ -8,7 +8,7 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClientDTO extends BaseDTO {
 
-    private String userId;
+    private String clientId;
 
     private String firstName;
 
@@ -59,5 +59,19 @@ public class ClientDTO extends BaseDTO {
 
     public ClientDTO(Integer status, String message) {
         super(status, message);
+    }
+
+    public ClientDTO(Integer status, String message, String clientId) {
+        super(status, message);
+        this.clientId = clientId;
+    }
+
+    public ClientDTO(Integer status, String message, String clientId, Boolean active) {
+        super(status, message, active);
+        this.clientId = clientId;
+    }
+
+    public ClientDTO(Integer status, String message, Boolean active) {
+        super(status, message, active);
     }
 }

@@ -15,5 +15,7 @@ public interface AdminConfirmationRepo extends JpaRepository<AdminConfirmation,L
     Optional<AdminConfirmation> findByUid(UUID uuid);
     Optional<AdminConfirmation> findByTargetUid(UUID uuid);
     Optional<AdminConfirmation> findByTitleLike(String title);
-    Optional<List<AdminConfirmation>> findByVerified(boolean isVerified);
+    Optional<List<AdminConfirmation>> findAllByVerified(boolean isVerified);
+    Optional<List<AdminConfirmation>> findAllByLawyerUid(UUID uid);
+    Optional<List<AdminConfirmation>> findAllByUserUid(UUID uid);
 }

@@ -9,14 +9,6 @@ public class AssignDiscountForm {
 
     private String assignDiscountId;
 
-    private Boolean active;
-
-    @NotBlank
-    private String code;
-
-    @NotBlank
-    private Long expiryDate;
-
     @NotBlank
     private String userId;
 

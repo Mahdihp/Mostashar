@@ -7,10 +7,9 @@ import ir.mostashar.model.assignDiscount.dto.ListAssignDiscountDTO;
 import ir.mostashar.model.assignDiscount.repository.AssignDiscountRepo;
 import ir.mostashar.model.discountPack.DiscountPack;
 import ir.mostashar.model.discountPack.service.DiscountPackService;
-import ir.mostashar.model.lawyer.Lawyer;
-import ir.mostashar.model.lawyer.service.LawyerService;
+import ir.mostashar.model.user.User;
+import ir.mostashar.model.user.service.UserServiceImpl;
 import ir.mostashar.utils.Constants;
-import ir.mostashar.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -30,52 +29,22 @@ public class AssignDiscountService {
     DiscountPackService discountPackService;
 
     @Autowired
-    LawyerService lawyerService;
+    UserServiceImpl userService;
 
     public boolean createAssignDiscount(AssignDiscountForm adForm) {
-        Optional<DiscountPack> discountPack = discountPackService.findDiscountPackByUid(adForm.getDiscountPackId());
-        Optional<Lawyer> lawyer = lawyerService.findByUid(adForm.getUserId());
-
-        if (discountPack.isPresent() && lawyer.isPresent()) {
+        Optional<DiscountPack> discountPack = discountPackService.findByUid(adForm.getDiscountPackId());
+        Optional<User> user = userService.findUserByUid(adForm.getUserId());
+        if (discountPack.isPresent() && user.isPresent()) {
             AssignDiscount assignDiscount = new AssignDiscount();
             assignDiscount.setUid(UUID.randomUUID());
-            assignDiscount.setCreationDate(System.currentTimeMillis());
-            assignDiscount.setActive(adForm.getActive());
-            assignDiscount.setExpiryDate(adForm.getExpiryDate());
             assignDiscount.setDiscountpack(discountPack.get());
-            assignDiscount.setUser(lawyer.get());
-            assignDiscount.setCodeOff(DataUtil.generateOffPackCode(8));
+            assignDiscount.setUser(user.get());
             adRepo.save(assignDiscount);
             return true;
         }
         return false;
     }
 
-    public boolean updateAssignDiscount(AssignDiscountForm adForm) {
-        Optional<AssignDiscount> assignDiscount = adRepo.findByUid(UUID.fromString(adForm.getAssignDiscountId()));
-        if (assignDiscount.isPresent()) {
-            assignDiscount.get().setCreationDate(System.currentTimeMillis());
-            assignDiscount.get().setActive(adForm.getActive());
-            assignDiscount.get().setExpiryDate(adForm.getExpiryDate());
-            assignDiscount.get().setCodeOff(adForm.getCode());
-
-//            assignDiscount.get().setDiscountpack(assignDiscount.get().getDiscountpack());
-//            assignDiscount.get().setUser(assignDiscount.get().getUser());
-            adRepo.save(assignDiscount.get());
-            return true;
-        }
-        return false;
-    }
-
-    public boolean activeAssignDiscount(String uid,String lawyerUid, boolean isActive) {
-        Optional<AssignDiscount> assignDiscount = adRepo.findByUidAndUserUid(UUID.fromString(uid), UUID.fromString(lawyerUid));
-        if (assignDiscount.isPresent()) {
-            assignDiscount.get().setActive(isActive);
-            adRepo.save(assignDiscount.get());
-            return true;
-        }
-        return false;
-    }
 
     public boolean deleteAssignDiscount(String uid) {
         Optional<AssignDiscount> assignDiscount = adRepo.findByUid(UUID.fromString(uid));
@@ -86,13 +55,6 @@ public class AssignDiscountService {
         return false;
     }
 
-    public Optional<AssignDiscount> findByCodeOff(String codeOff) {
-        Optional<AssignDiscount> assignDiscount = adRepo.findByCodeOff(codeOff);
-        if (assignDiscount.isPresent())
-            return Optional.ofNullable(assignDiscount.get());
-        else
-            return Optional.empty();
-    }
 
     public Optional<AssignDiscount> findByUid(String uid) {
         Optional<AssignDiscount> assignDiscount = adRepo.findByUid(UUID.fromString(uid));
@@ -102,37 +64,23 @@ public class AssignDiscountService {
             return Optional.empty();
     }
 
-    public Optional<AssignDiscountDTO> findAssignDiscountDTOByUid(String uid) {
+    public Optional<AssignDiscountDTO> findDTOByUid(String uid) {
         Optional<AssignDiscount> assignDiscount = adRepo.findByUid(UUID.fromString(uid));
         if (assignDiscount.isPresent()) {
             AssignDiscountDTO adDTO = new AssignDiscountDTO();
             adDTO.setStatus(HttpStatus.OK.value());
             adDTO.setMessage(Constants.KEY_SUCESSE);
+
             adDTO.setAssignDiscountId(assignDiscount.get().getUid().toString());
-            adDTO.setCreationDate(assignDiscount.get().getCreationDate());
-            adDTO.setExpiryDate(assignDiscount.get().getExpiryDate());
-            adDTO.setActive(assignDiscount.get().getActive());
-            adDTO.setClientId(assignDiscount.get().getUser().getUid().toString());
             adDTO.setDiscountpackId(assignDiscount.get().getDiscountpack().getUid().toString());
-            adDTO.setCode(assignDiscount.get().getCodeOff());
+            adDTO.setUserId(assignDiscount.get().getUser().getUid().toString());
             return Optional.ofNullable(adDTO);
         }
         return Optional.empty();
     }
 
-    public Optional<ListAssignDiscountDTO> findAllDTOByUid(int queryType, String uid) {
-        Optional<List<AssignDiscount>> list = Optional.empty();
-        switch (queryType) {
-            case 1:
-                list = adRepo.findAllByActive(true); // all active
-                break;
-            case 2:
-                list = adRepo.findAllByUserUidAndActive(UUID.fromString(uid), true); // all active and user uid
-                break;
-            case 3:
-                list = adRepo.findAllByUserUid(UUID.fromString(uid)); // all user uid
-                break;
-        }
+    public Optional<ListAssignDiscountDTO> findAllDTOByUid(String uid) {
+        Optional<List<AssignDiscount>> list = adRepo.findAllByUserUid(UUID.fromString(uid)); // all user adminConfirmationId
         if (list.isPresent()) {
             ListAssignDiscountDTO ladDTP = new ListAssignDiscountDTO();
             ladDTP.setStatus(HttpStatus.OK.value());
@@ -141,12 +89,8 @@ public class AssignDiscountService {
             for (AssignDiscount assignDiscount : list.get()) {
                 AssignDiscountDTO adDTO = new AssignDiscountDTO();
                 adDTO.setAssignDiscountId(assignDiscount.getUid().toString());
-                adDTO.setCreationDate(assignDiscount.getCreationDate());
-                adDTO.setExpiryDate(assignDiscount.getExpiryDate());
-                adDTO.setActive(assignDiscount.getActive());
-                adDTO.setClientId(assignDiscount.getUser().getUid().toString());
+                adDTO.setUserId(assignDiscount.getUser().getUid().toString());
                 adDTO.setDiscountpackId(assignDiscount.getDiscountpack().getUid().toString());
-                adDTO.setCode(assignDiscount.getCodeOff());
 
                 dtoList.add(adDTO);
             }

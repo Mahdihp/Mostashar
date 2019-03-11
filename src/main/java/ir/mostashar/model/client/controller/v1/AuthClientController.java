@@ -3,6 +3,7 @@ package ir.mostashar.model.client.controller.v1;
 import io.swagger.annotations.ApiOperation;
 import ir.mostashar.model.BaseDTO;
 import ir.mostashar.model.client.Client;
+import ir.mostashar.model.client.dto.ClientDTO;
 import ir.mostashar.model.client.dto.RegisterClientDTO;
 import ir.mostashar.model.client.dto.ValidateCode;
 import ir.mostashar.model.client.service.ClientService;
@@ -22,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 import java.util.UUID;
 
-
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1/clients/auth")
@@ -34,9 +34,8 @@ public class AuthClientController {
     @Autowired
     JwtUtil jwtUtil;
 
-
-    @ApiOperation(value = "Login Client with mobileNumber", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @PostMapping(value = "/login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    @ApiOperation(value = "SignIn Client with mobileNumber", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/signin", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> signIn(@RequestParam("mobilenumber") String mobileNumber) {
         if (!DataUtil.isValideMobileNumber(mobileNumber))
             return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_PHONE_NUMBER_NOT_VALID));
@@ -53,22 +52,22 @@ public class AuthClientController {
         role.setUserDefined(true);
         role.setDescription(RoleName.ROLE_CLIENT.name().toLowerCase());
 
-        Optional<String> uuid = clientService.registerUser(mobileNumber);
-        if (uuid.isPresent())
-            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_REGISTER, uuid.get(), false));
+        Optional<UUID> clientId = clientService.registerUser(mobileNumber);
+        if (clientId.isPresent())
+            return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_REGISTER, clientId.get().toString(), false));
         else
-            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_CREATE_FILE_FAILED, false));
+            return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_CREATE_FILE_FAILED, false));
 
     }
 
     @ApiOperation(value = "Validate Code", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @PostMapping(value = "/validatecode", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> validateCode(@RequestParam("code") String code, @RequestParam("clientId") String userId) {
-        if (TextUtils.isEmpty(code) && TextUtils.isEmpty(userId))
-            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_INVALID_CODE, false));
+    @PostMapping(value = "/validationcode", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> validationCode(@RequestParam("clientid") String clientId, @RequestParam("code") String code) {
+        if (TextUtils.isEmpty(code) && TextUtils.isEmpty(clientId))
+            return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_INVALID_CODE, false));
 
-        Optional<Client> client = clientService.findByUserUidAndCode(userId, code);
-        ValidateCode validateCode = new ValidateCode(code, userId);
+        Optional<Client> client = clientService.findByUserUidAndCode(clientId, code);
+        ValidateCode validateCode = new ValidateCode(code, clientId);
         if (client.isPresent()) {
             JwtResponse jwtResponse = jwtUtil.generateToken(validateCode);
 
@@ -82,7 +81,7 @@ public class AuthClientController {
 
                 return ResponseEntity.status(HttpStatus.OK).body(registerClientDTO);
             } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new BaseDTO(HttpStatus.UNAUTHORIZED.value(), Constants.KEY_INVALID_CODE, "", false));
+                return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_INVALID_CODE, "", false));
             }
         }
         return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_INVALID_CODE, false));

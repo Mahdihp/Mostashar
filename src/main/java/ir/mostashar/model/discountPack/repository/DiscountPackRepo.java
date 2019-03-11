@@ -11,12 +11,11 @@ import java.util.UUID;
 @Repository
 public interface DiscountPackRepo extends JpaRepository<DiscountPack, Long> {
 
-    Optional<Boolean> existsByName(String name);
+    Optional<Boolean> existsByTitle(String name);
 
     Optional<DiscountPack> findByUid(UUID uid);
 
-    Optional<DiscountPack> findByName(String name);
-
-    Optional<List<DiscountPack>> findAllByNameLike(String name);
+    Optional<List<DiscountPack>> findAllByTitleLike(String title);
+    Optional<DiscountPack> findAllByCodeOff(String code);
 
 }

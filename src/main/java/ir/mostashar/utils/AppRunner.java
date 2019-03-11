@@ -26,8 +26,8 @@ import ir.mostashar.model.request.Request;
 import ir.mostashar.model.request.RequestStatus;
 import ir.mostashar.model.request.repository.RequestRepo;
 import ir.mostashar.model.role.Role;
-import ir.mostashar.model.role.repository.RoleRepo;
 import ir.mostashar.model.role.RoleName;
+import ir.mostashar.model.role.repository.RoleRepo;
 import ir.mostashar.model.wallet.Wallet;
 import ir.mostashar.model.wallet.repository.WalletRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,9 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 @Component
 public class AppRunner implements ApplicationRunner {
@@ -99,6 +101,7 @@ public class AppRunner implements ApplicationRunner {
         Client client1 = new Client();
         client1.setUid(UUID.fromString("b5dc7528-1d44-4ae3-9dc0-c3b8213d45a6"));
         client1.setMobileNumber(9134528901L);
+        client1.setScore(10);
         client1.setTel(9134528901L);
         client1.setAddress("Qom1");
         client1.setVerificationCode("-1");
@@ -107,6 +110,7 @@ public class AppRunner implements ApplicationRunner {
         Client client2 = new Client();
         client2.setUid(UUID.fromString("b6dc7528-1d44-4ae3-9dc0-c3b8213d45a6"));
         client2.setMobileNumber(9329466051L);
+        client2.setScore(10);
         client2.setTel(9329466051L);
         client2.setAddress("Qom2");
         client2.setVerificationCode("-1");
@@ -114,6 +118,7 @@ public class AppRunner implements ApplicationRunner {
 
         Client client3 = new Client();
         client3.setUid(UUID.fromString("b7dc7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        client3.setScore(10);
         client3.setMobileNumber(9161544275L);
         client3.setTel(9161544275L);
         client3.setAddress("Qom3");
@@ -123,6 +128,7 @@ public class AppRunner implements ApplicationRunner {
         Client client4 = new Client();
         client4.setUid(UUID.fromString("b8dc7528-1d44-4ae3-9dc0-c3b8213d45a6"));
         client4.setMobileNumber(9161544277L);
+        client4.setScore(10);
         client4.setTel(9161544277L);
         client4.setAddress("Qom4");
         client4.setVerificationCode("-1");
@@ -130,18 +136,24 @@ public class AppRunner implements ApplicationRunner {
 
         DiscountPack discountPack1=new DiscountPack();
         discountPack1.setUid(UUID.fromString("11502c33-b3a5-4401-a274-016bda28fdce"));
-        discountPack1.setName("بسته تخفیفی 5 دقیقه ای ");
+        discountPack1.setTitle("بسته تخفیفی 5 دقیقه ای ");
         discountPack1.setValue(5);
+        discountPack1.setCodeOff(DataUtil.generateOffPackCode(8));
+
+
+
 
         DiscountPack discountPack2=new DiscountPack();
         discountPack2.setUid(UUID.fromString("11602c33-b3a5-4401-a274-016bda28fdce"));
-        discountPack2.setName("بسته تخفیفی 10 دقیقه ای ");
+        discountPack2.setTitle("بسته تخفیفی 10 دقیقه ای ");
         discountPack2.setValue(10);
+        discountPack2.setCodeOff(DataUtil.generateOffPackCode(8));
 
         DiscountPack discountPack3=new DiscountPack();
         discountPack3.setUid(UUID.fromString("11702c33-b3a5-4401-a274-016bda28fdce"));
-        discountPack3.setName("بسته تخفیفی 20 دقیقه ای ");
+        discountPack3.setTitle("بسته تخفیفی 20 دقیقه ای ");
         discountPack3.setValue(20);
+        discountPack2.setCodeOff(DataUtil.generateOffPackCode(8));
 
 
 
@@ -358,6 +370,7 @@ public class AppRunner implements ApplicationRunner {
         Lawyer lawyer1 = new Lawyer();
         lawyer1.setUid(UUID.fromString("7cf2431f-e816-4122-90d9-7cd84e64716c"));
         lawyer1.setLevel(1); // 3 level Lawyer
+        lawyer1.setScore(10);
         lawyer1.setAdvicetype(adviceType1);
         lawyer1.setAvailable(true);
         lawyer1.setVerified(true);
@@ -367,6 +380,7 @@ public class AppRunner implements ApplicationRunner {
 
         Lawyer lawyer2 = new Lawyer();
         lawyer2.setUid(UUID.fromString("95c424c0-3e56-11e9-b475-0800200c9a66"));
+        lawyer2.setScore(10);
         lawyer2.setLevel(2); // 3 level Lawyer
         lawyer2.setAdvicetype(adviceType1);
         lawyer2.setAvailable(true);
@@ -378,6 +392,7 @@ public class AppRunner implements ApplicationRunner {
         Lawyer lawyer3 = new Lawyer();
         lawyer3.setUid(UUID.fromString("9b64b9d0-3e56-11e9-b475-0800200c9a66"));
         lawyer3.setLevel(3); // 3 level Lawyer
+        lawyer3.setScore(10);
         lawyer3.setAdvicetype(adviceType1);
         lawyer3.setAvailable(true);
         lawyer3.setVerified(true);
@@ -395,6 +410,8 @@ public class AppRunner implements ApplicationRunner {
         acceptRequest1.setUid(UUID.fromString("b4482c16-b3a5-4401-a274-016bda28fdce"));
         acceptRequest1.setLawyer(lawyer1);
         acceptRequest1.setRequest(request1);
+        acceptRequest1.setAcceptedByClient(true);
+
         acceptRequest1.setCreationDate(System.currentTimeMillis());
 
 
@@ -446,17 +463,13 @@ public class AppRunner implements ApplicationRunner {
 
         AssignDiscount assignDiscount1=new AssignDiscount();
         assignDiscount1.setUid(UUID.fromString("11902c33-b3a5-4401-a274-016bda28fdce"));
-        assignDiscount1.setActive(true);
-        assignDiscount1.setCreationDate(System.currentTimeMillis());
-        assignDiscount1.setDiscountpack(discountPack1);
         assignDiscount1.setUser(lawyer1);
+        assignDiscount1.setDiscountpack(discountPack1);
 
         AssignDiscount assignDiscount2=new AssignDiscount();
         assignDiscount2.setUid(UUID.fromString("12002c33-b3a5-4401-a274-016bda28fdce"));
-        assignDiscount2.setActive(true);
-        assignDiscount2.setCreationDate(System.currentTimeMillis());
-        assignDiscount2.setDiscountpack(discountPack2);
         assignDiscount2.setUser(lawyer1);
+        assignDiscount2.setDiscountpack(discountPack2);
 
 
         roleRepo.save(role1);

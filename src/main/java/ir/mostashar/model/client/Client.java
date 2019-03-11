@@ -6,6 +6,7 @@ import ir.mostashar.model.file.File;
 import ir.mostashar.model.question.Question;
 import ir.mostashar.model.request.Request;
 import ir.mostashar.model.user.User;
+import ir.mostashar.model.userFeedback.UserFeedBack;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -54,6 +55,10 @@ public class Client extends User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
     @EqualsAndHashCode.Exclude
     private Set<Call> calls = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
+    @EqualsAndHashCode.Exclude
+    private Set<UserFeedBack> userFeedBacks = new HashSet<>();
 
     public Client() {
     }

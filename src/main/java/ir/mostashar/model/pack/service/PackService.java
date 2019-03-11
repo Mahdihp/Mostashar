@@ -3,11 +3,14 @@ package ir.mostashar.model.pack.service;
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.adviceType.service.AdviceTypeService;
 import ir.mostashar.model.assignDiscount.AssignDiscount;
+import ir.mostashar.model.assignDiscount.dto.AssignDiscountForm;
 import ir.mostashar.model.assignDiscount.service.AssignDiscountService;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.service.ClientService;
 import ir.mostashar.model.consumptionPack.ConsumptionPack;
 import ir.mostashar.model.consumptionPack.service.ConsumptionPackService;
+import ir.mostashar.model.discountPack.DiscountPack;
+import ir.mostashar.model.discountPack.service.DiscountPackService;
 import ir.mostashar.model.factor.service.FactorService;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.lawyer.service.LawyerService;
@@ -23,6 +26,7 @@ import ir.mostashar.model.packsnapshot.service.PackSnapshotService;
 import ir.mostashar.model.request.Request;
 import ir.mostashar.model.request.service.RequestService;
 import ir.mostashar.utils.Constants;
+import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -65,6 +69,9 @@ public class PackService {
 
     @Autowired
     AssignDiscountService adService;
+
+    @Autowired
+    DiscountPackService dpService;
 
     /**
      * first find Advicetype by callId
@@ -216,7 +223,6 @@ public class PackService {
             psShot.setPackMinute(pack.get().getMinute());
             psShot.setLawyerPricePerMinute(bpForm.getLawyerPricePerMinute());
 
-            // Add Off اعمال کد تخفیف
 
             psShot.setTotalPrice(bpForm.getTotalPrice());
             psShot.setActive(bpForm.isActive()); // روی چه حالتی باشه
@@ -226,6 +232,8 @@ public class PackService {
             if (!psService.savePackSnapShot(psShot))
                 return Optional.ofNullable(new BuyPackStatus(BuyPack.PackSnapshotError));
 
+            // Add Off اعمال کد تخفیف
+            addScore(bpForm.getUserId(), bpForm.getCodeOff());
             // insert into factor
 
             /*Factor factor = new Factor();
@@ -248,10 +256,17 @@ public class PackService {
         return Optional.ofNullable(new BuyPackStatus(BuyPack.ErrorAll));
     }
 
-    private void addScore(String lawyerUid, String codeOff) {
-        Optional<AssignDiscount> assignDiscount = adService.findByCodeOff(codeOff);
-        if (assignDiscount.isPresent()) {
-            lawyerService.addScore(lawyerUid,10);
+    private void addScore(String userUid, String codeOff) {
+        if (TextUtils.isEmpty(codeOff) || TextUtils.isEmpty(userUid))
+            return;
+
+        Optional<DiscountPack> discountPack = dpService.findByCodeOff(codeOff);
+        if (discountPack.isPresent()) {
+            AssignDiscountForm assignDiscountForm = new AssignDiscountForm();
+            assignDiscountForm.setDiscountPackId(discountPack.get().getUid().toString());
+            assignDiscountForm.setUserId(userUid);
+            adService.createAssignDiscount(assignDiscountForm);
+            clientService.addScore(userUid, discountPack.get().getValue());
         }
     }
 

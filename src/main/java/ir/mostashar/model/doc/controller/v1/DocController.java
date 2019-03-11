@@ -10,7 +10,10 @@ import ir.mostashar.model.doc.dto.ListDocDTO;
 import ir.mostashar.model.doc.service.DocService;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.dto.FileDTO;
+import ir.mostashar.model.file.dto.ListFileDTO;
 import ir.mostashar.model.file.service.FileService;
+import ir.mostashar.model.request.Request;
+import ir.mostashar.model.request.service.RequestService;
 import ir.mostashar.utils.Constants;
 import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +41,9 @@ public class DocController {
 
     @Autowired
     LawyerActivityService laService;
+
+    @Autowired
+    RequestService requestService;
 
     @ApiOperation(value = "Create Document Client", notes = "doctype : 0=Audio, 1=Video, 2=PDF, 3=Picture, 4=Text, 5=ZipFile, 6=RARFile" + "\n" + "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @Transactional
@@ -111,6 +117,10 @@ public class DocController {
     @ApiOperation(value = "Delete Document", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/removedoc", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> removeDocByUid(@RequestParam("docId") String docUid, @RequestParam("userid") String userUid, @RequestParam("fileid") String fileUid, @RequestParam(value = "lawyerid") String lawyerUid) {
+        Optional<Request> request = requestService.findByFileUid(fileUid);
+        if (request.isPresent())
+            return ResponseEntity.status(HttpStatus.OK).body(new ListFileDTO(HttpStatus.OK.value(), Constants.KEY_NOT_UPDATE));
+
         if (docService.deleteDoc(docUid, userUid, fileUid)) {
             if (!TextUtils.isEmpty(lawyerUid)) {
                 LawyerActivityForm laForm = new LawyerActivityForm();

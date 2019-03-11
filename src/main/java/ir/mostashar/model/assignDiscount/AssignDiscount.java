@@ -24,24 +24,6 @@ public class AssignDiscount {
 	@Column(unique = true , nullable = false)
 	private UUID uid;
 
-	@Column(name = "active")
-	private Boolean active = false;
-
-	@Column(name = "codeoff")
-	private String codeOff;
-
-	@Column(name = "creationdate")
-	@CreatedDate
-	private Long creationDate;
-
-	@Column(name = "modificationdate")
-	@CreatedDate
-	private Long modificationDate;
-
-	@Column(name = "expirydate")
-	@CreatedDate
-	private Long expiryDate;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userid", nullable = false)
     private User user;

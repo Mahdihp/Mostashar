@@ -1,11 +1,9 @@
 package ir.mostashar.model.client.controller.v1;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import ir.mostashar.model.BaseDTO;
 import ir.mostashar.model.acceptRequest.dto.ListAcceptRequestDTO;
 import ir.mostashar.model.acceptRequest.service.AcceptRequestService;
-import ir.mostashar.model.bill.dto.BillDTO;
 import ir.mostashar.model.bill.dto.ListBillDTO;
 import ir.mostashar.model.bill.service.BillService;
 import ir.mostashar.model.client.dto.ClientDTO;
@@ -24,7 +22,6 @@ import ir.mostashar.model.reminder.dto.ListReminderDTO;
 import ir.mostashar.model.reminder.service.ReminderService;
 import ir.mostashar.model.request.RequestStatus;
 import ir.mostashar.model.request.service.RequestService;
-import ir.mostashar.model.wallet.Wallet;
 import ir.mostashar.utils.Constants;
 import ir.mostashar.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +65,7 @@ public class ClientController {
     ClientService clientService;
 
     /**
-     * find All Lawyer Read Request File
+     * find All Lawyer Read(View) Request File
      *
      * @param requestId
      * @return
@@ -84,23 +81,25 @@ public class ClientController {
                 return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_LAWYER_READ));
             }
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ClientDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
+        return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
 
+
     /**
-     * Find All Lawyer Accept Request File
+     * Find All Accept Request File
+     * لیست درخواست های پذیرفته شده
      *
      * @param fileId
      * @param requestId
      * @return
      */
-    @PostMapping(value = "/acceptlawyer", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    @PostMapping(value = "/acceptsrequest", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findAcceptLawyer(@RequestParam("fileid") String fileId, @RequestParam("requestid") String requestId) {
-        Optional<ListAcceptRequestDTO> list = arService.findListAcceptRequestDTO(requestId, fileId);
+        Optional<ListAcceptRequestDTO> list = arService.findAllDTO(requestId, fileId);
         if (list.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(list.get());
         else
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ClientDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_LAWYER_ACCEPT));
+            return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_LAWYER_ACCEPT));
     }
 
     /**
@@ -113,11 +112,14 @@ public class ClientController {
      */
     @PostMapping(value = "/assinglawyer", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> assingLawyerByClient(@RequestParam("lawyerid") String lawyerId, @RequestParam("requestid") String requestId) {
-        if (arService.assignLawyerToRequest(lawyerId, requestId, true)) {
+        if (arService.existsAssingLawyer(lawyerId, requestId))
+            return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_ALDEADY_ACCEPT));
+
+        if (arService.assignLawyerToRequest(lawyerId, requestId)) {
             requestService.updateStatusRequest(requestId, RequestStatus.WAIT_PEYMENT);
             return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_ASSIGN_LAWYER_TO_REQUEST));
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ClientDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
+        return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
 
     /**
@@ -130,11 +132,11 @@ public class ClientController {
      */
     @PostMapping(value = "/rejectlawyer", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> rejectedLawyerByClient(@RequestParam("lawyerid") String lawyerId, @RequestParam("requestid") String requestId) {
-        if (arService.assignLawyerToRequest(lawyerId, requestId, false)) {
+        if (arService.rejectLawyerToRequest(lawyerId, requestId)) {
             requestService.updateStatusRequest(requestId, RequestStatus.SELECT_LAWYER);
             return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_REJECT_LAWYER_TO_REQUEST));
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ClientDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
+        return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
 
     /**
@@ -143,10 +145,11 @@ public class ClientController {
      * @param lawyerid
      * @return
      */
+    @ApiOperation(value = "List All Pack from Lawyer Price")
     @PostMapping(value = "/packs", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findAllPackByLawyer(@RequestParam("lawyerid") String lawyerid) {
         if (!DataUtil.isValidUUID(lawyerid))
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new PackDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_UUID_NOT_VALID));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new PackDTO(HttpStatus.OK.value(), Constants.KEY_UUID_NOT_VALID));
 
         Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(lawyerid));
         if (lawyer.isPresent()) {
@@ -155,7 +158,7 @@ public class ClientController {
                 return ResponseEntity.status(HttpStatus.OK).body(allPacks.get());
             }
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new PackDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_LAWYER));
+        return ResponseEntity.status(HttpStatus.OK).body(new PackDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_LAWYER));
     }
 
     /**

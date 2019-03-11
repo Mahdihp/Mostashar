@@ -2,7 +2,6 @@ package ir.mostashar.model.file.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import ir.mostashar.model.BaseDTO;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
@@ -15,7 +14,7 @@ public class FileDTO extends BaseDTO {
     private String description;
     private Long creationDate;
     private Long modificationDate;
-    private String userId;
+    private String clientId;
 
     public FileDTO() {
     }

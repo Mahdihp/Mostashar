@@ -55,21 +55,21 @@ public class ClientService {
     }
 
     public boolean updateClient(ClientProfileForm cpForm) {
-        Optional<Client> client = clientRepo.findByUid(UUID.fromString(cpForm.getUserId()));
+        Optional<Client> client = clientRepo.findByUid(UUID.fromString(cpForm.getClientId()));
         if (client.isPresent()) {
             client.get().setFirstName(cpForm.getFirstName());
             client.get().setLastName(cpForm.getLastName());
             client.get().setFatherName(cpForm.getFatherName());
             client.get().setNationalId(cpForm.getNationalId());
             client.get().setBirthDate(cpForm.getBirthDate());
-            client.get().setAvatarHashcode(cpForm.getAvatarHashcode());
-            client.get().setActive(cpForm.getActive());
-            client.get().setMobileNumber(cpForm.getMobileNumber());
+//            client.get().setAvatarHashcode(cpForm.getAvatarHashcode());
+//            client.get().setActive(cpForm.getActive());
+            client.get().setMobileNumber(Long.valueOf(cpForm.getMobileNumber()));
             client.get().setJobTitle(cpForm.getJobTitle());
             client.get().setAddress(cpForm.getAddress());
             client.get().setPostalCode(cpForm.getPostalCode());
             client.get().setFieldOfStudy(cpForm.getFieldOfStudy());
-            client.get().setTel(cpForm.getTel());
+            client.get().setTel(Long.valueOf(cpForm.getTel()));
             clientRepo.save(client.get());
         }
         return false;
@@ -166,7 +166,7 @@ public class ClientService {
             return false;
     }
 
-    public Optional<String> registerUser(String phoneNumber) {
+    public Optional<UUID> registerUser(String phoneNumber) {
 
         Set<Role> roles = new HashSet<>();
         Role clientRole = roleRepo.findByName(RoleName.ROLE_CLIENT)
@@ -176,7 +176,7 @@ public class ClientService {
     }
 
 
-    private Optional<String> saveClient(String phoneNumber, Set<Role> roles) {
+    private Optional<UUID> saveClient(String phoneNumber, Set<Role> roles) {
         Client client = new Client();
         UUID uuid = UUID.randomUUID();
         String code = DataUtil.genarateRandomNumber();
@@ -199,8 +199,8 @@ public class ClientService {
         Client userSave = clientRepo.save(client);
 
         if (userSave != null) {
-            smsService.sendSms(phoneNumber, Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
-            return Optional.of(uuid.toString());
+            smsService.sendSms(phoneNumber, code);
+            return Optional.of(uuid);
         }
         return Optional.empty();
     }
@@ -261,6 +261,16 @@ public class ClientService {
     public void reSendCode(String mobileNumber) {
         String code = DataUtil.genarateRandomNumber();
         updateCodeCerify(mobileNumber,code);
-        smsService.sendSms(mobileNumber, Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
+        smsService.sendSms(mobileNumber, code);
+    }
+
+    public void addScore(String lawyerUid, int score) {
+        Optional<Client> client = clientRepo.findByUid(UUID.fromString(lawyerUid));
+        if (client.isPresent()) {
+            int totalScore = client.get().getScore();
+            totalScore += score;
+            client.get().setScore(totalScore);
+            clientRepo.save(client.get());
+        }
     }
 }
