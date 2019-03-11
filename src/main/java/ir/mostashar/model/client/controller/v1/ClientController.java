@@ -86,15 +86,16 @@ public class ClientController {
 
 
     /**
-     * Find All Lawyer Accept Request File
+     * Find All Accept Request File
+     * لیست درخواست های پذیرفته شده
      *
      * @param fileId
      * @param requestId
      * @return
      */
-    @PostMapping(value = "/acceptlawyer", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    @PostMapping(value = "/acceptsrequest", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findAcceptLawyer(@RequestParam("fileid") String fileId, @RequestParam("requestid") String requestId) {
-        Optional<ListAcceptRequestDTO> list = arService.findListAcceptRequestDTO(requestId, fileId);
+        Optional<ListAcceptRequestDTO> list = arService.findAllDTO(requestId, fileId);
         if (list.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(list.get());
         else
@@ -111,7 +112,10 @@ public class ClientController {
      */
     @PostMapping(value = "/assinglawyer", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> assingLawyerByClient(@RequestParam("lawyerid") String lawyerId, @RequestParam("requestid") String requestId) {
-        if (arService.assignLawyerToRequest(lawyerId, requestId, true)) {
+        if (arService.existsAssingLawyer(lawyerId, requestId))
+            return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_ALDEADY_ACCEPT));
+
+        if (arService.assignLawyerToRequest(lawyerId, requestId)) {
             requestService.updateStatusRequest(requestId, RequestStatus.WAIT_PEYMENT);
             return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_ASSIGN_LAWYER_TO_REQUEST));
         }
@@ -128,7 +132,7 @@ public class ClientController {
      */
     @PostMapping(value = "/rejectlawyer", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> rejectedLawyerByClient(@RequestParam("lawyerid") String lawyerId, @RequestParam("requestid") String requestId) {
-        if (arService.assignLawyerToRequest(lawyerId, requestId, false)) {
+        if (arService.rejectLawyerToRequest(lawyerId, requestId)) {
             requestService.updateStatusRequest(requestId, RequestStatus.SELECT_LAWYER);
             return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_REJECT_LAWYER_TO_REQUEST));
         }

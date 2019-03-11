@@ -410,6 +410,8 @@ public class AppRunner implements ApplicationRunner {
         acceptRequest1.setUid(UUID.fromString("b4482c16-b3a5-4401-a274-016bda28fdce"));
         acceptRequest1.setLawyer(lawyer1);
         acceptRequest1.setRequest(request1);
+        acceptRequest1.setAcceptedByClient(true);
+
         acceptRequest1.setCreationDate(System.currentTimeMillis());
 
 
