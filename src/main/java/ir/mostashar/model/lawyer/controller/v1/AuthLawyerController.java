@@ -62,7 +62,7 @@ public class AuthLawyerController {
 
     @ApiOperation(value = "Validate Code", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/validationcode", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> validationCode(@RequestParam("codeoff") String code, @RequestParam("lawyerid") String lawyerId) {
+    public ResponseEntity<?> validationCode(@RequestParam("code") String code, @RequestParam("lawyerid") String lawyerId) {
         if (TextUtils.isEmpty(code) && TextUtils.isEmpty(lawyerId))
             return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_INVALID_CODE, false));
 
