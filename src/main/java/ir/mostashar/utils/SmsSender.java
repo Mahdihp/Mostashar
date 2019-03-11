@@ -4,12 +4,18 @@ package ir.mostashar.utils;
 import com.kavenegar.sdk.KavenegarApi;
 import com.kavenegar.sdk.models.SendResult;
 import lombok.Data;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 
+import java.io.IOException;
 import java.util.List;
 
 @Data
 public class SmsSender {
 
+    private static String baseUrl = "https://api.kavenegar.com/v1/";
     private String message;
     private String token;
     private String reciever;
@@ -23,34 +29,23 @@ public class SmsSender {
         this.sender = sender;
     }
 
-    public void sendListSms() {
-        String phoneList = "";
-        for (String phone : listReciver) {
-            phoneList += phone + ",";
-        }
-        KavenegarApi api = new KavenegarApi(token);
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                //api.send(listReciver, reciever, message);
-            }
-        });
-        t.start();
-    }
+    public void sendVerifiedCode() {
 
-    public void sendSingleSms() {
-
-        System.out.println("Log-------------sendSingleSms" + reciever + " " + message);
-
-        KavenegarApi api = new KavenegarApi(token);
+        System.out.println("Log-------------sendVerifiedCode " + reciever + " " + message);
+        //  send();
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    SendResult send = api.send(sender, reciever, message);
+
+                    KavenegarApi api = new KavenegarApi(token);
+//                    SendResult send = api.send(sender, reciever, message);
+                    SendResult send = api.verifyLookup(reciever, message, "validationcode");
                     System.out.println(send.getSender());
                     System.out.println(send.getMessage());
                     System.out.println(send.getDate());
+                    System.out.println(send.getStatus());
+                    System.out.println(send.getCost());
                     System.out.println("Log---------sended");
                 } catch (Exception e1) {
                     return;
@@ -60,4 +55,23 @@ public class SmsSender {
         t.start();
     }
 
+    public void sendHttpPost() {
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                baseUrl += token + "/verify/lookup.json?receptor=" + reciever + "&token=" + message + "&template=validationcode";
+                CloseableHttpClient client = HttpClients.createDefault();
+                HttpPost httpPost = new HttpPost(baseUrl);
+                try {
+                    CloseableHttpResponse response = client.execute(httpPost);
+                    System.out.println("Log---send--------------------:" + response.getEntity());
+                    client.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        t.start();
+
+    }
 }

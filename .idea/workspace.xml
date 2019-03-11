@@ -6,7 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="1e01327f-4aba-4542-b594-13cb3ce25ace" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/MostasharApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/MostasharApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/BaseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/BaseDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/ClientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/service/ClientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/service/ClientService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/service/LawyerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/service/LawyerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/utils/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/utils/SmsSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/utils/SmsSender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/utils/SmsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/utils/SmsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,28 +54,55 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/ProfileClientController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="26" column="27" lean-forward="true" selection-start-line="26" selection-start-column="27" selection-end-line="26" selection-end-column="27" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/ClientController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1799">
-              <caret line="176" column="62" lean-forward="true" selection-start-line="176" selection-start-column="62" selection-end-line="176" selection-end-column="62" />
+            <state relative-caret-position="303">
+              <caret line="85" selection-start-line="85" selection-end-line="85" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/utils/AppRunner.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/AuthClientController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
-              <caret line="318" column="77" selection-start-line="318" selection-start-column="41" selection-end-line="318" selection-end-column="77" />
+            <state relative-caret-position="138">
+              <caret line="56" column="53" selection-start-line="56" selection-start-column="53" selection-end-line="56" selection-end-column="53" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/service/ClientService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="99">
+              <caret line="201" column="30" selection-start-line="201" selection-start-column="23" selection-end-line="201" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/service/LawyerService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="99">
+              <caret line="269" column="30" selection-start-line="269" selection-start-column="23" selection-end-line="269" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/utils/SmsService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="121">
+              <caret line="17" column="39" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/utils/SmsSender.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="260">
+              <caret line="48" selection-start-line="48" selection-end-line="48" />
             </state>
           </provider>
         </entry>
@@ -84,7 +120,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Table</find>
       <find>b4482c14-b3a5-4401-a274-016bda28fdce</find>
       <find>b4482c15-b3a5-4401-a274-016bda28fdce</find>
       <find>b4482c16-b3a5-4401-a274-016bda28fdce</find>
@@ -114,6 +149,7 @@
       <find>x-www</find>
       <find>setActive</find>
       <find>req</find>
+      <find>sendSms</find>
     </findStrings>
     <replaceStrings>
       <replace>Clients(id)</replace>
@@ -188,10 +224,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/adminConfirmation/dto/ListACDTO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/adminConfirmation/repository/AdminConfirmationRepo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/adminConfirmation/dto/ACDTO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/utils/DataUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/AssignDiscount.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/adminConfirmation/controller/ACController.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/dto/AssignDiscountForm.java" />
@@ -217,10 +249,8 @@
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/request/service/RequestService.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/dto/FileUpdateForm.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/file/controller/v1/FileController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/utils/Constants.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/doc/controller/v1/DocController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/static/index.html" />
-        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/BaseDTO.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/dto/ClientDTO.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/AuthClientController.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/file/dto/FileDTO.java" />
@@ -228,17 +258,23 @@
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/wallet/service/WalletService.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/adminConfirmation/service/AdminConfirmationservice.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/controller/v1/AuthLawyerController.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/config/Swagger2Config.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/security/WebSecurityConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/ProfileClientController.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/dto/LawyerDTO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/service/LawyerService.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/utils/AppRunner.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/dto/ClientProfileForm.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/dto/LawyerProfileForm.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/service/ClientService.java" />
         <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/ClientController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/utils/SmsService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/utils/Constants.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/service/LawyerService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/BaseDTO.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/MostasharApplication.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/service/ClientService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/utils/SmsSender.java" />
       </list>
     </option>
   </component>
@@ -265,11 +301,6 @@
         <path>
           <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
           <item name="iranPopulation" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="iranPopulation" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Lifecycle" type="58874e2:MavenProjectsStructure$LifecycleNode" />
         </path>
       </expand>
       <select />
@@ -549,14 +580,7 @@
       <workItem from="1552123402990" duration="736000" />
       <workItem from="1552196492496" duration="2576000" />
       <workItem from="1552199588842" duration="12825000" />
-      <workItem from="1552283606354" duration="11597000" />
-    </task>
-    <task id="LOCAL-00077" summary="Create UserPopularity Service &amp; Controller Operation">
-      <created>1551178065181</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
-      <option name="project" value="LOCAL" />
-      <updated>1551178065181</updated>
+      <workItem from="1552283606354" duration="17182000" />
     </task>
     <task id="LOCAL-00078" summary="Create &amp; Test UserPopularity Service &amp; Controller Operation">
       <created>1551254492583</created>
@@ -894,11 +918,18 @@
       <option name="project" value="LOCAL" />
       <updated>1552296414110</updated>
     </task>
-    <option name="localTasksCounter" value="126" />
+    <task id="LOCAL-00126" summary="Fixed &amp; Clean Code v3.">
+      <created>1552296638075</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1552296638075</updated>
+    </task>
+    <option name="localTasksCounter" value="127" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="600352000" />
+    <option name="totallyTimeSpent" value="605937000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -921,7 +952,7 @@
       <window_info id="Web" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32324842" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3375796" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.40605095" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -996,7 +1027,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Create CallController." />
     <MESSAGE value="Fixed Relation Between Role &amp; Feature Table." />
     <MESSAGE value="Add Method Accepts &amp; Fails Request." />
     <MESSAGE value="Add Swagger Tools." />
@@ -1021,7 +1051,8 @@
     <MESSAGE value="Fixed &amp; Clean Code." />
     <MESSAGE value="Fixed &amp; Clean Code v1." />
     <MESSAGE value="Fixed &amp; Clean Code v2." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed &amp; Clean Code v2." />
+    <MESSAGE value="Fixed &amp; Clean Code v3." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed &amp; Clean Code v3." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -1042,41 +1073,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/discountPack/controller/v1/DiscountPackController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-72">
-          <caret line="49" column="61" selection-start-line="49" selection-start-column="61" selection-end-line="49" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/discountPack/service/DiscountPackService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="55" column="44" selection-start-line="55" selection-start-column="44" selection-end-line="55" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/controller/v1/AssignDiscountController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="30" column="6" selection-start-line="30" selection-start-column="4" selection-end-line="38" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/MostasharApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/pack/dto/BuyPackForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="12" column="19" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/user/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-357">
@@ -1192,13 +1188,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/utils/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="110" column="74" selection-start-line="110" selection-start-column="74" selection-end-line="110" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/dto/FileUpdateForm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -1224,13 +1213,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="14" column="23" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/BaseDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -1302,13 +1284,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="29" column="19" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/config/Swagger2Config.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -1336,13 +1311,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/AuthClientController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="52" column="33" selection-start-line="52" selection-start-column="33" selection-end-line="52" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.1.4.RELEASE/spring-web-5.1.4.RELEASE.jar!/org/springframework/http/MediaType.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="104">
@@ -1364,20 +1332,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/service/ClientService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="66" column="41" selection-start-line="66" selection-start-column="41" selection-end-line="66" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/service/LawyerService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="31">
-          <caret line="187" column="39" selection-start-line="187" selection-start-column="39" selection-end-line="187" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/controller/v1/ProfileLawyerController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="121">
@@ -1395,7 +1349,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/ProfileClientController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
-          <caret line="26" column="27" lean-forward="true" selection-start-line="26" selection-start-column="27" selection-end-line="26" selection-end-column="27" />
+          <caret line="26" column="27" selection-start-line="26" selection-start-column="27" selection-end-line="26" selection-end-column="27" />
         </state>
       </provider>
     </entry>
@@ -1408,8 +1362,85 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/ClientController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1799">
-          <caret line="176" column="62" lean-forward="true" selection-start-line="176" selection-start-column="62" selection-end-line="176" selection-end-column="62" />
+        <state relative-caret-position="303">
+          <caret line="85" selection-start-line="85" selection-end-line="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/kavenegar/kavenegar-java/v2.0.3/kavenegar-java-v2.0.3.jar!/com/kavenegar/sdk/KavenegarApi.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7225">
+          <caret line="460" column="22" selection-start-line="460" selection-start-column="22" selection-end-line="460" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/utils/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="10" column="65" lean-forward="true" selection-start-line="10" selection-start-column="65" selection-end-line="10" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="18" column="46" lean-forward="true" selection-start-line="18" selection-start-column="46" selection-end-line="18" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/BaseDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/MostasharApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="60" selection-start-line="60" selection-end-line="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/AuthClientController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="56" column="53" selection-start-line="56" selection-start-column="53" selection-end-line="56" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/utils/SmsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="17" column="39" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/service/ClientService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="201" column="30" selection-start-line="201" selection-start-column="23" selection-end-line="201" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/service/LawyerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="269" column="30" selection-start-line="269" selection-start-column="23" selection-end-line="269" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/utils/SmsSender.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
         </state>
       </provider>
     </entry>

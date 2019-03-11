@@ -84,6 +84,7 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
 
+
     /**
      * Find All Lawyer Accept Request File
      *

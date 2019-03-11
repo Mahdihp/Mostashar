@@ -267,7 +267,7 @@ public class LawyerService {
         Lawyer userSave = lawyerRepo.save(lawyer);
 
         if (userSave != null) {
-            smsService.sendSms(phoneNumber, Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
+            smsService.sendSms(phoneNumber, code);
             return Optional.of(uuid);
         } else
             return Optional.empty();
@@ -330,6 +330,6 @@ public class LawyerService {
     public void reSendCode(String mobileNumber) {
         String code = DataUtil.genarateRandomNumber();
         updateCodeCerify(mobileNumber,code);
-        smsService.sendSms(mobileNumber, Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
+        smsService.sendSms(mobileNumber, code);
     }
 }
