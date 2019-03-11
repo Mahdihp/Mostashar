@@ -41,11 +41,11 @@ public class SmsSender {
                     KavenegarApi api = new KavenegarApi(token);
 //                    SendResult send = api.send(sender, reciever, message);
                     SendResult send = api.verifyLookup(reciever, message, "validationcode");
-                    System.out.println(send.getSender());
-                    System.out.println(send.getMessage());
-                    System.out.println(send.getDate());
-                    System.out.println(send.getStatus());
-                    System.out.println(send.getCost());
+                    System.out.println("Sender: " + send.getSender());
+                    System.out.println("Message: " + send.getMessage());
+                    System.out.println("Date: " + send.getDate());
+                    System.out.println("Status: " + send.getStatus());
+                    System.out.println("Cost: " + send.getCost());
                     System.out.println("Log---------sended");
                 } catch (Exception e1) {
                     return;
