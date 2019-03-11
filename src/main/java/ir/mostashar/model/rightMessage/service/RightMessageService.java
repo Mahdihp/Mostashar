@@ -54,6 +54,14 @@ public class RightMessageService {
         return Optional.empty();
     }
 
+    public Optional<RightMessage> findRightMessageBylawyerid(String lawyerid) {
+        Optional<RightMessage> rightMessage = rightMessageRepo.findBylawyerid(lawyerid);
+        if (rightMessage.isPresent()) {
+            return Optional.ofNullable(rightMessage.get());
+        }
+        return Optional.empty();
+    }
+
     public Optional<List<RightMessage>> findAllRightMessage() {
         List<RightMessage> list = rightMessageRepo.findAll();
         if (list != null) {
@@ -61,4 +69,5 @@ public class RightMessageService {
         }
         return Optional.empty();
     }
+
 }
