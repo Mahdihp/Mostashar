@@ -1,8 +1,11 @@
 package ir.mostashar.model.userFeedback;
 
+import ir.mostashar.model.client.Client;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -31,6 +34,10 @@ public class UserFeedBack {
 
     @Column(name = "read")
     private boolean read;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "clientid", nullable = false)
+    private Client client;
 
     public UserFeedBack() {
     }

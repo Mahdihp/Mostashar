@@ -263,4 +263,14 @@ public class ClientService {
         updateCodeCerify(mobileNumber,code);
         smsService.sendSms(mobileNumber, Constants.KEY_SEND_VERIFY_CODE + "\n" + code);
     }
+
+    public void addScore(String lawyerUid, int score) {
+        Optional<Client> client = clientRepo.findByUid(UUID.fromString(lawyerUid));
+        if (client.isPresent()) {
+            int totalScore = client.get().getScore();
+            totalScore += score;
+            client.get().setScore(totalScore);
+            clientRepo.save(client.get());
+        }
+    }
 }

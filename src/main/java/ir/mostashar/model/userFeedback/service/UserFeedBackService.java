@@ -21,8 +21,8 @@ public class UserFeedBackService {
     public boolean createUserFeedBack(UserFeedBackForm ufbForm) {
         UserFeedBack userFeedBack = new UserFeedBack();
         userFeedBack.setUid(UUID.randomUUID());
-        userFeedBack.setTitle(ufbForm.getTitle());
-        userFeedBack.setType(ufbForm.getType());
+//        userFeedBack.setTitle(ufbForm.getTitle());
+//        userFeedBack.setType(ufbForm.getType());
         userFeedBack.setDescription(ufbForm.getDescription());
         userFeedBack.setCreationDate(System.currentTimeMillis());
         userFeedBack.setRead(false);
@@ -31,10 +31,10 @@ public class UserFeedBackService {
     }
 
     public boolean updateUserFeedBack(UserFeedBackForm ufbForm) {
-        Optional<UserFeedBack> userFeedBack = ufbRepo.findByUid(UUID.fromString(ufbForm.getUid()));
+        Optional<UserFeedBack> userFeedBack = ufbRepo.findByUid(UUID.fromString(ufbForm.getUserFeedBackId()));
         if (userFeedBack.isPresent()) {
-            userFeedBack.get().setTitle(ufbForm.getTitle());
-            userFeedBack.get().setType(ufbForm.getType());
+//            userFeedBack.get().setTitle(ufbForm.getTitle());
+//            userFeedBack.get().setType(ufbForm.getType());
             userFeedBack.get().setDescription(ufbForm.getDescription());
             userFeedBack.get().setCreationDate(System.currentTimeMillis());
             userFeedBack.get().setRead(false);

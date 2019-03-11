@@ -55,13 +55,6 @@ public class AssignDiscountService {
         return false;
     }
 
-    public Optional<AssignDiscount> findByCodeOff(String codeOff) {
-        Optional<AssignDiscount> assignDiscount = adRepo.findByCodeOff(codeOff);
-        if (assignDiscount.isPresent())
-            return Optional.ofNullable(assignDiscount.get());
-        else
-            return Optional.empty();
-    }
 
     public Optional<AssignDiscount> findByUid(String uid) {
         Optional<AssignDiscount> assignDiscount = adRepo.findByUid(UUID.fromString(uid));
@@ -71,7 +64,7 @@ public class AssignDiscountService {
             return Optional.empty();
     }
 
-    public Optional<AssignDiscountDTO> findAssignDiscountDTOByUid(String uid) {
+    public Optional<AssignDiscountDTO> findDTOByUid(String uid) {
         Optional<AssignDiscount> assignDiscount = adRepo.findByUid(UUID.fromString(uid));
         if (assignDiscount.isPresent()) {
             AssignDiscountDTO adDTO = new AssignDiscountDTO();

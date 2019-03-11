@@ -28,15 +28,15 @@ public class AssignDiscountController {
     AssignDiscountService adService;
 
 
-    @ApiOperation(value = "Create AssignDiscount", notes = "RequestBody :" + MediaType.APPLICATION_JSON_UTF8_VALUE)
+    /*@ApiOperation(value = "Create AssignDiscount", notes = "RequestBody :" + MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PostMapping(value = "/create", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> updateWallet(@Valid @RequestBody AssignDiscountForm adForm) {
+    public ResponseEntity<?> createAssignDiscount(@Valid @RequestBody AssignDiscountForm adForm) {
         if (adService.createAssignDiscount(adForm))
             return ResponseEntity.status(HttpStatus.OK).body(new AssignDiscountDTO(HttpStatus.OK.value(), Constants.KEY_CREATE_ASSIGN_DISCOUNT));
         else
             return ResponseEntity.status(HttpStatus.OK).body(new AssignDiscountDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_LAWYER));
 
-    }
+    }*/
 
     @ApiOperation(value = "Find All AssignDiscount By User", notes = "RequestBody :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/all", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
