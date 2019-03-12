@@ -7,13 +7,12 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class AssignDiscountForm {
 
-    private String assignDiscountId;
 
     @NotBlank
     private String userId;
 
     @NotBlank
-    private String discountPackId;
+    private String discountCode;
 
     public AssignDiscountForm() {
     }

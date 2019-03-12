@@ -32,7 +32,7 @@ public class AssignDiscountService {
     UserServiceImpl userService;
 
     public boolean createAssignDiscount(AssignDiscountForm adForm) {
-        Optional<DiscountPack> discountPack = discountPackService.findByUid(adForm.getDiscountPackId());
+        Optional<DiscountPack> discountPack = discountPackService.findByCodeOff(adForm.getDiscountCode());
         Optional<User> user = userService.findUserByUid(adForm.getUserId());
         if (discountPack.isPresent() && user.isPresent()) {
             AssignDiscount assignDiscount = new AssignDiscount();

@@ -97,8 +97,8 @@ public class FileService {
         return false;
     }
 
-    public Optional<FileDTO> findFileDTOByUid(String fileId) {
-        Optional<File> file = fileRepo.findByUidAndDeleted(UUID.fromString(fileId),false);
+    public Optional<FileDTO> findDTOByUid(String fileId, String clientId) {
+        Optional<File> file = fileRepo.findByUidAndClientUidAndDeleted(UUID.fromString(fileId), UUID.fromString(clientId), false);
         if (file.isPresent()) {
             FileDTO fileDTO = new FileDTO();
             fileDTO.setStatus(HttpStatus.OK.value());
@@ -108,7 +108,7 @@ public class FileService {
             fileDTO.setTitle(file.get().getTitle());
             fileDTO.setDescription(file.get().getDescription());
             fileDTO.setCreationDate(file.get().getCreationDate());
-            fileDTO.setModificationDate(file.get().getModificationDate());
+//            fileDTO.setModificationDate(file.get().getModificationDate());
             if (file.get().getClient() != null)
                 fileDTO.setClientId(file.get().getClient().getUid().toString());
 
@@ -133,7 +133,7 @@ public class FileService {
                 fileDTO.setFileNumber(file.getFileNumber());
                 fileDTO.setDescription(file.getDescription());
                 fileDTO.setCreationDate(file.getCreationDate());
-                fileDTO.setModificationDate(file.getModificationDate());
+//                fileDTO.setModificationDate(file.getModificationDate());
                 if (file.getClient() != null)
                     fileDTO.setClientId(file.getClient().getUid().toString());
 

@@ -13,7 +13,7 @@ public class FileDTO extends BaseDTO {
     private String title;
     private String description;
     private Long creationDate;
-    private Long modificationDate;
+    //    private Long modificationDate;
     private String clientId;
 
     public FileDTO() {

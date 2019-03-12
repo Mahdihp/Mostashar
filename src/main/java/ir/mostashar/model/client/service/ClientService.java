@@ -199,7 +199,7 @@ public class ClientService {
         Client userSave = clientRepo.save(client);
 
         if (userSave != null) {
-            smsService.sendSms(phoneNumber, code);
+            smsService.sendSms(1, phoneNumber, code);
             return Optional.of(uuid);
         }
         return Optional.empty();
@@ -261,7 +261,7 @@ public class ClientService {
     public void reSendCode(String mobileNumber) {
         String code = DataUtil.genarateRandomNumber();
         updateCodeCerify(mobileNumber,code);
-        smsService.sendSms(mobileNumber, code);
+        smsService.sendSms(2, mobileNumber, code);
     }
 
     public void addScore(String lawyerUid, int score) {

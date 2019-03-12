@@ -22,10 +22,10 @@ public class Constant {
     private String key;
 
     @Column(name = "value")
-    private String value;
+    private int value; // در صورت استفاده از این کد دعوت امتیاز اضافه میشود.
 
     @Column(name = "type")
-    private String type;
+    private int type;
 
     @Column(name = "description")
     private String description;

@@ -6,9 +6,12 @@ import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.adviceType.repository.AdviceTypeRepo;
 import ir.mostashar.model.assignDiscount.AssignDiscount;
 import ir.mostashar.model.assignDiscount.repository.AssignDiscountRepo;
+import ir.mostashar.model.call.Call;
+import ir.mostashar.model.call.repository.CallRepo;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.repository.ClientRepo;
 import ir.mostashar.model.constant.Constant;
+import ir.mostashar.model.constant.repository.ConstantRepo;
 import ir.mostashar.model.discountPack.DiscountPack;
 import ir.mostashar.model.discountPack.repository.DiscountPackRepo;
 import ir.mostashar.model.feature.Feature;
@@ -43,43 +46,49 @@ import java.util.UUID;
 public class AppRunner implements ApplicationRunner {
 
     @Autowired
-    LawyerRepo lawyerRepo;
+    private LawyerRepo lawyerRepo;
 
     @Autowired
-    ClientRepo clientRepo;
+    private ClientRepo clientRepo;
 
     @Autowired
-    RoleRepo roleRepo;
+    private RoleRepo roleRepo;
 
     @Autowired
-    FileRepo fileRepo;
+    private FileRepo fileRepo;
 
     @Autowired
-    AdviceTypeRepo adviceTypeRepo;
+    private AdviceTypeRepo adviceTypeRepo;
 
     @Autowired
-    PackRepo packRepo;
+    private PackRepo packRepo;
 
     @Autowired
-    WalletRepo walletRepo;
+    private WalletRepo walletRepo;
 
     @Autowired
-    RequestRepo requestRepo;
+    private RequestRepo requestRepo;
 
     @Autowired
-    NotificationRepo nRepo;
+    private NotificationRepo nRepo;
 
     @Autowired
-    ReminderRepo reminderRepo;
+    private ReminderRepo reminderRepo;
 
     @Autowired
-    AcceptRequestRepo acceptRequestRepo;
+    private AcceptRequestRepo acceptRequestRepo;
 
     @Autowired
-    DiscountPackRepo discountPackRepo;
+    private DiscountPackRepo discountPackRepo;
 
     @Autowired
-    AssignDiscountRepo assignDiscountRepo;
+    private AssignDiscountRepo assignDiscountRepo;
+
+    @Autowired
+    private CallRepo callRepo;
+
+    @Autowired
+    private ConstantRepo constantRepo;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -96,6 +105,20 @@ public class AppRunner implements ApplicationRunner {
     }
 
     private void insertToDb() {
+
+        // 1 = روانشناسی
+        // 2 = حقوق
+        AdviceType adviceType1 = new AdviceType();
+        adviceType1.setUid(UUID.fromString("11482c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType1.setName("روانشناسی");
+        adviceType1.setType((short) 1);
+        adviceType1.setDescription("مشاوره روانشناسی");
+
+        AdviceType adviceType2 = new AdviceType();
+        adviceType2.setUid(UUID.fromString("12482c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType1.setName("حقوق");
+        adviceType1.setType((short) 2);
+        adviceType1.setDescription("مشاوره حقوقی");
 
 
         Client client1 = new Client();
@@ -134,14 +157,48 @@ public class AppRunner implements ApplicationRunner {
         client4.setVerificationCode("-1");
         client4.setActive(true);
 
+        Lawyer lawyer1 = new Lawyer();
+        lawyer1.setUid(UUID.fromString("7cf2431f-e816-4122-90d9-7cd84e64716c"));
+        lawyer1.setLevel(1); // 3 level Lawyer
+        lawyer1.setScore(10);
+        lawyer1.setOnline(true);
+        lawyer1.setAdvicetype(adviceType1);
+        lawyer1.setAvailable(true);
+        lawyer1.setVerified(true);
+        lawyer1.setMobileNumber(9144528901L);
+        lawyer1.setVerificationCode("-1");
+        lawyer1.setPricePerMinute(3000);
+
+        Lawyer lawyer2 = new Lawyer();
+        lawyer2.setUid(UUID.fromString("95c424c0-3e56-11e9-b475-0800200c9a66"));
+        lawyer2.setScore(10);
+        lawyer2.setLevel(2); // 3 level Lawyer
+        lawyer2.setOnline(true);
+
+        lawyer2.setAdvicetype(adviceType1);
+        lawyer2.setAvailable(true);
+        lawyer2.setVerified(true);
+        lawyer2.setMobileNumber(9154528901L);
+        lawyer2.setVerificationCode("-1");
+        lawyer2.setPricePerMinute(6000);
+
+        Lawyer lawyer3 = new Lawyer();
+        lawyer3.setUid(UUID.fromString("9b64b9d0-3e56-11e9-b475-0800200c9a66"));
+        lawyer3.setLevel(3); // 3 level Lawyer
+        lawyer3.setScore(10);
+        lawyer3.setAdvicetype(adviceType1);
+        lawyer3.setAvailable(true);
+        lawyer3.setVerified(true);
+        lawyer3.setMobileNumber(9164528901L);
+        lawyer3.setVerificationCode("-1");
+        lawyer3.setPricePerMinute(9000);
+
+
         DiscountPack discountPack1=new DiscountPack();
         discountPack1.setUid(UUID.fromString("11502c33-b3a5-4401-a274-016bda28fdce"));
         discountPack1.setTitle("بسته تخفیفی 5 دقیقه ای ");
         discountPack1.setValue(5);
         discountPack1.setCodeOff(DataUtil.generateOffPackCode(8));
-
-
-
 
         DiscountPack discountPack2=new DiscountPack();
         discountPack2.setUid(UUID.fromString("11602c33-b3a5-4401-a274-016bda28fdce"));
@@ -154,22 +211,6 @@ public class AppRunner implements ApplicationRunner {
         discountPack3.setTitle("بسته تخفیفی 20 دقیقه ای ");
         discountPack3.setValue(20);
         discountPack2.setCodeOff(DataUtil.generateOffPackCode(8));
-
-
-
-        // 1 = روانشناسی
-        // 2 = حقوق
-        AdviceType adviceType1 = new AdviceType();
-        adviceType1.setUid(UUID.fromString("11482c33-b3a5-4401-a274-016bda28fdce"));
-        adviceType1.setName("روانشناسی");
-        adviceType1.setType((short) 1);
-        adviceType1.setDescription("مشاوره روانشناسی");
-
-        AdviceType adviceType2 = new AdviceType();
-        adviceType2.setUid(UUID.fromString("12482c33-b3a5-4401-a274-016bda28fdce"));
-        adviceType1.setName("حقوق");
-        adviceType1.setType((short) 2);
-        adviceType1.setDescription("مشاوره حقوقی");
 
 
         Feature feature1 = new Feature();
@@ -324,6 +365,16 @@ public class AppRunner implements ApplicationRunner {
         request1.setFile(file1);
         request1.setAdvicetype(adviceType1);
 
+        Call call1 = new Call();
+        call1.setUid(UUID.fromString("12002c34-b3a5-4401-a274-016bda28fdce"));
+        call1.setCreationDate(System.currentTimeMillis());
+        call1.setClient(client1);
+        call1.setLawyer(lawyer1);
+        call1.setRequest(request1);
+        call1.setStartTime(System.currentTimeMillis());
+        call1.setEndTime(System.currentTimeMillis());
+
+
         Notification notify1 =new Notification();
         notify1.setUid(UUID.fromString("b4482c14-b3a5-4401-a274-016bda28fdce"));
         notify1.setCreationDate(System.currentTimeMillis());
@@ -366,39 +417,6 @@ public class AppRunner implements ApplicationRunner {
         pack5.setName("45 دقیقه مشاوره");
         pack5.setAdvicetype(adviceType2);
         pack5.setActive(true);
-
-        Lawyer lawyer1 = new Lawyer();
-        lawyer1.setUid(UUID.fromString("7cf2431f-e816-4122-90d9-7cd84e64716c"));
-        lawyer1.setLevel(1); // 3 level Lawyer
-        lawyer1.setScore(10);
-        lawyer1.setAdvicetype(adviceType1);
-        lawyer1.setAvailable(true);
-        lawyer1.setVerified(true);
-        lawyer1.setMobileNumber(9144528901L);
-        lawyer1.setVerificationCode("-1");
-        lawyer1.setPricePerMinute(3000);
-
-        Lawyer lawyer2 = new Lawyer();
-        lawyer2.setUid(UUID.fromString("95c424c0-3e56-11e9-b475-0800200c9a66"));
-        lawyer2.setScore(10);
-        lawyer2.setLevel(2); // 3 level Lawyer
-        lawyer2.setAdvicetype(adviceType1);
-        lawyer2.setAvailable(true);
-        lawyer2.setVerified(true);
-        lawyer2.setMobileNumber(9154528901L);
-        lawyer2.setVerificationCode("-1");
-        lawyer2.setPricePerMinute(6000);
-
-        Lawyer lawyer3 = new Lawyer();
-        lawyer3.setUid(UUID.fromString("9b64b9d0-3e56-11e9-b475-0800200c9a66"));
-        lawyer3.setLevel(3); // 3 level Lawyer
-        lawyer3.setScore(10);
-        lawyer3.setAdvicetype(adviceType1);
-        lawyer3.setAvailable(true);
-        lawyer3.setVerified(true);
-        lawyer3.setMobileNumber(9164528901L);
-        lawyer3.setVerificationCode("-1");
-        lawyer3.setPricePerMinute(9000);
 
         Reminder reminder1=new Reminder()  ;
         reminder1.setUid(UUID.fromString("b4482c15-b3a5-4401-a274-016bda28fdce"));
@@ -453,12 +471,10 @@ public class AppRunner implements ApplicationRunner {
 
         Constant constant1 = new Constant();
         constant1.setUid(UUID.fromString("120c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
-
-        Constant constant2 = new Constant();
-        constant2.setUid(UUID.fromString("121c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
-
-        Constant constant3 = new Constant();
-        constant3.setUid(UUID.fromString("122c7528-1d44-4ae3-9dc0-c3b8213d45a6"));
+        constant1.setKey("InvitedUser");
+        constant1.setValue(5);
+        constant1.setType(1);
+        constant1.setDescription("کد دعوت به سامانه");
 
 
         AssignDiscount assignDiscount1=new AssignDiscount();
@@ -523,6 +539,10 @@ public class AppRunner implements ApplicationRunner {
 
         assignDiscountRepo.save(assignDiscount1);
         assignDiscountRepo.save(assignDiscount2);
+
+        callRepo.save(call1);
+        constantRepo.save(constant1);
+
 
     }
 

@@ -5,7 +5,7 @@ import ir.mostashar.model.adminConfirmation.AdminConfirmation;
 import ir.mostashar.model.assignDiscount.AssignDiscount;
 import ir.mostashar.model.complain.Complain;
 import ir.mostashar.model.device.Device;
-import ir.mostashar.model.invitedUser.InvitedUsers;
+import ir.mostashar.model.invitedUser.InvitedUser;
 import ir.mostashar.model.reminder.Reminder;
 import ir.mostashar.model.rightMessage.RightMessage;
 import ir.mostashar.model.role.Role;
@@ -117,7 +117,7 @@ public class User implements Serializable {
     private Set<AdminConfirmation> adminConfirmations = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private Set<InvitedUsers> invitedUsers = new HashSet<>();
+    private Set<InvitedUser> invitedUsers = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     @EqualsAndHashCode.Exclude

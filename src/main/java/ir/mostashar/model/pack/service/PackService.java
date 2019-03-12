@@ -2,7 +2,6 @@ package ir.mostashar.model.pack.service;
 
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.adviceType.service.AdviceTypeService;
-import ir.mostashar.model.assignDiscount.AssignDiscount;
 import ir.mostashar.model.assignDiscount.dto.AssignDiscountForm;
 import ir.mostashar.model.assignDiscount.service.AssignDiscountService;
 import ir.mostashar.model.client.Client;
@@ -17,9 +16,9 @@ import ir.mostashar.model.lawyer.service.LawyerService;
 import ir.mostashar.model.pack.BuyPack;
 import ir.mostashar.model.pack.BuyPackStatus;
 import ir.mostashar.model.pack.Pack;
+import ir.mostashar.model.pack.dto.BuyPackForm;
 import ir.mostashar.model.pack.dto.ListPackDTO;
 import ir.mostashar.model.pack.dto.PackDTO;
-import ir.mostashar.model.pack.dto.BuyPackForm;
 import ir.mostashar.model.pack.repository.PackRepo;
 import ir.mostashar.model.packsnapshot.PackSnapshot;
 import ir.mostashar.model.packsnapshot.service.PackSnapshotService;
@@ -263,7 +262,7 @@ public class PackService {
         Optional<DiscountPack> discountPack = dpService.findByCodeOff(codeOff);
         if (discountPack.isPresent()) {
             AssignDiscountForm assignDiscountForm = new AssignDiscountForm();
-            assignDiscountForm.setDiscountPackId(discountPack.get().getUid().toString());
+            assignDiscountForm.setDiscountCode(discountPack.get().getCodeOff());
             assignDiscountForm.setUserId(userUid);
             adService.createAssignDiscount(assignDiscountForm);
             clientService.addScore(userUid, discountPack.get().getValue());

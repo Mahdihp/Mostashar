@@ -110,4 +110,6 @@ public class Constants {
     public static final String KEY_NOT_FOUND_AC = "درخواستی پیدا نشد.";
     public static final String KEY_NOT_UPDATE = "امکان ویرایش وجود ندارد.";
     public static final String KEY_ALDEADY_ACCEPT = "شما قبلا برای این درخواست مشاوری انتخاب نموده اید.";
+    public static final String KEY_SUCESSE_REGISTER = "با موفقیت ثبت شد.";
+    public static final String KEY_DUPLICATE_FEEDBACK = "امکان ثبت بازخورد تکراری وجود ندارد.";
 }

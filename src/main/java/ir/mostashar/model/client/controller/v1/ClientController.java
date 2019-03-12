@@ -189,6 +189,13 @@ public class ClientController {
         return null;
     }
 
+    /**
+     * Fina All Bill Client
+     *
+     * @param clientUid
+     * @param walletUid
+     * @return
+     */
     @PostMapping(value = "/bills", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findAllBillsClient(@RequestParam("clientid") String clientUid, @RequestParam("walletid") String walletUid) {
         Optional<ListBillDTO> list = billService.findListBillDTOByWalletUid(walletUid, clientUid);
@@ -197,9 +204,6 @@ public class ClientController {
         else
             return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_BILL));
     }
-
-    // درخواست اعمال کد تخفیف
-    // Update Score per peyment price User.
 
 
     @ApiOperation(value = "Delete Client", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)

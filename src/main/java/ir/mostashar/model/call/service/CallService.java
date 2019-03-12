@@ -58,17 +58,25 @@ public class CallService {
         return false;
     }
 
+    public Optional<List<Call>> findAllByLawyerUid(String uid) {
+        Optional<List<Call>> list = callRepo.findAllByLawyerUid(UUID.fromString(uid));
+        if (list.isPresent())
+            return Optional.ofNullable(list.get());
+        else
+            return Optional.empty();
+    }
+
     /**
      * First Uid Type Client or Lawyer or Request
      * and later find from callId set
      *
      * @param uid
-     * @param uidType
+     * @param queryType
      * @return
      */
-    public Optional<ListCallDTO> findListCallDTOByUid(String uid, int uidType) {
+    public Optional<ListCallDTO> findListCallDTOByUid(int queryType, String uid) {
         Optional<List<Call>> list = Optional.empty();
-        switch (uidType) {
+        switch (queryType) {
             case 1:
                 list = callRepo.findAllByClientUid(UUID.fromString(uid));
                 break;
