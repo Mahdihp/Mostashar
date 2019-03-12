@@ -15,6 +15,7 @@ import ir.mostashar.model.complain.Complain;
 import ir.mostashar.model.invitedUser.InvitedUsers;
 import ir.mostashar.model.device.Device;
 import ir.mostashar.model.reminder.Reminder;
+import ir.mostashar.model.rightMessage.RightMessage;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.setting.Setting;
 import ir.mostashar.model.sharingPerspective.SharingPerspectives;
@@ -135,6 +136,9 @@ public class User implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<SharingPerspectives> sharingPerspectives = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<RightMessage> rightMessages = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     @EqualsAndHashCode.Exclude

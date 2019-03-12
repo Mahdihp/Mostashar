@@ -14,6 +14,7 @@ import ir.mostashar.model.officeAddress.OfficeAddress;
 import ir.mostashar.model.organization.Organization;
 import ir.mostashar.model.packsnapshot.PackSnapshot;
 import ir.mostashar.model.presenceSchedule.PresenceSchedule;
+import ir.mostashar.model.rightMessage.RightMessage;
 import ir.mostashar.model.user.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -106,6 +107,10 @@ public class Lawyer extends User {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
     private Set<PackSnapshot> packSnapshots= new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    @EqualsAndHashCode.Exclude
+    private Set<RightMessage> rightMessages= new HashSet<>();
 
     public Lawyer() {
     }

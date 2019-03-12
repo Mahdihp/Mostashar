@@ -54,8 +54,8 @@ public class RightMessageService {
         return Optional.empty();
     }
 
-    public Optional<RightMessage> findRightMessageBylawyerid(String lawyerid) {
-        Optional<RightMessage> rightMessage = rightMessageRepo.findBylawyerid(lawyerid);
+    public Optional<RightMessage> findRightMessageBylawyer(String lawyer) {
+        Optional<RightMessage> rightMessage = rightMessageRepo.findBylawyer(lawyer);
         if (rightMessage.isPresent()) {
             return Optional.ofNullable(rightMessage.get());
         }

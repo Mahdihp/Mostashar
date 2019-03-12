@@ -15,7 +15,7 @@ public interface RightMessageRepo extends JpaRepository<RightMessage,Long> {
     Optional<RightMessage> findByUid(UUID uuid);
 
     Optional<RightMessage> findByTitle(String title);
-    Optional<RightMessage> findBylawyerid(String lawyerid);
+    Optional<RightMessage> findBylawyer(String lawyer);
 
 
 }

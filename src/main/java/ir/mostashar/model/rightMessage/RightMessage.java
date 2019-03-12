@@ -40,15 +40,13 @@ public class RightMessage {
     @Column(name = "active")
     private boolean active;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private Set<User> cleints = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user", nullable = false)
+    private User user;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private Set<Lawyer> lawyers = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lawyer", nullable = false)
+    private Lawyer lawyer;
 
     public RightMessage() {
     }
