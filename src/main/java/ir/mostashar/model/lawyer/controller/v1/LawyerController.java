@@ -37,28 +37,28 @@ public class LawyerController {
 
 
     @Autowired
-    LawyerService lawyerService;
+    private LawyerService lawyerService;
 
     @Autowired
-    AcceptRequestService arService;
+    private AcceptRequestService arService;
 
     @Autowired
-    FailRequestService frService;
+    private FailRequestService frService;
 
     @Autowired
-    NotificationService nService;
+    private NotificationService nService;
 
     @Autowired
-    ReminderService reminderService;
+    private ReminderService reminderService;
 
     @Autowired
-    BillService billService;
+    private BillService billService;
 
     @Autowired
-    FeedbackService feedbackService;
+    private FeedbackService feedbackService;
 
     @Autowired
-    RequestService requestService;
+    private RequestService requestService;
 
     @PostMapping(value = "/addfeedback", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> addFeedBack(@Valid @RequestBody FeedBackForm fbForm) {
@@ -188,13 +188,14 @@ public class LawyerController {
     }
 
     @PostMapping(value = "/findbyid", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> findrankbyLawyerId(@RequestParam("lawyerid") String lawyerUid) {
+    public ResponseEntity<?> findLawyerId(@RequestParam("lawyerid") String lawyerUid) {
         Optional<Lawyer> list = lawyerService.findByUid(lawyerUid);
         if (list.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(list.get());
         else
             return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_BILL));
     }
+
 
     @ApiOperation(value = "Delete Lawyer", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/deletelawyer", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})

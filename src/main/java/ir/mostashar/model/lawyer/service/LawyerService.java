@@ -364,7 +364,7 @@ public class LawyerService {
             fileList.add(request.getFile());
         }
         // list request from calls
-        Optional<List<Call>> callList = callService.findAllByLawyerUid(lawyerId);
+        Optional<List<Call>> callList = callService.findAllCallByLawyerId(lawyerId);
         if (callList.isPresent()) {
             for (Call call : callList.get()) {
                 if (call.getLawyer().getUid().toString().equals(lawyerId)) {
@@ -402,4 +402,5 @@ public class LawyerService {
 
         return Optional.empty();
     }
+
 }

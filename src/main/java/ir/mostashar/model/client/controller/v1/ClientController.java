@@ -6,9 +6,11 @@ import ir.mostashar.model.acceptRequest.dto.ListAcceptRequestDTO;
 import ir.mostashar.model.acceptRequest.service.AcceptRequestService;
 import ir.mostashar.model.bill.dto.ListBillDTO;
 import ir.mostashar.model.bill.service.BillService;
+import ir.mostashar.model.call.service.CallService;
 import ir.mostashar.model.client.dto.ClientDTO;
 import ir.mostashar.model.client.service.ClientService;
 import ir.mostashar.model.lawyer.Lawyer;
+import ir.mostashar.model.lawyer.dto.ListLawyerDTO;
 import ir.mostashar.model.lawyer.repository.LawyerRepo;
 import ir.mostashar.model.notification.Notification;
 import ir.mostashar.model.notification.service.NotificationService;
@@ -41,28 +43,31 @@ import java.util.UUID;
 public class ClientController {
 
     @Autowired
-    LawyerRepo lawyerRepo;
+    private LawyerRepo lawyerRepo;
 
     @Autowired
-    PackService packService;
+    private PackService packService;
 
     @Autowired
-    AcceptRequestService arService;
+    private AcceptRequestService arService;
 
     @Autowired
-    RequestService requestService;
+    private RequestService requestService;
 
     @Autowired
-    ReminderService reminderService;
+    private ReminderService reminderService;
 
     @Autowired
-    NotificationService nService;
+    private NotificationService nService;
 
     @Autowired
-    BillService billService;
+    private BillService billService;
 
     @Autowired
-    ClientService clientService;
+    private ClientService clientService;
+
+    @Autowired
+    private CallService callService;
 
     /**
      * find All Lawyer Read(View) Request File
@@ -74,7 +79,7 @@ public class ClientController {
     public ResponseEntity<?> findReadLawyers(@RequestParam("requestid") String requestId) {
         Optional<Notification> notification = nService.findByRequestUid(requestId);
         if (notification.isPresent()) {
-            Optional<ListReminderDTO> list = reminderService.findAllDTO(1,notification.get().getUid().toString());
+            Optional<ListReminderDTO> list = reminderService.findAllDTO(1, notification.get().getUid().toString());
             if (list.isPresent()) {
                 return ResponseEntity.status(HttpStatus.OK).body(list.get());
             } else {
@@ -213,6 +218,16 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_DELETE_USER, false));
     }
 
+
+    @ApiOperation(value = "Find All Lawyers Calls ", notes = " لیست مشاورین قبلی که باهاشون تماس گرفته شده." + "\n" + "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/lawyerhistorycall", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> findAllLawyerCall(@RequestParam("clientid") String clientid) {
+        Optional<ListLawyerDTO> list = callService.findAllLawyerById(clientid);
+        if (list.isPresent())
+            return ResponseEntity.status(HttpStatus.OK).body(list.get());
+        else
+            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_LAWYERS));
+    }
 
 
 }
