@@ -2,7 +2,6 @@ package ir.mostashar.model.pack.service;
 
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.adviceType.service.AdviceTypeService;
-import ir.mostashar.model.assignDiscount.dto.AssignDiscountForm;
 import ir.mostashar.model.assignDiscount.service.AssignDiscountService;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.service.ClientService;
@@ -261,10 +260,7 @@ public class PackService {
 
         Optional<DiscountPack> discountPack = dpService.findByCodeOff(codeOff);
         if (discountPack.isPresent()) {
-            AssignDiscountForm assignDiscountForm = new AssignDiscountForm();
-            assignDiscountForm.setDiscountCode(discountPack.get().getCodeOff());
-            assignDiscountForm.setUserId(userUid);
-            adService.createAssignDiscount(assignDiscountForm);
+            adService.createAssignDiscount(userUid, discountPack.get().getCodeOff());
             clientService.addScore(userUid, discountPack.get().getValue());
         }
     }
