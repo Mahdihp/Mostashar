@@ -121,7 +121,7 @@ public class PackService {
             Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(buyPackForm.getAdviceTypeId());
             pack.get().setName(buyPackForm.getUid());
             pack.get().setDescription(buyPackForm.getDescription());
-            pack.get().setActive(buyPackForm.isActive());
+//            pack.get().setActive(buyPackForm.isActive());
             pack.get().setMinute(buyPackForm.getMinute());
             if (adviceType.isPresent())
                 pack.get().setAdvicetype(adviceType.get());
@@ -188,7 +188,7 @@ public class PackService {
         Optional<Request> request = requestService.findByUid(bpForm.getRequestId());
         Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(bpForm.getAdviceTypeId());
         Optional<Lawyer> lawyer = lawyerService.findByUid(bpForm.getLawyerId());
-        Optional<Client> client = clientService.findClientByUidAndActive(bpForm.getUserId(), true);
+        Optional<Client> client = clientService.findClientByUidAndActive(bpForm.getClientId(), true);
 
         System.out.println("Log---createBuyPack--------------------:" + pack.isPresent());
         System.out.println("Log---createBuyPack--------------------:" + request.isPresent());
@@ -223,7 +223,7 @@ public class PackService {
 
 
             psShot.setTotalPrice(bpForm.getTotalPrice());
-            psShot.setActive(bpForm.isActive()); // روی چه حالتی باشه
+//            psShot.setActive(bpForm.isActive()); // روی چه حالتی باشه
             psShot.setAdvicetype(adviceType.get());
             psShot.setLawyer(lawyer.get());
             addScore(bpForm.getLawyerId(), bpForm.getCodeOff());
@@ -231,7 +231,7 @@ public class PackService {
                 return Optional.ofNullable(new BuyPackStatus(BuyPack.PackSnapshotError));
 
             // Add Off اعمال کد تخفیف
-            addScore(bpForm.getUserId(), bpForm.getCodeOff());
+            addScore(bpForm.getClientId(), bpForm.getCodeOff());
             // insert into factor
 
             /*Factor factor = new Factor();

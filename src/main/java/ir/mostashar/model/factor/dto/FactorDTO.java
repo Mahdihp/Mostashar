@@ -15,7 +15,7 @@ public class FactorDTO extends BaseDTO {
     private String address;
     private Long tel;
     private String postalCode;
-    private String factorNumber;
+    private Long factorNumber;
     private Long creationDate;
     private Long value;
     private Boolean deleted;

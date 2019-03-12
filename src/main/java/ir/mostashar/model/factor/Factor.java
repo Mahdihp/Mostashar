@@ -34,8 +34,8 @@ public class Factor {
     @Column(name = "postalcode")
     private String postalCode;
 
-    @Column(name = "factornumber",unique = true)
-    private String factorNumber;
+    @Column(name = "factornumber", unique = true, nullable = false)
+    private Long factorNumber;
 
     @Column(name = "creationdate")
     private Long creationDate;
@@ -51,7 +51,7 @@ public class Factor {
     private Bill bill;
 
     @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
+            cascade = CascadeType.ALL,
             mappedBy = "factor")
     private Installment installment;
 

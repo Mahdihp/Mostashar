@@ -26,8 +26,8 @@ public class File {
     @Column(unique = true, nullable = false)
     private UUID uid;
 
-    @Column(name = "filenumber" , unique = true)
-    private String fileNumber;
+    @Column(name = "filenumber", unique = true, nullable = false)
+    private Long fileNumber;
 
     @Column(name = "title")
     private String title;

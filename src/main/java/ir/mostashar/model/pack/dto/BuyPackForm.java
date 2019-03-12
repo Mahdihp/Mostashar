@@ -10,7 +10,7 @@ public class BuyPackForm {
     private String uid;
 
     @NotBlank
-    private String userId;
+    private String clientId;
 
     @NotBlank
     private String name;
@@ -30,14 +30,15 @@ public class BuyPackForm {
     /**
      * نرخ هر مشاور در هر دقیقه
      */
+    @NotBlank
     private int  lawyerPricePerMinute;
 
     /**
      * قیمت نهایی با اعمال نرخ مشاور روی بسته
      */
+    @NotBlank
     private int  totalPrice;
 
-    private boolean active = false;
 
     @NotBlank
     private String adviceTypeId;

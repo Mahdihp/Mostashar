@@ -21,7 +21,7 @@ public class AssignDiscountController {
 
     @ApiOperation(value = "Add AssignDiscount Code Off", notes = "RequestBody :" + MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PostMapping(value = "/add", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> createAssignDiscount(@RequestParam("userId") String userId, @RequestParam("codeoff") String codeOff) {
+    public ResponseEntity<?> createAssignDiscount(@RequestParam("clientId") String userId, @RequestParam("codeoff") String codeOff) {
         if (adService.createAssignDiscount(userId, codeOff))
             return ResponseEntity.status(HttpStatus.OK).body(new AssignDiscountDTO(HttpStatus.OK.value(), Constants.KEY_CREATE_ASSIGN_DISCOUNT));
         else

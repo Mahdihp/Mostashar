@@ -7,8 +7,9 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class CallForm {
 
-    private String callId;
+//    private String callId;
 
+    @NotBlank
     private int failedRetriesCount;
 
     private String callStatus;
@@ -19,8 +20,6 @@ public class CallForm {
 
     private Long endTime;
 
-    private Long creationDate;
-
     @NotBlank
     private String clientId;
 
@@ -29,6 +28,9 @@ public class CallForm {
 
     @NotBlank
     private String requestId;
+
+    @NotBlank
+    private String billId;
 
     public CallForm() {
     }

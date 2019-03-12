@@ -36,10 +36,10 @@ public class FactorService {
     ClientService clientService;
 
     @Value("${mostashar.app.factorNumber}")
-    private String factorNumber;
+    private long factorNumber;
 
 
-    public UUID createFactor(FactorForm factorForm) {
+    public UUID create(FactorForm factorForm) {
         Optional<Bill> bill = billService.findBillByUid(factorForm.getBillId());
         UUID uuid;
         if (bill.isPresent()) {
@@ -48,19 +48,18 @@ public class FactorService {
             factor.setUid(uuid);
             factor.setServiceDescription(factorForm.getServiceDescription());
             factor.setClientName(factorForm.getClientName());
-//            factor.setClientCode(factorForm.getClientCode());
             factor.setAddress(factorForm.getAddress());
             factor.setTel(factorForm.getTel());
             factor.setPostalCode(factorForm.getPostalCode());
 
             Long maxFactorNumber = factorRepo.findMaxFactorNumber();
             if (maxFactorNumber != null) {
-                factor.setFactorNumber(factorNumber + 1);
+                factor.setFactorNumber(maxFactorNumber + 1);
             } else {
                 factor.setFactorNumber(factorNumber);
             }
 
-            factor.setFactorNumber(factorForm.getFactorNumber()); // چگونه تولید می شود؟
+
             factor.setCreationDate(System.currentTimeMillis());
             factor.setValue(factorForm.getValue());
             factor.setBill(bill.get());
@@ -86,7 +85,7 @@ public class FactorService {
             return null;
     }
 
-    public boolean updateFactor(FactorForm factorForm) {
+    public boolean update(FactorForm factorForm) {
         Optional<Factor> factor = factorRepo.findByUid(UUID.fromString(factorForm.getFactorId()));
         Optional<Bill> bill = billService.findBillByUid(factorForm.getBillId());
         if (factor.isPresent() && bill.isPresent()) {
@@ -96,7 +95,7 @@ public class FactorService {
             factor.get().setAddress(factorForm.getAddress());
             factor.get().setTel(factorForm.getTel());
             factor.get().setPostalCode(factorForm.getPostalCode());
-            factor.get().setFactorNumber(factorForm.getFactorNumber()); // چگونه تولید می شود؟
+            factor.get().setFactorNumber(factor.get().getFactorNumber());
             factor.get().setCreationDate(System.currentTimeMillis());
             factor.get().setValue(factorForm.getValue());
             factor.get().setBill(bill.get());

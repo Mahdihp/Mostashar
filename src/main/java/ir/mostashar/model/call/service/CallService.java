@@ -39,7 +39,7 @@ public class CallService {
     @Autowired
     private RequestService requestService;
 
-    public boolean createCall(CallForm callForm) {
+    public boolean create(CallForm callForm) {
         Optional<Client> client = clientService.findClientByUidAndActive(callForm.getClientId(), false);
         Optional<Lawyer> lawyer = lawyerService.findLawyerUidAndActive(callForm.getLawyerId(), true);
         Optional<Request> request = requestService.findByUid(callForm.getRequestId());

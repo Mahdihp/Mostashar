@@ -6,6 +6,10 @@ import ir.mostashar.model.call.dto.CallDTO;
 import ir.mostashar.model.call.dto.CallForm;
 import ir.mostashar.model.call.dto.ListCallDTO;
 import ir.mostashar.model.call.service.CallService;
+import ir.mostashar.model.client.Client;
+import ir.mostashar.model.client.service.ClientService;
+import ir.mostashar.model.factor.dto.FactorForm;
+import ir.mostashar.model.factor.service.FactorService;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -23,9 +28,22 @@ public class CallController {
     @Autowired
     private CallService callService;
 
-    @PostMapping(value = "/createcall", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> createCall(@RequestBody CallForm callForm) {
-        if (callService.createCall(callForm)) {
+    @Autowired
+    private FactorService factorService;
+
+    private ClientService clientService;
+
+    @PostMapping(value = "/create", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> createCall(@Valid @RequestBody CallForm callForm) {
+        if (callService.create(callForm)) {
+            Optional<Client> client = clientService.findUserByUid(callForm.getClientId());
+            FactorForm factorForm = new FactorForm();
+            factorForm.setBillId(callForm.getBillId());
+            factorForm.setClientName(client.get().getFirstName() + " " + client.get().getLastName());
+            factorForm.setServiceDescription(Constants.KEY_CREATE_CALL_DES);
+            // ...
+
+            factorService.create(factorForm);
             // محاسبه مدت زمان صحبت با کاربر  و کسر آن از کیف پول و صدو فاکتور
             //
             return ResponseEntity.status(HttpStatus.OK).body(new CallDTO(HttpStatus.OK.value(), Constants.KEY_SUCESSE));

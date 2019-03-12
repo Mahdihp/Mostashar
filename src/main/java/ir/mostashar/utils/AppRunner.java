@@ -359,7 +359,7 @@ public class AppRunner implements ApplicationRunner {
         Request request1=new Request();
         request1.setUid(UUID.fromString("b4482c13-b3a5-4401-a274-016bda28fdce"));
         request1.setRequestStatus(RequestStatus.SELECT_LAWYER);
-        request1.setRequestNumber("1000");
+        request1.setRequestNumber(1000L);
         request1.setCreationDate(System.currentTimeMillis());
         request1.setClient(client1);
         request1.setFile(file1);

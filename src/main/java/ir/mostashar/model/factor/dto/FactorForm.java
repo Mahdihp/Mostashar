@@ -13,22 +13,14 @@ public class FactorForm {
 
     private String clientName;
 
-    private String clientCode;
-
     private String address;
 
     private Long tel;
 
     private String postalCode;
 
-    private String factorNumber;
-
-    private Long creationDate;
-
     @NotBlank
     private long value;
-
-    private boolean deleted = false;
 
     @NotBlank
     private String billId;

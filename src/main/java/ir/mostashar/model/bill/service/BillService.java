@@ -1,7 +1,6 @@
 package ir.mostashar.model.bill.service;
 
 import ir.mostashar.model.bill.Bill;
-import ir.mostashar.model.bill.BillType;
 import ir.mostashar.model.bill.dto.BillDTO;
 import ir.mostashar.model.bill.dto.BillForm;
 import ir.mostashar.model.bill.dto.ListBillDTO;
@@ -13,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class BillService {
@@ -24,7 +26,7 @@ public class BillService {
     @Autowired
     WalletService walletService;
 
-    public boolean createBill(BillForm billForm) {
+    public boolean create(BillForm billForm) {
         Optional<Wallet> wallet = walletService.findByUid(billForm.getWalletId(), false);
         Optional<Boolean> exists = billRepo.existsByTransactionNumber(billForm.getTransactionNumber());
 
@@ -44,7 +46,7 @@ public class BillService {
         return false;
     }
 
-    public boolean updateBill(BillForm billForm) {
+    public boolean update(BillForm billForm) {
         Optional<Wallet> wallet = walletService.findByUid(billForm.getWalletId(), false);
         Optional<Bill> bill = billRepo.findByUid(UUID.fromString(billForm.getId()));
         if (bill.isPresent() && wallet.isPresent()) {
