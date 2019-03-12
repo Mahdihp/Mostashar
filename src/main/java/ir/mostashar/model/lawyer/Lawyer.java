@@ -14,6 +14,7 @@ import ir.mostashar.model.officeAddress.OfficeAddress;
 import ir.mostashar.model.organization.Organization;
 import ir.mostashar.model.packsnapshot.PackSnapshot;
 import ir.mostashar.model.presenceSchedule.PresenceSchedule;
+import ir.mostashar.model.rightMessage.RightMessage;
 import ir.mostashar.model.user.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -42,21 +43,6 @@ public class Lawyer extends User {
     @Column(name = "verified")
     private Boolean verified = false;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private Set<OfficeAddress> officeAddresses = new HashSet<>();
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private Set<Answer> answer;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private Set<PresenceSchedule> presenceSchedules = new HashSet<>();
-
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "lawyer_expertise",
             joinColumns = {@JoinColumn(name = "lawyerid")},
@@ -65,10 +51,20 @@ public class Lawyer extends User {
     @ToString.Exclude
     private Set<Expertise> expertises = new HashSet<>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<OfficeAddress> officeAddresses = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "organizationid")
-    private Organization organization;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Answer> answer = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<PresenceSchedule> presenceSchedules = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
     @EqualsAndHashCode.Exclude
@@ -98,14 +94,22 @@ public class Lawyer extends User {
     @EqualsAndHashCode.Exclude
     private Set<FeedBack> feedBacks= new HashSet<>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    private Set<PackSnapshot> packSnapshots = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    private Set<RightMessage> rightMessages = new HashSet<>();
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "advicetype", nullable = false)
+    @JoinColumn(name = "advicetypeid", nullable = false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private AdviceType advicetype;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-    private Set<PackSnapshot> packSnapshots= new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "organizationid")
+    private Organization organization;
+
 
     public Lawyer() {
     }

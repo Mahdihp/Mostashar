@@ -1,16 +1,11 @@
 package ir.mostashar.model.rightMessage;
 
 
-import ir.mostashar.model.client.Client;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.user.User;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -40,15 +35,13 @@ public class RightMessage {
     @Column(name = "active")
     private boolean active;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private Set<User> cleints = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "lawyerid", nullable = false)
+    private Lawyer lawyer;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private Set<Lawyer> lawyers = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "userid", nullable = false)
+    private User user;
 
     public RightMessage() {
     }

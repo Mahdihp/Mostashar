@@ -1,20 +1,13 @@
 package ir.mostashar.model.user;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import ir.mostashar.model.accessentry.AccessEntry;
 import ir.mostashar.model.adminConfirmation.AdminConfirmation;
 import ir.mostashar.model.assignDiscount.AssignDiscount;
 import ir.mostashar.model.complain.Complain;
-import ir.mostashar.model.invitedUser.InvitedUsers;
 import ir.mostashar.model.device.Device;
+import ir.mostashar.model.invitedUser.InvitedUsers;
 import ir.mostashar.model.reminder.Reminder;
+import ir.mostashar.model.rightMessage.RightMessage;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.setting.Setting;
 import ir.mostashar.model.sharingPerspective.SharingPerspectives;
@@ -22,9 +15,14 @@ import ir.mostashar.model.userpopularity.UserPopularity;
 import ir.mostashar.model.wallet.Wallet;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 
 @Data
@@ -139,6 +137,9 @@ public class User implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     @EqualsAndHashCode.Exclude
     private Set<UserPopularity> userPopularities = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<RightMessage> rightMessages = new HashSet<>();
 
     public User() {
     }
