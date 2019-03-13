@@ -50,7 +50,7 @@ public class FactorService {
             factor.setClientName(factorForm.getClientName());
             factor.setAddress(factorForm.getAddress());
             factor.setTel(factorForm.getTel());
-            factor.setPostalCode(factorForm.getPostalCode());
+//            factor.setPostalCode(factorForm.getPostalCode());
 
             Long maxFactorNumber = factorRepo.findMaxFactorNumber();
             if (maxFactorNumber != null) {
@@ -94,7 +94,7 @@ public class FactorService {
 //            factor.get().setClientCode(factorForm.getClientCode());
             factor.get().setAddress(factorForm.getAddress());
             factor.get().setTel(factorForm.getTel());
-            factor.get().setPostalCode(factorForm.getPostalCode());
+//            factor.get().setPostalCode(factorForm.getPostalCode());
             factor.get().setFactorNumber(factor.get().getFactorNumber());
             factor.get().setCreationDate(System.currentTimeMillis());
             factor.get().setValue(factorForm.getValue());
@@ -135,7 +135,7 @@ public class FactorService {
 //            factorDTO.setClientCode(factor.get().getClientCode());
             factorDTO.setAddress(factor.get().getAddress());
             factorDTO.setTel(factor.get().getTel());
-            factorDTO.setPostalCode(factor.get().getPostalCode());
+//            factorDTO.setPostalCode(factor.get().getPostalCode());
             factorDTO.setFactorNumber(factor.get().getFactorNumber()); // چگونه تولید می شود؟
             factorDTO.setCreationDate(System.currentTimeMillis());
             factorDTO.setValue(factor.get().getValue());
@@ -175,7 +175,7 @@ public class FactorService {
 //                factorDTO.setClientCode(factor.getClientCode());
                 factorDTO.setAddress(factor.getAddress());
                 factorDTO.setTel(factor.getTel());
-                factorDTO.setPostalCode(factor.getPostalCode());
+//                factorDTO.setPostalCode(factor.getPostalCode());
                 factorDTO.setFactorNumber(factor.getFactorNumber());
                 factorDTO.setCreationDate(System.currentTimeMillis());
                 factorDTO.setValue(factor.getValue());

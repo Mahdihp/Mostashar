@@ -1,10 +1,12 @@
 package ir.mostashar.model.factor.dto;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 
 @Data
+@ApiModel(description = "for Create Optianl: factorId")
 public class FactorForm {
 
     private String factorId;
@@ -17,7 +19,7 @@ public class FactorForm {
 
     private Long tel;
 
-    private String postalCode;
+//    private String postalCode;
 
     @NotNull
     private Long value;

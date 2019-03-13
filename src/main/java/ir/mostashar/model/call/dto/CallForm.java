@@ -1,13 +1,13 @@
 package ir.mostashar.model.call.dto;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 
 @Data
+@ApiModel(description = "purchaseType:0 or 1 , 1=By Maney Wallet & 1=By Score")
 public class CallForm {
-
-//    private String callId;
 
     @NotNull
     private Integer failedRetriesCount;
@@ -31,6 +31,8 @@ public class CallForm {
 
     @NotNull
     private String billId;
+
+    private Integer purchaseType;
 
     public CallForm() {
     }

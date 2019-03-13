@@ -1,6 +1,8 @@
 package ir.mostashar.utils;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
 
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -59,5 +61,13 @@ public class DataUtil {
 
     public static String generateNumericRandomUserPass(int count) {
         return RandomStringUtils.randomNumeric(count);
+    }
+
+    public static int getTimeSpent(long start, long end) {
+        DateTime timeStart = new DateTime(start);
+        DateTime timeEnd = new DateTime(end);
+        Duration duration = new Duration(timeStart, timeEnd);
+        System.out.println("Log---getTimeSpent--------------------:" + duration.getStandardMinutes());
+        return Math.abs(Math.toIntExact(duration.getStandardMinutes()));
     }
 }
