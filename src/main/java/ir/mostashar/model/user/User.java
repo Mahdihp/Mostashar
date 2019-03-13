@@ -135,6 +135,9 @@ public class User implements Serializable {
     private Set<SharingPerspectives> sharingPerspectives = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<RightMessage> rightMessages = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     @EqualsAndHashCode.Exclude
     private Set<UserPopularity> userPopularities = new HashSet<>();
 

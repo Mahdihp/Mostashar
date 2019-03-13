@@ -34,7 +34,7 @@ public class RightMessageController {
     @PostMapping(value = "/byclient", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE},
             produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> getmessages(@RequestParam("lawyerid") String lawyerId) {
-        Optional<RightMessage> list = rightMessageService.findRightMessageBylawyerid(lawyerId);
+        Optional<RightMessage> list = rightMessageService.findRightMessageBylawyer(lawyerId);
         if (list.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(list.get());
         else

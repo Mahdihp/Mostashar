@@ -111,6 +111,10 @@ public class Lawyer extends User {
     private Organization organization;
 
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
+    @EqualsAndHashCode.Exclude
+    private Set<RightMessage> rightMessages= new HashSet<>();
+
     public Lawyer() {
     }
 
