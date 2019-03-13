@@ -48,11 +48,11 @@ public class Organization {
     @Column(name = "expirydate")
     private Long expiryDate;
 
-    @Column(name = "orgstock")
-    private Long orgStock;
+    @Column(name = "percentorgstock")
+    private int percentOrgStock; // درصد سهم سازمان پایین دستی
 
-    @Column(name = "appstock")
-    private Long appStock;
+    @Column(name = "percentmasterstock")
+    private int percentMasterStock; // درصد سهم سازمان بالادستی(مستشار)
 
     @Column(name = "verified")
     private boolean verified = false;
@@ -64,6 +64,13 @@ public class Organization {
             cascade =  CascadeType.ALL,
             mappedBy = "organization")
     private Wallet wallet;
+
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "masterid")
+    private Organization master;
+
+    @OneToMany(mappedBy = "master")
+    private Set<Organization> subordinates = new HashSet<>();
 
     public Organization() {
     }

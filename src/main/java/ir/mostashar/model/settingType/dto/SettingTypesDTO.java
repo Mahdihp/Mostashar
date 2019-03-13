@@ -13,7 +13,7 @@ public class SettingTypesDTO extends BaseDTO {
     private String uid;
     private String name;
     private String description;
-    private Short type;
+    private Integer type;
 
     public SettingTypesDTO() {
     }

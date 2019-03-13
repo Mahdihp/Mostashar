@@ -52,7 +52,7 @@ public class RequestService {
      * @param requestForm
      * @return
      */
-    public UUID createRequest(RequestForm requestForm) {
+    public UUID create(RequestForm requestForm) {
 
         Optional<AdviceType> adviceType = adviceTypeRepo.findByUid(UUID.fromString(requestForm.getAdviceTypeId()));
         Optional<Client> client = clientService.findClientByUidAndActive(requestForm.getUserId(), true);
@@ -83,7 +83,7 @@ public class RequestService {
         return null;
     }
 
-    public boolean updateStatusRequest(String uid, RequestStatus requestStatus) {
+    public boolean update(String uid, RequestStatus requestStatus) {
         Optional<Request> request = requestRepo.findByUidAndDeleted(UUID.fromString(uid), false);
         if (request.isPresent()) {
             request.get().setRequestStatus(requestStatus);

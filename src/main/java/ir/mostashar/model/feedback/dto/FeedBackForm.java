@@ -2,7 +2,7 @@ package ir.mostashar.model.feedback.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class FeedBackForm {
@@ -10,15 +10,15 @@ public class FeedBackForm {
     private String feedBackId;
     private Long creationDate;
 
-    @NotBlank
+    @NotNull
     private String description;
 
-    private int score;
+    private Integer score;
 
-    @NotBlank
+    @NotNull
     private String lawyerId;
 
-    @NotBlank
+    @NotNull
     private String requestId;
 
     public FeedBackForm() {

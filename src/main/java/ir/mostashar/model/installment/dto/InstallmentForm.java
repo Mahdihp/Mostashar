@@ -1,29 +1,29 @@
-package ir.mostashar.model.installment;
+package ir.mostashar.model.installment.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class InstallmentForm {
 
     private String uid;
 
-    @NotBlank
+    @NotNull
     private Integer installmentNumber;
 
-    @NotBlank
+    @NotNull
     private Integer installmentTotalNumber;
-    
+
     private Long creationDate;
 
-    @NotBlank
-    private long value;
+    @NotNull
+    private Long value;
 
-    @NotBlank
+    @NotNull
     private String consumptionPackUid;
 
-    @NotBlank
+    @NotNull
     private String factoruid;
 
     public InstallmentForm() {

@@ -34,7 +34,18 @@ public class DiscountPackService {
             discountPack.setCreationDate(System.currentTimeMillis());
             discountPack.setExpiryDate(dpForm.getExpiryDate());
             discountPack.setValue(dpForm.getValue());
-            discountPack.setType(DiscountPackType.valueOf(dpForm.getType()));
+            switch (dpForm.getType()) {
+                case 0:
+                    discountPack.setType(DiscountPackType.LAWYER);
+                    break;
+                case 1:
+                    discountPack.setType(DiscountPackType.CLIENT);
+                    break;
+                case 2:
+                    discountPack.setType(DiscountPackType.ALL);
+                    break;
+            }
+
             discountPackRepo.save(discountPack);
         }
     }
@@ -48,7 +59,17 @@ public class DiscountPackService {
             discountPack.get().setCreationDate(System.currentTimeMillis());
             discountPack.get().setExpiryDate(dpForm.getExpiryDate());
             discountPack.get().setValue(dpForm.getValue());
-            discountPack.get().setType(DiscountPackType.valueOf(dpForm.getType()));
+            switch (dpForm.getType()) {
+                case 0:
+                    discountPack.get().setType(DiscountPackType.LAWYER);
+                    break;
+                case 1:
+                    discountPack.get().setType(DiscountPackType.CLIENT);
+                    break;
+                case 2:
+                    discountPack.get().setType(DiscountPackType.ALL);
+                    break;
+            }
             discountPackRepo.save(discountPack.get());
         }
     }

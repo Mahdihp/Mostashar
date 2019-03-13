@@ -2,7 +2,7 @@ package ir.mostashar.model.factor.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class FactorForm {
@@ -19,10 +19,10 @@ public class FactorForm {
 
     private String postalCode;
 
-    @NotBlank
-    private long value;
+    @NotNull
+    private Long value;
 
-    @NotBlank
+    @NotNull
     private String billId;
 
 }

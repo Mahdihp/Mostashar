@@ -4,25 +4,25 @@ import ir.mostashar.model.BaseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @AllArgsConstructor
 @Data
 public class FileUpdateForm extends BaseDTO {
 
 
-    @NotBlank
+    @NotNull
     private String fileId;
 
     private String fileNumber;
 
-    @NotBlank
+    @NotNull
     private String title;
 
-    @NotBlank
+    @NotNull
     private String description;
 
-    @NotBlank
+    @NotNull
     private String modificationDate;
 
     public FileUpdateForm() {

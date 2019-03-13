@@ -46,7 +46,24 @@ public class AdminConfirmationservice {
                 ac.setCreationDate(System.currentTimeMillis());
                 ac.setDeleted(false);
                 ac.setDescription(acForm.getDescription());
-                ac.setTypeConfirmation(TypeConfirmation.valueOf(acForm.getTypeConfirmation()));
+                switch (acForm.getTypeConfirmation()) {
+                    case 0:
+                        ac.setTypeConfirmation(TypeConfirmation.VERIFIED_LAWYER);
+                        break;
+                    case 1:
+                        ac.setTypeConfirmation(TypeConfirmation.VERIFIED_ABOUT_LAWYER);
+                        break;
+                    case 2:
+                        ac.setTypeConfirmation(TypeConfirmation.UPGRADE_RATING);
+                        break;
+                    case 3:
+                        ac.setTypeConfirmation(TypeConfirmation.VERIFIED_COMMENTS);
+                        break;
+                    case 4:
+                        ac.setTypeConfirmation(TypeConfirmation.VERIFIED_AVATAR_USER);
+                        break;
+                }
+
                 ac.setTargetUid(acForm.getTargetUid());
                 ac.setLawyer(lawyer.get());
                 ac.setUser(user.get());
@@ -67,7 +84,23 @@ public class AdminConfirmationservice {
             ac.get().setCreationDate(System.currentTimeMillis());
             ac.get().setDeleted(false);
             ac.get().setDescription(acForm.getDescription());
-            ac.get().setTypeConfirmation(TypeConfirmation.valueOf(acForm.getTypeConfirmation()));
+            switch (acForm.getTypeConfirmation()) {
+                case 0:
+                    ac.get().setTypeConfirmation(TypeConfirmation.VERIFIED_LAWYER);
+                    break;
+                case 1:
+                    ac.get().setTypeConfirmation(TypeConfirmation.VERIFIED_ABOUT_LAWYER);
+                    break;
+                case 2:
+                    ac.get().setTypeConfirmation(TypeConfirmation.UPGRADE_RATING);
+                    break;
+                case 3:
+                    ac.get().setTypeConfirmation(TypeConfirmation.VERIFIED_COMMENTS);
+                    break;
+                case 4:
+                    ac.get().setTypeConfirmation(TypeConfirmation.VERIFIED_AVATAR_USER);
+                    break;
+            }
             ac.get().setTargetUid(acForm.getTargetUid());
             ac.get().setLawyer(ac.get().getLawyer());
             ac.get().setUser(ac.get().getUser());

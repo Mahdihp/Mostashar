@@ -2,7 +2,7 @@ package ir.mostashar.model.device.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class DeviceForm {
@@ -13,7 +13,7 @@ public class DeviceForm {
     private String ipAddress;
     private String model;
 
-    @NotBlank
+    @NotNull
     private String useruid;
 
     public DeviceForm() {

@@ -3,7 +3,7 @@ package ir.mostashar.model.notification.dto;
 import lombok.Data;
 import lombok.ToString;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @ToString
 @Data
@@ -11,21 +11,21 @@ public class NotificationForm {
 
     private String uid;
 
-    @NotBlank
+    @NotNull
     private String content;
 //    private String targetUid;
-    private int type;
+private Integer type;
     private Long creationDate;
     private String notifParentUid;
-    private boolean deleted = false;
+    private Boolean deleted;
 
-    @NotBlank
+    @NotNull
     private String requestId;
 
     public NotificationForm() {
     }
 
-    public NotificationForm(@NotBlank String content, Long creationDate, @NotBlank String requestId) {
+    public NotificationForm(@NotNull String content, Long creationDate, @NotNull String requestId) {
         this.content = content;
         this.creationDate = creationDate;
         this.requestId = requestId;

@@ -2,18 +2,18 @@ package ir.mostashar.model.reminder.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class ReminderForm {
 
     private String id;
-    private boolean read = false;
+    private Boolean read;
 
-    @NotBlank
+    @NotNull
     private String userUid;
 
-    @NotBlank
+    @NotNull
     private String notificationUid;
 
     public ReminderForm() {

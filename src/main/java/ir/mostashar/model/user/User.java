@@ -15,6 +15,7 @@ import ir.mostashar.model.userpopularity.UserPopularity;
 import ir.mostashar.model.wallet.Wallet;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -104,6 +105,8 @@ public class User implements Serializable {
     @OneToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             mappedBy = "user")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Wallet wallet;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
@@ -140,9 +143,6 @@ public class User implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     @EqualsAndHashCode.Exclude
     private Set<UserPopularity> userPopularities = new HashSet<>();
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private Set<RightMessage> rightMessages = new HashSet<>();
 
     public User() {
     }

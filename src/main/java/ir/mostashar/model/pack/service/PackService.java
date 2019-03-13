@@ -18,6 +18,7 @@ import ir.mostashar.model.pack.Pack;
 import ir.mostashar.model.pack.dto.BuyPackForm;
 import ir.mostashar.model.pack.dto.ListPackDTO;
 import ir.mostashar.model.pack.dto.PackDTO;
+import ir.mostashar.model.pack.dto.PackForm;
 import ir.mostashar.model.pack.repository.PackRepo;
 import ir.mostashar.model.packsnapshot.PackSnapshot;
 import ir.mostashar.model.packsnapshot.service.PackSnapshotService;
@@ -77,18 +78,18 @@ public class PackService {
      * three save new Pack
      * four retrun true
      *
-     * @param buyPackForm
+     * @param packForm
      */
-    public boolean createPack(BuyPackForm buyPackForm) {
+    public boolean create(PackForm packForm) {
         UUID uuid = UUID.randomUUID();
-        Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(buyPackForm.getAdviceTypeId());
-        Optional<Boolean> existsPackByName = packRepo.existsPackByName(buyPackForm.getName());
+        Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(packForm.getAdvicetypeId());
+        Optional<Boolean> existsPackByName = packRepo.existsPackByName(packForm.getName());
         if (existsPackByName.isPresent() && !existsPackByName.get()) {
             if (adviceType.isPresent()) {
                 Pack pack = new Pack();
                 pack.setUid(uuid);
-                pack.setMinute(buyPackForm.getMinute());
-                pack.setDescription(buyPackForm.getDescription());
+                pack.setMinute(packForm.getMinute());
+                pack.setDescription(packForm.getDescription());
                 pack.setActive(false);
                 pack.setAdvicetype(adviceType.get());
                 packRepo.save(pack);
@@ -115,14 +116,14 @@ public class PackService {
         return false;
     }
 
-    public boolean updatePack(BuyPackForm buyPackForm) {
-        Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(buyPackForm.getUid()));
+    public boolean updatePack(PackForm packForm) {
+        Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(packForm.getPackId()));
         if (pack.isPresent()) {
-            Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(buyPackForm.getAdviceTypeId());
-            pack.get().setName(buyPackForm.getUid());
-            pack.get().setDescription(buyPackForm.getDescription());
+            Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(packForm.getAdvicetypeId());
+            pack.get().setName(packForm.getName());
+            pack.get().setDescription(packForm.getDescription());
 //            pack.get().setActive(buyPackForm.isActive());
-            pack.get().setMinute(buyPackForm.getMinute());
+            pack.get().setMinute(packForm.getMinute());
             if (adviceType.isPresent())
                 pack.get().setAdvicetype(adviceType.get());
 

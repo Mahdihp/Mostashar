@@ -5,7 +5,6 @@ import ir.mostashar.model.setting.Setting;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -28,7 +27,7 @@ public class SettingType {
     private String description;
 
     @Column(name = "type")
-    private short type;
+    private int type;
 
     @OneToMany
     @JoinColumn(name = "callId")

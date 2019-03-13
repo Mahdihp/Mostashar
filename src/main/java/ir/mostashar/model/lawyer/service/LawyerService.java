@@ -256,6 +256,9 @@ public class LawyerService {
         lawyer.setVerificationCode(code);
         lawyer.setUid(uuid);
 
+//        lawyer.setOrganization();
+//        lawyer.setPercentStock();
+
         Optional<AdviceType> adviceType = Optional.empty();
         switch (advicetype) {
             case 1:

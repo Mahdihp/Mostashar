@@ -29,7 +29,6 @@ public class BillService {
     public boolean create(BillForm billForm) {
         Optional<Wallet> wallet = walletService.findByUid(billForm.getWalletId(), false);
         Optional<Boolean> exists = billRepo.existsByTransactionNumber(billForm.getTransactionNumber());
-
         if (wallet.isPresent() && exists.isPresent() && !exists.get()) {
             Bill bill = new Bill();
             bill.setUid(UUID.randomUUID());
@@ -38,7 +37,9 @@ public class BillService {
             bill.setTransactionDate(billForm.getTransactionDate()); // System.currentTimeMillis()
             bill.setBillStatus(billForm.getBillStatus());
             bill.setValue(billForm.getValue());
-            bill.setOrgUid(billForm.getOrgId()); // اگر دارد
+
+//            bill.setOrgUid(billForm.getOrgId()); // اگر دارد
+
             bill.setWallet(wallet.get());
             billRepo.save(bill);
             return true;
@@ -48,14 +49,14 @@ public class BillService {
 
     public boolean update(BillForm billForm) {
         Optional<Wallet> wallet = walletService.findByUid(billForm.getWalletId(), false);
-        Optional<Bill> bill = billRepo.findByUid(UUID.fromString(billForm.getId()));
+        Optional<Bill> bill = billRepo.findByUid(UUID.fromString(billForm.getBillId()));
         if (bill.isPresent() && wallet.isPresent()) {
             bill.get().setTransactionNumber(billForm.getTransactionNumber());
             bill.get().setTrackingNumber(billForm.getTrackingNumber());
             bill.get().setTransactionDate(billForm.getTransactionDate()); // System.currentTimeMillis()
             bill.get().setBillStatus(billForm.getBillStatus());
             bill.get().setValue(billForm.getValue());
-            bill.get().setOrgUid(billForm.getOrgId()); // اگر دارد
+//            bill.get().setOrgUid(billForm.getOrgId()); // اگر دارد
             bill.get().setWallet(wallet.get());
             billRepo.save(bill.get());
             return true;
@@ -71,7 +72,7 @@ public class BillService {
             return Optional.empty();
     }
 
-    public Optional<BillDTO> findBillDTO(int type,Long value, String trackingNumber_TransactionNumber_Uid) {
+    public Optional<BillDTO> findBillDTO(int type, Long value, String trackingNumber_TransactionNumber_Uid) {
         Optional<Bill> bill = Optional.empty();
         switch (type) {
             case 1:
@@ -106,7 +107,7 @@ public class BillService {
         return Optional.empty();
     }
 
-    public Optional<ListBillDTO> findListBillDTOByWalletUid(String walletUid,String userUid) {
+    public Optional<ListBillDTO> findListBillDTOByWalletUid(String walletUid, String userUid) {
         Optional<Wallet> wallet = walletService.findByUid(userUid, false);
         Optional<List<Bill>> bills = billRepo.findByWalletUid(UUID.fromString(walletUid));
 

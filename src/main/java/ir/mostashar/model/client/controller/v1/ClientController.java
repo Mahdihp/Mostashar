@@ -121,7 +121,7 @@ public class ClientController {
             return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_ALDEADY_ACCEPT));
 
         if (arService.assignLawyerToRequest(lawyerId, requestId)) {
-            requestService.updateStatusRequest(requestId, RequestStatus.WAIT_PEYMENT);
+            requestService.update(requestId, RequestStatus.WAIT_PEYMENT);
             return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_ASSIGN_LAWYER_TO_REQUEST));
         }
         return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_REQUEST));
@@ -138,7 +138,7 @@ public class ClientController {
     @PostMapping(value = "/rejectlawyer", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> rejectedLawyerByClient(@RequestParam("lawyerid") String lawyerId, @RequestParam("requestid") String requestId) {
         if (arService.rejectLawyerToRequest(lawyerId, requestId)) {
-            requestService.updateStatusRequest(requestId, RequestStatus.SELECT_LAWYER);
+            requestService.update(requestId, RequestStatus.SELECT_LAWYER);
             return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_REJECT_LAWYER_TO_REQUEST));
         }
         return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_REQUEST));

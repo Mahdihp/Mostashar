@@ -4,7 +4,6 @@ package ir.mostashar.model.bill;
 import ir.mostashar.model.factor.Factor;
 import ir.mostashar.model.wallet.Wallet;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -21,10 +20,10 @@ public class Bill {
     @Column(unique = true, nullable = false)
     private UUID uid;
 
-    @Column(name = "transactionnumber") // ایا باید یونیک باشد.
+    @Column(name = "transactionnumber", unique = true) // ایا باید یونیک باشد.
     private String transactionNumber;
 
-    @Column(name = "trackingnumber") // ایا باید یونیک باشد.
+    @Column(name = "trackingnumber", unique = true) // ایا باید یونیک باشد.
     private String trackingNumber;
 
     @Column(name = "transactiondate")
@@ -47,7 +46,7 @@ public class Bill {
     private Wallet wallet;
 
     @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
+            cascade = CascadeType.ALL,
             mappedBy = "bill")
     private Factor factor;
 

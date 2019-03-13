@@ -43,6 +43,9 @@ public class Lawyer extends User {
     @Column(name = "verified")
     private Boolean verified = false;
 
+    @Column(name = "percentstock")
+    private int percentStock;
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "lawyer_expertise",
             joinColumns = {@JoinColumn(name = "lawyerid")},
@@ -110,10 +113,6 @@ public class Lawyer extends User {
     @JoinColumn(name = "organizationid")
     private Organization organization;
 
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-    @EqualsAndHashCode.Exclude
-    private Set<RightMessage> rightMessages= new HashSet<>();
 
     public Lawyer() {
     }

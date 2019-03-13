@@ -5,7 +5,6 @@ import ir.mostashar.model.organization.dto.ListOrganizationDTO;
 import ir.mostashar.model.organization.dto.OrganizationDTO;
 import ir.mostashar.model.organization.dto.OrganizationForm;
 import ir.mostashar.model.organization.repository.OrganizationRepo;
-import ir.mostashar.model.wallet.dto.WalletForm;
 import ir.mostashar.model.wallet.service.WalletService;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +33,12 @@ public class OrganizationService {
             uuid = UUID.randomUUID();
             org.setUid(uuid);
             org.setAddress(form.getAddress());
-            org.setAppStock(form.getAppStock());
+            org.setPercentMasterStock(form.getPercentMasterStock());
             org.setCreationDate(System.currentTimeMillis());
             org.setDescription(form.getDescription());
             org.setName(form.getName());
             org.setUsername(form.getUsername());
-            org.setOrgStock(form.getOrgStock());
+            org.setPercentOrgStock(form.getPercentOrgStock());
             org.setTel(form.getTel());
             org.setPassword(form.getPassword());
             org.setTerminalId(form.getTerminalId());
@@ -57,12 +56,12 @@ public class OrganizationService {
         Optional<Organization> org = orgRepository.findByUsernameOrName(form.getUsername(), form.getName());
         if (org.isPresent()) {
             org.get().setAddress(form.getAddress());
-            org.get().setAppStock(form.getAppStock());
+            org.get().setPercentMasterStock(form.getPercentMasterStock());
             org.get().setCreationDate(System.currentTimeMillis());
             org.get().setDescription(form.getDescription());
             org.get().setName(form.getName());
             org.get().setUsername(form.getUsername());
-            org.get().setOrgStock(form.getOrgStock());
+            org.get().setPercentOrgStock(form.getPercentOrgStock());
             org.get().setTel(form.getTel());
             org.get().setPassword(form.getPassword());
             org.get().setTerminalId(form.getTerminalId());
@@ -127,8 +126,8 @@ public class OrganizationService {
             orgDTO.setPassword(orgOld.get().getPassword());
             orgDTO.setCreationDate(orgOld.get().getCreationDate());
             orgDTO.setExpiryDate(orgOld.get().getExpiryDate());
-            orgDTO.setOrgStock(orgOld.get().getOrgStock());
-            orgDTO.setAppStock(orgOld.get().getAppStock());
+            orgDTO.setPercentMasterStock(orgOld.get().getPercentMasterStock());
+            orgDTO.setPercentOrgStock(orgOld.get().getPercentOrgStock());
             return Optional.ofNullable(orgDTO);
         }
         return Optional.empty();
@@ -154,8 +153,8 @@ public class OrganizationService {
                 orgDTO.setPassword(org.getPassword());
                 orgDTO.setCreationDate(org.getCreationDate());
                 orgDTO.setExpiryDate(org.getExpiryDate());
-                orgDTO.setOrgStock(org.getOrgStock());
-                orgDTO.setAppStock(org.getAppStock());
+                orgDTO.setPercentMasterStock(org.getPercentMasterStock());
+                orgDTO.setPercentOrgStock(org.getPercentOrgStock());
                 dtoList.add(orgDTO);
             }
             listOrganizationDTO.setData(dtoList);

@@ -116,4 +116,7 @@ public class Constants {
     public static final String KEY_NOT_FOUND_LAWYERS = "مشاوری پیدا نشد.";
     public static final String KEY_NOT_FOUND_CLIENT = "کاربری پیدا نشد.";
     public static final String KEY_CREATE_CALL_DES = "ثبت تماس صوتی ...";
+
+    public static final String KEY_PercentStockLawyer = "InitialPercentStockLawyer";
+    public static final String KEY_Coefficient = "Coefficient";
 }

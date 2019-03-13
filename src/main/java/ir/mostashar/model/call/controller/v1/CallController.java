@@ -31,6 +31,7 @@ public class CallController {
     @Autowired
     private FactorService factorService;
 
+    @Autowired
     private ClientService clientService;
 
     @PostMapping(value = "/create", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})

@@ -1,9 +1,7 @@
 package ir.mostashar.model.rightMessage.cotroller.v1;
 
 import io.swagger.annotations.ApiOperation;
-import ir.mostashar.model.bill.dto.ListBillDTO;
 import ir.mostashar.model.lawyer.dto.LawyerDTO;
-import ir.mostashar.model.lawyer.service.LawyerService;
 import ir.mostashar.model.rightMessage.RightMessage;
 import ir.mostashar.model.rightMessage.service.RightMessageService;
 import ir.mostashar.utils.Constants;
@@ -34,7 +32,7 @@ public class RightMessageController {
     @PostMapping(value = "/byclient", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE},
             produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> getmessages(@RequestParam("lawyerid") String lawyerId) {
-        Optional<RightMessage> list = rightMessageService.findRightMessageBylawyer(lawyerId);
+        Optional<RightMessage> list = rightMessageService.findRightMessageBylawyerid(lawyerId);
         if (list.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(list.get());
         else

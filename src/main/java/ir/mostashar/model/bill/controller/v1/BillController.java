@@ -1,6 +1,7 @@
 package ir.mostashar.model.bill.controller.v1;
 
 
+import io.swagger.annotations.ApiOperation;
 import ir.mostashar.model.bill.dto.BillDTO;
 import ir.mostashar.model.bill.dto.BillForm;
 import ir.mostashar.model.bill.service.BillService;
@@ -32,18 +33,17 @@ public class BillController {
     RequestService requestService;
 
     @Transactional
+    @ApiOperation(value = "Create Bill From Buy", notes = "purchaseType=0 or 1 , 0=by rating & 1=by money")
     @PostMapping(value = "/create", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> createBill(@Valid @RequestBody BillForm billForm) {
         if (billService.create(billForm)) {
             if (walletService.addMoneyWallet(billForm.getWalletId(), billForm.getUserId(), billForm.getValue())) {
-                requestService.updateStatusRequest(billForm.getRequestId(), RequestStatus.WAIT_CALL);
+                requestService.update(billForm.getRequestId(), RequestStatus.WAIT_CALL);
                 return ResponseEntity.status(HttpStatus.OK).body(new BillDTO(HttpStatus.OK.value(), Constants.KEY_ADD_BILL_ADD_WALLET));
             }
         }
-        return ResponseEntity.status(HttpStatus.OK).body(new BillDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_WALLET));
+        return ResponseEntity.status(HttpStatus.OK).body(new BillDTO(HttpStatus.OK.value(), Constants.KEY_FAIL));
     }
-
-
 
 
 }

@@ -2,34 +2,34 @@ package ir.mostashar.model.call.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class CallForm {
 
 //    private String callId;
 
-    @NotBlank
-    private int failedRetriesCount;
+    @NotNull
+    private Integer failedRetriesCount;
 
     private String callStatus;
 
-    private int callType;
+    private Integer callType;
 
     private Long startTime;
 
     private Long endTime;
 
-    @NotBlank
+    @NotNull
     private String clientId;
 
-    @NotBlank
+    @NotNull
     private String lawyerId;
 
-    @NotBlank
+    @NotNull
     private String requestId;
 
-    @NotBlank
+    @NotNull
     private String billId;
 
     public CallForm() {
