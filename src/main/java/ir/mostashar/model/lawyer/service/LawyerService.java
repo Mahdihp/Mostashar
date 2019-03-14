@@ -209,6 +209,14 @@ public class LawyerService {
         return false;
     }
 
+    public boolean updateLawyer(Lawyer lawyer) {
+        try{
+            lawyerRepo.save(lawyer);
+            return true;
+        }catch (Exception s){}
+        return false;
+    }
+
     public void deleteLawyer(String mobilenumber) {
         Optional<Lawyer> lawyer = lawyerRepo.findByMobileNumber(Long.parseLong(mobilenumber));
         if (lawyer.isPresent())

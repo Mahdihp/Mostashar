@@ -36,6 +36,9 @@ public class Client extends User {
     @Column(name = "fieldofstudy") //رشته تحصیلی
     private String fieldOfStudy;
 
+    @Column(name= "score")
+    private int score;
+
     @Column(name = "tel")
     private Long tel;
 

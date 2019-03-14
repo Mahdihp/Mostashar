@@ -21,6 +21,8 @@ public interface FileRepo extends JpaRepository<File,Long> {
     Optional<List<File>> findAllByDeleted(boolean isDeleted);
     Optional<List<File>> findAllByClientUidAndDeleted(UUID uuid,boolean isDeleted);
 
+    Optional<List<File>> findAllByRequestId(UUID uuid,String requestID,boolean isDeleted);
+
 
     @Query("SELECT max(fi.fileNumber) FROM File fi")
     Long findMaxFileNumber();

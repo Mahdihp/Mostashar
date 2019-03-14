@@ -15,5 +15,7 @@ public class ListFeedBackDTO extends BaseDTO {
 
     public ListFeedBackDTO() {
     }
-
+    public ListFeedBackDTO(int status, String message) {
+        super(status,message);
+    }
 }

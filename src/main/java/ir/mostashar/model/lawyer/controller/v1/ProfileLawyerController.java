@@ -3,6 +3,7 @@ package ir.mostashar.model.lawyer.controller.v1;
 import ir.mostashar.model.acceptRequest.service.AcceptRequestService;
 import ir.mostashar.model.bill.service.BillService;
 import ir.mostashar.model.failRequest.service.FailRequestService;
+import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.lawyer.dto.LawyerDTO;
 import ir.mostashar.model.lawyer.dto.LawyerProfileForm;
 import ir.mostashar.model.lawyer.service.LawyerService;
@@ -50,11 +51,36 @@ public class ProfileLawyerController {
             return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_LAWYER));
     }
 
+
+    @PostMapping(value = "/viewprofile", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> viewProfile(@RequestParam("userid") String userid) {
+        Optional<Lawyer> lawyer=lawyerService.findLawyerUidAndActive(userid,true);
+        if (lawyer.isPresent())
+            return ResponseEntity.status(HttpStatus.OK).body(lawyer.get());
+        else
+            return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_LAWYER));
+    }
+
     @PostMapping(value = "/profile/", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     private ResponseEntity<?> findLawyewrProfile(@RequestParam("lawyerid") String lawyerId) {
         Optional<LawyerDTO> list = lawyerService.findLawyerDTOByUid(1, lawyerId);
         if (list.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(list.get());
+        else
+            return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_LAWYER));
+    }
+
+
+    @PostMapping(value = "/profile_bank", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> updateProfileBank(@RequestParam("lawyerid") String lawyerUid,
+                                               @RequestParam("shiba") String shiba,
+                                               @RequestParam("shibaname") String shibaname) {
+        Lawyer lawyer=lawyerService.findByUid(lawyerUid).get();
+        lawyer.setBankShiba(shiba);
+        lawyer.setBankName(shibaname);
+
+        if (lawyerService.updateLawyer(lawyer))
+            return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_SUCESSE));
         else
             return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_LAWYER));
     }

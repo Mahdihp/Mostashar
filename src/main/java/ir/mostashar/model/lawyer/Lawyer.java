@@ -43,6 +43,15 @@ public class Lawyer extends User {
     @Column(name = "verified")
     private Boolean verified = false;
 
+    @Column(name = "bankshiba")
+    private String bankShiba;
+
+    @Column(name = "bankname")
+    private String bankName;
+
+    @Column(name = "resume",length = 65535, columnDefinition = "text")
+    private String resume;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

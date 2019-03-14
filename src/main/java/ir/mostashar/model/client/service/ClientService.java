@@ -6,6 +6,7 @@ import ir.mostashar.model.client.dto.ClientDTO;
 import ir.mostashar.model.client.dto.ClientProfileForm;
 import ir.mostashar.model.client.dto.ListClientDTO;
 import ir.mostashar.model.client.repository.ClientRepo;
+import ir.mostashar.model.constant.service.ConstantService;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.RoleName;
 import ir.mostashar.model.role.repository.RoleRepo;
@@ -45,6 +46,9 @@ public class ClientService {
     @Autowired
     AdviceTypeService adviceTypeService;
 
+    @Autowired
+    ConstantService constantService;
+
 
     public Optional<Client> findClientByUidAndActive(String userid, boolean active) {
         Optional<Client> client = clientRepo.findClientByUidAndActive(UUID.fromString(userid), active);
@@ -70,6 +74,17 @@ public class ClientService {
             client.get().setPostalCode(cpForm.getPostalCode());
             client.get().setFieldOfStudy(cpForm.getFieldOfStudy());
             client.get().setTel(Long.valueOf(cpForm.getTel()));
+            clientRepo.save(client.get());
+        }
+        return false;
+    }
+
+    public boolean updateClient_main(ClientProfileForm cpForm) {
+        Optional<Client> client = clientRepo.findByUid(UUID.fromString(cpForm.getClientId()));
+        if (client.isPresent()) {
+            client.get().setFirstName(cpForm.getFirstName());
+            client.get().setLastName(cpForm.getLastName());
+            client.get().setEmail(cpForm.getEmail());
             clientRepo.save(client.get());
         }
         return false;
@@ -242,6 +257,9 @@ public class ClientService {
     public boolean activateUser(boolean isactive, UUID userid) {
         Optional<Client> client = clientRepo.findByUid(userid);
         if (client.isPresent()) {
+            int score=0;
+            try{score=Integer.parseInt(constantService.findConstantByKey("").get().getValue());}catch (Exception s){}
+            client.get().setScore(score);
             client.get().setActive(isactive);
             client.get().setVerificationCode("-1");
             clientRepo.save(client.get());

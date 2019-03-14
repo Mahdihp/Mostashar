@@ -19,6 +19,7 @@ public class ClientProfileForm {
     private String postalCode;
     private String fieldOfStudy; //رشته تحصیلی
     private String tel;
+    private String email;
 
     public ClientProfileForm() {
     }

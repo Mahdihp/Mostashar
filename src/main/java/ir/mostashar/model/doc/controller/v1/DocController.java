@@ -89,6 +89,16 @@ public class DocController {
             return ResponseEntity.status(HttpStatus.OK).body(new FileDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_DOC));
     }
 
+
+    @PostMapping(value = "/resumedocs", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> findAllDocBylawyerid(@RequestParam("lawyerid") String lawyerid) {
+        Optional<ListDocDTO> docs = docService.findAllresumeBylawyerid(lawyerid);
+        if (docs.isPresent())
+            return ResponseEntity.status(HttpStatus.OK).body(docs.get());
+        else
+            return ResponseEntity.status(HttpStatus.OK).body(new FileDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_DOC));
+    }
+
     @ApiOperation(value = "Download Data Document", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @Transactional
     @PostMapping(value = "/docdata", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})

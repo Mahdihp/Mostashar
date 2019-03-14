@@ -1,9 +1,10 @@
 package ir.mostashar.model.doc.service;
 
 import ir.mostashar.model.client.repository.ClientRepo;
+import ir.mostashar.model.doc.DocType;
 import ir.mostashar.model.user.service.UserServiceImpl;
 import ir.mostashar.model.doc.Doc;
-import ir.mostashar.model.doc.DocType;
+import ir.mostashar.model.doc.MimeType;
 import ir.mostashar.model.doc.dto.DocDTO;
 import ir.mostashar.model.doc.dto.ListDocDTO;
 import ir.mostashar.model.doc.repository.DocRepo;
@@ -56,25 +57,25 @@ public class DocService {
 //            doc.setChecksum(docForm.getChecksum());
         switch (docType) {
             case 0:
-                doc.setDocType(DocType.Audio);
+                doc.setMimeType(MimeType.Audio);
                 break;
             case 1:
-                doc.setDocType(DocType.Video);
+                doc.setMimeType(MimeType.Video);
                 break;
             case 2:
-                doc.setDocType(DocType.PDF);
+                doc.setMimeType(MimeType.PDF);
                 break;
             case 3:
-                doc.setDocType(DocType.Picture);
+                doc.setMimeType(MimeType.Picture);
                 break;
             case 4:
-                doc.setDocType(DocType.Text);
+                doc.setMimeType(MimeType.Text);
                 break;
             case 5:
-                doc.setDocType(DocType.ZipFile);
+                doc.setMimeType(MimeType.ZipFile);
                 break;
             case 6:
-                doc.setDocType(DocType.RARFile);
+                doc.setMimeType(MimeType.RARFile);
                 break;
         }
         doc.setFile(file);
@@ -98,7 +99,7 @@ public class DocService {
                     docDTO.setDocId(doc.getUid().toString());
                     docDTO.setChecksum(doc.getChecksum());
                     docDTO.setHashCode(doc.getHashCode());
-                    docDTO.setDocType(doc.getDocType().type + "");
+                    docDTO.setMimeType(doc.getMimeType().type + "");
                     docDTO.setCreationDate(doc.getCreationDate());
                     docDTO.setFileId(doc.getFile().getUid().toString());
                     dtoList.add(docDTO);
@@ -109,6 +110,30 @@ public class DocService {
                 return Optional.ofNullable(listDocDTO);
             }
         }
+        return Optional.empty();
+    }
+
+    public Optional<ListDocDTO> findAllresumeBylawyerid(String lawyerid) {
+
+            Optional<List<Doc>> docs = docRepo.findAllDocsBylawyerid(lawyerid,DocType.Resume);
+            if (docs.isPresent()) {
+                List<DocDTO> dtoList = new ArrayList<>();
+                ListDocDTO listDocDTO = new ListDocDTO();
+                for (Doc doc : docs.get()) {
+                    DocDTO docDTO = new DocDTO();
+                    docDTO.setDocId(doc.getUid().toString());
+                    docDTO.setChecksum(doc.getChecksum());
+                    docDTO.setHashCode(doc.getHashCode());
+                    docDTO.setMimeType(doc.getMimeType().type + "");
+                    docDTO.setCreationDate(doc.getCreationDate());
+                    docDTO.setFileId(doc.getFile().getUid().toString());
+                    dtoList.add(docDTO);
+                }
+                listDocDTO.setStatus(HttpStatus.OK.value());
+                listDocDTO.setMessage(Constants.KEY_SUCESSE);
+                listDocDTO.setDocs(dtoList);
+                return Optional.ofNullable(listDocDTO);
+            }
         return Optional.empty();
     }
 
@@ -125,7 +150,7 @@ public class DocService {
                 docDTO.setStatus(HttpStatus.OK.value());
                 docDTO.setMessage(Constants.KEY_SUCESSE);
                 docDTO.setCreationDate(doc.get().getCreationDate());
-                docDTO.setDocType(doc.get().getDocType().type + "");
+                docDTO.setMimeType(doc.get().getMimeType().type + "");
                 docDTO.setFileId(doc.get().getFile().getUid().toString());
                 return Optional.ofNullable(docDTO);
             }
@@ -142,6 +167,15 @@ public class DocService {
     }
 
     public Optional<Doc> findByUid(String docId) {
+        Optional<Doc> doc = docRepo.findByUid(UUID.fromString(docId));
+        if (doc.isPresent())
+            return doc;
+        else
+            return Optional.empty();
+
+    }
+
+    public Optional<Doc> findBylawyerid(String lawyerId) {
         Optional<Doc> doc = docRepo.findByUid(UUID.fromString(docId));
         if (doc.isPresent())
             return doc;

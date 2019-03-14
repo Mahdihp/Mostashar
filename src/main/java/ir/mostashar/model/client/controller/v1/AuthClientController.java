@@ -63,7 +63,7 @@ public class AuthClientController {
     @ApiOperation(value = "Validate Code", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/validationcode", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> validationCode(@RequestParam("clientid") String clientId, @RequestParam("code") String code) {
-        if (TextUtils.isEmpty(code) && TextUtils.isEmpty(clientId))
+        if (TextUtils.isEmpty(code) || TextUtils.isEmpty(clientId))
             return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_INVALID_CODE, false));
 
         Optional<Client> client = clientService.findByUserUidAndCode(clientId, code);

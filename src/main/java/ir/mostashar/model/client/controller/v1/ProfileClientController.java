@@ -38,4 +38,13 @@ public class ProfileClientController {
         else
             return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_USER));
     }
+
+
+    @PostMapping(value = "/editprofile", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> updateProfile_main(@Valid @RequestBody ClientProfileForm cpForm) {
+        if (clientService.updateClient_main(cpForm))
+            return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_UPDATE_PROFILE));
+        else
+            return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_USER));
+    }
 }

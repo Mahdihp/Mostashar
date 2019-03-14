@@ -1,11 +1,16 @@
 package ir.mostashar.model.rightMessage.service;
 
 import ir.mostashar.model.rightMessage.RightMessage;
+import ir.mostashar.model.rightMessage.dto.ListRightMessageDTO;
+import ir.mostashar.model.rightMessage.dto.RightMessageDTO;
 import ir.mostashar.model.rightMessage.dto.RightMessageForm;
 import ir.mostashar.model.rightMessage.repository.RightMessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ir.mostashar.utils.Constants;
+import org.springframework.http.HttpStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -54,10 +59,46 @@ public class RightMessageService {
         return Optional.empty();
     }
 
-    public Optional<RightMessage> findRightMessageBylawyer(String lawyer) {
-        Optional<RightMessage> rightMessage = rightMessageRepo.findBylawyer(lawyer);
-        if (rightMessage.isPresent()) {
-            return Optional.ofNullable(rightMessage.get());
+    public Optional<ListRightMessageDTO> findRightMessageBylawyer(String lawyer) {
+        Optional<List<RightMessage>> rightMessages = rightMessageRepo.findBylawyer(lawyer);
+        if (rightMessages.isPresent()) {
+            ListRightMessageDTO listRightMessageDTO=new ListRightMessageDTO();
+            List<RightMessageDTO> dtoList = new ArrayList<>();
+            for(RightMessage rm:rightMessages.get()){
+                RightMessageDTO rightMessageDTO=new RightMessageDTO();
+                rightMessageDTO.setUid(rm.getUid());
+                rightMessageDTO.setTitle(rm.getTitle());
+                rightMessageDTO.setDescription(rm.getDescription());
+                rightMessageDTO.setCreationDate(rm.getCreationDate());
+                rightMessageDTO.setExpiryDate(rm.getExpiryDate());
+                dtoList.add(rightMessageDTO);
+            }
+            listRightMessageDTO.setStatus(HttpStatus.OK.value());
+            listRightMessageDTO.setMessage(Constants.KEY_SUCESSE);
+            listRightMessageDTO.setRightMessageDTOList(dtoList);
+            return Optional.ofNullable(listRightMessageDTO);
+        }
+        return Optional.empty();
+    }
+
+    public Optional<ListRightMessageDTO> findRightMessageByuser(String user) {
+        Optional<List<RightMessage>> rightMessages = rightMessageRepo.findByuser(user);
+        if (rightMessages.isPresent()) {
+            ListRightMessageDTO listRightMessageDTO=new ListRightMessageDTO();
+            List<RightMessageDTO> dtoList = new ArrayList<>();
+            for(RightMessage rm:rightMessages.get()){
+                RightMessageDTO rightMessageDTO=new RightMessageDTO();
+                rightMessageDTO.setUid(rm.getUid());
+                rightMessageDTO.setTitle(rm.getTitle());
+                rightMessageDTO.setDescription(rm.getDescription());
+                rightMessageDTO.setCreationDate(rm.getCreationDate());
+                rightMessageDTO.setExpiryDate(rm.getExpiryDate());
+                dtoList.add(rightMessageDTO);
+            }
+            listRightMessageDTO.setStatus(HttpStatus.OK.value());
+            listRightMessageDTO.setMessage(Constants.KEY_SUCESSE);
+            listRightMessageDTO.setRightMessageDTOList(dtoList);
+            return Optional.ofNullable(listRightMessageDTO);
         }
         return Optional.empty();
     }

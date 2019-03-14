@@ -123,6 +123,16 @@ public class FileController {
             return ResponseEntity.status(HttpStatus.OK).body(new ListFileDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_FILE));
     }
 
+    @PostMapping(value = "/requestfiles", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> findAllFileByRequestId(@RequestParam("requestid") String requestid,
+                                                    @RequestParam("clientid") String clientUid) {
+        Optional<ListFileDTO> allFileByUserId = fileService.findAllFileByRequestId(requestid,clientUid);
+        if (allFileByUserId.isPresent())
+            return ResponseEntity.status(HttpStatus.OK).body(allFileByUserId.get());
+        else
+            return ResponseEntity.status(HttpStatus.OK).body(new ListFileDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_FILE));
+    }
+
     @ApiOperation(value = "Find All Feedbacks", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/feedbacks", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findAllFeedBackFile(@RequestParam("requestid") String requestid) {

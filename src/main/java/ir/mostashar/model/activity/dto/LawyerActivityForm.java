@@ -1,7 +1,6 @@
 package ir.mostashar.model.activity.dto;
 
 import ir.mostashar.model.activity.LawyerActivityType;
-import ir.mostashar.model.doc.DocType;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;

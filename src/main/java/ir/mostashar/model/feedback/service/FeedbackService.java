@@ -72,7 +72,7 @@ public class FeedbackService {
         return Optional.empty();
     }
 
-    public Optional<ListFeedBackDTO> findByLawyerUidAndRequestUid(int typeQuery, String clientUid_requestUid) {
+    public Optional<ListFeedBackDTO> findByLawyerUidOrRequestUid(int typeQuery, String clientUid_requestUid) {
         Optional<List<FeedBack>> list = Optional.empty();
         switch (typeQuery) {
             case 1:
@@ -81,6 +81,30 @@ public class FeedbackService {
             case 2:
                 list = feedbackRepo.findByRequestUid(UUID.fromString(clientUid_requestUid));
         }
+        if (list.isPresent()) {
+            ListFeedBackDTO lfbDTO = new ListFeedBackDTO();
+            lfbDTO.setStatus(HttpStatus.OK.value());
+            lfbDTO.setMessage(Constants.KEY_SUCESSE);
+            List<FeedBackDTO> dtoList = new ArrayList<>();
+            for (FeedBack feedBack : list.get()) {
+                FeedBackDTO feedBackDTO = new FeedBackDTO();
+                feedBackDTO.setFeedBackId(feedBack.getUid().toString());
+                feedBackDTO.setCreationDate(feedBack.getCreationDate());
+                feedBackDTO.setDescription(feedBack.getDescription());
+                feedBackDTO.setScore(feedBack.getScore());
+                feedBackDTO.setLawyerId(feedBack.getLawyer().getUid().toString());
+                feedBackDTO.setRequestId(feedBack.getRequest().getUid().toString());
+                dtoList.add(feedBackDTO);
+            }
+            lfbDTO.setData(dtoList);
+            return Optional.ofNullable(lfbDTO);
+        }
+        return Optional.empty();
+    }
+
+    public Optional<ListFeedBackDTO> findByLawyerUidAndRequestUid(String clientUid,String requestUid) {
+        Optional<List<FeedBack>> list = feedbackRepo.findByLawyerUidAndByRequestID(UUID.fromString(clientUid),
+                UUID.fromString(requestUid));
         if (list.isPresent()) {
             ListFeedBackDTO lfbDTO = new ListFeedBackDTO();
             lfbDTO.setStatus(HttpStatus.OK.value());
