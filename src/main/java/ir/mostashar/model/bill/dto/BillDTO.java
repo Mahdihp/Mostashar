@@ -2,7 +2,6 @@ package ir.mostashar.model.bill.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import ir.mostashar.model.BaseDTO;
-import lombok.Builder;
 import lombok.Data;
 
 @Data
@@ -15,6 +14,7 @@ public class BillDTO extends BaseDTO {
     private Long transactionDate;
     private String billStatus;
     private Long value;
+    private String purchaseType;
     private String orgId;
     private String walletId;
     private String factorId;

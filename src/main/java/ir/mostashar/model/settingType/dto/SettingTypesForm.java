@@ -2,7 +2,7 @@ package ir.mostashar.model.settingType.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class SettingTypesForm {
@@ -10,12 +10,12 @@ public class SettingTypesForm {
 
     private String uid;
 
-    @NotBlank
+    @NotNull
     private String name;
     private String description;
 
-    @NotBlank
-    private short type;
+    @NotNull
+    private Integer type;
 
 
     public SettingTypesForm() {

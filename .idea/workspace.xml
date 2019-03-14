@@ -1,0 +1,1514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/AuthClientController.java" line="75" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1e01327f-4aba-4542-b594-13cb3ce25ace" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/acceptRequest/repository/AcceptRequestRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/acceptRequest/repository/AcceptRequestRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/acceptRequest/service/AcceptRequestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/acceptRequest/service/AcceptRequestService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/ClientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/controller/v1/AuthLawyerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/controller/v1/AuthLawyerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/utils/AppRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/utils/AppRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ir/mostashar/utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ir/mostashar/utils/Constants.java" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="Mostashar@localhost" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="Mostashar@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="mostashar" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/ClientController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="133">
+              <caret line="114" column="33" lean-forward="true" selection-start-line="114" selection-start-column="33" selection-end-line="114" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/acceptRequest/service/AcceptRequestService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="163" selection-start-line="163" selection-end-line="163" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/acceptRequest/repository/AcceptRequestRepo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="22" selection-start-line="22" selection-end-line="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/utils/AppRunner.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="219">
+              <caret line="412" column="47" selection-start-line="412" selection-start-column="47" selection-end-line="412" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>bcDTO</find>
+      <find>client</find>
+      <find>email</find>
+      <find>setValue</find>
+      <find>lawyerDTO</find>
+      <find>11502c33-b3a5-4401-a274-016bda28fdce</find>
+      <find>11802c33-b3a5-4401-a274-016bda28fdce</find>
+      <find>11702c33-b3a5-4401-a274-016bda28fdce</find>
+      <find>assignDiscount</find>
+      <find>total</find>
+      <find>110c7528-1d44-4ae3-9dc0-c3b8213d45a6</find>
+      <find>assignDiscount1</find>
+      <find>lawyerRepo</find>
+      <find>findByUserUidAndVerificationCode</find>
+      <find>findUserUidAndCode</find>
+      <find>-1</find>
+      <find>findByMobileNumber</find>
+      <find>roleRepo</find>
+      <find>ac</find>
+      <find>get().</find>
+      <find>discountPack</find>
+      <find>.get()</find>
+      <find>x-www</find>
+      <find>setActive</find>
+      <find>req</find>
+      <find>sendSms</find>
+      <find>file</find>
+      <find>file1</find>
+      <find>request1</find>
+      <find>acceptRequest1</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>Clients(id)</replace>
+      <replace>Constants.MediaTYpe_JSON_UTF_8</replace>
+      <replace>HttpStatus.OK</replace>
+      <replace>HttpStatus.OK.value()</replace>
+      <replace>HttpStatus.NOT_FOUND.value()</replace>
+      <replace>HttpStatus.BAD_REQUEST.value()</replace>
+      <replace>HttpStatus.INTERNAL_SERVER_ERROR.value()</replace>
+      <replace>MediaType.APPLICATION_JSON_UTF8_VALUE</replace>
+      <replace>ar.</replace>
+      <replace>ar</replace>
+      <replace>failRequest</replace>
+      <replace>packDTO</replace>
+      <replace>factorDTO</replace>
+      <replace>factor.get()</replace>
+      <replace>factor</replace>
+      <replace>billDTO</replace>
+      <replace>bill.get()</replace>
+      <replace>bill</replace>
+      <replace>lawyer.</replace>
+      <replace>lawyer</replace>
+      <replace>-</replace>
+      <replace>client</replace>
+      <replace>client.get()</replace>
+      <replace>cpForm</replace>
+      <replace>lawyer.get()</replace>
+      <replace>assignDiscount.get()</replace>
+      <replace>ac.get()</replace>
+      <replace>acdto</replace>
+      <replace>discountPack.get()</replace>
+      <replace>discountPackDTO</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$/src/main/java/ir/mostashar/model</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="UPDATE_TYPE" value="MERGE" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="PUSH_TAGS">
+      <GitPushTagMode />
+    </option>
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="relationshipEntity-develop" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+  </component>
+  <component name="GitlabProjectsProjectSettings">
+    <option name="deleteMergedBranch" value="false" />
+    <option name="mergeAsWorkInProgress" value="false" />
+    <option name="projectIdMap">
+      <map>
+        <entry key="-1737285163" value="9073145" />
+      </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/dto/AssignDiscountForm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/dto/AssignDiscountDTO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/discountPack/DiscountPack.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/discountPack/DiscountPackType.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/discountPack/dto/DiscountPackForm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/discountPack/dto/DiscountPackDTO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/discountPack/repository/DiscountPackRepo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/discountPack/service/DiscountPackService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/discountPack/controller/v1/DiscountPackController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/controller/v1/AssignDiscountController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/pack/service/PackService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/userFeedback/controller/UserFeedBackController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/Client.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/userFeedback/UserFeedBack.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/userFeedback/service/UserFeedBackService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/userFeedback/dto/UserFeedBackForm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/repository/AssignDiscountRepo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/controller/v1/ProfileLawyerController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/userpopularity/controller/UserPopularityController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/request/repository/RequestRepo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/request/service/RequestService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/dto/FileUpdateForm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/file/controller/v1/FileController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/doc/controller/v1/DocController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/static/index.html" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/dto/ClientDTO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/file/dto/FileDTO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/service/AssignDiscountService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/wallet/service/WalletService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/adminConfirmation/service/AdminConfirmationservice.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/config/Swagger2Config.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/security/WebSecurityConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/ProfileClientController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/dto/LawyerDTO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/dto/ClientProfileForm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/dto/LawyerProfileForm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/utils/SmsService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/BaseDTO.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/MostasharApplication.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/service/ClientService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/service/LawyerService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/AuthClientController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/utils/SmsSender.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/controller/v1/AuthLawyerController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/acceptRequest/repository/AcceptRequestRepo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/utils/Constants.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/ClientController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/utils/AppRunner.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ir/mostashar/model/acceptRequest/service/AcceptRequestService.java" />
+      </list>
+    </option>
+  </component>
+  <component name="JavaeeView">
+    <option name="showModules" value="false" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="$MAVEN_REPOSITORY$" />
+        <option name="mavenHome" value="$USER_HOME$/apps/apache-maven-3.5.4" />
+        <option name="userSettingsFile" value="$USER_HOME$/.m2/settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="iranPopulation" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+      </expand>
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="1366" />
+    <option name="y" value="-1" />
+    <option name="width" value="1024" />
+    <option name="height" value="768" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="iranPopulation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mostashar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="iranPopulation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mostashar" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="iranPopulation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mostashar" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="iranPopulation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mostashar" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="iranPopulation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mostashar" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="mostashar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="iranPopulation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mostashar" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="mostashar" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="iranPopulation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mostashar" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="mostashar" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="iranPopulation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mostashar" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="mostashar" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="v1" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="iranPopulation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mostashar" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="iranPopulation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mostashar" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="postgresql" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="SearchEverywhereHistoryKey" value="Ca&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/calls/controller/CallController.java&#10;ClientD&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/client/dto/ClientDTO.java&#10;App&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/utils/AppRunner.java&#10;Appr&#9;PSI&#9;JAVA://ir.mostashar.utils.AppRunner&#10;BillS&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/bill/service/BillService.java&#10;PackS&#9;PSI&#9;JAVA://ir.mostashar.model.packsnapshot.PackSnapshot&#10;Consu&#9;PSI&#9;JAVA://ir.mostashar.model.consumptionPack.ConsumptionPack&#10;Bill&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/bill/Bill.java&#10;ConS&#9;PSI&#9;JAVA://ir.mostashar.model.consumptionPack.ConsumptionPack&#10;snap&#9;PSI&#9;JAVA://ir.mostashar.model.packsnapshot.PackSnapshot&#10;fAI&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/failRequest/FailRequest.java&#10;rename&#9;ACTION&#9;RenameFile&#10;Req&#9;PSI&#9;JAVA://ir.mostashar.model.request.repository.RequestRepository&#10;PackR&#9;PSI&#9;JAVA://ir.mostashar.model.pack.repository.PackRepository&#10;FileR&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/file/repository/FileRepository.java&#10;UserS&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/client/service/UserServiceImpl.java&#10;FileS&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/file/service/FileService.java&#10;UserSe&#9;PSI&#9;JAVA://ir.mostashar.model.client.service.UserServiceImpl&#10;ClientS&#9;null&#9;null&#10;create&#9;PSI&#9;JAVA://ir.mostashar.model.file.service.FileService#createFile&#10;File&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/file/File.java&#10;Packs&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/pack/service/PackService.java&#10;FileSe&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/file/service/FileService.java&#10;Pack&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/pack/Pack.java&#10;PackD&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/pack/dto/PackDTO.java&#10;PackSe&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/pack/service/PackService.java&#10;FileT&#9;PSI&#9;JAVA://ir.mostashar.model.client.dto.FileType&#10;plugin&#9;ACTION&#9;WelcomeScreen.Plugins&#10;PackDTO&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/pack/dto/PackDTO.java&#10;Role&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/role/Role.java&#10;PackSnapshot&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/packsnapshot/PackSnapshot.java&#10;User&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/user/User.java&#10;Sms&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/util/SmsSender.java&#10;Lawy&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/lawyer/Lawyer.java&#10;Send&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/util/SmsSender.java&#10;FileD&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/file/dto/FileDTO.java&#10;FileSer&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/file/service/FileService.java&#10;PAck&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/pack/service/PackService.java&#10;Data&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/util/DataUtil.java&#10;Law&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/lawyer/Lawyer.java&#10;Rolen&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/role/RoleName.java&#10;RoleN&#9;PSI&#9;JAVA://ir.mostashar.model.role.RoleName&#10;Util&#9;PSI&#9;JAVA://ir.mostashar.util.DataUtil&#10;Pa&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/pack/Pack.java&#10;Clie&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/client/Client.java&#10;Doc&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/doc/Doc.java&#10;Au&#9;PSI&#9;JAVA://ir.mostashar.security.jwt.JwtAuthEntryPoint&#10;Cli&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/client/Client.java&#10;Lawyer&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/lawyer/Lawyer.java&#10;Client&#9;FILE&#9;file:///home/mahdi/IdeaProjects/mostashar/src/main/java/ir/mostashar/model/client/Client.java" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="database.console.LAST_STATE" value="false" />
+    <property name="extract.method.default.visibility" value="private" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../PhoneBookMaster_Webflux" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/db/migration" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/db/migration" />
+      <recent name="$PROJECT_DIR$/src/main/java/ir/mostashar/security/jwt" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ir.mostashar.model.lawyer.controller.v1" />
+      <recent name="ir.mostashar.model.client.controller.v1" />
+      <recent name="ir.mostashar.model.pack.dto" />
+      <recent name="ir.mostashar.model.device.dto" />
+      <recent name="ir.mostashar.model.request.dto" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ir.mostashar.model.discountPack" />
+      <recent name="ir.mostashar.model.adminConfirmation.dto" />
+      <recent name="ir.mostashar.model.assignDiscount.dto" />
+      <recent name="ir.mostashar.model.discountPack.service" />
+      <recent name="ir.mostashar.model.discountPack.dto" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="run" />
+    </option>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="MostasharApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="mostashar" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ir.mostashar.MostasharApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpringBeansView">
+    <option name="beanDetailsProportion" value="0.3" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1e01327f-4aba-4542-b594-13cb3ce25ace" name="Default Changelist" comment="" />
+      <created>1544609018881</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1544609018881</updated>
+      <workItem from="1544609020612" duration="47000" />
+      <workItem from="1544609071612" duration="1383000" />
+      <workItem from="1544682683626" duration="5690000" />
+      <workItem from="1544694021268" duration="1238000" />
+      <workItem from="1544700327393" duration="1087000" />
+      <workItem from="1544852763741" duration="3271000" />
+      <workItem from="1545144785771" duration="8000" />
+      <workItem from="1545633187719" duration="3547000" />
+      <workItem from="1545639771912" duration="695000" />
+      <workItem from="1545809431476" duration="7922000" />
+      <workItem from="1545849035117" duration="2967000" />
+      <workItem from="1545895648728" duration="601000" />
+      <workItem from="1546065165218" duration="14406000" />
+      <workItem from="1546151347038" duration="9733000" />
+      <workItem from="1546238777406" duration="6396000" />
+      <workItem from="1546325890728" duration="2984000" />
+      <workItem from="1546411024349" duration="12393000" />
+      <workItem from="1546611816451" duration="1351000" />
+      <workItem from="1546613376767" duration="2672000" />
+      <workItem from="1546689971676" duration="28000" />
+      <workItem from="1546699678561" duration="1491000" />
+      <workItem from="1546768807699" duration="568000" />
+      <workItem from="1546769726288" duration="1460000" />
+      <workItem from="1546842933144" duration="3793000" />
+      <workItem from="1546848148634" duration="828000" />
+      <workItem from="1546936727126" duration="419000" />
+      <workItem from="1546960956903" duration="3268000" />
+      <workItem from="1547046722936" duration="10000000" />
+      <workItem from="1547300595554" duration="7336000" />
+      <workItem from="1547998324201" duration="155000" />
+      <workItem from="1548078464181" duration="8376000" />
+      <workItem from="1548100491222" duration="3004000" />
+      <workItem from="1548104235690" duration="209000" />
+      <workItem from="1548104685104" duration="153000" />
+      <workItem from="1548164770837" duration="5349000" />
+      <workItem from="1548189400846" duration="896000" />
+      <workItem from="1548252391680" duration="21150000" />
+      <workItem from="1548355129320" duration="4955000" />
+      <workItem from="1548408903236" duration="5060000" />
+      <workItem from="1548432415185" duration="869000" />
+      <workItem from="1548433289362" duration="4867000" />
+      <workItem from="1548438372256" duration="18000" />
+      <workItem from="1548447537858" duration="4532000" />
+      <workItem from="1548508090710" duration="8577000" />
+      <workItem from="1549281470031" duration="1920000" />
+      <workItem from="1549284864834" duration="3289000" />
+      <workItem from="1549288235120" duration="1265000" />
+      <workItem from="1549292728731" duration="5490000" />
+      <workItem from="1549345616098" duration="14568000" />
+      <workItem from="1549431883890" duration="14787000" />
+      <workItem from="1549518216010" duration="4083000" />
+      <workItem from="1549522780384" duration="3977000" />
+      <workItem from="1549529497854" duration="1600000" />
+      <workItem from="1549534831726" duration="1698000" />
+      <workItem from="1549606112917" duration="8616000" />
+      <workItem from="1549700158322" duration="396000" />
+      <workItem from="1549871450655" duration="10561000" />
+      <workItem from="1549949312955" duration="17675000" />
+      <workItem from="1550036020290" duration="19259000" />
+      <workItem from="1550123682656" duration="2297000" />
+      <workItem from="1550126557268" duration="12659000" />
+      <workItem from="1550296459461" duration="17508000" />
+      <workItem from="1550469945767" duration="15602000" />
+      <workItem from="1550555570356" duration="12374000" />
+      <workItem from="1550643154524" duration="16374000" />
+      <workItem from="1550730465146" duration="11467000" />
+      <workItem from="1550763453914" duration="62000" />
+      <workItem from="1550900861953" duration="10251000" />
+      <workItem from="1550911419928" duration="55000" />
+      <workItem from="1550911509753" duration="2206000" />
+      <workItem from="1550914977998" duration="991000" />
+      <workItem from="1550916043483" duration="4840000" />
+      <workItem from="1550988610884" duration="12527000" />
+      <workItem from="1551074562277" duration="7989000" />
+      <workItem from="1551160769547" duration="16494000" />
+      <workItem from="1551251038942" duration="13645000" />
+      <workItem from="1551278856667" duration="230000" />
+      <workItem from="1551333274704" duration="14404000" />
+      <workItem from="1551506081258" duration="4155000" />
+      <workItem from="1551511527159" duration="11707000" />
+      <workItem from="1551592186739" duration="20799000" />
+      <workItem from="1551678835157" duration="22996000" />
+      <workItem from="1551764805277" duration="20268000" />
+      <workItem from="1551852495021" duration="13587000" />
+      <workItem from="1551867226014" duration="4736000" />
+      <workItem from="1551938986457" duration="13532000" />
+      <workItem from="1552033576862" duration="2460000" />
+      <workItem from="1552118891163" duration="499000" />
+      <workItem from="1552120034549" duration="37000" />
+      <workItem from="1552120204995" duration="931000" />
+      <workItem from="1552123402990" duration="736000" />
+      <workItem from="1552196492496" duration="2576000" />
+      <workItem from="1552199588842" duration="12825000" />
+      <workItem from="1552283606354" duration="21351000" />
+    </task>
+    <task id="LOCAL-00082" summary="Create &amp; Test Call Service Controller.">
+      <created>1551265459476</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1551265459476</updated>
+    </task>
+    <task id="LOCAL-00083" summary="Clean Code v1.">
+      <created>1551341220080</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1551341220082</updated>
+    </task>
+    <task id="LOCAL-00084" summary="Clean Code v2.">
+      <created>1551343462289</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1551343462289</updated>
+    </task>
+    <task id="LOCAL-00085" summary="Clean Code v3.">
+      <created>1551343633937</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1551343633938</updated>
+    </task>
+    <task id="LOCAL-00086" summary="Clean Code v4.">
+      <created>1551344523183</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1551344523183</updated>
+    </task>
+    <task id="LOCAL-00087" summary="Create Lawyer Service v1.">
+      <created>1551510248757</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1551510248758</updated>
+    </task>
+    <task id="LOCAL-00088" summary="Create Lawyer Service Controller v2.">
+      <created>1551514356075</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1551514356076</updated>
+    </task>
+    <task id="LOCAL-00089" summary="Create Notification Service.">
+      <created>1551522948240</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1551522948240</updated>
+    </task>
+    <task id="LOCAL-00090" summary="Create Reminder Service.">
+      <created>1551524238638</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1551524238638</updated>
+    </task>
+    <task id="LOCAL-00091" summary="Create LawyerController.">
+      <created>1551606852558</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1551606852559</updated>
+    </task>
+    <task id="LOCAL-00092" summary="Create RequestController.">
+      <created>1551607471382</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1551607471382</updated>
+    </task>
+    <task id="LOCAL-00093" summary="Create BillController.">
+      <created>1551611229463</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1551611229463</updated>
+    </task>
+    <task id="LOCAL-00094" summary="Create CallController.">
+      <created>1551616314142</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1551616314142</updated>
+    </task>
+    <task id="LOCAL-00095" summary="Create CallController.">
+      <created>1551617483732</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1551617483732</updated>
+    </task>
+    <task id="LOCAL-00096" summary="Fixed Relation Between Role &amp; Feature Table.">
+      <created>1551681995908</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1551681995909</updated>
+    </task>
+    <task id="LOCAL-00097" summary="Add Method Accepts &amp; Fails Request.">
+      <created>1551693317894</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1551693317894</updated>
+    </task>
+    <task id="LOCAL-00098" summary="Add Swagger Tools.">
+      <created>1551704544358</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1551704544358</updated>
+    </task>
+    <task id="LOCAL-00099" summary="Create Organization Controller">
+      <created>1551767456710</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1551767456712</updated>
+    </task>
+    <task id="LOCAL-00100" summary="Create Organization Controller v2">
+      <created>1551770023494</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1551770023494</updated>
+    </task>
+    <task id="LOCAL-00101" summary="Create Organization Controller v3">
+      <created>1551770743268</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1551770743268</updated>
+    </task>
+    <task id="LOCAL-00102" summary="Create Lawyer Activity Service v1.">
+      <created>1551773758137</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1551773758137</updated>
+    </task>
+    <task id="LOCAL-00103" summary="Create Bill List Users.">
+      <created>1551780024390</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1551780024390</updated>
+    </task>
+    <task id="LOCAL-00104" summary="Create Profile Lawyer Controller">
+      <created>1551781629597</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1551781629598</updated>
+    </task>
+    <task id="LOCAL-00105" summary="Create FeedBack Service.">
+      <created>1551789752433</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1551789752433</updated>
+    </task>
+    <task id="LOCAL-00106" summary="Create DiscountPack Service.">
+      <created>1551791051199</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1551791051199</updated>
+    </task>
+    <task id="LOCAL-00107" summary="Create AssignDiscount Service.">
+      <created>1551857588207</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1551857588209</updated>
+    </task>
+    <task id="LOCAL-00108" summary="Create AssignDiscount Controller.">
+      <created>1551859338808</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1551859338809</updated>
+    </task>
+    <task id="LOCAL-00109" summary="Create AssignDiscount Controller.">
+      <created>1551859575181</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1551859575181</updated>
+    </task>
+    <task id="LOCAL-00110" summary="Fixed &amp; Change Login Controller.">
+      <created>1551864864051</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1551864864051</updated>
+    </task>
+    <task id="LOCAL-00111" summary="Fixed &amp; Change Login Controller.">
+      <created>1551864906828</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1551864906828</updated>
+    </task>
+    <task id="LOCAL-00112" summary="Create FeedBack Service.">
+      <created>1551867126263</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1551867126263</updated>
+    </task>
+    <task id="LOCAL-00113" summary="Create Reminder Controller.">
+      <created>1551875669842</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1551875669842</updated>
+    </task>
+    <task id="LOCAL-00114" summary="Fixed Delete Users.">
+      <created>1551946164428</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1551946164429</updated>
+    </task>
+    <task id="LOCAL-00115" summary="Fixed Login Users.">
+      <created>1551953563955</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
+      <option name="project" value="LOCAL" />
+      <updated>1551953563957</updated>
+    </task>
+    <task id="LOCAL-00116" summary="Complate AdminConfirmation Service Table.">
+      <created>1552202189276</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1552202189278</updated>
+    </task>
+    <task id="LOCAL-00117" summary="Complate AdminConfirmation Service Table.">
+      <created>1552203705431</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1552203705431</updated>
+    </task>
+    <task id="LOCAL-00118" summary="Complate DiscountPack Service &amp; Controller.">
+      <created>1552210654380</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1552210654380</updated>
+    </task>
+    <task id="LOCAL-00119" summary="Complate DiscountPack Service &amp; Controller.">
+      <created>1552211704863</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1552211704863</updated>
+    </task>
+    <task id="LOCAL-00120" summary="Create UserFeedBack Controller.">
+      <created>1552284812507</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1552284812508</updated>
+    </task>
+    <task id="LOCAL-00121" summary="Fixed &amp; Change Code.">
+      <created>1552287242101</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1552287242101</updated>
+    </task>
+    <task id="LOCAL-00122" summary="Fixed &amp; Change Code.">
+      <created>1552287372079</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
+      <option name="project" value="LOCAL" />
+      <updated>1552287372079</updated>
+    </task>
+    <task id="LOCAL-00123" summary="Fixed &amp; Clean Code.">
+      <created>1552289839927</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1552289839927</updated>
+    </task>
+    <task id="LOCAL-00124" summary="Fixed &amp; Clean Code v1.">
+      <created>1552294185073</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1552294185073</updated>
+    </task>
+    <task id="LOCAL-00125" summary="Fixed &amp; Clean Code v2.">
+      <created>1552296414110</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1552296414110</updated>
+    </task>
+    <task id="LOCAL-00126" summary="Fixed &amp; Clean Code v3.">
+      <created>1552296638075</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1552296638075</updated>
+    </task>
+    <task id="LOCAL-00127" summary="Fixed &amp; Clean Code v4.">
+      <created>1552305689885</created>
+      <option name="number" value="00127" />
+      <option name="presentableId" value="LOCAL-00127" />
+      <option name="project" value="LOCAL" />
+      <updated>1552305689885</updated>
+    </task>
+    <task id="LOCAL-00128" summary="Fixed &amp; Clean Code v4.">
+      <created>1552306048080</created>
+      <option name="number" value="00128" />
+      <option name="presentableId" value="LOCAL-00128" />
+      <option name="project" value="LOCAL" />
+      <updated>1552306048080</updated>
+    </task>
+    <task id="LOCAL-00129" summary="Fixed &amp; Clean Code v4.">
+      <created>1552306495718</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
+      <option name="project" value="LOCAL" />
+      <updated>1552306495718</updated>
+    </task>
+    <task id="LOCAL-00130" summary="Fixed &amp; Clean Code v4.">
+      <created>1552306565133</created>
+      <option name="number" value="00130" />
+      <option name="presentableId" value="LOCAL-00130" />
+      <option name="project" value="LOCAL" />
+      <updated>1552306565133</updated>
+    </task>
+    <option name="localTasksCounter" value="131" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="610106000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="1366" y="-1" width="1024" height="768" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" weight="0.26626018" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="UI Designer" order="3" />
+      <window_info id="Favorites" order="4" side_tool="true" weight="0.3292683" />
+      <window_info id="Web" order="5" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32324842" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.40286624" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3296" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32484075" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" weight="0.3296" />
+      <window_info anchor="bottom" id="Terminal" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.6066879" />
+      <window_info anchor="bottom" id="Tail" order="11" />
+      <window_info anchor="bottom" id="Spring" order="12" weight="0.3296" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.29027113" />
+      <window_info anchor="bottom" id="Java Enterprise" order="14" show_stripe_button="false" weight="0.328" />
+      <window_info anchor="bottom" id="Database Console" order="15" weight="0.32931036" />
+      <window_info anchor="bottom" id="Flutter Performance" order="16" side_tool="true" weight="0.3298969" />
+      <window_info anchor="bottom" id="Docker" order="17" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Duplicate detector" order="18" weight="0.32961783" />
+      <window_info anchor="bottom" id="Application Servers" order="19" weight="0.32961783" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.24924242" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Database" order="4" weight="0.3249595" />
+      <window_info anchor="right" id="Palette&#9;" order="5" />
+      <window_info anchor="right" id="Maven Projects" order="6" weight="0.25813007" />
+      <window_info anchor="right" id="Bean Validation" order="7" weight="0.32954547" />
+      <window_info anchor="right" id="Flutter Inspector" order="8" weight="0.3298217" />
+      <window_info anchor="right" id="Flutter Outline" order="9" />
+      <window_info anchor="right" id="Maven" order="10" weight="0.3292683" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add Method Accepts &amp; Fails Request." />
+    <MESSAGE value="Add Swagger Tools." />
+    <MESSAGE value="Create Organization Controller" />
+    <MESSAGE value="Create Organization Controller v2" />
+    <MESSAGE value="Create Organization Controller v3" />
+    <MESSAGE value="Create Lawyer Activity Service v1." />
+    <MESSAGE value="Create Bill List Users." />
+    <MESSAGE value="Create Profile Lawyer Controller" />
+    <MESSAGE value="Create DiscountPack Service." />
+    <MESSAGE value="Create AssignDiscount Service." />
+    <MESSAGE value="Create AssignDiscount Controller." />
+    <MESSAGE value="Fixed &amp; Change Login Controller." />
+    <MESSAGE value="Create FeedBack Service." />
+    <MESSAGE value="Create Reminder Controller." />
+    <MESSAGE value="Fixed Delete Users." />
+    <MESSAGE value="Fixed Login Users." />
+    <MESSAGE value="Complate AdminConfirmation Service Table." />
+    <MESSAGE value="Complate DiscountPack Service &amp; Controller." />
+    <MESSAGE value="Create UserFeedBack Controller." />
+    <MESSAGE value="Fixed &amp; Change Code." />
+    <MESSAGE value="Fixed &amp; Clean Code." />
+    <MESSAGE value="Fixed &amp; Clean Code v1." />
+    <MESSAGE value="Fixed &amp; Clean Code v2." />
+    <MESSAGE value="Fixed &amp; Clean Code v3." />
+    <MESSAGE value="Fixed &amp; Clean Code v4." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed &amp; Clean Code v4." />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ir/mostashar/utils/AppRunner.java</url>
+          <line>268</line>
+          <properties />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/wallet/Wallet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="43" column="18" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/bill/Bill.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="45" column="52" lean-forward="true" selection-start-line="44" selection-start-column="5" selection-end-line="45" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="60" column="43" selection-start-line="60" selection-start-column="43" selection-end-line="60" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/userFeedback/controller/UserFeedBackController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="20" column="35" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/userFeedback/dto/UserFeedBackForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="14" column="31" lean-forward="true" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/userFeedback/service/UserFeedBackService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="33" column="70" selection-start-line="33" selection-start-column="70" selection-end-line="33" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/repository/AssignDiscountRepo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/userFeedback/UserFeedBack.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/AssignDiscount.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/userpopularity/controller/UserPopularityController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="53" column="67" lean-forward="true" selection-start-line="53" selection-start-column="67" selection-end-line="53" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/request/repository/RequestRepo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="17" column="38" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/request/service/RequestService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="100" column="105" lean-forward="true" selection-start-line="100" selection-start-column="105" selection-end-line="100" selection-end-column="105" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/dto/FileUpdateForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="13" column="13" lean-forward="true" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/file/controller/v1/FileController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="583">
+          <caret line="97" column="12" selection-start-line="97" selection-start-column="12" selection-end-line="97" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/doc/controller/v1/DocController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="7" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="23" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/dto/ClientDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="478">
+          <caret line="73" column="70" selection-start-line="73" selection-start-column="70" selection-end-line="73" selection-end-column="70" />
+          <folding>
+            <element signature="e#1039#1040#0" expanded="true" />
+            <element signature="e#1077#1078#0" expanded="true" />
+            <element signature="e#1511#1512#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/wallet/dto/WalletDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/file/service/FileService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="112" column="32" selection-start-line="112" selection-start-column="32" selection-end-line="112" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/service/AssignDiscountService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="75" column="17" selection-start-line="75" selection-start-column="17" selection-end-line="75" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/file/dto/FileDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/assignDiscount/dto/AssignDiscountDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/adminConfirmation/service/AdminConfirmationservice.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1421">
+          <caret line="168" column="31" selection-start-line="168" selection-start-column="31" selection-end-line="168" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/wallet/service/WalletService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3927">
+          <caret line="248" column="35" selection-start-line="248" selection-start-column="35" selection-end-line="248" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/adminConfirmation/dto/ACDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/config/Swagger2Config.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="30" column="46" selection-start-line="30" selection-start-column="46" selection-end-line="30" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/security/WebSecurityConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="59" column="31" selection-start-line="59" selection-start-column="31" selection-end-line="59" selection-end-column="31" />
+          <folding>
+            <element signature="e#1585#1586#0" expanded="true" />
+            <element signature="e#1632#1633#0" expanded="true" />
+            <element signature="e#2122#2123#0" expanded="true" />
+            <element signature="e#2172#2173#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.1.4.RELEASE/spring-web-5.1.4.RELEASE.jar!/org/springframework/http/MediaType.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="35" column="85" selection-start-line="35" selection-start-column="80" selection-end-line="35" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/dto/LawyerDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/dto/LawyerProfileForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="29" lean-forward="true" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/controller/v1/ProfileLawyerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="40" selection-start-line="40" selection-end-line="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/dto/ClientProfileForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/ProfileClientController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="26" column="27" selection-start-line="26" selection-start-column="27" selection-end-line="26" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/kavenegar/kavenegar-java/v2.0.3/kavenegar-java-v2.0.3.jar!/com/kavenegar/sdk/KavenegarApi.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7225">
+          <caret line="460" column="22" selection-start-line="460" selection-start-column="22" selection-end-line="460" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="18" column="46" lean-forward="true" selection-start-line="18" selection-start-column="46" selection-end-line="18" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/BaseDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/MostasharApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="60" selection-start-line="60" selection-end-line="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/service/ClientService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="201" column="30" selection-start-line="201" selection-start-column="23" selection-end-line="201" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/utils/SmsSender.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="46" column="49" lean-forward="true" selection-start-line="46" selection-start-column="49" selection-end-line="46" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/utils/SmsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="18" column="22" lean-forward="true" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/service/LawyerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="332" column="24" lean-forward="true" selection-start-line="332" selection-start-column="24" selection-end-line="332" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/lawyer/controller/v1/AuthLawyerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="64" column="4" selection-start-line="64" selection-start-column="4" selection-end-line="64" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/AuthClientController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="64" column="63" selection-start-line="64" selection-start-column="63" selection-end-line="64" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/utils/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="111" column="104" selection-start-line="111" selection-start-column="104" selection-end-line="111" selection-end-column="104" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/request/Request.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="50" column="18" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/acceptRequest/AcceptRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/acceptRequest/repository/AcceptRequestRepo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/utils/AppRunner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="412" column="47" selection-start-line="412" selection-start-column="47" selection-end-line="412" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/client/controller/v1/ClientController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="114" column="33" lean-forward="true" selection-start-line="114" selection-start-column="33" selection-end-line="114" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ir/mostashar/model/acceptRequest/service/AcceptRequestService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="163" selection-start-line="163" selection-end-line="163" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Spring</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>JAX-RS</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>mostashar</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: antlr:antlr:2.7.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

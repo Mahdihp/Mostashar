@@ -7,7 +7,10 @@ import ir.mostashar.model.call.dto.ListCallDTO;
 import ir.mostashar.model.call.repository.CallRepo;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.service.ClientService;
+import ir.mostashar.model.expertise.dto.ExpertiseDTO;
 import ir.mostashar.model.lawyer.Lawyer;
+import ir.mostashar.model.lawyer.dto.LawyerDTO;
+import ir.mostashar.model.lawyer.dto.ListLawyerDTO;
 import ir.mostashar.model.lawyer.service.LawyerService;
 import ir.mostashar.model.request.Request;
 import ir.mostashar.model.request.service.RequestService;
@@ -36,7 +39,7 @@ public class CallService {
     @Autowired
     private RequestService requestService;
 
-    public boolean createCall(CallForm callForm) {
+    public boolean create(CallForm callForm) {
         Optional<Client> client = clientService.findClientByUidAndActive(callForm.getClientId(), false);
         Optional<Lawyer> lawyer = lawyerService.findLawyerUidAndActive(callForm.getLawyerId(), true);
         Optional<Request> request = requestService.findByUid(callForm.getRequestId());
@@ -58,17 +61,74 @@ public class CallService {
         return false;
     }
 
+    public Optional<ListLawyerDTO> findAllLawyerById(String clientId) {
+        Optional<List<Call>> list = callRepo.findAllByClientUid(UUID.fromString(clientId));
+        if (list.isPresent()) {
+            List<Lawyer> lawyerList = new ArrayList<>();
+            for (Call call : list.get()) {
+                lawyerList.add(call.getLawyer());
+            }
+            if (lawyerList != null && lawyerList.size() > 0) {
+                ListLawyerDTO llDTO = new ListLawyerDTO();
+                llDTO.setStatus(HttpStatus.OK.value());
+                llDTO.setMessage(Constants.KEY_SUCESSE);
+
+                List<LawyerDTO> dtoList = new ArrayList<>();
+                for (Lawyer lawyer : lawyerList) {
+                    LawyerDTO lawyerDTO = new LawyerDTO();
+                    lawyerDTO.setLawyerId(lawyer.getUid().toString());
+                    lawyerDTO.setFirstName(lawyer.getFirstName());
+                    lawyerDTO.setLastName(lawyer.getLastName());
+                    lawyerDTO.setUsername(lawyer.getUsername());
+                    lawyerDTO.setPassword(lawyer.getPassword());
+                    lawyerDTO.setNationalId(lawyer.getNationalId());
+                    lawyerDTO.setBirthDate(lawyer.getBirthDate());
+                    lawyerDTO.setOnline(lawyer.getOnline());
+                    lawyerDTO.setScore(lawyer.getScore());
+                    lawyerDTO.setAvatarHashcode(lawyer.getAvatarHashcode());
+                    lawyerDTO.setActive(lawyer.getActive());
+                    lawyerDTO.setMobileNumber(lawyer.getMobileNumber());
+//            lawyerDTO.setVerificationCode(lawyer.getVerificationCode());
+                    lawyerDTO.setCreationDate(lawyer.getCreationDate());
+//            lawyerDTO.setModificationDate(lawyer.getModificationDate());
+                    lawyerDTO.setAvailable(lawyer.getAvailable());
+                    lawyerDTO.setLevel(lawyer.getLevel());
+                    lawyerDTO.setPricePerMinute(lawyer.getPricePerMinute());
+                    lawyerDTO.setVerified(lawyer.getVerified());
+                    List<ExpertiseDTO> expertelist = new ArrayList<>();
+                    lawyer.getExpertises().stream()
+                            .forEach(ex -> expertelist.add(new ExpertiseDTO(ex.getUid().toString(), ex.getName(), ex.getDescription())));
+                    lawyerDTO.setExpertiseList(expertelist);
+                    lawyerDTO.setOrganizationId(lawyer.getNationalId());
+                    lawyerDTO.setAdvicetypeId(lawyer.getAdvicetype().getUid().toString());
+                    dtoList.add(lawyerDTO);
+                }
+                llDTO.setData(dtoList);
+                return Optional.ofNullable(llDTO);
+            }
+        }
+        return Optional.empty();
+    }
+
+    public Optional<List<Call>> findAllCallByLawyerId(String lawyerId) {
+        Optional<List<Call>> list = callRepo.findAllByLawyerUid(UUID.fromString(lawyerId));
+        if (list.isPresent())
+            return Optional.ofNullable(list.get());
+        else
+            return Optional.empty();
+    }
+
     /**
      * First Uid Type Client or Lawyer or Request
      * and later find from callId set
      *
      * @param uid
-     * @param uidType
+     * @param queryType
      * @return
      */
-    public Optional<ListCallDTO> findListCallDTOByUid(String uid, int uidType) {
+    public Optional<ListCallDTO> findListCallDTOByUid(int queryType, String uid) {
         Optional<List<Call>> list = Optional.empty();
-        switch (uidType) {
+        switch (queryType) {
             case 1:
                 list = callRepo.findAllByClientUid(UUID.fromString(uid));
                 break;

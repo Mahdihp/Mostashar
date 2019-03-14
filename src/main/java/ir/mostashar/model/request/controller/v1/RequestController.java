@@ -2,11 +2,9 @@ package ir.mostashar.model.request.controller.v1;
 
 import io.swagger.annotations.ApiOperation;
 import ir.mostashar.model.acceptRequest.service.AcceptRequestService;
-import ir.mostashar.model.lawyer.dto.LawyerDTO;
 import ir.mostashar.model.notification.dto.NotificationForm;
 import ir.mostashar.model.notification.service.NotificationService;
 import ir.mostashar.model.request.Request;
-import ir.mostashar.model.request.RequestStatus;
 import ir.mostashar.model.request.dto.ListRequestDTO;
 import ir.mostashar.model.request.dto.RequestDTO;
 import ir.mostashar.model.request.dto.RequestForm;
@@ -41,18 +39,18 @@ public class RequestController {
     @Transactional
     @PostMapping(value = "/createrequest", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> createRequest(@Valid @RequestBody RequestForm requestForm) {
-        UUID requestId = requestService.createRequest(requestForm);
+        UUID requestId = requestService.create(requestForm);
         if (requestId != null) {
             String content = Constants.KEY_NOTIFY_CREATE_REQUEST + "\n";
             content += " شماره پرونده: " + requestForm.getFileNumber() + "\n";
             content += " شماره درخواست: " + requestId.toString() + "\n";
             NotificationForm nForm = new NotificationForm(content, System.currentTimeMillis(), requestId.toString());
 
-            System.out.println("Log---createRequest--------------------:" + nForm.getRequestId());
+            System.out.println("Log---create--------------------:" + nForm.getRequestId());
             notificationService.createNotification(nForm);
             return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_CREATE_REQUEST_SUCSSES, requestId.toString()));
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_FILE_USER));
+            return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_FILE_USER));
         }
     }
 
@@ -62,7 +60,7 @@ public class RequestController {
         if (requestService.updateRequest(requestForm)) {
             return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_UPDATE_REQUEST_SUCSSES));
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_CLIENT_LAWYER_FILE));
+            return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_CLIENT_LAWYER_FILE));
         }
     }
 
@@ -73,7 +71,7 @@ public class RequestController {
         if (request.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(request.get());
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
+        return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
 
     @ApiOperation(value = "Find All Request", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -83,7 +81,7 @@ public class RequestController {
         if (allRequestClient.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(allRequestClient.get());
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
+        return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
 
     @ApiOperation(value = "Delete Request", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -95,11 +93,8 @@ public class RequestController {
                 return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_DELETE_REQUEST));
             }
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestDTO(HttpStatus.NOT_FOUND.value(), Constants.KEY_NOT_FOUND_REQUEST));
+        return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
-
-
-
 
 
 }

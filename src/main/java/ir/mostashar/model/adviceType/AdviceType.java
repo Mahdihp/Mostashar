@@ -5,8 +5,6 @@ import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.pack.Pack;
 import ir.mostashar.model.request.Request;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -38,10 +36,10 @@ public class AdviceType {
     private short type;
 
     @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "advicetypeid")
-    private AdviceType adviceType;
+    @JoinColumn(name = "rootid")
+    private AdviceType root;
 
-    @OneToMany(mappedBy = "adviceType")
+    @OneToMany(mappedBy = "root")
     private Set<AdviceType> subordinates = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL,

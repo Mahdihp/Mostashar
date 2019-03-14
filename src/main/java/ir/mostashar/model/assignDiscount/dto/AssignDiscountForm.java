@@ -2,18 +2,17 @@ package ir.mostashar.model.assignDiscount.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class AssignDiscountForm {
 
-    private String assignDiscountId;
 
-    @NotBlank
+    @NotNull
     private String userId;
 
-    @NotBlank
-    private String discountPackId;
+    @NotNull
+    private String discountCode;
 
     public AssignDiscountForm() {
     }

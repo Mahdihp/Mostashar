@@ -9,7 +9,7 @@ import lombok.Data;
 public class RequestDTO extends BaseDTO {
 
     private String requestId;
-    private String requestNumber;
+    private Long requestNumber;
     private String requestStatus;
 
     private String clientId;

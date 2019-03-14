@@ -19,6 +19,7 @@ import ir.mostashar.model.lawyer.service.LawyerService;
 import ir.mostashar.model.notification.Notification;
 import ir.mostashar.model.notification.service.NotificationService;
 import ir.mostashar.model.reminder.service.ReminderService;
+import ir.mostashar.model.request.service.RequestService;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -37,34 +37,41 @@ public class LawyerController {
 
 
     @Autowired
-    LawyerService lawyerService;
+    private LawyerService lawyerService;
 
     @Autowired
-    AcceptRequestService arService;
+    private AcceptRequestService arService;
 
     @Autowired
-    FailRequestService frService;
+    private FailRequestService frService;
 
     @Autowired
-    NotificationService nService;
+    private NotificationService nService;
 
     @Autowired
-    ReminderService reminderService;
+    private ReminderService reminderService;
 
     @Autowired
-    BillService billService;
+    private BillService billService;
 
     @Autowired
-    FeedbackService feedbackService;
+    private FeedbackService feedbackService;
+
+    @Autowired
+    private RequestService requestService;
 
     @PostMapping(value = "/addfeedback", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> addFeedBack(@Valid @RequestBody FeedBackForm fbForm) {
-        feedbackService.createFeedback(fbForm);
-        return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_ONLINE));
+        if (!feedbackService.existsRequest(fbForm.getRequestId())) {
+            feedbackService.createFeedback(fbForm);
+            return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_SUCESSE_REGISTER));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_DUPLICATE_FEEDBACK));
     }
 
     /**
      * Find All Lawyer Online
+     *
      * @return
      */
     @PostMapping(value = "/onlines", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
@@ -78,6 +85,7 @@ public class LawyerController {
 
     /**
      * Set Online/Offline Status Lawyer
+     *
      * @param lawyerId
      * @param online
      * @return
@@ -92,6 +100,7 @@ public class LawyerController {
 
     /**
      * Set Read Notify From Lawyer
+     *
      * @param requestUid
      * @return
      */
@@ -108,6 +117,7 @@ public class LawyerController {
     /**
      * Add Into AcceptRequest Table
      * Set Read Notify From Lawyer
+     *
      * @param arForm
      * @return
      */
@@ -125,6 +135,7 @@ public class LawyerController {
 
     /**
      * Add Into FailRequest Table
+     *
      * @param frForm
      * @return
      */
@@ -138,12 +149,13 @@ public class LawyerController {
 
     /**
      * Find All Accept Requests Lawyer
+     *
      * @param lawyerUid
      * @return
      */
     @PostMapping(value = "/accepts", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findAllAcceptRequest(@RequestParam("lawyerid") String lawyerUid) {
-        Optional<ListAcceptRequestDTO> list = arService.findListAcceptRequestDTOByLawyer(lawyerUid);
+        Optional<ListAcceptRequestDTO> list = arService.findAllDTOByLawyer(lawyerUid);
         if (list.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(list.get());
         else
@@ -152,6 +164,7 @@ public class LawyerController {
 
     /**
      * Find All Fail Requests Lawyer
+     *
      * @param lawyerUid
      * @return
      */
@@ -175,7 +188,7 @@ public class LawyerController {
     }
 
     @PostMapping(value = "/findbyid", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> findrankbyLawyerId(@RequestParam("lawyerid") String lawyerUid) {
+    public ResponseEntity<?> findLawyerId(@RequestParam("lawyerid") String lawyerUid) {
         Optional<Lawyer> list = lawyerService.findByUid(lawyerUid);
         if (list.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(list.get());
@@ -183,7 +196,8 @@ public class LawyerController {
             return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_BILL));
     }
 
-    @ApiOperation(value = "Delete Lawyer", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+
+    @ApiOperation(value = "Delete Lawyer", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/deletelawyer", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> deleteLawyer(@RequestParam("mobilenumber") String mobilenumber) {
         lawyerService.deleteLawyer(mobilenumber);

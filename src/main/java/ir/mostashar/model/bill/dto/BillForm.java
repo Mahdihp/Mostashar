@@ -1,34 +1,33 @@
 package ir.mostashar.model.bill.dto;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
+@ApiModel(description = "for Create Optianl: billId")
 public class BillForm {
 
-    private String Id;
 
+    private String billId;
     private String transactionNumber;
-
     private String trackingNumber;
-
     private Long transactionDate;
-
     private String billStatus; // Payment Status
 
-    @NotBlank
-    private int value; // پرسیده شود که ایا int or long
+    @NotNull
+    private Integer value; // پرسیده شود که ایا int or long
 
-    private String orgId;
+//    private String orgId;
 
-    @NotBlank
+    @NotNull
     private String userId;
 
-    @NotBlank
+    @NotNull
     private String walletId;
 
-    @NotBlank
+    @NotNull
     private String requestId;
 
     public BillForm() {

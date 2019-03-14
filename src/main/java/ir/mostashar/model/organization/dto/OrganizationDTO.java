@@ -29,10 +29,8 @@ public class OrganizationDTO extends BaseDTO {
 
     private Long expiryDate;
 
-    private Long orgStock;
-
-    private Long appStock;
-
+    private Integer percentOrgStock;
+    private Integer percentMasterStock;
     private Boolean verified;
 
 

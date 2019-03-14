@@ -1,6 +1,7 @@
 package ir.mostashar.model.file.controller.v1;
 
 import io.swagger.annotations.ApiOperation;
+import ir.mostashar.model.BaseDTO;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.dto.FileForm;
 import ir.mostashar.model.client.dto.FileUpdateForm;
@@ -11,10 +12,13 @@ import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.dto.FileDTO;
 import ir.mostashar.model.file.dto.ListFileDTO;
 import ir.mostashar.model.file.service.FileService;
+import ir.mostashar.model.lawyer.service.LawyerService;
 import ir.mostashar.model.request.Request;
 import ir.mostashar.model.request.service.RequestService;
+import ir.mostashar.model.user.User;
 import ir.mostashar.model.user.service.UserServiceImpl;
 import ir.mostashar.utils.Constants;
+import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -31,19 +35,22 @@ import java.util.UUID;
 public class FileController {
 
     @Autowired
-    FileService fileService;
+    private FileService fileService;
 
     @Autowired
-    UserServiceImpl userService;
+    private UserServiceImpl userService;
 
     @Autowired
-    ClientService clientService;
+    private ClientService clientService;
 
     @Autowired
-    FeedbackService feedbackService;
+    private FeedbackService feedbackService;
 
     @Autowired
-    RequestService requestService;
+    private RequestService requestService;
+
+    @Autowired
+    private LawyerService lawyerService;
 
     /**
      * First find client by clientId & exists file title & Later Create File Record
@@ -104,23 +111,30 @@ public class FileController {
     }
 
     @ApiOperation(value = "Find One File By fileId", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @PostMapping(value = "/file", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> findFileByClient(@RequestParam("fileid") String fileId) {
-        Optional<FileDTO> file = fileService.findFileDTOByUid(fileId);
+    @PostMapping(value = "", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> findFileByClient(@RequestParam("fileid") String fileId, @RequestParam("clientid") String clientId) {
+        Optional<FileDTO> file = fileService.findDTOByUid(fileId, clientId);
         if (file.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(file.get());
         } else
             return ResponseEntity.status(HttpStatus.OK).body(new ListFileDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_FILE));
     }
 
-    @ApiOperation(value = "Find All File By clientId", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @PostMapping(value = "/files", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> findAllFileByClient(@RequestParam("clientid") String clientUid) {
-        Optional<ListFileDTO> allFileByUserId = fileService.findAllFileByClientUid(clientUid);
-        if (allFileByUserId.isPresent())
-            return ResponseEntity.status(HttpStatus.OK).body(allFileByUserId.get());
-        else
-            return ResponseEntity.status(HttpStatus.OK).body(new ListFileDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_FILE));
+    @ApiOperation(value = "Find All Files By Client & Lawyer", notes = "PathVariable(@Field) : userid")
+    @PostMapping(value = "/{userid}", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> findAllFileByUsers(@PathVariable(value = "userid") String userId) {
+        if (TextUtils.isEmpty(userId))
+            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_FILE));
+
+        Optional<User> user = userService.findUserByUid(userId);
+        if (user.get() instanceof Client) {
+            System.out.println("Log---findAllFileByUsers is Client--------------------");
+            Optional<ListFileDTO> files = fileService.findAllFileByClientUid(userId);
+            return ResponseEntity.status(HttpStatus.OK).body(files.get());
+        } else {
+            Optional<ListFileDTO> files = lawyerService.findAllFileLawyer(userId);
+            return ResponseEntity.status(HttpStatus.OK).body(files.get());
+        }
     }
 
     @PostMapping(value = "/requestfiles", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
@@ -136,7 +150,7 @@ public class FileController {
     @ApiOperation(value = "Find All Feedbacks", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/feedbacks", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findAllFeedBackFile(@RequestParam("requestid") String requestid) {
-        Optional<ListFeedBackDTO> list = feedbackService.findByLawyerUidAndRequestUid(2, requestid);
+        Optional<ListFeedBackDTO> list = feedbackService.findByLawyerUidAndRequestUid(requestid);
         if (list.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(list.get());
         else

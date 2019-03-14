@@ -2,30 +2,30 @@ package ir.mostashar.model.consumptionPack.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class ConsumptionPackForm {
 
-    @NotBlank
+    @NotNull
     private String packId;
 
-    @NotBlank
+    @NotNull
     private String requestId;
 
-    @NotBlank
+    @NotNull
     private Long consumptionTime;
 
-    @NotBlank
+    @NotNull
     private Long baseTime;
 
-    @NotBlank
+    @NotNull
     private Short type;
 
-    @NotBlank
+    @NotNull
     private Long firstInstallmentDate;
 
-    @NotBlank
+    @NotNull
     private Long lastInstallmentDate;
 
     public ConsumptionPackForm() {

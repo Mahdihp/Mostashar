@@ -110,4 +110,13 @@ public class Constants {
     public static final String KEY_NOT_FOUND_AC = "درخواستی پیدا نشد.";
     public static final String KEY_NOT_UPDATE = "امکان ویرایش وجود ندارد.";
     public static final String KEY_ALDEADY_ACCEPT = "شما قبلا برای این درخواست مشاوری انتخاب نموده اید.";
+    public static final String KEY_SUCESSE_REGISTER = "با موفقیت ثبت شد.";
+    public static final String KEY_DUPLICATE_FEEDBACK = "امکان ثبت بازخورد تکراری وجود ندارد.";
+
+    public static final String KEY_NOT_FOUND_LAWYERS = "مشاوری پیدا نشد.";
+    public static final String KEY_NOT_FOUND_CLIENT = "کاربری پیدا نشد.";
+    public static final String KEY_CREATE_CALL_DES = "ثبت تماس صوتی ...";
+
+    public static final String KEY_PercentStockLawyer = "InitialPercentStockLawyer";
+    public static final String KEY_Coefficient = "Coefficient";
 }

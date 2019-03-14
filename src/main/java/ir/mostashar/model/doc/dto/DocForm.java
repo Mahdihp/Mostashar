@@ -2,7 +2,7 @@ package ir.mostashar.model.doc.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class DocForm {
@@ -13,10 +13,10 @@ public class DocForm {
 
     private String hashCode;
 
-    @NotBlank
+    @NotNull
     private String fileId;
 
-    @NotBlank
-    private String docType;
+    @NotNull
+    private Integer docType;
 
 }

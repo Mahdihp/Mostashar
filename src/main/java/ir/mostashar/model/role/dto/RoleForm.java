@@ -2,7 +2,7 @@ package ir.mostashar.model.role.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class RoleForm {
@@ -10,9 +10,9 @@ public class RoleForm {
     private String uid;
     private String description;
 
-    @NotBlank
+    @NotNull
     private String roleName;
-    private boolean userDefined;
+    private Boolean userDefined;
 
     public RoleForm() {
     }

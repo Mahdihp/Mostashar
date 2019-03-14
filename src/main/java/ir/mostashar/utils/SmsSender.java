@@ -29,7 +29,7 @@ public class SmsSender {
         this.sender = sender;
     }
 
-    public void sendVerifiedCode() {
+    public void sendVerifiedCode(int typeToken) {
 
         System.out.println("Log-------------sendVerifiedCode " + reciever + " " + message);
         //  send();
@@ -39,8 +39,13 @@ public class SmsSender {
                 try {
 
                     KavenegarApi api = new KavenegarApi(token);
-                    //SendResult send = api.send(sender, reciever, message);
-                    SendResult send = api.verifyLookup(reciever, message, "RegisterCode2");
+//                    SendResult send = api.send(sender, reciever, message);
+                    SendResult send;
+                    if (typeToken == 1) {
+                        send = api.verifyLookup(reciever, message, "RegisterCode1");
+                    } else {
+                        send = api.verifyLookup(reciever, message, "RegisterCode2");
+                    }
                     System.out.println("Sender: " + send.getSender());
                     System.out.println("Message: " + send.getMessage());
                     System.out.println("Date: " + send.getDate());
@@ -48,7 +53,6 @@ public class SmsSender {
                     System.out.println("Cost: " + send.getCost());
                     System.out.println("Log---------sended");
                 } catch (Exception e1) {
-                    e1.printStackTrace();
                     return;
                 }
             }

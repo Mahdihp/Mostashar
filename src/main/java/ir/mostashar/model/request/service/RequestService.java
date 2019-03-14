@@ -43,7 +43,7 @@ public class RequestService {
     NotificationService notificationService;
 
     @Value("${mostashar.app.requestNumber}")
-    private String requestNumber;
+    private long requestNumber;
 
     /**
      * find Advice Type & Client & File by Uids
@@ -52,7 +52,7 @@ public class RequestService {
      * @param requestForm
      * @return
      */
-    public UUID createRequest(RequestForm requestForm) {
+    public UUID create(RequestForm requestForm) {
 
         Optional<AdviceType> adviceType = adviceTypeRepo.findByUid(UUID.fromString(requestForm.getAdviceTypeId()));
         Optional<Client> client = clientService.findClientByUidAndActive(requestForm.getUserId(), true);
@@ -67,9 +67,8 @@ public class RequestService {
             Request request = new Request();
             uuid = UUID.randomUUID();
             request.setUid(uuid);
-//            request.setStatus(RequestStatus.Waiting);
             if (maxRequestNumber != null) {
-                request.setRequestNumber(String.valueOf(maxRequestNumber + 1));
+                request.setRequestNumber(maxRequestNumber + 1);
             } else {
                 request.setRequestNumber(requestNumber);
             }
@@ -78,14 +77,13 @@ public class RequestService {
             request.setCreationDate(System.currentTimeMillis());
             request.setAdvicetype(adviceType.get());
             request.setFile(file.get());
-            request.setRequestNumber(request.getRequestNumber());
             requestRepo.save(request);
             return uuid;
         }
         return null;
     }
 
-    public boolean updateStatusRequest(String uid, RequestStatus requestStatus) {
+    public boolean update(String uid, RequestStatus requestStatus) {
         Optional<Request> request = requestRepo.findByUidAndDeleted(UUID.fromString(uid), false);
         if (request.isPresent()) {
             request.get().setRequestStatus(requestStatus);

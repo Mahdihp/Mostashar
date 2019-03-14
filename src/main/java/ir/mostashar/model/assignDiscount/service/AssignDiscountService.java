@@ -2,7 +2,6 @@ package ir.mostashar.model.assignDiscount.service;
 
 import ir.mostashar.model.assignDiscount.AssignDiscount;
 import ir.mostashar.model.assignDiscount.dto.AssignDiscountDTO;
-import ir.mostashar.model.assignDiscount.dto.AssignDiscountForm;
 import ir.mostashar.model.assignDiscount.dto.ListAssignDiscountDTO;
 import ir.mostashar.model.assignDiscount.repository.AssignDiscountRepo;
 import ir.mostashar.model.discountPack.DiscountPack;
@@ -31,9 +30,9 @@ public class AssignDiscountService {
     @Autowired
     UserServiceImpl userService;
 
-    public boolean createAssignDiscount(AssignDiscountForm adForm) {
-        Optional<DiscountPack> discountPack = discountPackService.findByUid(adForm.getDiscountPackId());
-        Optional<User> user = userService.findUserByUid(adForm.getUserId());
+    public boolean createAssignDiscount(String userId, String codeOff) {
+        Optional<DiscountPack> discountPack = discountPackService.findByCodeOff(codeOff);
+        Optional<User> user = userService.findUserByUid(userId);
         if (discountPack.isPresent() && user.isPresent()) {
             AssignDiscount assignDiscount = new AssignDiscount();
             assignDiscount.setUid(UUID.randomUUID());

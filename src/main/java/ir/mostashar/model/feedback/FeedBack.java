@@ -3,12 +3,13 @@ package ir.mostashar.model.feedback;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.request.Request;
 import lombok.Data;
+
 import javax.persistence.*;
 import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "feedBacks")
+@Table(name = "feedbacks")
 public class FeedBack {
 
     @Id

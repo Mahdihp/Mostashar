@@ -1,19 +1,11 @@
 package ir.mostashar.model.user;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import ir.mostashar.model.accessentry.AccessEntry;
 import ir.mostashar.model.adminConfirmation.AdminConfirmation;
 import ir.mostashar.model.assignDiscount.AssignDiscount;
 import ir.mostashar.model.complain.Complain;
-import ir.mostashar.model.invitedUser.InvitedUsers;
 import ir.mostashar.model.device.Device;
+import ir.mostashar.model.invitedUser.InvitedUser;
 import ir.mostashar.model.reminder.Reminder;
 import ir.mostashar.model.rightMessage.RightMessage;
 import ir.mostashar.model.role.Role;
@@ -26,6 +18,12 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 
 @Data
@@ -107,6 +105,8 @@ public class User implements Serializable {
     @OneToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             mappedBy = "user")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Wallet wallet;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
@@ -120,7 +120,7 @@ public class User implements Serializable {
     private Set<AdminConfirmation> adminConfirmations = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private Set<InvitedUsers> invitedUsers = new HashSet<>();
+    private Set<InvitedUser> invitedUsers = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     @EqualsAndHashCode.Exclude

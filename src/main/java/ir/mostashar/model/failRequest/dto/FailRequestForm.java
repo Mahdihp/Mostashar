@@ -1,20 +1,21 @@
 package ir.mostashar.model.failRequest.dto;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
+@ApiModel(description = "for Create Optianl: failRequestId")
 public class FailRequestForm  {
 
-    private String Id;
-
+    private String failRequestId;
     private String description;
 
-    @NotBlank
+    @NotNull
     private String lawyerId;
 
-    @NotBlank
+    @NotNull
     private String requestId;
 
     public FailRequestForm() {

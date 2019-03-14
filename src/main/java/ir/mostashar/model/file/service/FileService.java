@@ -30,7 +30,7 @@ public class FileService {
     FileRepo fileRepo;
 
     @Value("${mostashar.app.fileNumber}")
-    private String fileNumber;
+    private long fileNumber;
 
     /**
      * create file from client
@@ -39,16 +39,16 @@ public class FileService {
      * @return
      */
     public UUID createFile(FileForm fileForm) {
-        Optional<Client> client = clientRepo.findClientByUidAndActive(UUID.fromString(fileForm.getUserId()),true);
+        Optional<Client> client = clientRepo.findClientByUidAndActive(UUID.fromString(fileForm.getUserId()), true);
         UUID uuid;
         if (client.isPresent()) {
             uuid = UUID.randomUUID();
             File file = new File();
             file.setUid(uuid);
             Long maxFileNumber = fileRepo.findMaxFileNumber();
-            if (maxFileNumber!= null){
-                file.setFileNumber(String.valueOf(maxFileNumber));
-            }else{
+            if (maxFileNumber != null) {
+                file.setFileNumber(maxFileNumber + 1);
+            } else {
                 file.setFileNumber(fileNumber);
             }
             file.setTitle(fileForm.getTitle());
@@ -67,8 +67,8 @@ public class FileService {
      * @param title
      * @return
      */
-    public boolean existTitleFile(String title, Client client,boolean isDeleted) {
-        Optional<Boolean> aBoolean = fileRepo.existsByClientAndTitleAndDeleted(client, title,isDeleted);
+    public boolean existTitleFile(String title, Client client, boolean isDeleted) {
+        Optional<Boolean> aBoolean = fileRepo.existsByClientAndTitleAndDeleted(client, title, isDeleted);
         if (aBoolean.isPresent())
             return aBoolean.get();
         else
@@ -77,7 +77,7 @@ public class FileService {
 
     public boolean deleteFileByUid(File file) {
 //        Optional<File> file = fileRepository.findByUidAndDeleted(UUID.fromString(fileId),false);
-        if (file != null ) {
+        if (file != null) {
             file.setDeleted(true);
             fileRepo.save(file);
             return true;
@@ -97,8 +97,8 @@ public class FileService {
         return false;
     }
 
-    public Optional<FileDTO> findFileDTOByUid(String fileId) {
-        Optional<File> file = fileRepo.findByUidAndDeleted(UUID.fromString(fileId),false);
+    public Optional<FileDTO> findDTOByUid(String fileId, String clientId) {
+        Optional<File> file = fileRepo.findByUidAndClientUidAndDeleted(UUID.fromString(fileId), UUID.fromString(clientId), false);
         if (file.isPresent()) {
             FileDTO fileDTO = new FileDTO();
             fileDTO.setStatus(HttpStatus.OK.value());
@@ -108,7 +108,7 @@ public class FileService {
             fileDTO.setTitle(file.get().getTitle());
             fileDTO.setDescription(file.get().getDescription());
             fileDTO.setCreationDate(file.get().getCreationDate());
-            fileDTO.setModificationDate(file.get().getModificationDate());
+//            fileDTO.setModificationDate(file.get().getModificationDate());
             if (file.get().getClient() != null)
                 fileDTO.setClientId(file.get().getClient().getUid().toString());
 
@@ -118,7 +118,7 @@ public class FileService {
     }
 
     public Optional<ListFileDTO> findAllFileByClientUid(String clientUid) {
-        Optional<List<File>> fileList = fileRepo.findAllByClientUidAndDeleted(UUID.fromString(clientUid),false);
+        Optional<List<File>> fileList = fileRepo.findAllByClientUidAndDeleted(UUID.fromString(clientUid), false);
         if (fileList.isPresent()) {
 
             ListFileDTO listFileDTO = new ListFileDTO();
@@ -133,7 +133,7 @@ public class FileService {
                 fileDTO.setFileNumber(file.getFileNumber());
                 fileDTO.setDescription(file.getDescription());
                 fileDTO.setCreationDate(file.getCreationDate());
-                fileDTO.setModificationDate(file.getModificationDate());
+//                fileDTO.setModificationDate(file.getModificationDate());
                 if (file.getClient() != null)
                     fileDTO.setClientId(file.getClient().getUid().toString());
 
@@ -201,7 +201,7 @@ public class FileService {
     }
 
     public Optional<File> findFileByUid(String fileId) {
-        Optional<File> file = fileRepo.findByUidAndDeleted(UUID.fromString(fileId),false);
+        Optional<File> file = fileRepo.findByUidAndDeleted(UUID.fromString(fileId), false);
         if (file.isPresent())
             return Optional.ofNullable(file.get());
         else

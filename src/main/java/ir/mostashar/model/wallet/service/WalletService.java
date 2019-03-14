@@ -116,16 +116,13 @@ public class WalletService {
 //    }
 
     public boolean addMoneyWallet(String walletUid, String userUid, int money) {
-        Optional<User> user = userRepo.findByUid(UUID.fromString(userUid));
-        if (user.isPresent()) {
-            Optional<Wallet> wallet = walletRepo.findByUidAndUserUidAndDeleted(UUID.fromString(walletUid), user.get().getUid(), false);
-            if (wallet.isPresent()) {
-                int moneyWallet = wallet.get().getValue();
-                moneyWallet += money;
-                wallet.get().setValue(moneyWallet);
-                walletRepo.save(wallet.get());
-                return true;
-            }
+        Optional<Wallet> wallet = walletRepo.findByUidAndUserUidAndDeleted(UUID.fromString(walletUid), UUID.fromString(userUid), false);
+        if (wallet.isPresent()) {
+            int moneyWallet = wallet.get().getValue();
+            moneyWallet += money;
+            wallet.get().setValue(moneyWallet);
+            walletRepo.save(wallet.get());
+            return true;
         }
         return false;
     }
@@ -146,7 +143,7 @@ public class WalletService {
     }
 
     public boolean updateWallet(WalletForm walletForm, boolean isDelete) {
-        Optional<Wallet> wallet = walletRepo.findByUidAndUserUidAndDeleted(UUID.fromString(walletForm.getWalletId()),UUID.fromString(walletForm.getUserId()), isDelete);
+        Optional<Wallet> wallet = walletRepo.findByUidAndUserUidAndDeleted(UUID.fromString(walletForm.getWalletId()), UUID.fromString(walletForm.getUserId()), isDelete);
         if (wallet.isPresent()) {
             wallet.get().setBankAccountName(walletForm.getBankAccountName());
             wallet.get().setBankAccountNumber(walletForm.getBankAccountNumber());
@@ -182,13 +179,6 @@ public class WalletService {
     }
 
 
-    public Optional<Wallet> findByWalletUidAndUserUid(String walletUid, String userUid) {
-        Optional<Wallet> wallet = walletRepo.findByUidAndUserUid(UUID.fromString(walletUid), UUID.fromString(userUid));
-        if (wallet.isPresent()) {
-            return Optional.ofNullable(wallet.get());
-        }
-        return Optional.empty();
-    }
 
     public Optional<Wallet> findByUid(String uid) {
         Optional<Wallet> wallet = walletRepo.findByUid(UUID.fromString(uid));
@@ -214,7 +204,7 @@ public class WalletService {
         return Optional.empty();
     }
 
-    public Optional<WalletDTO> findWalletDTOByUid(String walletUid, String userUid, boolean isDelete) {
+    public Optional<WalletDTO> findByWalletUidAndUserUid(String walletUid, String userUid, boolean isDelete) {
         Optional<Wallet> wallet = walletRepo.findByUidAndUserUidAndDeleted(UUID.fromString(walletUid), UUID.fromString(userUid), isDelete);
         if (wallet.isPresent()) {
             WalletDTO walletDTO = new WalletDTO();

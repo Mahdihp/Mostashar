@@ -7,8 +7,8 @@ public class ConstantForm {
 
     private String uid;
     private String key;
-    private String value;
-    private String type;
+    private int value;
+    private int type;
     private String description;
 
     public ConstantForm() {

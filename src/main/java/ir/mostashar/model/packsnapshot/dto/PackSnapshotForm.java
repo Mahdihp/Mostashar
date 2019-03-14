@@ -2,7 +2,7 @@ package ir.mostashar.model.packsnapshot.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class PackSnapshotForm {
@@ -10,27 +10,27 @@ public class PackSnapshotForm {
 
     private String uid;
 
-    @NotBlank
+    @NotNull
     private String packname;
 
     private String packdescription;
 
-    @NotBlank
-    private int  packminute;
+    @NotNull
+    private Integer packminute;
 
-    @NotBlank
-    private int  lawyerpriceperminute;
+    @NotNull
+    private Integer lawyerpriceperminute;
 
-    @NotBlank
-    private int  totalprice;
+    @NotNull
+    private Integer totalprice;
 
 
-    private boolean active = false;
+    private Boolean active;
 
-    @NotBlank
+    @NotNull
     private String advicetypeUid;
 
 
-    @NotBlank
+    @NotNull
     private String lawyerUid;
 }

@@ -1,18 +1,20 @@
 package ir.mostashar.model.acceptRequest.dto;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
+@ApiModel(description = "for Create Optianl: acceptRequestId")
 public class AcceptRequestForm {
 
-    private String Id;
+    private String acceptRequestId;
 
-    @NotBlank
+    @NotNull
     private String lawyerId;
 
-    @NotBlank
+    @NotNull
     private String requestId;
 
     public AcceptRequestForm() {

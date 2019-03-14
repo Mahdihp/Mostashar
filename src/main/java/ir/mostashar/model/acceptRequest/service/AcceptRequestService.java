@@ -93,6 +93,7 @@ public class AcceptRequestService {
             arDTO.setStatus(HttpStatus.OK.value());
             arDTO.setMessage(Constants.KEY_SUCESSE);
 
+            arDTO.setAcceptedByClient(acceptRequest.get().isAcceptedByClient());
             arDTO.setAcceptRequesId(acceptRequest.get().getUid().toString());
             arDTO.setCreationDate(acceptRequest.get().getCreationDate());
             arDTO.setFinishedTimeFile(acceptRequest.get().getFinishedTimeFile());
@@ -119,7 +120,7 @@ public class AcceptRequestService {
                 if (file.getUid().toString().equals(fileUid)) {
 
                     AcceptRequestDTO arDTO = new AcceptRequestDTO();
-
+                    arDTO.setAcceptedByClient(ar.isAcceptedByClient());
                     arDTO.setAcceptRequesId(ar.getUid().toString());
                     arDTO.setCreationDate(ar.getCreationDate());
                     arDTO.setFinishedTimeFile(ar.getFinishedTimeFile());
@@ -135,7 +136,16 @@ public class AcceptRequestService {
         return Optional.empty();
     }
 
-    public Optional<ListAcceptRequestDTO> findListAcceptRequestDTOByLawyer(String lawyerUid) {
+    public Optional<List<AcceptRequest>> findAllByLawyer(String lawyerUid) {
+        Optional<List<AcceptRequest>> list = arRepository.findAllByLawyerUid(UUID.fromString(lawyerUid));
+        if (list.isPresent())
+            return Optional.ofNullable(list.get());
+        else
+            return Optional.empty();
+
+    }
+
+    public Optional<ListAcceptRequestDTO> findAllDTOByLawyer(String lawyerUid) {
         Optional<List<AcceptRequest>> allByLawyerUid = arRepository.findAllByLawyerUid(UUID.fromString(lawyerUid));
         if (allByLawyerUid.isPresent()) {
             ListAcceptRequestDTO larDTO = new ListAcceptRequestDTO();
@@ -145,6 +155,7 @@ public class AcceptRequestService {
             for (AcceptRequest ar : allByLawyerUid.get()) {
                 AcceptRequestDTO arDTO = new AcceptRequestDTO();
 
+                arDTO.setAcceptedByClient(ar.isAcceptedByClient());
                 arDTO.setAcceptRequesId(ar.getUid().toString());
                 arDTO.setCreationDate(ar.getCreationDate());
                 arDTO.setFinishedTimeFile(ar.getFinishedTimeFile());

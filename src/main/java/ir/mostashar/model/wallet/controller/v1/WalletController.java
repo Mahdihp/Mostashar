@@ -1,15 +1,11 @@
 package ir.mostashar.model.wallet.controller.v1;
 
 import io.swagger.annotations.ApiOperation;
-import ir.mostashar.model.client.dto.FileForm;
 import ir.mostashar.model.file.dto.FileDTO;
-import ir.mostashar.model.file.dto.ListFileDTO;
-import ir.mostashar.model.wallet.Wallet;
 import ir.mostashar.model.wallet.dto.WalletDTO;
 import ir.mostashar.model.wallet.dto.WalletForm;
 import ir.mostashar.model.wallet.service.WalletService;
 import ir.mostashar.utils.Constants;
-import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -39,10 +35,10 @@ public class WalletController {
 
     @ApiOperation(value = "wallet value",
             notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @PostMapping(value = "/getwallet", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    @PostMapping(value = "/getwallet", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> getWallet(@RequestParam("userid") String userid,
                                        @RequestParam("walletid") String walletid) {
-        Optional<Wallet> list = walletService.findByUid(walletid,userid,false);
+        Optional<WalletDTO> list = walletService.findByWalletUidAndUserUid(walletid, userid, false);
 
         if (list.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(list.get());

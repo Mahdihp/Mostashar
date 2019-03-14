@@ -31,7 +31,7 @@ public class AcceptRequestController {
     @PostMapping(value = "/projects", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE},
             produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> getprojects(@RequestParam("lawyerid") String lawyerId) {
-        Optional<ListAcceptRequestDTO> list = acceptRequestService.findListAcceptRequestDTOByLawyer(lawyerId);
+        Optional<ListAcceptRequestDTO> list = acceptRequestService.findAllDTOByLawyer(lawyerId);
         if (list.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(list.get());
         else

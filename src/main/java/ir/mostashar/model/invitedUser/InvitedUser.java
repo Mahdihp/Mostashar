@@ -1,30 +1,16 @@
 package ir.mostashar.model.invitedUser;
 
-import java.util.UUID;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import lombok.Data;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import ir.mostashar.model.user.User;
+import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
+
+import javax.persistence.*;
+import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "invitedUsers")
-public class InvitedUsers {
+@Table(name = "invitedusers")
+public class InvitedUser {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,13 +34,12 @@ public class InvitedUsers {
 	@Column(name = "creationdate")
 	@CreatedDate
 	private Long  creationDate;
-	
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "userid", nullable = false)
-    @JsonIgnore
     private User user;
 
-	public InvitedUsers() {
+	public InvitedUser() {
 	}
 
 }

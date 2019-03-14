@@ -2,21 +2,21 @@ package ir.mostashar.model.wallet.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class WalletForm {
 
-    @NotBlank
+    @NotNull
     private String walletId;
 
-    @NotBlank
+    @NotNull
     private String bankAccountName;
 
-    @NotBlank
+    @NotNull
     private String bankAccountNumber;
 
-    @NotBlank
+    @NotNull
     private String bankAccountSheba;
 
     private String organizationId;

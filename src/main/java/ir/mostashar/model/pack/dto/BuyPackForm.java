@@ -2,47 +2,46 @@ package ir.mostashar.model.pack.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class BuyPackForm {
 
-    private String uid;
+    @NotNull
+    private String clientId;
 
-    @NotBlank
-    private String userId;
-
-    @NotBlank
+    @NotNull
     private String name;
 
-    @NotBlank
+    @NotNull
     private String packId;
 
-    @NotBlank
+    @NotNull
     private String requestId;
 
     private String description;
 
-    private int  minute;
+    private Integer minute;
 
     private String codeOff; // کد تخفیف
 
     /**
      * نرخ هر مشاور در هر دقیقه
      */
-    private int  lawyerPricePerMinute;
+    @NotNull
+    private Integer lawyerPricePerMinute;
 
     /**
      * قیمت نهایی با اعمال نرخ مشاور روی بسته
      */
-    private int  totalPrice;
+    @NotNull
+    private Integer totalPrice;
 
-    private boolean active = false;
 
-    @NotBlank
+    @NotNull
     private String adviceTypeId;
 
-    @NotBlank
+    @NotNull
     private String lawyerId;
 
     public BuyPackForm() {

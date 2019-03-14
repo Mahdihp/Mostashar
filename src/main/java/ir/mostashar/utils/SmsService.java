@@ -14,9 +14,9 @@ public class SmsService {
     private String sender;
 
 
-    public void sendSms(String reciver, String message) {
+    public void sendSms(int typeToken, String reciver, String message) {
         SmsSender smsSender=  new SmsSender(token,sender,reciver,message);
-        smsSender.sendVerifiedCode();
+        smsSender.sendVerifiedCode(typeToken);
 
     }
 

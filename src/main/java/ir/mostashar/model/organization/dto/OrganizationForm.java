@@ -1,26 +1,28 @@
 package ir.mostashar.model.organization.dto;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
+@ApiModel(description = "for Create Optianl: orgId")
 public class OrganizationForm {
 
     private String orgId;
 
-    @NotBlank
+    @NotNull
     private String name;
 
     private String description;
 
-    @NotBlank
+    @NotNull
     private String address;
 
-    @NotBlank
+    @NotNull
     private String tel;
 
-    private long terminalId;
+    private Long terminalId;
 
     private String username;
 
@@ -28,9 +30,8 @@ public class OrganizationForm {
 
     private Long expiryDate;
 
-    private Long orgStock;
-
-    private Long appStock;
+    private Integer percentOrgStock;
+    private Integer percentMasterStock;
 
     public OrganizationForm() {
     }

@@ -1,5 +1,7 @@
 package ir.mostashar.model.userFeedback.service;
 
+import ir.mostashar.model.client.Client;
+import ir.mostashar.model.client.service.ClientService;
 import ir.mostashar.model.userFeedback.UserFeedBack;
 import ir.mostashar.model.userFeedback.dto.UserFeedBackForm;
 import ir.mostashar.model.userFeedback.repository.UserFeedBackRepo;
@@ -15,22 +17,29 @@ public class UserFeedBackService {
 
 
     @Autowired
-    UserFeedBackRepo ufbRepo;
+    private UserFeedBackRepo ufbRepo;
+
+    @Autowired
+    private ClientService clientService;
 
 
-    public boolean createUserFeedBack(UserFeedBackForm ufbForm) {
-        UserFeedBack userFeedBack = new UserFeedBack();
-        userFeedBack.setUid(UUID.randomUUID());
+    public void create(String clientId, String description, int score) {
+        Optional<Client> client = clientService.findUserByUid(clientId);
+        if (client.isPresent()) {
+            UserFeedBack userFeedBack = new UserFeedBack();
+            userFeedBack.setUid(UUID.randomUUID());
+            userFeedBack.setScore(score);
 //        userFeedBack.setTitle(ufbForm.getTitle());
 //        userFeedBack.setType(ufbForm.getType());
-        userFeedBack.setDescription(ufbForm.getDescription());
-        userFeedBack.setCreationDate(System.currentTimeMillis());
-        userFeedBack.setRead(false);
-        ufbRepo.save(userFeedBack);
-        return true;
+            userFeedBack.setDescription(description);
+            userFeedBack.setCreationDate(System.currentTimeMillis());
+            userFeedBack.setRead(false);
+            userFeedBack.setClient(client.get());
+            ufbRepo.save(userFeedBack);
+        }
     }
 
-    public boolean updateUserFeedBack(UserFeedBackForm ufbForm) {
+    public boolean update(UserFeedBackForm ufbForm) {
         Optional<UserFeedBack> userFeedBack = ufbRepo.findByUid(UUID.fromString(ufbForm.getUserFeedBackId()));
         if (userFeedBack.isPresent()) {
 //            userFeedBack.get().setTitle(ufbForm.getTitle());
@@ -38,12 +47,14 @@ public class UserFeedBackService {
             userFeedBack.get().setDescription(ufbForm.getDescription());
             userFeedBack.get().setCreationDate(System.currentTimeMillis());
             userFeedBack.get().setRead(false);
+            userFeedBack.get().setClient(userFeedBack.get().getClient());
             ufbRepo.save(userFeedBack.get());
             return true;
         }
         return false;
     }
-    public boolean updateReadUserFeedBack(String uid,boolean isRead){
+
+    public boolean updateReadUserFeedBack(String uid, boolean isRead) {
         Optional<UserFeedBack> userFeedBack = ufbRepo.findByUid(UUID.fromString(uid));
         if (userFeedBack.isPresent()) {
             userFeedBack.get().setRead(isRead);
@@ -52,6 +63,7 @@ public class UserFeedBackService {
         }
         return false;
     }
+
     public Optional<UserFeedBack> findUserFeedBackByUid(String uid) {
         Optional<UserFeedBack> userFeedBack = ufbRepo.findByUid(UUID.fromString(uid));
         if (userFeedBack.isPresent()) {

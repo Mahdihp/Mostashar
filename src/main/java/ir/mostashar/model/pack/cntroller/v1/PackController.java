@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiOperation;
 import ir.mostashar.model.BaseDTO;
 import ir.mostashar.model.pack.Pack;
 import ir.mostashar.model.pack.dto.PackDTO;
-import ir.mostashar.model.pack.dto.BuyPackForm;
+import ir.mostashar.model.pack.dto.PackForm;
 import ir.mostashar.model.pack.service.PackService;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +28,14 @@ public class PackController {
      * find exist pack name
      * create pack
      *
-     * @param buyPackForm
+     * @param packForm
      * @return
      */
     @ApiOperation(value = "Create Pack", notes ="RequestBody :" + MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PostMapping(value = "/createpack", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> createPackage(@Valid @RequestBody BuyPackForm buyPackForm) {
-        if (!packService.existsPack(buyPackForm.getName())) {
-            if (packService.createPack(buyPackForm)) {
+    public ResponseEntity<?> createPackage(@Valid @RequestBody PackForm packForm) {
+        if (!packService.existsPack(packForm.getName())) {
+            if (packService.create(packForm)) {
                 return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_CREATE_PACK_SUCESSE));
             }
         }
@@ -55,8 +55,8 @@ public class PackController {
     }
 
     @PostMapping(value = "/updatepack", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> updatePackage(@Valid @RequestBody BuyPackForm buyPackForm) {
-        if (packService.updatePack(buyPackForm))
+    public ResponseEntity<?> updatePackage(@Valid @RequestBody PackForm packForm) {
+        if (packService.updatePack(packForm))
             return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_UPDATE_PACK_SUCESSE));
         else
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseDTO(HttpStatus.BAD_REQUEST.value(), Constants.KEY_NOT_FOUND_PACK));

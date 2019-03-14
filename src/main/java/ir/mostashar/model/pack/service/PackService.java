@@ -2,8 +2,6 @@ package ir.mostashar.model.pack.service;
 
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.adviceType.service.AdviceTypeService;
-import ir.mostashar.model.assignDiscount.AssignDiscount;
-import ir.mostashar.model.assignDiscount.dto.AssignDiscountForm;
 import ir.mostashar.model.assignDiscount.service.AssignDiscountService;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.client.service.ClientService;
@@ -17,9 +15,10 @@ import ir.mostashar.model.lawyer.service.LawyerService;
 import ir.mostashar.model.pack.BuyPack;
 import ir.mostashar.model.pack.BuyPackStatus;
 import ir.mostashar.model.pack.Pack;
+import ir.mostashar.model.pack.dto.BuyPackForm;
 import ir.mostashar.model.pack.dto.ListPackDTO;
 import ir.mostashar.model.pack.dto.PackDTO;
-import ir.mostashar.model.pack.dto.BuyPackForm;
+import ir.mostashar.model.pack.dto.PackForm;
 import ir.mostashar.model.pack.repository.PackRepo;
 import ir.mostashar.model.packsnapshot.PackSnapshot;
 import ir.mostashar.model.packsnapshot.service.PackSnapshotService;
@@ -79,18 +78,18 @@ public class PackService {
      * three save new Pack
      * four retrun true
      *
-     * @param buyPackForm
+     * @param packForm
      */
-    public boolean createPack(BuyPackForm buyPackForm) {
+    public boolean create(PackForm packForm) {
         UUID uuid = UUID.randomUUID();
-        Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(buyPackForm.getAdviceTypeId());
-        Optional<Boolean> existsPackByName = packRepo.existsPackByName(buyPackForm.getName());
+        Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(packForm.getAdvicetypeId());
+        Optional<Boolean> existsPackByName = packRepo.existsPackByName(packForm.getName());
         if (existsPackByName.isPresent() && !existsPackByName.get()) {
             if (adviceType.isPresent()) {
                 Pack pack = new Pack();
                 pack.setUid(uuid);
-                pack.setMinute(buyPackForm.getMinute());
-                pack.setDescription(buyPackForm.getDescription());
+                pack.setMinute(packForm.getMinute());
+                pack.setDescription(packForm.getDescription());
                 pack.setActive(false);
                 pack.setAdvicetype(adviceType.get());
                 packRepo.save(pack);
@@ -117,14 +116,14 @@ public class PackService {
         return false;
     }
 
-    public boolean updatePack(BuyPackForm buyPackForm) {
-        Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(buyPackForm.getUid()));
+    public boolean updatePack(PackForm packForm) {
+        Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(packForm.getPackId()));
         if (pack.isPresent()) {
-            Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(buyPackForm.getAdviceTypeId());
-            pack.get().setName(buyPackForm.getUid());
-            pack.get().setDescription(buyPackForm.getDescription());
-            pack.get().setActive(buyPackForm.isActive());
-            pack.get().setMinute(buyPackForm.getMinute());
+            Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(packForm.getAdvicetypeId());
+            pack.get().setName(packForm.getName());
+            pack.get().setDescription(packForm.getDescription());
+//            pack.get().setActive(buyPackForm.isActive());
+            pack.get().setMinute(packForm.getMinute());
             if (adviceType.isPresent())
                 pack.get().setAdvicetype(adviceType.get());
 
@@ -190,7 +189,7 @@ public class PackService {
         Optional<Request> request = requestService.findByUid(bpForm.getRequestId());
         Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(bpForm.getAdviceTypeId());
         Optional<Lawyer> lawyer = lawyerService.findByUid(bpForm.getLawyerId());
-        Optional<Client> client = clientService.findClientByUidAndActive(bpForm.getUserId(), true);
+        Optional<Client> client = clientService.findClientByUidAndActive(bpForm.getClientId(), true);
 
         System.out.println("Log---createBuyPack--------------------:" + pack.isPresent());
         System.out.println("Log---createBuyPack--------------------:" + request.isPresent());
@@ -225,7 +224,7 @@ public class PackService {
 
 
             psShot.setTotalPrice(bpForm.getTotalPrice());
-            psShot.setActive(bpForm.isActive()); // روی چه حالتی باشه
+//            psShot.setActive(bpForm.isActive()); // روی چه حالتی باشه
             psShot.setAdvicetype(adviceType.get());
             psShot.setLawyer(lawyer.get());
             addScore(bpForm.getLawyerId(), bpForm.getCodeOff());
@@ -233,7 +232,7 @@ public class PackService {
                 return Optional.ofNullable(new BuyPackStatus(BuyPack.PackSnapshotError));
 
             // Add Off اعمال کد تخفیف
-            addScore(bpForm.getUserId(), bpForm.getCodeOff());
+            addScore(bpForm.getClientId(), bpForm.getCodeOff());
             // insert into factor
 
             /*Factor factor = new Factor();
@@ -262,10 +261,7 @@ public class PackService {
 
         Optional<DiscountPack> discountPack = dpService.findByCodeOff(codeOff);
         if (discountPack.isPresent()) {
-            AssignDiscountForm assignDiscountForm = new AssignDiscountForm();
-            assignDiscountForm.setDiscountPackId(discountPack.get().getUid().toString());
-            assignDiscountForm.setUserId(userUid);
-            adService.createAssignDiscount(assignDiscountForm);
+            adService.createAssignDiscount(userUid, discountPack.get().getCodeOff());
             clientService.addScore(userUid, discountPack.get().getValue());
         }
     }

@@ -2,22 +2,22 @@ package ir.mostashar.model.client.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 
 @Data
 public class ValidateCode {
 
-    @NotBlank
+    @NotNull
     private String code;
 
-    @NotBlank
+    @NotNull
     private String userId;
 
     public ValidateCode() {
     }
 
-    public ValidateCode(@NotBlank String code, @NotBlank String userId) {
+    public ValidateCode(@NotNull String code, @NotNull String userId) {
         this.code = code;
         this.userId = userId;
     }

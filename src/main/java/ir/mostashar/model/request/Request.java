@@ -31,8 +31,8 @@ public class Request {
     @Column(unique = true, nullable = false)
     private UUID uid;
 
-    @Column(name = "requestnumber" , unique = true)
-    private String requestNumber;
+    @Column(name = "requestnumber", unique = true, nullable = false)
+    private Long requestNumber;
 
     @Column(name = "deleted")
     private boolean deleted = false;

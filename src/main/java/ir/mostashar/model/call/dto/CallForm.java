@@ -1,34 +1,38 @@
 package ir.mostashar.model.call.dto;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
+@ApiModel(description = "purchaseType:0 or 1 , 1=By Maney Wallet & 1=By Score")
 public class CallForm {
 
-    private String callId;
-
-    private int failedRetriesCount;
+    @NotNull
+    private Integer failedRetriesCount;
 
     private String callStatus;
 
-    private int callType;
+    private Integer callType;
 
     private Long startTime;
 
     private Long endTime;
 
-    private Long creationDate;
-
-    @NotBlank
+    @NotNull
     private String clientId;
 
-    @NotBlank
+    @NotNull
     private String lawyerId;
 
-    @NotBlank
+    @NotNull
     private String requestId;
+
+    @NotNull
+    private String billId;
+
+    private Integer purchaseType;
 
     public CallForm() {
     }

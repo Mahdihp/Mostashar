@@ -1,13 +1,21 @@
 package ir.mostashar.model.lawyer.service;
 
+import ir.mostashar.model.acceptRequest.AcceptRequest;
+import ir.mostashar.model.acceptRequest.service.AcceptRequestService;
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.adviceType.service.AdviceTypeService;
+import ir.mostashar.model.call.Call;
+import ir.mostashar.model.call.service.CallService;
 import ir.mostashar.model.expertise.dto.ExpertiseDTO;
+import ir.mostashar.model.file.File;
+import ir.mostashar.model.file.dto.FileDTO;
+import ir.mostashar.model.file.dto.ListFileDTO;
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.lawyer.dto.LawyerDTO;
 import ir.mostashar.model.lawyer.dto.LawyerProfileForm;
 import ir.mostashar.model.lawyer.dto.ListLawyerDTO;
 import ir.mostashar.model.lawyer.repository.LawyerRepo;
+import ir.mostashar.model.request.Request;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.RoleName;
 import ir.mostashar.model.role.repository.RoleRepo;
@@ -29,10 +37,10 @@ public class LawyerService {
 
 
     @Autowired
-    LawyerRepo lawyerRepo;
+    private LawyerRepo lawyerRepo;
 
     @Autowired
-    AdviceTypeService adviceTypeService;
+    private AdviceTypeService adviceTypeService;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -43,9 +51,15 @@ public class LawyerService {
     @Autowired
     private WalletService walletService;
 
+    @Autowired
+    private AcceptRequestService arService;
 
     @Autowired
     private RoleRepo roleRepo;
+
+    @Autowired
+    private CallService callService;
+
 
     public Optional<Lawyer> findLawyerUidAndActive(String userid, boolean active) {
         Optional<Lawyer> lawyer = lawyerRepo.findByUidAndActive(UUID.fromString(userid), active);
@@ -74,7 +88,7 @@ public class LawyerService {
                 lawyer = lawyerRepo.findByUsername(uid_userName_Mobile);
                 break;
             case 3:
-                System.out.println("Log---findLawyerDTOByUid--------------------:"+uid_userName_Mobile);
+                System.out.println("Log---findLawyerDTOByUid--------------------:" + uid_userName_Mobile);
                 lawyer = lawyerRepo.findByMobileNumber(Long.parseLong(uid_userName_Mobile));
                 break;
         }
@@ -250,6 +264,9 @@ public class LawyerService {
         lawyer.setVerificationCode(code);
         lawyer.setUid(uuid);
 
+//        lawyer.setOrganization();
+//        lawyer.setPercentStock();
+
         Optional<AdviceType> adviceType = Optional.empty();
         switch (advicetype) {
             case 1:
@@ -275,7 +292,7 @@ public class LawyerService {
         Lawyer userSave = lawyerRepo.save(lawyer);
 
         if (userSave != null) {
-            smsService.sendSms(phoneNumber, code);
+            smsService.sendSms(1, phoneNumber, code);
             return Optional.of(uuid);
         } else
             return Optional.empty();
@@ -326,9 +343,9 @@ public class LawyerService {
     }
 
 
-    public void updateCodeCerify(String mobileNumber,String code){
+    public void updateCodeCerify(String mobileNumber, String code) {
         Optional<Lawyer> lawyer = lawyerRepo.findByMobileNumber(Long.parseLong(mobileNumber));
-        if (lawyer.isPresent()){
+        if (lawyer.isPresent()) {
             lawyer.get().setVerificationCode(code);
             lawyer.get().setUid(UUID.randomUUID());
             lawyerRepo.save(lawyer.get());
@@ -337,7 +354,64 @@ public class LawyerService {
 
     public void reSendCode(String mobileNumber) {
         String code = DataUtil.genarateRandomNumber();
-        updateCodeCerify(mobileNumber,code);
-        smsService.sendSms(mobileNumber, code);
+        updateCodeCerify(mobileNumber, code);
+        smsService.sendSms(2, mobileNumber, code);
     }
+
+    public Optional<ListFileDTO> findAllFileLawyer(String lawyerId) {
+        Optional<List<AcceptRequest>> list = arService.findAllByLawyer(lawyerId);
+        List<Request> requestList = new ArrayList<>();
+        Set<File> fileList = new HashSet<>();
+        if (list.isPresent()) {
+            //list AcceptRequest isAcceptedByClient lawyer
+            for (AcceptRequest ar : list.get()) {
+                if (ar.isAcceptedByClient()) {
+                    requestList.add(ar.getRequest());
+                }
+            }
+        }
+        //list File
+        for (Request request : requestList) {
+            fileList.add(request.getFile());
+        }
+        // list request from calls
+        Optional<List<Call>> callList = callService.findAllCallByLawyerId(lawyerId);
+        if (callList.isPresent()) {
+            for (Call call : callList.get()) {
+                if (call.getLawyer().getUid().toString().equals(lawyerId)) {
+                    requestList.add(call.getRequest());
+                }
+            }
+        }
+        //list File
+        for (Request request : requestList) {
+            fileList.add(request.getFile());
+        }
+
+        ListFileDTO listFileDTO = new ListFileDTO();
+        listFileDTO.setStatus(HttpStatus.OK.value());
+        listFileDTO.setMessage(Constants.KEY_SUCESSE);
+        List<FileDTO> dtoList = new ArrayList<>();
+        // list file dto
+        for (File file : fileList) {
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setFileId(file.getUid().toString());
+            fileDTO.setTitle(file.getTitle());
+            fileDTO.setFileNumber(file.getFileNumber());
+            fileDTO.setDescription(file.getDescription());
+            fileDTO.setCreationDate(file.getCreationDate());
+//                fileDTO.setModificationDate(file.getModificationDate());
+            if (file.getClient() != null)
+                fileDTO.setClientId(file.getClient().getUid().toString());
+
+            dtoList.add(fileDTO);
+        }
+        listFileDTO.setFiles(dtoList);
+        if (fileList != null && fileList.size() > 0) {
+            return Optional.of(listFileDTO);
+        }
+
+        return Optional.empty();
+    }
+
 }

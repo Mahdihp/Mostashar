@@ -2,30 +2,30 @@ package ir.mostashar.model.discountPack.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class DiscountPackForm {
 
     private String discountPackId;
 
-    @NotBlank
+    @NotNull
     private String title;
 
-    @NotBlank
+    @NotNull
     private String codeOff;
 
-    @NotBlank
+    @NotNull
     private Boolean active ;
 
-    @NotBlank
+    @NotNull
     private Long expiryDate;
 
-    @NotBlank
+    @NotNull
     private Integer value;
 
-    @NotBlank
-    private String type;
+    @NotNull
+    private Integer type;
 
     public DiscountPackForm() {
     }

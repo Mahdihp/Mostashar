@@ -3,7 +3,7 @@ package ir.mostashar.model.activity.dto;
 import ir.mostashar.model.activity.LawyerActivityType;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class LawyerActivityForm {
@@ -12,14 +12,14 @@ public class LawyerActivityForm {
 
     private LawyerActivityType type;
 
-    @NotBlank
+    @NotNull
     private String title;
 
     private String description;
 
     private Long creationDate;
 
-    @NotBlank
+    @NotNull
     private String lawyerId;
 
     private String docid;

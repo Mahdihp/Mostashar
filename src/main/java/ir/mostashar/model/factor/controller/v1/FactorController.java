@@ -6,7 +6,6 @@ import ir.mostashar.model.factor.dto.FactorDTO;
 import ir.mostashar.model.factor.dto.FactorForm;
 import ir.mostashar.model.factor.dto.ListFactorDTO;
 import ir.mostashar.model.factor.service.FactorService;
-import ir.mostashar.model.pack.dto.PackDTO;
 import ir.mostashar.model.wallet.service.WalletService;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,7 @@ public class FactorController {
 
     @PostMapping(value = "/createfactor", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> createFactor(@Valid @RequestBody FactorForm factorForm) {
-        UUID factorUid = factorService.createFactor(factorForm);
+        UUID factorUid = factorService.create(factorForm);
         if (factorUid != null)
             return ResponseEntity.status(HttpStatus.OK).body(new FactorDTO(HttpStatus.OK.value(), Constants.KEY_ADD_FACTOR , factorUid.toString()));
         else
