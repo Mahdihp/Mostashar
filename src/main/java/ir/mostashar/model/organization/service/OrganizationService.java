@@ -110,6 +110,14 @@ public class OrganizationService {
             return Optional.empty();
     }
 
+    public Optional<Organization> findByName(String name) {
+        Optional<Organization> orgOld = orgRepository.findByName(name);
+        if (orgOld.isPresent())
+            return orgOld;
+        else
+            return Optional.empty();
+    }
+
     public Optional<OrganizationDTO> findByUidAndUsername(String orgUid, String username) {
         Optional<Organization> orgOld = orgRepository.findByUidAndUsername(UUID.fromString(orgUid), username);
         if (orgOld.isPresent()) {

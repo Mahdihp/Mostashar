@@ -63,6 +63,9 @@ public class DataUtil {
         return RandomStringUtils.randomNumeric(count);
     }
 
+    public static int percentPrice(int percent, int price) {
+        return percent * price / 100;
+    }
     public static int getTimeSpent(long start, long end) {
         DateTime timeStart = new DateTime(start);
         DateTime timeEnd = new DateTime(end);

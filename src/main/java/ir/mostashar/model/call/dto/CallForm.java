@@ -6,7 +6,8 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 @Data
-@ApiModel(description = "purchaseType:0 or 1 , 1=By Maney Wallet & 1=By Score")
+@ApiModel(description = "purchaseType:0 or 1 , 1=By Maney Wallet & 1=By Score" +
+        "\n" + "packSnapshotId: Price per Minute lawyer")
 public class CallForm {
 
     @NotNull
@@ -33,6 +34,8 @@ public class CallForm {
     private String billId;
 
     private Integer purchaseType;
+
+    private String packSnapshotId;
 
     public CallForm() {
     }

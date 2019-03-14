@@ -15,6 +15,8 @@ import ir.mostashar.model.lawyer.dto.LawyerDTO;
 import ir.mostashar.model.lawyer.dto.LawyerProfileForm;
 import ir.mostashar.model.lawyer.dto.ListLawyerDTO;
 import ir.mostashar.model.lawyer.repository.LawyerRepo;
+import ir.mostashar.model.organization.Organization;
+import ir.mostashar.model.organization.service.OrganizationService;
 import ir.mostashar.model.request.Request;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.RoleName;
@@ -59,6 +61,9 @@ public class LawyerService {
 
     @Autowired
     private CallService callService;
+
+    @Autowired
+    private OrganizationService orgService;
 
 
     public Optional<Lawyer> findLawyerUidAndActive(String userid, boolean active) {
@@ -256,8 +261,11 @@ public class LawyerService {
         lawyer.setVerificationCode(code);
         lawyer.setUid(uuid);
 
-//        lawyer.setOrganization();
-//        lawyer.setPercentStock();
+        Optional<Organization> orgMaster = orgService.findByName("Mostashar");
+        if (orgMaster.isPresent())
+            lawyer.setOrganization(orgMaster.get());
+
+        lawyer.setDefaultPercentStock(70);
 
         Optional<AdviceType> adviceType = Optional.empty();
         switch (advicetype) {

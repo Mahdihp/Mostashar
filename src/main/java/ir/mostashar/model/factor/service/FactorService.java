@@ -58,8 +58,6 @@ public class FactorService {
             } else {
                 factor.setFactorNumber(factorNumber);
             }
-
-
             factor.setCreationDate(System.currentTimeMillis());
             factor.setValue(factorForm.getValue());
             factor.setBill(bill.get());

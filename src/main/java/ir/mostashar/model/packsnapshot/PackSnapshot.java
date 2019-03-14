@@ -3,7 +3,6 @@ package ir.mostashar.model.packsnapshot;
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.consumptionPack.ConsumptionPack;
 import ir.mostashar.model.lawyer.Lawyer;
-import ir.mostashar.model.pack.Pack;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -32,13 +31,13 @@ public class PackSnapshot {
     private String packDescription;
 
     @Column(name = "packminute")
-    private int packMinute;
+    private int packMinute; // دقیقه هر بسته
 
     @Column(name = "lawyerpriceperminute")
-    private int lawyerPricePerMinute;
+    private int lawyerPricePerMinute; // نرخ هر دقیقه مکالمه ماشور
 
     @Column(name = "totalprice")
-    private int totalPrice;
+    private int totalPrice; // هزینه کل مکالمه بدون مالیات
 
 
     @Column(name = "active")

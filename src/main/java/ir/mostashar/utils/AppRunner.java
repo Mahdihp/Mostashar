@@ -152,6 +152,7 @@ public class AppRunner implements ApplicationRunner {
         organization.setExpiryDate(null);
         organization.setMaster(null);
         organization.setWallet(wallet);
+        organization.setPercentOrgStock(20); //  درصد سازمان
         wallet.setOrganization(organization);
 
 
@@ -502,18 +503,18 @@ public class AppRunner implements ApplicationRunner {
         constant1.setDescription("کد دعوت به سامانه");
 
         Constant constant2 = new Constant();
-        constant2.setUid(UUID.fromString("12102c33-b3a5-4401-a274-016bda28fdce"));
-        constant2.setKey(Constants.KEY_PercentStockLawyer);
-        constant2.setValue(70);
-        constant2.setType(2);
-        constant2.setDescription("درصد سهم اولیه مشاور");
+        constant2.setUid(UUID.fromString("12202c33-b3a5-4401-a274-016bda28fdce"));
+        constant2.setKey(Constants.KEYS_Coefficient);
+        constant2.setValue(2);
+        constant2.setType(3);
+        constant2.setDescription("ضریب تبدیل امتیاز به پول");
 
         Constant constant3 = new Constant();
-        constant3.setUid(UUID.fromString("12202c33-b3a5-4401-a274-016bda28fdce"));
-        constant3.setKey(Constants.KEY_Coefficient);
-        constant3.setValue(2);
-        constant3.setType(3);
-        constant3.setDescription("ضریب تبدیل امتیاز به پول");
+        constant3.setUid(UUID.fromString("12302c33-b3a5-4401-a274-016bda28fdce"));
+        constant3.setKey(Constants.KEYS_Percent_Value_Added);
+        constant3.setValue(9); // 9%
+        constant3.setType(2);
+        constant3.setDescription("درصد ارزش افزوده");
 
 
         AssignDiscount assignDiscount1=new AssignDiscount();
@@ -581,8 +582,6 @@ public class AppRunner implements ApplicationRunner {
         constantRepo.save(constant1);
         constantRepo.save(constant2);
         constantRepo.save(constant3);
-
-
 
     }
 

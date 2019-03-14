@@ -49,7 +49,10 @@ public class Organization {
     private Long expiryDate;
 
     @Column(name = "percentorgstock")
-    private int percentOrgStock; // درصد سهم سازمان پایین دستی
+    private int percentLawyerStock; // درصد سهم پیش فرض مشاور
+
+    @Column(name = "percentorgstock")
+    private int percentOrgStock; // درصد سهم خود سازمان
 
     @Column(name = "percentmasterstock")
     private int percentMasterStock; // درصد سهم سازمان بالادستی(مستشار)

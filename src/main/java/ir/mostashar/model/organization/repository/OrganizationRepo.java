@@ -1,7 +1,6 @@
 package ir.mostashar.model.organization.repository;
 
 import ir.mostashar.model.organization.Organization;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -14,6 +13,8 @@ import java.util.UUID;
 public interface OrganizationRepo extends JpaRepository<Organization, Long> {
 
     Optional<Organization> findByUid(UUID uuid);
+
+    Optional<Organization> findByName(String name);
     Optional<Organization> findByUidAndVerified(UUID uuid,boolean isVerified);
     Optional<Organization> findByUsernameOrName(String userName, String name);
     Optional<Organization> findByUidAndUsernameAndPassword(UUID uid,String userName, String password);

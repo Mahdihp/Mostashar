@@ -68,4 +68,12 @@ public class ConstantService {
         }
         return Optional.empty();
     }
+
+    public int findByKey(String key) {
+        Optional<Constant> keyValue = constantRepo.findByKey(key);
+        if (keyValue.isPresent())
+            return keyValue.get().getValue();
+        else
+            return 0;
+    }
 }

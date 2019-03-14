@@ -2,6 +2,9 @@ package ir.mostashar.utils;
 
 public class Constants {
 
+    public static final String KEY_MOSTASHAR_USER_ID = "13000000-1d44-4ae3-9dc0-c3b8213d45a6";
+    public static final String KEY_MOSTASHAR_WALLET_ID = "14000000-1d44-4ae3-9dc0-c3b8213d45a6";
+
     public static final String KEY_REGISTER_ALREADY = "شما قبلا ثبت نام کرده اید.";
     public static final String KEY_REGISTER = "ثبت نام شما کامل شد." + "/n" + "تا چند لحظه ی دیگه برای شما کد تایید ارسال خواهد شد.";
     public static final String KEY_PHONE_NUMBER_NOT_VALID = "شماره موبایل معتبر نمی باشد.";
@@ -115,8 +118,11 @@ public class Constants {
 
     public static final String KEY_NOT_FOUND_LAWYERS = "مشاوری پیدا نشد.";
     public static final String KEY_NOT_FOUND_CLIENT = "کاربری پیدا نشد.";
-    public static final String KEY_CREATE_CALL_DES = "ثبت تماس صوتی ...";
+    public static final String KEY_CREATE_Price_Not_Percent = "هزینه تماس صوتی بدون مالیات بر ارزش افزوده";
+    public static final String KEY_CREATE_Price_Percent = "هزینه مالیات بر ارزش افزوده تماس صوتی";
 
-    public static final String KEY_PercentStockLawyer = "InitialPercentStockLawyer";
-    public static final String KEY_Coefficient = "Coefficient";
+
+    public static final String KEYS_Coefficient = "Coefficient"; // ضریب تبدیل امتیاز به پول
+    public static final String KEYS_Percent_Value_Added = "PercentValueAdded"; // درصد مالیات بر ارزش افزوده
+
 }
