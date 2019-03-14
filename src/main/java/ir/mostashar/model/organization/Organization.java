@@ -48,7 +48,7 @@ public class Organization {
     @Column(name = "expirydate")
     private Long expiryDate;
 
-    @Column(name = "percentorgstock")
+    @Column(name = "percentlawyerstock")
     private int percentLawyerStock; // درصد سهم پیش فرض مشاور
 
     @Column(name = "percentorgstock")

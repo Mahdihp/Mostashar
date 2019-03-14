@@ -194,7 +194,7 @@ public class AppRunner implements ApplicationRunner {
         lawyer1.setMobileNumber(9144528901L);
         lawyer1.setVerificationCode("-1");
         lawyer1.setPricePerMinute(3000);
-        lawyer1.setPercentStock(70);
+        lawyer1.setDefaultPercentStock(70);
         lawyer1.setOrganization(organization);
 
         Lawyer lawyer2 = new Lawyer();
@@ -208,7 +208,7 @@ public class AppRunner implements ApplicationRunner {
         lawyer2.setMobileNumber(9154528901L);
         lawyer2.setVerificationCode("-1");
         lawyer2.setPricePerMinute(6000);
-        lawyer2.setPercentStock(70);
+        lawyer2.setDefaultPercentStock(70);
         lawyer2.setOrganization(organization);
 
         Lawyer lawyer3 = new Lawyer();
@@ -221,7 +221,7 @@ public class AppRunner implements ApplicationRunner {
         lawyer3.setMobileNumber(9164528901L);
         lawyer3.setVerificationCode("-1");
         lawyer3.setPricePerMinute(9000);
-        lawyer3.setPercentStock(70);
+        lawyer3.setDefaultPercentStock(70);
         lawyer3.setOrganization(organization);
 
         DiscountPack discountPack1=new DiscountPack();

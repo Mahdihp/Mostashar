@@ -1,10 +1,13 @@
 package ir.mostashar.model.factor;
 
 import ir.mostashar.model.bill.Bill;
+import ir.mostashar.model.factordetails.FactorDetail;
 import ir.mostashar.model.installment.Installment;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -54,6 +57,13 @@ public class Factor {
             cascade = CascadeType.ALL,
             mappedBy = "factor")
     private Installment installment;
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "factor")
+    private Set<FactorDetail> factorDetails = new HashSet<>();
+
+
 
     public Factor() {
     }

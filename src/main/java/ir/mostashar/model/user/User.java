@@ -54,11 +54,11 @@ public class User implements Serializable {
     @Column(name = "username",unique = true)
     private String username;
 
-    @Column(name = "email",unique = true)
-    private String email;
-
     @Column(name = "password")
     private String password;
+
+    @Column(name = "email",unique = true)
+    private String email;
 
     @Column(name = "nationalid")
     private String nationalId;

@@ -14,8 +14,16 @@ public interface UserRepo extends JpaRepository<User, Long> {
 
 
     Optional<User> findByUid(UUID uuid);
+
     Optional<User> findByUsername(String username);
+
+    Optional<Boolean> existsByUsernameOrNationalId(String username, String nationalId);
+
     Optional<User> findByUidAndVerificationCode(UUID uid, String code);
+
+    Optional<List<User>> findAllByUsernameLike(String userName);
+
+    Optional<List<User>> findAllByFirstNameLikeOrLastNameLike(String firstName, String lastName);
 
 
     @Query("SELECT r.mobileNumber FROM User r")

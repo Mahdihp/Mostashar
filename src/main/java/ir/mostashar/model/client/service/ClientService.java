@@ -269,7 +269,7 @@ public class ClientService {
         if (client.isPresent()) {
             double totalScore = client.get().getScore();
             totalScore -= score;
-            client.get().setScore(totalScore);
+            client.get().setScore((int) totalScore);
             clientRepo.save(client.get());
         }
     }
