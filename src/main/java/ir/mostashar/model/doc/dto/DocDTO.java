@@ -11,7 +11,7 @@ public class DocDTO extends BaseDTO {
     private String docId;
     private String checksum;
     private String hashCode;
-    private String docType;
+    private String mimeType;
     private Byte[] data;
     private Long creationDate;
     private String fileId;

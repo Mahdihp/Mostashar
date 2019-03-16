@@ -43,8 +43,8 @@ public class Lawyer extends User {
     @Column(name = "verified")
     private Boolean verified = false;
 
-    @Column(name = "percentstock")
-    private int percentStock;
+    @Column(name = "defaultpercentstock")
+    private int defaultPercentStock;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "lawyer_expertise",

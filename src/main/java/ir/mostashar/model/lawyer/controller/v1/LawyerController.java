@@ -62,7 +62,7 @@ public class LawyerController {
 
     @PostMapping(value = "/addfeedback", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> addFeedBack(@Valid @RequestBody FeedBackForm fbForm) {
-        if (!feedbackService.existsRequest(fbForm.getRequestId())) {
+        if (!requestService.existsRequest(fbForm.getRequestId())) {
             feedbackService.createFeedback(fbForm);
             return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_SUCESSE_REGISTER));
         }

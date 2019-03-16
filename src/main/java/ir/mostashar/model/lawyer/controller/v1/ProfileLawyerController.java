@@ -24,24 +24,23 @@ import java.util.Optional;
 @RequestMapping("/api/v1/lawyers")
 public class ProfileLawyerController {
 
+    @Autowired
+    private LawyerService lawyerService;
 
     @Autowired
-    LawyerService lawyerService;
+    private AcceptRequestService arService;
 
     @Autowired
-    AcceptRequestService arService;
+    private FailRequestService frService;
 
     @Autowired
-    FailRequestService frService;
+    private NotificationService nService;
 
     @Autowired
-    NotificationService nService;
+    private ReminderService reminderService;
 
     @Autowired
-    ReminderService reminderService;
-
-    @Autowired
-    BillService billService;
+    private BillService billService;
 
     @PostMapping(value = "/profile", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> updateProfile(@Valid @RequestBody LawyerProfileForm lpForm) {

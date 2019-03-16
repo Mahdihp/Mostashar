@@ -269,7 +269,7 @@ public class LawyerService {
         lawyer.setVerificationCode(code);
         lawyer.setUid(uuid);
 
-        Optional<Organization> orgMaster = orgService.findByName("Mostashar");
+        Optional<Organization> orgMaster = orgService.findByName(Constants.KEY_MOSTASHAR);
         if (orgMaster.isPresent())
             lawyer.setOrganization(orgMaster.get());
 

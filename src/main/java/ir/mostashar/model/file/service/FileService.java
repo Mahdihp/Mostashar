@@ -161,7 +161,7 @@ public class FileService {
                 fileDTO.setFileNumber(file.getFileNumber());
                 fileDTO.setDescription(file.getDescription());
                 fileDTO.setCreationDate(file.getCreationDate());
-                fileDTO.setModificationDate(file.getModificationDate());
+//                fileDTO.setModificationDate(file.getModificationDate());
                 if (file.getClient() != null)
                     fileDTO.setClientId(file.getClient().getUid().toString());
 
@@ -188,7 +188,7 @@ public class FileService {
                 fileDTO.setFileNumber(file.getFileNumber());
                 fileDTO.setDescription(file.getDescription());
                 fileDTO.setCreationDate(file.getCreationDate());
-                fileDTO.setModificationDate(file.getModificationDate());
+//                fileDTO.setModificationDate(file.getModificationDate());
                 if (file.getClient() != null)
                     fileDTO.setClientId(file.getClient().getUid().toString());
 

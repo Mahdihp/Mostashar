@@ -28,19 +28,19 @@ import java.util.UUID;
 public class RequestService {
 
     @Autowired
-    RequestRepo requestRepo;
+    private RequestRepo requestRepo;
 
     @Autowired
-    ClientService clientService;
+    private ClientService clientService;
 
     @Autowired
-    AdviceTypeRepo adviceTypeRepo;
+    private AdviceTypeRepo adviceTypeRepo;
 
     @Autowired
-    FileRepo fileRepo;
+    private FileRepo fileRepo;
 
     @Autowired
-    NotificationService notificationService;
+    private NotificationService notificationService;
 
     @Value("${mostashar.app.requestNumber}")
     private long requestNumber;
@@ -199,6 +199,14 @@ public class RequestService {
             return Optional.of(listRequestDTO);
         }
         return Optional.empty();
+    }
+
+    public boolean existsRequest(String requestId) {
+        Optional<Boolean> exists = requestRepo.existsByRequestUid(UUID.fromString(requestId));
+        if (exists.isPresent())
+            return exists.get();
+        else
+            return false;
     }
 
     /*public boolean existsRequest(String lawyerId, String fileUid) {

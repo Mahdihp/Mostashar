@@ -1,9 +1,8 @@
 package ir.mostashar.model.doc.service;
 
 import ir.mostashar.model.client.repository.ClientRepo;
-import ir.mostashar.model.doc.DocType;
-import ir.mostashar.model.user.service.UserServiceImpl;
 import ir.mostashar.model.doc.Doc;
+import ir.mostashar.model.doc.DocType;
 import ir.mostashar.model.doc.MimeType;
 import ir.mostashar.model.doc.dto.DocDTO;
 import ir.mostashar.model.doc.dto.ListDocDTO;
@@ -11,6 +10,7 @@ import ir.mostashar.model.doc.repository.DocRepo;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.repository.FileRepo;
 import ir.mostashar.model.user.User;
+import ir.mostashar.model.user.service.UserServiceImpl;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -115,25 +115,25 @@ public class DocService {
 
     public Optional<ListDocDTO> findAllresumeBylawyerid(String lawyerid) {
 
-            Optional<List<Doc>> docs = docRepo.findAllDocsBylawyerid(lawyerid,DocType.Resume);
-            if (docs.isPresent()) {
-                List<DocDTO> dtoList = new ArrayList<>();
-                ListDocDTO listDocDTO = new ListDocDTO();
-                for (Doc doc : docs.get()) {
-                    DocDTO docDTO = new DocDTO();
-                    docDTO.setDocId(doc.getUid().toString());
-                    docDTO.setChecksum(doc.getChecksum());
-                    docDTO.setHashCode(doc.getHashCode());
-                    docDTO.setMimeType(doc.getMimeType().type + "");
-                    docDTO.setCreationDate(doc.getCreationDate());
-                    docDTO.setFileId(doc.getFile().getUid().toString());
-                    dtoList.add(docDTO);
-                }
-                listDocDTO.setStatus(HttpStatus.OK.value());
-                listDocDTO.setMessage(Constants.KEY_SUCESSE);
-                listDocDTO.setDocs(dtoList);
-                return Optional.ofNullable(listDocDTO);
+        Optional<List<Doc>> docs = docRepo.findAllDocsBylawyerid(lawyerid, DocType.Resume);
+        if (docs.isPresent()) {
+            List<DocDTO> dtoList = new ArrayList<>();
+            ListDocDTO listDocDTO = new ListDocDTO();
+            for (Doc doc : docs.get()) {
+                DocDTO docDTO = new DocDTO();
+                docDTO.setDocId(doc.getUid().toString());
+                docDTO.setChecksum(doc.getChecksum());
+                docDTO.setHashCode(doc.getHashCode());
+                docDTO.setMimeType(doc.getMimeType().type + "");
+                docDTO.setCreationDate(doc.getCreationDate());
+                docDTO.setFileId(doc.getFile().getUid().toString());
+                dtoList.add(docDTO);
             }
+            listDocDTO.setStatus(HttpStatus.OK.value());
+            listDocDTO.setMessage(Constants.KEY_SUCESSE);
+            listDocDTO.setDocs(dtoList);
+            return Optional.ofNullable(listDocDTO);
+        }
         return Optional.empty();
     }
 
@@ -142,7 +142,7 @@ public class DocService {
         if (!user.isPresent())
             return Optional.empty();
 
-        Optional<Doc> doc = docRepo.findByUidAndFileUidAndDeleted(UUID.fromString(docId),UUID.fromString(fileId), false);
+        Optional<Doc> doc = docRepo.findByUidAndFileUidAndDeleted(UUID.fromString(docId), UUID.fromString(fileId), false);
         if (doc.isPresent()) {
             if (doc.get().getFile().getUid().toString().equals(fileId)) {
                 DocDTO docDTO = new DocDTO();
@@ -176,7 +176,7 @@ public class DocService {
     }
 
     public Optional<Doc> findBylawyerid(String lawyerId) {
-        Optional<Doc> doc = docRepo.findByUid(UUID.fromString(docId));
+        Optional<Doc> doc = docRepo.findByUid(UUID.fromString(lawyerId));
         if (doc.isPresent())
             return doc;
         else
@@ -189,7 +189,7 @@ public class DocService {
         if (!user.isPresent())
             return Optional.empty();
 
-        Optional<Doc> doc = docRepo.findByUidAndFileUidAndDeleted(UUID.fromString(docId),UUID.fromString(fileId), false);
+        Optional<Doc> doc = docRepo.findByUidAndFileUidAndDeleted(UUID.fromString(docId), UUID.fromString(fileId), false);
         if (doc.isPresent())
             return doc;
         else
@@ -202,7 +202,7 @@ public class DocService {
         if (!user.isPresent())
             return false;
 
-        Optional<Doc> doc = docRepo.findByUidAndFileUidAndDeleted(UUID.fromString(docId),UUID.fromString(fileId), false);
+        Optional<Doc> doc = docRepo.findByUidAndFileUidAndDeleted(UUID.fromString(docId), UUID.fromString(fileId), false);
         if (doc.isPresent()) {
             doc.get().setDeleted(true);
             docRepo.save(doc.get());

@@ -1,7 +1,9 @@
 package ir.mostashar.model.feedback.controller.v1;
 
+import io.swagger.annotations.ApiOperation;
 import ir.mostashar.model.feedback.dto.ListFeedBackDTO;
 import ir.mostashar.model.feedback.service.FeedbackService;
+import ir.mostashar.model.file.dto.ListFileDTO;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +29,7 @@ public class FeedBackController {
     @Autowired
     FeedbackService feedbackService;
 
+    @ApiOperation(value = "Find All Feedbacks Client", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/request", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findAllFileByClient(@RequestParam("clientid") String clientUid,
                                                  @RequestParam("requestid") String requestUid) {
@@ -35,5 +38,16 @@ public class FeedBackController {
             return ResponseEntity.status(HttpStatus.OK).body(listFeedBackDTO.get());
         else
             return ResponseEntity.status(HttpStatus.OK).body(new ListFeedBackDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_FILE));
+    }
+
+    @ApiOperation(value = "Find All Feedbacks", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/request", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> findAllFeedBackFile(@RequestParam("requestid") String requestid) {
+        Optional<ListFeedBackDTO> list = feedbackService.findAllDTO(2, requestid);
+        if (list.isPresent())
+            return ResponseEntity.status(HttpStatus.OK).body(list.get());
+        else
+            return ResponseEntity.status(HttpStatus.OK).body(new ListFileDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_REQUEST));
+
     }
 }

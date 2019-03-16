@@ -5,10 +5,10 @@ import ir.mostashar.model.rightMessage.dto.ListRightMessageDTO;
 import ir.mostashar.model.rightMessage.dto.RightMessageDTO;
 import ir.mostashar.model.rightMessage.dto.RightMessageForm;
 import ir.mostashar.model.rightMessage.repository.RightMessageRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import ir.mostashar.utils.Constants;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +66,7 @@ public class RightMessageService {
             List<RightMessageDTO> dtoList = new ArrayList<>();
             for(RightMessage rm:rightMessages.get()){
                 RightMessageDTO rightMessageDTO=new RightMessageDTO();
-                rightMessageDTO.setUid(rm.getUid());
+                rightMessageDTO.setRightMessageId(rm.getUid().toString());
                 rightMessageDTO.setTitle(rm.getTitle());
                 rightMessageDTO.setDescription(rm.getDescription());
                 rightMessageDTO.setCreationDate(rm.getCreationDate());
@@ -75,7 +75,7 @@ public class RightMessageService {
             }
             listRightMessageDTO.setStatus(HttpStatus.OK.value());
             listRightMessageDTO.setMessage(Constants.KEY_SUCESSE);
-            listRightMessageDTO.setRightMessageDTOList(dtoList);
+            listRightMessageDTO.setData(dtoList);
             return Optional.ofNullable(listRightMessageDTO);
         }
         return Optional.empty();
@@ -88,7 +88,7 @@ public class RightMessageService {
             List<RightMessageDTO> dtoList = new ArrayList<>();
             for(RightMessage rm:rightMessages.get()){
                 RightMessageDTO rightMessageDTO=new RightMessageDTO();
-                rightMessageDTO.setUid(rm.getUid());
+                rightMessageDTO.setRightMessageId(rm.getUid().toString());
                 rightMessageDTO.setTitle(rm.getTitle());
                 rightMessageDTO.setDescription(rm.getDescription());
                 rightMessageDTO.setCreationDate(rm.getCreationDate());
@@ -97,7 +97,7 @@ public class RightMessageService {
             }
             listRightMessageDTO.setStatus(HttpStatus.OK.value());
             listRightMessageDTO.setMessage(Constants.KEY_SUCESSE);
-            listRightMessageDTO.setRightMessageDTOList(dtoList);
+            listRightMessageDTO.setData(dtoList);
             return Optional.ofNullable(listRightMessageDTO);
         }
         return Optional.empty();

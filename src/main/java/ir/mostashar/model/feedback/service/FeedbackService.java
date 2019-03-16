@@ -1,6 +1,5 @@
 package ir.mostashar.model.feedback.service;
 
-import ir.mostashar.model.client.service.ClientService;
 import ir.mostashar.model.feedback.FeedBack;
 import ir.mostashar.model.feedback.dto.FeedBackDTO;
 import ir.mostashar.model.feedback.dto.FeedBackForm;
@@ -55,7 +54,7 @@ public class FeedbackService {
             return Optional.empty();
     }
 
-    public Optional<FeedBackDTO> findFeedBackDTOByUid(String uid) {
+    public Optional<FeedBackDTO> findDTOByUid(String uid) {
         Optional<FeedBack> feedBack = feedbackRepo.findByUid(UUID.fromString(uid));
         if (feedBack.isPresent()) {
             FeedBackDTO feedBackDTO = new FeedBackDTO();
@@ -72,7 +71,7 @@ public class FeedbackService {
         return Optional.empty();
     }
 
-    public Optional<ListFeedBackDTO> findByLawyerUidOrRequestUid(int typeQuery, String clientUid_requestUid) {
+    public Optional<ListFeedBackDTO> findAllDTO(int typeQuery, String clientUid_requestUid) {
         Optional<List<FeedBack>> list = Optional.empty();
         switch (typeQuery) {
             case 1:

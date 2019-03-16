@@ -12,7 +12,7 @@ public enum DocType {
     Resume(1);
     public final int type;
 
-    public DocType(int type) {
+    DocType(int type) {
         this.type = type;
     }
 

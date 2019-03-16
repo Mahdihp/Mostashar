@@ -12,7 +12,7 @@ import java.util.UUID;
 @Repository
 public interface RequestRepo extends JpaRepository<Request, Long> {
 
-
+    Optional<Boolean> existsByRequestUid(UUID uid);
     Optional<Request> findByUidAndDeleted(UUID uuid,boolean isDeleted);
 
     Optional<Request> findByFileUidAndDeleted(UUID uuid, boolean isDeleted);
