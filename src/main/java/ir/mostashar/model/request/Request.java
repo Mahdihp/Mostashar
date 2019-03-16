@@ -2,6 +2,7 @@ package ir.mostashar.model.request;
 
 import ir.mostashar.model.acceptRequest.AcceptRequest;
 import ir.mostashar.model.adviceType.AdviceType;
+import ir.mostashar.model.billwallettransaction.BillWalletTransaction;
 import ir.mostashar.model.call.Call;
 import ir.mostashar.model.client.Client;
 import ir.mostashar.model.consumptionPack.ConsumptionPack;
@@ -92,6 +93,14 @@ public class Request {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<Notification> notifications = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "request")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<BillWalletTransaction> billWalletTransactions = new HashSet<>();
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "advicetypeid", nullable = false)

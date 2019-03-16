@@ -3,6 +3,7 @@ package ir.mostashar.model.user;
 import ir.mostashar.model.accessentry.AccessEntry;
 import ir.mostashar.model.adminConfirmation.AdminConfirmation;
 import ir.mostashar.model.assignDiscount.AssignDiscount;
+import ir.mostashar.model.billwallettransaction.BillWalletTransaction;
 import ir.mostashar.model.complain.Complain;
 import ir.mostashar.model.device.Device;
 import ir.mostashar.model.invitedUser.InvitedUser;
@@ -56,12 +57,6 @@ public class User implements Serializable {
 
     @Column(name = "password")
     private String password;
-
-    @Column(name = "shabacode")
-    private String shabaCode;
-
-    @Column(name = "shababank")
-    private String shabaBank;
 
     @Column(name = "email",unique = true)
     private String email;
@@ -149,6 +144,10 @@ public class User implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     @EqualsAndHashCode.Exclude
     private Set<UserPopularity> userPopularities = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @EqualsAndHashCode.Exclude
+    private Set<BillWalletTransaction> billWalletTransactions = new HashSet<>();
 
     public User() {
     }
