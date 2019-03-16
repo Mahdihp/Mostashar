@@ -15,8 +15,8 @@ public interface FeedbackRepo extends JpaRepository<FeedBack, Long> {
 
     Optional<List<FeedBack>> findByLawyerUid(UUID clientUid);
 
-    Optional<FeedBack> findByRequestUid(UUID requestUid);
+    Optional<List<FeedBack>> findByLawyerUidAndByRequestID(UUID clientUid,UUID requestUid);
 
-    Optional<Boolean> existsByRequestUid(UUID requestUid);
+    Optional<List<FeedBack>> findByRequestUid(UUID requestUid);
 
 }

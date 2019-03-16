@@ -1,6 +1,7 @@
 package ir.mostashar.model.doc.repository;
 
 import ir.mostashar.model.doc.Doc;
+import ir.mostashar.model.doc.DocType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,4 +18,5 @@ public interface DocRepo extends JpaRepository<Doc, Long> {
     Optional<Doc> findByUidAndFileUidAndDeleted(UUID uuid,UUID fileUid, boolean isDelete);
 
     Optional<List<Doc>> findAllByFileUidAndDeleted(UUID file,boolean isDelete);
+    Optional<List<Doc>> findAllDocsBylawyerid(String lawyerid,DocType docType);
 }

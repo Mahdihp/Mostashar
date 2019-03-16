@@ -1,8 +1,11 @@
 package ir.mostashar.model.rightMessage.cotroller.v1;
 
 import io.swagger.annotations.ApiOperation;
+import ir.mostashar.model.bill.dto.ListBillDTO;
 import ir.mostashar.model.lawyer.dto.LawyerDTO;
+import ir.mostashar.model.lawyer.service.LawyerService;
 import ir.mostashar.model.rightMessage.RightMessage;
+import ir.mostashar.model.rightMessage.dto.ListRightMessageDTO;
 import ir.mostashar.model.rightMessage.service.RightMessageService;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +30,22 @@ public class RightMessageController {
     @Autowired
     RightMessageService rightMessageService;
 
-    @ApiOperation(value = "list of message between lawyer and client for home page",
+    @ApiOperation(value = "list of message between system user and client for home page",
             notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/bylawyer", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE},
+            produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> getlawyermessages(@RequestParam("lawyerid") String lawyerId) {
+        Optional<ListRightMessageDTO> list = rightMessageService.findRightMessageBylawyer(lawyerId);
+        if (list.isPresent())
+            return ResponseEntity.status(HttpStatus.OK).body(list.get());
+        else
+            return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_BILL));
+    }
+
     @PostMapping(value = "/byclient", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE},
             produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> getmessages(@RequestParam("lawyerid") String lawyerId) {
-        Optional<RightMessage> list = rightMessageService.findRightMessageBylawyerid(lawyerId);
+    public ResponseEntity<?> getclientmessages(@RequestParam("userid") String userid) {
+        Optional<ListRightMessageDTO> list = rightMessageService.findRightMessageByuser(userid);
         if (list.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(list.get());
         else

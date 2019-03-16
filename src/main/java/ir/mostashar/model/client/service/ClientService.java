@@ -6,8 +6,6 @@ import ir.mostashar.model.client.dto.ClientDTO;
 import ir.mostashar.model.client.dto.ClientProfileForm;
 import ir.mostashar.model.client.dto.ListClientDTO;
 import ir.mostashar.model.client.repository.ClientRepo;
-import ir.mostashar.model.organization.Organization;
-import ir.mostashar.model.organization.service.OrganizationService;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.RoleName;
 import ir.mostashar.model.role.repository.RoleRepo;
@@ -31,6 +29,7 @@ public class ClientService {
     @Autowired
     private ClientRepo clientRepo;
 
+
     @Autowired
     private RoleRepo roleRepo;
 
@@ -44,10 +43,7 @@ public class ClientService {
     private SmsService smsService;
 
     @Autowired
-    private AdviceTypeService adviceTypeService;
-
-    @Autowired
-    private OrganizationService orgService;
+    AdviceTypeService adviceTypeService;
 
 
     public Optional<Client> findClientByUidAndActive(String userid, boolean active) {
@@ -148,7 +144,7 @@ public class ClientService {
 
 
     public void deleteClient(String mobilenumber) {
-        System.out.println("Log---deleteClient--------------------:" + mobilenumber);
+        System.out.println("Log---deleteClient--------------------:"+mobilenumber);
         Optional<Client> client = clientRepo.findByMobileNumber(Long.parseLong(mobilenumber));
         if (client.isPresent())
             clientRepo.delete(client.get());
@@ -191,7 +187,7 @@ public class ClientService {
 
         String user = DataUtil.generateAlphaNumericRandomUserPass(8);
 //        String pass = DataUtil.generateAlphaNumericRandomUserPass(5);
-        System.out.println("Log---saveClient-username-------------------:" + user);
+        System.out.println("Log---saveClient-username-------------------:"+user);
 
         client.setMobileNumber(Long.valueOf(phoneNumber));
         client.setUsername(user);
@@ -209,11 +205,8 @@ public class ClientService {
         return Optional.empty();
     }
 
-    //7f86a5a6-51ad-48ed-bf0c-0fb6b2c47cb9
-    //7f86a5a6-51ad-48ed-bf0c-0fb6b2c47cb9
     public UUID createWallletUser(User user) {
-        Optional<Wallet> wallet = walletService.findByUserId(user.getUid().toString());
-        Optional<Organization> org = orgService.findByName(Constants.KEY_MOSTASHAR);
+        Optional<Wallet> wallet = walletService.findByUid(user.getUid().toString());
         UUID uuid;
         if (!wallet.isPresent()) {
             Wallet newWallet = new Wallet();
@@ -221,16 +214,11 @@ public class ClientService {
             newWallet.setUid(uuid);
             newWallet.setValue(0);
             newWallet.setUser(user);
-            if (org.isPresent()) {
-                newWallet.setOrganization(org.get());
-                org.get().setWallet(newWallet);
-            }
+//            newWallet.setOrganization(user);
             walletService.saveWallet(newWallet);
-            System.out.println("Log---createWallletUser--------------------");
             return uuid;
-        } else {
-            return wallet.get().getUid();
         }
+        return null;
     }
 
 
@@ -261,28 +249,27 @@ public class ClientService {
         }
         return false;
     }
-
-    public void updateCodeCerify(String mobileNumber, String code) {
+    public void updateCodeCerify(String mobileNumber,String code){
         Optional<Client> client = clientRepo.findByMobileNumber(Long.parseLong(mobileNumber));
-        if (client.isPresent()) {
+        if (client.isPresent()){
             client.get().setVerificationCode(code);
-//            client.get().setUid(UUID.randomUUID());
+            client.get().setUid(UUID.randomUUID());
             clientRepo.save(client.get());
         }
     }
 
     public void reSendCode(String mobileNumber) {
         String code = DataUtil.genarateRandomNumber();
-        updateCodeCerify(mobileNumber, code);
+        updateCodeCerify(mobileNumber,code);
         smsService.sendSms(2, mobileNumber, code);
     }
 
-    public void minusScore(String clientId, double score) {
+    public void minusScore(String clientId, int score) {
         Optional<Client> client = clientRepo.findByUid(UUID.fromString(clientId));
         if (client.isPresent()) {
-            double totalScore = client.get().getScore();
+            int totalScore = client.get().getScore();
             totalScore -= score;
-            client.get().setScore((int) totalScore);
+            client.get().setScore(totalScore);
             clientRepo.save(client.get());
         }
     }

@@ -1,5 +1,6 @@
 package ir.mostashar.model.feedback.service;
 
+import ir.mostashar.model.client.service.ClientService;
 import ir.mostashar.model.feedback.FeedBack;
 import ir.mostashar.model.feedback.dto.FeedBackDTO;
 import ir.mostashar.model.feedback.dto.FeedBackForm;
@@ -46,15 +47,6 @@ public class FeedbackService {
         }
     }
 
-    public boolean existsRequest(String requestUid) {
-        Optional<Boolean> exists = feedbackRepo.existsByRequestUid(UUID.fromString(requestUid));
-        if (exists.isPresent())
-            return exists.get();
-        else
-            return false;
-    }
-
-
     public Optional<FeedBack> findByUid(String uid) {
         Optional<FeedBack> feedBack = feedbackRepo.findByUid(UUID.fromString(uid));
         if (feedBack.isPresent())
@@ -63,7 +55,7 @@ public class FeedbackService {
             return Optional.empty();
     }
 
-    public Optional<FeedBackDTO> findDTOByUid(String uid) {
+    public Optional<FeedBackDTO> findFeedBackDTOByUid(String uid) {
         Optional<FeedBack> feedBack = feedbackRepo.findByUid(UUID.fromString(uid));
         if (feedBack.isPresent()) {
             FeedBackDTO feedBackDTO = new FeedBackDTO();
@@ -80,8 +72,39 @@ public class FeedbackService {
         return Optional.empty();
     }
 
-    public Optional<ListFeedBackDTO> findByLawyerUidAndRequestUid(String lawyerUid) {
-        Optional<List<FeedBack>> list = feedbackRepo.findByLawyerUid(UUID.fromString(lawyerUid));
+    public Optional<ListFeedBackDTO> findByLawyerUidOrRequestUid(int typeQuery, String clientUid_requestUid) {
+        Optional<List<FeedBack>> list = Optional.empty();
+        switch (typeQuery) {
+            case 1:
+                list = feedbackRepo.findByLawyerUid(UUID.fromString(clientUid_requestUid));
+                break;
+            case 2:
+                list = feedbackRepo.findByRequestUid(UUID.fromString(clientUid_requestUid));
+        }
+        if (list.isPresent()) {
+            ListFeedBackDTO lfbDTO = new ListFeedBackDTO();
+            lfbDTO.setStatus(HttpStatus.OK.value());
+            lfbDTO.setMessage(Constants.KEY_SUCESSE);
+            List<FeedBackDTO> dtoList = new ArrayList<>();
+            for (FeedBack feedBack : list.get()) {
+                FeedBackDTO feedBackDTO = new FeedBackDTO();
+                feedBackDTO.setFeedBackId(feedBack.getUid().toString());
+                feedBackDTO.setCreationDate(feedBack.getCreationDate());
+                feedBackDTO.setDescription(feedBack.getDescription());
+                feedBackDTO.setScore(feedBack.getScore());
+                feedBackDTO.setLawyerId(feedBack.getLawyer().getUid().toString());
+                feedBackDTO.setRequestId(feedBack.getRequest().getUid().toString());
+                dtoList.add(feedBackDTO);
+            }
+            lfbDTO.setData(dtoList);
+            return Optional.ofNullable(lfbDTO);
+        }
+        return Optional.empty();
+    }
+
+    public Optional<ListFeedBackDTO> findByLawyerUidAndRequestUid(String clientUid,String requestUid) {
+        Optional<List<FeedBack>> list = feedbackRepo.findByLawyerUidAndByRequestID(UUID.fromString(clientUid),
+                UUID.fromString(requestUid));
         if (list.isPresent()) {
             ListFeedBackDTO lfbDTO = new ListFeedBackDTO();
             lfbDTO.setStatus(HttpStatus.OK.value());

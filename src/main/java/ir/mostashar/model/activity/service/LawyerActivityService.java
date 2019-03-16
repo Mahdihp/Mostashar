@@ -1,11 +1,9 @@
 package ir.mostashar.model.activity.service;
 
 import ir.mostashar.model.activity.LawyerActivity;
-import ir.mostashar.model.activity.LawyerActivityType;
 import ir.mostashar.model.activity.dto.LawyerActivityForm;
 import ir.mostashar.model.activity.repository.LawyerActivityRepo;
 import ir.mostashar.model.doc.Doc;
-import ir.mostashar.model.doc.DocType;
 import ir.mostashar.model.doc.service.DocService;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.service.FileService;

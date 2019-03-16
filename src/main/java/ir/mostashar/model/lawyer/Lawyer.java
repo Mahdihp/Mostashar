@@ -37,14 +37,14 @@ public class Lawyer extends User {
     @Column(name = "level")
     private Integer level = 1;
 
-    @Column(name = "priceperminute") // نرخ عر دقیقه مکالمه
-    private Integer pricePerMinute = 1000;
+    @Column(name = "priceperminute")
+    private Integer pricePerMinute = 1;
 
     @Column(name = "verified")
     private Boolean verified = false;
 
-    @Column(name = "defaultpercentstock") // درصد سهم پیش فرض
-    private int defaultPercentStock;
+    @Column(name = "percentstock")
+    private int percentStock;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "lawyer_expertise",

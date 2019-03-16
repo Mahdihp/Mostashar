@@ -29,11 +29,14 @@ public class Doc {
     @Column(name = "checksum")
     private String checksum;
 
+    @Column(name = "doctype")
+    private DocType docType;
+
     @Column(name = "hashcode")
     private String hashCode;
 
-    @Column(name = "doctype")
-    private DocType docType;
+    @Column(name = "mimetype")
+    private MimeType mimeType;
 
     @Lob
     @Column(name="data")
