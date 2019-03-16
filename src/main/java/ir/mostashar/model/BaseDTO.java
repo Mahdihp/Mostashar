@@ -9,8 +9,6 @@ public class BaseDTO {
 
     private Integer status;
     private String message;
-    private String userId;
-    private String walletId;
     private Boolean active;
 
 
@@ -28,18 +26,4 @@ public class BaseDTO {
         this.active = active;
     }
 
-    public BaseDTO(Integer status, String message, String userId, Boolean active) {
-        this.status = status;
-        this.message = message;
-        this.userId = userId;
-        this.active = active;
-    }
-
-    public BaseDTO(Integer status, String message, String userId, String walletId, Boolean active) {
-        this.status = status;
-        this.message = message;
-        this.userId = userId;
-        this.walletId = walletId;
-        this.active = active;
-    }
 }

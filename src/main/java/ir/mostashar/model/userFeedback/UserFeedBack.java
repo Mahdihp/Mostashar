@@ -18,7 +18,7 @@ public class UserFeedBack {
     @Column(unique = true, nullable = false)
     private UUID uid;
 
-    @Column(name = "type")
+    @Column(name = "typeUser")
     private int type;
 
     @Column(name = "score")

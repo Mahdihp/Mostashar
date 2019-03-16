@@ -24,7 +24,7 @@ public class Constant {
     @Column(name = "value")
     private int value; // در صورت استفاده از این کد دعوت امتیاز اضافه میشود.
 
-    @Column(name = "type")
+    @Column(name = "typeUser")
     private int type;
 
     @Column(name = "description")

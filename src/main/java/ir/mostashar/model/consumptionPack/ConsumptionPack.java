@@ -30,7 +30,7 @@ public class ConsumptionPack {
     @Column(name = "basetime")
     private long baseTime;
 
-    @Column(name = "type")
+    @Column(name = "typeUser")
     private short type;
 
     @Column(name = "firstinstallmentdate")

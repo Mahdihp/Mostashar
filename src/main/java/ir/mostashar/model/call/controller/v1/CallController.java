@@ -128,10 +128,14 @@ public class CallController {
                 int pricePerMinute = pss.get().getLawyerPricePerMinute(); // 1000
 
                 int perScore = constantService.findByKey(Constants.KEYS_Coefficient);
-                double totalScore = Math.ceil((talkTime * pricePerMinute * perScore) / 1000); // 6*1000*2 / 1000 = 12
+                int priceTalk = talkTime * pricePerMinute;
+                double totalScore = Math.ceil((priceTalk * perScore) / 1000); // 6*1000*2 / 1000 = 12
+                clientService.minusScore(callForm.getClientId(), totalScore); // 12 کم کردن از امتیاز کاربر
 
-                clientService.minusScore(callForm.getClientId(), totalScore);
-                //...
+                // 6 * 1000 = 6000
+                //اگر کاربر از امتیاز خود برای خرید بسته استفاده کرد
+                // باید مبلغ نهایی  از حساب مستشار کم کرد
+
 
             }
 
@@ -146,9 +150,9 @@ public class CallController {
      * @param userid
      * @return
      */
-    @ApiOperation(value = "Find All List Calls", notes = "type=1,2,3 \n 1=client & 2=lawyer & 3=request")
+    @ApiOperation(value = "Find All List Calls", notes = "typeUser=1,2,3 \n 1=client & 2=lawyer & 3=request")
     @PostMapping(value = "/all", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> findAllCallFromClient(@RequestParam("type") int type, @RequestParam("userid") String userid) {
+    public ResponseEntity<?> findAllCallFromClient(@RequestParam("typeUser") int type, @RequestParam("userid") String userid) {
         Optional<ListCallDTO> calls = callService.findListCallDTOByUid(type, userid);
         if (calls.isPresent())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(calls.get());

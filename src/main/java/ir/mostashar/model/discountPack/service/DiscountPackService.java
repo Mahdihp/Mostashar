@@ -36,13 +36,13 @@ public class DiscountPackService {
             discountPack.setValue(dpForm.getValue());
             switch (dpForm.getType()) {
                 case 0:
-                    discountPack.setType(DiscountPackType.LAWYER);
+                    discountPack.setTypeUser(DiscountPackType.LAWYER);
                     break;
                 case 1:
-                    discountPack.setType(DiscountPackType.CLIENT);
+                    discountPack.setTypeUser(DiscountPackType.CLIENT);
                     break;
                 case 2:
-                    discountPack.setType(DiscountPackType.ALL);
+                    discountPack.setTypeUser(DiscountPackType.ALL);
                     break;
             }
 
@@ -61,13 +61,13 @@ public class DiscountPackService {
             discountPack.get().setValue(dpForm.getValue());
             switch (dpForm.getType()) {
                 case 0:
-                    discountPack.get().setType(DiscountPackType.LAWYER);
+                    discountPack.get().setTypeUser(DiscountPackType.LAWYER);
                     break;
                 case 1:
-                    discountPack.get().setType(DiscountPackType.CLIENT);
+                    discountPack.get().setTypeUser(DiscountPackType.CLIENT);
                     break;
                 case 2:
-                    discountPack.get().setType(DiscountPackType.ALL);
+                    discountPack.get().setTypeUser(DiscountPackType.ALL);
                     break;
             }
             discountPackRepo.save(discountPack.get());
@@ -101,7 +101,7 @@ public class DiscountPackService {
             discountPackDTO.setCreationDate(discountPack.get().getCreationDate());
             discountPackDTO.setExpiryDate(discountPack.get().getExpiryDate());
             discountPackDTO.setValue(discountPack.get().getValue());
-            discountPackDTO.setType(discountPack.get().getType().name());
+            discountPackDTO.setType(discountPack.get().getTypeUser().name());
             return Optional.ofNullable(discountPackDTO);
         }
         return Optional.empty();
@@ -122,7 +122,7 @@ public class DiscountPackService {
                 discountPackDTO.setCreationDate(discountPack.getCreationDate());
                 discountPackDTO.setExpiryDate(discountPack.getExpiryDate());
                 discountPackDTO.setValue(discountPack.getValue());
-                discountPackDTO.setType(discountPack.getType().name());
+                discountPackDTO.setType(discountPack.getTypeUser().name());
                 dtoList.add(discountPackDTO);
             }
             ldpDTP.setData(dtoList);

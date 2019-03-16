@@ -4,7 +4,8 @@ public enum DiscountPackType {
 
     LAWYER(0),
     CLIENT(1),
-    ALL(2);
+    SPECIALE(2),
+    ALL(3);
 
     public final int type;
 

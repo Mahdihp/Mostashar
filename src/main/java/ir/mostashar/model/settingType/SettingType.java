@@ -26,7 +26,7 @@ public class SettingType {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "type")
+    @Column(name = "typeUser")
     private int type;
 
     @OneToMany

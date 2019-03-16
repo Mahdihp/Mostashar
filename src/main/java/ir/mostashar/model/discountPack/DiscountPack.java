@@ -46,8 +46,14 @@ public class DiscountPack {
     @Column(name = "value")
     private int value;
 
-    @Column(name = "type")
-    private DiscountPackType type; // for lawyer or client or all(public)
+    @Column(name = "countusable") // مقدار قابل استفاده
+    private int countUsable;
+
+    @Column(name = "countusage") // تعداد استفاده شده ها
+    private int countUsage;
+
+    @Column(name = "typeuser") // کاربران قابل استفاده
+    private DiscountPackType typeUser; //0=Lawyer , 1=client ,2=speciale users, 3=all(lawyer & client)
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "discountpack")
     @EqualsAndHashCode.Exclude

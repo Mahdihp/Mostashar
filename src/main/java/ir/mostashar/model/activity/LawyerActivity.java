@@ -1,6 +1,6 @@
 package ir.mostashar.model.activity;
+
 import ir.mostashar.model.doc.Doc;
-import ir.mostashar.model.doc.DocType;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.lawyer.Lawyer;
 import lombok.Data;
@@ -20,7 +20,7 @@ public class LawyerActivity {
     @Column(unique = true, nullable = false)
     private UUID uid;
 
-    @Column(name = "type")
+    @Column(name = "typeUser")
     private LawyerActivityType type;
 
     @Column(name = "title")

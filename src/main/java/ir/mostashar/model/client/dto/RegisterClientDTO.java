@@ -13,10 +13,13 @@ public class RegisterClientDTO extends BaseDTO {
 
     private JwtResponse jwtResponse;
     private String walletId;
+    private String clientId;
 
-    public RegisterClientDTO(int status, String message, String userid, String walletId, boolean isActive, JwtResponse jwtResponse) {
-        super(status, message, userid, isActive);
+    public RegisterClientDTO(int status, String message, String clientId, String walletId, boolean isActive, JwtResponse jwtResponse) {
+        super(status, message, isActive);
         this.walletId = walletId;
+        this.clientId = clientId;
+
         this.jwtResponse = jwtResponse;
     }
 

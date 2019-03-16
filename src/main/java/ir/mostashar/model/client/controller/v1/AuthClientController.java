@@ -43,7 +43,7 @@ public class AuthClientController {
         Optional<Client> client = clientService.findByMobileNumber(mobileNumber);
         if (client.isPresent()) {
             clientService.reSendCode(mobileNumber);
-            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_LOGIN, client.get().getUid().toString(), false));
+            return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_LOGIN, client.get().getUid().toString(), false));
         }
 
         Role role = new Role();
@@ -76,12 +76,11 @@ public class AuthClientController {
                 if (clientService.activateUser(true, client.get().getUid())) {
                     walletUid = clientService.createWallletUser(client.get());
                 }
-                System.out.println("Log------------------JwtResponse " + jwtResponse.toString());
                 RegisterClientDTO registerClientDTO = new RegisterClientDTO(HttpStatus.OK.value(), Constants.KEY_CODE_VERIFY, client.get().getUid().toString(), walletUid.toString(), true, jwtResponse);
-
+                System.out.println("Log------------------JwtResponse " + registerClientDTO.toString());
                 return ResponseEntity.status(HttpStatus.OK).body(registerClientDTO);
             } else {
-                return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_INVALID_CODE, "", false));
+                return ResponseEntity.status(HttpStatus.OK).body(new ClientDTO(HttpStatus.OK.value(), Constants.KEY_INVALID_CODE, false));
             }
         }
         return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_INVALID_CODE, false));

@@ -32,7 +32,7 @@ public class AdviceType {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "type")
+    @Column(name = "typeUser")
     private short type;
 
     @ManyToOne(cascade = {CascadeType.ALL})

@@ -2,7 +2,6 @@ package ir.mostashar.model.question;
 
 import ir.mostashar.model.answer.Answer;
 import ir.mostashar.model.client.Client;
-import ir.mostashar.model.user.User;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -27,7 +26,7 @@ public class Question {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "type")
+    @Column(name = "typeUser")
     private int type;
 
     @Column(name = "creationdate")

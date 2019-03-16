@@ -30,7 +30,7 @@ public class UserFeedBackService {
             userFeedBack.setUid(UUID.randomUUID());
             userFeedBack.setScore(score);
 //        userFeedBack.setTitle(ufbForm.getTitle());
-//        userFeedBack.setType(ufbForm.getType());
+//        userFeedBack.setTypeUser(ufbForm.getTypeUser());
             userFeedBack.setDescription(description);
             userFeedBack.setCreationDate(System.currentTimeMillis());
             userFeedBack.setRead(false);
@@ -43,7 +43,7 @@ public class UserFeedBackService {
         Optional<UserFeedBack> userFeedBack = ufbRepo.findByUid(UUID.fromString(ufbForm.getUserFeedBackId()));
         if (userFeedBack.isPresent()) {
 //            userFeedBack.get().setTitle(ufbForm.getTitle());
-//            userFeedBack.get().setType(ufbForm.getType());
+//            userFeedBack.get().setTypeUser(ufbForm.getTypeUser());
             userFeedBack.get().setDescription(ufbForm.getDescription());
             userFeedBack.get().setCreationDate(System.currentTimeMillis());
             userFeedBack.get().setRead(false);

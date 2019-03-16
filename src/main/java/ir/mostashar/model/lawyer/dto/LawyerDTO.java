@@ -47,6 +47,9 @@ public class LawyerDTO extends BaseDTO {
         this.lawyerId = lawyerId;
     }
 
+    public LawyerDTO(Integer status, String message, Boolean active) {
+        super(status, message, active);
+    }
     public LawyerDTO(Integer status, String message, String lawyerId, Boolean active) {
         super(status, message, active);
         this.lawyerId = lawyerId;

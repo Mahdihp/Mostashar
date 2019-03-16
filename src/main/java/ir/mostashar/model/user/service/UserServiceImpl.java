@@ -127,7 +127,7 @@ public class UserServiceImpl implements UserDetailsService {
         return Optional.empty();
     }
 
-    public Optional<ListUserDTO> findDTOByUserId(int queryType, String userName_FirstName, String lastName) {
+    public Optional<ListUserDTO> findAllDTO(int queryType, String userName_FirstName, String lastName) {
         Optional<List<User>> list = Optional.empty();
         switch (queryType) {
             case 1:

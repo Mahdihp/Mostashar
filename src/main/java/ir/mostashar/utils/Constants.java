@@ -4,6 +4,8 @@ public class Constants {
 
     public static final String KEY_MOSTASHAR_USER_ID = "13000000-1d44-4ae3-9dc0-c3b8213d45a6";
     public static final String KEY_MOSTASHAR_WALLET_ID = "14000000-1d44-4ae3-9dc0-c3b8213d45a6";
+    public static final String KEY_MOSTASHAR = "Mostashar";
+
 
     public static final String KEY_REGISTER_ALREADY = "شما قبلا ثبت نام کرده اید.";
     public static final String KEY_REGISTER = "ثبت نام شما کامل شد." + "/n" + "تا چند لحظه ی دیگه برای شما کد تایید ارسال خواهد شد.";
@@ -124,5 +126,6 @@ public class Constants {
 
     public static final String KEYS_Coefficient = "Coefficient"; // ضریب تبدیل امتیاز به پول
     public static final String KEYS_Percent_Value_Added = "PercentValueAdded"; // درصد مالیات بر ارزش افزوده
+
 
 }

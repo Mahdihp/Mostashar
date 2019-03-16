@@ -13,6 +13,8 @@ public interface WalletRepo extends JpaRepository<Wallet, Long> {
 
     Optional<Wallet> findByUid(UUID uuid);
 
+    Optional<Wallet> findByUserUid(UUID uuid);
+
     Optional<Wallet> findByUidAndDeleted(UUID uuid, boolean isDelete);
 
     Optional<Wallet> findByUidAndUserUidAndDeleted(UUID uuid, UUID userUid, boolean isDelete);

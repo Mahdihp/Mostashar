@@ -310,7 +310,8 @@ public class LawyerService {
     }
 
     public UUID createWallletUser(User user) {
-        Optional<Wallet> wallet = walletService.findByUid(user.getUid().toString());
+        Optional<Wallet> wallet = walletService.findByUserId(user.getUid().toString());
+        Optional<Organization> org = orgService.findByName(Constants.KEY_MOSTASHAR);
         UUID uuid;
         if (!wallet.isPresent()) {
             Wallet newWallet = new Wallet();
@@ -318,11 +319,15 @@ public class LawyerService {
             newWallet.setUid(uuid);
             newWallet.setValue(0);
             newWallet.setUser(user);
-//            newWallet.setOrganization(user);
+            if (org.isPresent()) {
+                newWallet.setOrganization(org.get());
+                org.get().setWallet(newWallet);
+            }
             walletService.saveWallet(newWallet);
             return uuid;
+        } else {
+            return wallet.get().getUid();
         }
-        return null;
     }
 
     public Optional<Lawyer> findByUserUidAndCode(String uid, String code) {

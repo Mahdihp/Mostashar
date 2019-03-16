@@ -43,7 +43,7 @@ public class AuthLawyerController {
         Optional<Lawyer> lawyer = lawyerService.findByMobileNumber(mobileNumber);
         if (lawyer.isPresent()) {
             lawyerService.reSendCode(mobileNumber);
-            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_LOGIN, lawyer.get().getUid().toString(), false));
+            return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_LOGIN, lawyer.get().getUid().toString(), false));
         }
 
         Role role = new Role();
@@ -76,12 +76,12 @@ public class AuthLawyerController {
                 if (lawyerService.activateUser(true, lawyer.get().getUid())) {
                     walletUid = lawyerService.createWallletUser(lawyer.get());
                 }
-                System.out.println("Log------------------JwtResponse " + jwtResponse.toString());
                 RegisterClientDTO registerClientDTO = new RegisterClientDTO(HttpStatus.OK.value(), Constants.KEY_CODE_VERIFY, lawyer.get().getUid().toString(), walletUid.toString(), true, jwtResponse);
+                System.out.println("Log------------------JwtResponse " + registerClientDTO.toString());
 
                 return ResponseEntity.status(HttpStatus.OK).body(registerClientDTO);
             } else {
-                return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_INVALID_CODE, "", false));
+                return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_INVALID_CODE, false));
             }
         }
         return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_INVALID_CODE, false));

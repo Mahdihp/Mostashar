@@ -179,9 +179,8 @@ public class WalletService {
     }
 
 
-
-    public Optional<Wallet> findByUid(String uid) {
-        Optional<Wallet> wallet = walletRepo.findByUid(UUID.fromString(uid));
+    public Optional<Wallet> findByUserId(String userId) {
+        Optional<Wallet> wallet = walletRepo.findByUserUid(UUID.fromString(userId));
         if (wallet.isPresent()) {
             return Optional.ofNullable(wallet.get());
         }

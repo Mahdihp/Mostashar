@@ -2,16 +2,10 @@ package ir.mostashar.model.discountPack.controller.v1;
 
 
 import io.swagger.annotations.ApiOperation;
-import ir.mostashar.model.assignDiscount.dto.AssignDiscountDTO;
-import ir.mostashar.model.discountPack.DiscountPack;
 import ir.mostashar.model.discountPack.dto.DiscountPackDTO;
 import ir.mostashar.model.discountPack.dto.DiscountPackForm;
 import ir.mostashar.model.discountPack.dto.ListDiscountPackDTO;
 import ir.mostashar.model.discountPack.service.DiscountPackService;
-import ir.mostashar.model.file.dto.FileDTO;
-import ir.mostashar.model.wallet.dto.WalletDTO;
-import ir.mostashar.model.wallet.dto.WalletForm;
-import ir.mostashar.model.wallet.service.WalletService;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,7 +48,7 @@ public class DiscountPackController {
             return ResponseEntity.status(HttpStatus.OK).body(new DiscountPackDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_LAWYER));
     }
 
-    @ApiOperation(value = "Find DiscountPack", notes = "type=1 find by title" + "\n" + "type=2 find by code" + "\n" + "RequestBody :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "Find DiscountPack", notes = "typeUser=1 find by title" + "\n" + "typeUser=2 find by code" + "\n" + "RequestBody :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findDiscountPackByUid(@RequestParam("discountpackid") String discountpackid) {
         Optional<DiscountPackDTO> discountPack = dpService.findDTOByUid(discountpackid);

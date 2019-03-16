@@ -29,7 +29,7 @@ public class Notification {
 //    @Column(name = "targetuid")
 //    private String targetUid;
 
-    @Column(name = "type")
+    @Column(name = "typeUser")
     private int type;
 
     @Column(name = "creationdate", updatable = false)
