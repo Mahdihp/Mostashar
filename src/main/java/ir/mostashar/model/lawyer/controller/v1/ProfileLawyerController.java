@@ -72,11 +72,11 @@ public class ProfileLawyerController {
 
     @PostMapping(value = "/profile_bank", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> updateProfileBank(@RequestParam("lawyerid") String lawyerUid,
-                                               @RequestParam("shiba") String shiba,
-                                               @RequestParam("shibaname") String shibaname) {
+                                               @RequestParam("shababank") String shabaBank,
+                                               @RequestParam("shabacode") String shabaCode) {
         Lawyer lawyer=lawyerService.findByUid(lawyerUid).get();
-        lawyer.setBankShiba(shiba);
-        lawyer.setBankName(shibaname);
+        lawyer.setShabaBank(shabaBank);
+        lawyer.setShabaCode(shabaCode);
 
         if (lawyerService.updateLawyer(lawyer))
             return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_SUCESSE));

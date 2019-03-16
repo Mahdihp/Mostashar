@@ -130,7 +130,7 @@ public class CallController {
                 int perScore = constantService.findByKey(Constants.KEYS_Coefficient);
                 int priceTalk = talkTime * pricePerMinute;
                 double totalScore = Math.ceil((priceTalk * perScore) / 1000); // 6*1000*2 / 1000 = 12
-                clientService.minusScore(callForm.getClientId(), totalScore); // 12 کم کردن از امتیاز کاربر
+                clientService.minusScore(callForm.getClientId(), (int) totalScore); // 12 کم کردن از امتیاز کاربر
 
                 // 6 * 1000 = 6000
                 //اگر کاربر از امتیاز خود برای خرید بسته استفاده کرد

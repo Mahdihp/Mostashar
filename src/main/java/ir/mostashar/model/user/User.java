@@ -57,6 +57,12 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "shabacode")
+    private String shabaCode;
+
+    @Column(name = "shababank")
+    private String shabaBank;
+
     @Column(name = "email",unique = true)
     private String email;
 
