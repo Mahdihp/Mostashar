@@ -14,6 +14,7 @@ import ir.mostashar.model.file.dto.ListFileDTO;
 import ir.mostashar.model.file.service.FileService;
 import ir.mostashar.model.request.Request;
 import ir.mostashar.model.request.service.RequestService;
+import ir.mostashar.model.user.service.UserServiceImpl;
 import ir.mostashar.utils.Constants;
 import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,11 +46,19 @@ public class DocController {
     @Autowired
     private RequestService requestService;
 
-    @ApiOperation(value = "Create Document Client", notes = "mimeType : 0=Audio, 1=Video, 2=PDF, 3=Picture, 4=Text, 5=ZipFile, 6=RARFile" + "\n" + "doctype 0=file & 1=resume" + "\n" + "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @Autowired
+    private UserServiceImpl userService;
+
+    @ApiOperation(value = "Create Document Client", notes = "userid(clientid or lawyerid),mimeType : 0=Audio, 1=Video, 2=PDF, 3=Picture, 4=Text, 5=ZipFile, 6=RARFile" + "\n" + "doctype 0=file & 1=resume" + "\n" + "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @Transactional
     @PostMapping(value = "/create", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> createDocument(@RequestParam("file") MultipartFile file, @RequestParam(value = "fileid") String fileUid, @RequestParam(value = "doctype") int docType, @RequestParam("mimetype") int mimeType, @RequestParam(value = "userid") String userid) {
+    public ResponseEntity<?> createDocument(@RequestParam("file") MultipartFile file,
+                                            @RequestParam("fileid") String fileUid,
+                                            @RequestParam("doctype") int docType,
+                                            @RequestParam("mimetype") int mimeType,
+                                            @RequestParam("userid") String userid) {
         Optional<File> fileByUid = fileService.findFileByUid(fileUid);
+
         if (fileByUid.isPresent()) {
             UUID docUid = docService.create(fileByUid.get(), mimeType, docType, file);
             if (docUid != null) {
