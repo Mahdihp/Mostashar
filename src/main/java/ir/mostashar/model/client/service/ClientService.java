@@ -264,7 +264,6 @@ public class ClientService {
         Optional<Client> client = clientRepo.findByMobileNumber(Long.parseLong(mobileNumber));
         if (client.isPresent()) {
             client.get().setVerificationCode(code);
-            client.get().setUid(UUID.randomUUID());
             clientRepo.save(client.get());
         }
     }

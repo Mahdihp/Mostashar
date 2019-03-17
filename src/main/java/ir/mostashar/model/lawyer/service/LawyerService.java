@@ -355,12 +355,12 @@ public class LawyerService {
             return Optional.empty();
     }
 
-
+    //19b2b895-709b-4354-b102-a7fdf0997e6f
+    //19b2b895-709b-4354-b102-a7fdf0997e6f
     public void updateCodeCerify(String mobileNumber, String code) {
         Optional<Lawyer> lawyer = lawyerRepo.findByMobileNumber(Long.parseLong(mobileNumber));
         if (lawyer.isPresent()) {
             lawyer.get().setVerificationCode(code);
-            lawyer.get().setUid(UUID.randomUUID());
             lawyerRepo.save(lawyer.get());
         }
     }

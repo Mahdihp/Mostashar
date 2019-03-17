@@ -43,57 +43,55 @@ public class DocService {
         Doc doc = new Doc();
         UUID uuid;
 
-        byte[] arrayData = new byte[(int) multipartFile.getSize()];
+//        byte[] arrayData = new byte[(int) multipartFile.getSize()];
         try {
 //            doc.setHashCode(String.valueOf(multipartFile.hashCode()));
 //            multipartFile.getInputStream().read(arrayData);
             doc.setData(multipartFile.getBytes());
+
+            uuid = UUID.randomUUID();
+            doc.setUid(uuid);
+//            doc.setChecksum(docForm.getChecksum());
+            switch (mimeType) {
+                case 0:
+                    doc.setMimeType(MimeType.AUDIO);
+                    break;
+                case 1:
+                    doc.setMimeType(MimeType.VIDEO);
+                    break;
+                case 2:
+                    doc.setMimeType(MimeType.PDF);
+                    break;
+                case 3:
+                    doc.setMimeType(MimeType.PICTURE);
+                    break;
+                case 4:
+                    doc.setMimeType(MimeType.TEXT);
+                    break;
+                case 5:
+                    doc.setMimeType(MimeType.ZIP_FILE);
+                    break;
+                case 6:
+                    doc.setMimeType(MimeType.RAR_FILE);
+                    break;
+            }
+            switch (docType) {
+                case 0:
+                    doc.setDocType(DocType.FILE);
+                    break;
+                case 1:
+                    doc.setDocType(DocType.RESUME);
+                    break;
+
+            }
+            doc.setFile(file);
+            doc.setCreationDate(System.currentTimeMillis());
+            docRepo.save(doc);
+            return uuid;
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
-        uuid = UUID.randomUUID();
-        doc.setUid(uuid);
-//            doc.setChecksum(docForm.getChecksum());
-        switch (mimeType) {
-            case 0:
-                doc.setMimeType(MimeType.AUDIO);
-                break;
-            case 1:
-                doc.setMimeType(MimeType.VIDEO);
-                break;
-            case 2:
-                doc.setMimeType(MimeType.PDF);
-                break;
-            case 3:
-                doc.setMimeType(MimeType.PICTURE);
-                break;
-            case 4:
-                doc.setMimeType(MimeType.TEXT);
-                break;
-            case 5:
-                doc.setMimeType(MimeType.ZIP_FILE);
-                break;
-            case 6:
-                doc.setMimeType(MimeType.RAR_FILE);
-                break;
-        }
-        switch (docType) {
-            case 0:
-                doc.setDocType(DocType.FILE);
-                break;
-            case 1:
-                doc.setDocType(DocType.RESUME);
-                break;
-
-        }
-        doc.setFile(file);
-        doc.setCreationDate(System.currentTimeMillis());
-        Doc save = docRepo.save(doc);
-        if (save != null)
-            return uuid;
-        else
-            return null;
     }
 
     public Optional<ListDocDTO> findAllByIdWithoutData(String userId, String fileId) {
