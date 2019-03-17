@@ -99,7 +99,7 @@ public class FileController {
     @ApiOperation(value = "Update File Client", notes = "RequestBody :" + MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PostMapping(value = "/updatefile", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> updateFile(@Valid @RequestBody FileUpdateForm fileUpdateForm) {
-        Optional<Request> request = requestService.findByFileUid(fileUpdateForm.getFileId());
+        Optional<Request> request = requestService.findByFileId(fileUpdateForm.getFileId());
         if (request.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(new ListFileDTO(HttpStatus.OK.value(), Constants.KEY_NOT_UPDATE));
 
@@ -125,7 +125,7 @@ public class FileController {
         if (TextUtils.isEmpty(userId))
             return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_FILE));
 
-        Optional<User> user = userService.findUserByUid(userId);
+        Optional<User> user = userService.findById(userId);
         if (user.get() instanceof Client) {
             System.out.println("Log---findAllFileByUsers is Client--------------------");
             Optional<ListFileDTO> files = fileService.findAllFileByClientUid(userId);

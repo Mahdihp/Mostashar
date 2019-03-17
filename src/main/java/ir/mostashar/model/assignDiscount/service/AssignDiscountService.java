@@ -32,7 +32,7 @@ public class AssignDiscountService {
 
     public boolean createAssignDiscount(String userId, String codeOff) {
         Optional<DiscountPack> discountPack = discountPackService.findByCodeOff(codeOff);
-        Optional<User> user = userService.findUserByUid(userId);
+        Optional<User> user = userService.findById(userId);
         if (discountPack.isPresent() && user.isPresent()) {
             AssignDiscount assignDiscount = new AssignDiscount();
             assignDiscount.setUid(UUID.randomUUID());

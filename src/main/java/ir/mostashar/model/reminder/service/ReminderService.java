@@ -1,6 +1,5 @@
 package ir.mostashar.model.reminder.service;
 
-import ir.mostashar.model.user.service.UserServiceImpl;
 import ir.mostashar.model.notification.Notification;
 import ir.mostashar.model.notification.service.NotificationService;
 import ir.mostashar.model.reminder.Reminder;
@@ -9,6 +8,7 @@ import ir.mostashar.model.reminder.dto.ReminderDTO;
 import ir.mostashar.model.reminder.dto.ReminderForm;
 import ir.mostashar.model.reminder.repository.ReminderRepo;
 import ir.mostashar.model.user.User;
+import ir.mostashar.model.user.service.UserServiceImpl;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +32,7 @@ public class ReminderService {
     NotificationService notificationService;
 
     public boolean createReminder(ReminderForm rForm) {
-        Optional<User> user = userService.findUserByUid(rForm.getUserUid());
+        Optional<User> user = userService.findById(rForm.getUserUid());
         Optional<Notification> notification = notificationService.findByUid(rForm.getNotificationUid());
         if (user.isPresent() && notification.isPresent()) {
             Reminder reminder = new Reminder();
@@ -46,7 +46,7 @@ public class ReminderService {
         return false;
     }
     public boolean saveReminder(Reminder rForm) {
-        Optional<User> user = userService.findUserByUid(rForm.getUser().getUid().toString());
+        Optional<User> user = userService.findById(rForm.getUser().getUid().toString());
         Optional<Notification> notification = notificationService.findByUid(rForm.getNotification().getUid().toString());
         if (user.isPresent() && !notification.isPresent()) {
             reminderRepo.save(rForm);

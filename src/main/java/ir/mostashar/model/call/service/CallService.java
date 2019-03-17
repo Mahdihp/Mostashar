@@ -42,7 +42,7 @@ public class CallService {
     public boolean create(CallForm callForm) {
         Optional<Client> client = clientService.findClientByUidAndActive(callForm.getClientId(), false);
         Optional<Lawyer> lawyer = lawyerService.findLawyerUidAndActive(callForm.getLawyerId(), true);
-        Optional<Request> request = requestService.findByUid(callForm.getRequestId());
+        Optional<Request> request = requestService.findById(callForm.getRequestId());
         if (client.isPresent() && request.isPresent() && lawyer.isPresent()) {
             Call call = new Call();
             call.setUid(UUID.randomUUID());

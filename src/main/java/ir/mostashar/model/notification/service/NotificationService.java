@@ -7,7 +7,6 @@ import ir.mostashar.model.notification.dto.NotificationDTO;
 import ir.mostashar.model.notification.dto.NotificationForm;
 import ir.mostashar.model.notification.repository.NotificationRepo;
 import ir.mostashar.model.request.Request;
-import ir.mostashar.model.request.RequestStatus;
 import ir.mostashar.model.request.service.RequestService;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
-import javax.xml.ws.ServiceMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +29,7 @@ public class NotificationService {
     RequestService requestService;
 
     public boolean createNotification(@Valid NotificationForm nForm) {
-        Optional<Request> request = requestService.findByUid(nForm.getRequestId());
+        Optional<Request> request = requestService.findById(nForm.getRequestId());
         Optional<Notification> notification = notificationRepo.findByRequestUid(UUID.fromString(nForm.getRequestId()));
         if (!notification.isPresent() && request.isPresent()) {
             Notification notif = new Notification();
@@ -49,7 +47,7 @@ public class NotificationService {
     }
 
     public boolean saveNotification(Notification notif) {
-        Optional<Request> request = requestService.findByUid(notif.getUid().toString());
+        Optional<Request> request = requestService.findById(notif.getUid().toString());
         Optional<Notification> notification = notificationRepo.findByRequestUid(notif.getRequest().getUid());
         if (!notification.isPresent() && request.isPresent()) {
             notificationRepo.save(notif);

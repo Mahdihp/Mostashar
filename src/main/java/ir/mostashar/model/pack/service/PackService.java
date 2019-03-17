@@ -186,7 +186,7 @@ public class PackService {
 //        UUID factorId;
         UUID consumptionPackUid;
         Optional<Pack> pack = packRepo.findPackByUid(UUID.fromString(bpForm.getPackId()));
-        Optional<Request> request = requestService.findByUid(bpForm.getRequestId());
+        Optional<Request> request = requestService.findById(bpForm.getRequestId());
         Optional<AdviceType> adviceType = atService.findAdviceTypeByUid(bpForm.getAdviceTypeId());
         Optional<Lawyer> lawyer = lawyerService.findByUid(bpForm.getLawyerId());
         Optional<Client> client = clientService.findClientByUidAndActive(bpForm.getClientId(), true);

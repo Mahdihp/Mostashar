@@ -93,7 +93,7 @@ public class RequestService {
         return false;
     }
 
-    public Optional<Request> findByFileUid(String fileUid) {
+    public Optional<Request> findByFileId(String fileUid) {
         Optional<Request> request = requestRepo.findByFileUidAndDeleted(UUID.fromString(fileUid), false);
         if (request.isPresent())
             return request;
@@ -102,7 +102,7 @@ public class RequestService {
     }
 
 
-    public Optional<Request> findByUid(String requestUid) {
+    public Optional<Request> findById(String requestUid) {
         Optional<Request> request = requestRepo.findByUidAndDeleted(UUID.fromString(requestUid), false);
         if (request.isPresent())
             return request;
@@ -157,8 +157,8 @@ public class RequestService {
      * @param requestId
      * @return RequestDTO
      */
-    public Optional<RequestDTO> findRequestByClient(String clientId, String requestId) {
-        Optional<Request> request = requestRepo.findByClientUidAndDeleted(UUID.fromString(clientId), false);
+    public Optional<RequestDTO> findByClientIdAndRequestId(String clientId, String requestId) {
+        Optional<Request> request = requestRepo.findByUidAndClientUidAndDeleted(UUID.fromString(requestId), UUID.fromString(clientId), false);
         if (request.isPresent()) {
             RequestDTO requestDTO = new RequestDTO();
             requestDTO.setStatus(HttpStatus.OK.value());

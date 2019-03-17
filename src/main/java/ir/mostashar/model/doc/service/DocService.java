@@ -138,7 +138,7 @@ public class DocService {
     }
 
     public Optional<DocDTO> findByWithoutDataUid(String docId, String userid, String fileId) {
-        Optional<User> user = userService.findUserByUid(userid);
+        Optional<User> user = userService.findById(userid);
         if (!user.isPresent())
             return Optional.empty();
 
@@ -185,7 +185,7 @@ public class DocService {
     }
 
     public Optional<Doc> findByUid(String docId, String userid, String fileId) {
-        Optional<User> user = userService.findUserByUid(userid);
+        Optional<User> user = userService.findById(userid);
         if (!user.isPresent())
             return Optional.empty();
 
@@ -198,7 +198,7 @@ public class DocService {
     }
 
     public boolean deleteDoc(String docId, String userid, String fileId) {
-        Optional<User> user = userService.findUserByUid(userid);
+        Optional<User> user = userService.findById(userid);
         if (!user.isPresent())
             return false;
 

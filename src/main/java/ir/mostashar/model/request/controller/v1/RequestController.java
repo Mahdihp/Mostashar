@@ -67,7 +67,7 @@ public class RequestController {
     @ApiOperation(value = "Find One Request", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/request", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findRequestByClient(@RequestParam("clientId") String clientid, @RequestParam("requestid") String requestid) {
-        Optional<RequestDTO> request = requestService.findRequestByClient(clientid, requestid);
+        Optional<RequestDTO> request = requestService.findByClientIdAndRequestId(clientid, requestid);
         if (request.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(request.get());
         }
@@ -87,7 +87,7 @@ public class RequestController {
     @ApiOperation(value = "Delete Request", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/removerequest", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> removeRequest(@RequestParam("requestid") String requestid) {
-        Optional<Request> request = requestService.findByUid(requestid);
+        Optional<Request> request = requestService.findById(requestid);
         if (request.isPresent()) {
             if (requestService.deleteRequest(request.get())) {
                 return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_DELETE_REQUEST));

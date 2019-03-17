@@ -35,7 +35,7 @@ public class AdminConfirmationservice {
 
     public boolean createAdminConfirmation(AdminConfirmationForm acForm) {
         Optional<Lawyer> lawyer = lawyerService.findByUid(acForm.getLawyerId());
-        Optional<User> user = userService.findUserByUid(acForm.getUserId());
+        Optional<User> user = userService.findById(acForm.getUserId());
 
         Optional<Boolean> title = acRepo.existsByTitle(acForm.getTitle());
         if (!title.isPresent() && lawyer.isPresent() && user.isPresent()) {

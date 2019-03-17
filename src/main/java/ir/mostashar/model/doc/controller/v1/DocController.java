@@ -127,7 +127,7 @@ public class DocController {
     @ApiOperation(value = "Delete Document", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/removedoc", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> removeDocByUid(@RequestParam("docId") String docUid, @RequestParam("userid") String userUid, @RequestParam("fileid") String fileUid, @RequestParam(value = "lawyerid") String lawyerUid) {
-        Optional<Request> request = requestService.findByFileUid(fileUid);
+        Optional<Request> request = requestService.findByFileId(fileUid);
         if (request.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(new ListFileDTO(HttpStatus.OK.value(), Constants.KEY_NOT_UPDATE));
 

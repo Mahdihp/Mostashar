@@ -38,15 +38,6 @@ public class UserServiceImpl implements UserDetailsService {
         return UserPrinciple.build(user);
     }
 
-    public Optional<User> findUserByUid(String uuid) {
-        Optional<User> user = userRepo.findByUid(UUID.fromString(uuid));
-        if (user.isPresent())
-            return Optional.ofNullable(user.get());
-        else
-            return Optional.empty();
-
-    }
-
     public boolean existsByUsernameOrNationalId(String username, String nationalId) {
         Optional<Boolean> exists = userRepo.existsByUsernameOrNationalId(username, nationalId);
         if (exists.isPresent())
@@ -105,7 +96,7 @@ public class UserServiceImpl implements UserDetailsService {
             return Optional.empty();
     }
 
-    public Optional<UserDTO> findDTOByUserId(String userId) {
+    public Optional<UserDTO> findDTOById(String userId) {
         Optional<User> user = userRepo.findByUid(UUID.fromString(userId));
         if (user.isPresent()) {
             UserDTO userDTO = new UserDTO();

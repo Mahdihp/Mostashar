@@ -33,7 +33,7 @@ public class FeedbackService {
 
     public void createFeedback(FeedBackForm fbForm) {
         Optional<Lawyer> lawyer = lawyerService.findByUid(fbForm.getLawyerId());
-        Optional<Request> request = requestService.findByUid(fbForm.getRequestId());
+        Optional<Request> request = requestService.findById(fbForm.getRequestId());
         if (lawyer.isPresent() && request.isPresent()) {
             FeedBack feedBack = new FeedBack();
             feedBack.setUid(UUID.randomUUID());

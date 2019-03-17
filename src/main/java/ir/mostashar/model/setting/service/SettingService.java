@@ -1,6 +1,5 @@
 package ir.mostashar.model.setting.service;
 
-import ir.mostashar.model.user.service.UserServiceImpl;
 import ir.mostashar.model.setting.Setting;
 import ir.mostashar.model.setting.dto.ListSettingDTO;
 import ir.mostashar.model.setting.dto.SettingDTO;
@@ -9,6 +8,7 @@ import ir.mostashar.model.setting.repository.SettingRepo;
 import ir.mostashar.model.settingType.SettingType;
 import ir.mostashar.model.settingType.service.SettingTypesService;
 import ir.mostashar.model.user.User;
+import ir.mostashar.model.user.service.UserServiceImpl;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,7 +34,7 @@ public class SettingService {
 
     public boolean createSetting(SettingForm settingForm) {
         Optional<SettingType> settingType = settingTypesService.findSettingTypeByUid(settingForm.getUserUid());
-        Optional<User> user = userService.findUserByUid(settingForm.getUserUid());
+        Optional<User> user = userService.findById(settingForm.getUserUid());
         if (settingType.isPresent() && user.isPresent()) {
             Optional<Boolean> settingT = settingRepo.existsBySettingType(settingType.get());
             if (settingT.isPresent() && !settingT.get()) {

@@ -18,7 +18,7 @@ public interface RequestRepo extends JpaRepository<Request, Long> {
     Optional<Request> findByFileUidAndDeleted(UUID uuid, boolean isDeleted);
 
 
-    Optional<Request> findByClientUidAndDeleted(UUID uuid,boolean isDeleted);
+    Optional<Request> findByUidAndClientUidAndDeleted(UUID requestId, UUID clientId, boolean isDeleted);
 
     Optional<List<Request>> findAllByClientUidAndDeleted(UUID uuid,boolean isDeleted);
 
