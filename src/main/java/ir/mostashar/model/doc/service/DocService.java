@@ -9,8 +9,6 @@ import ir.mostashar.model.doc.dto.ListDocDTO;
 import ir.mostashar.model.doc.repository.DocRepo;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.repository.FileRepo;
-import ir.mostashar.model.user.User;
-import ir.mostashar.model.user.service.UserServiceImpl;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,10 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class DocService {
@@ -36,8 +31,6 @@ public class DocService {
     @Autowired
     private ClientRepo clientRepo;
 
-    @Autowired
-    private UserServiceImpl userService;
 
     public UUID create(File file, int mimeType, int docType, MultipartFile multipartFile) {
         Doc doc = new Doc();
@@ -94,14 +87,15 @@ public class DocService {
         }
     }
 
-    public Optional<ListDocDTO> findAllByIdWithoutData(String userId, String fileId) {
-        Optional<File> file = fileRepo.findByUidAndClientUidAndDeleted(UUID.fromString(fileId), UUID.fromString(userId), false);
+    public Optional<ListDocDTO> findAllByIdWithoutData(String clientId, String fileId) {
+        Optional<File> file = fileRepo.findByUidAndClientUidAndDeleted(UUID.fromString(fileId), UUID.fromString(clientId), false);
         if (file.isPresent()) {
-            Optional<List<Doc>> docs = docRepo.findAllByFileUidAndDeleted(file.get().getUid(), false);
-            if (docs.isPresent()) {
+//            Optional<List<Doc>> docs = docRepo.findAllByFileUidAndDeleted(file.get().getUid(), false);
+            Set<Doc> docs = file.get().getDocs();
+            if (docs != null) {
                 List<DocDTO> dtoList = new ArrayList<>();
                 ListDocDTO listDocDTO = new ListDocDTO();
-                for (Doc doc : docs.get()) {
+                for (Doc doc : docs) {
                     DocDTO docDTO = new DocDTO();
                     docDTO.setDocId(doc.getUid().toString());
                     docDTO.setChecksum(doc.getChecksum());
@@ -120,9 +114,13 @@ public class DocService {
         return Optional.empty();
     }
 
+    public Optional<Doc> findByLawyerId(String lawyerid, String docId) {
+        Optional<Doc> doc = docRepo.findByUidAndLawyerUidAndDeleted(UUID.fromString(docId), UUID.fromString(lawyerid), false);
+        return doc;
+    }
     public Optional<ListDocDTO> findAllResumeByLawyerId(String lawyerid) {
 
-        Optional<List<Doc>> docs = docRepo.findAllByUserUidAndDocTypeAndDeleted(UUID.fromString(lawyerid), DocType.RESUME, false);
+        Optional<List<Doc>> docs = docRepo.findAllByLawyerUidAndDocTypeAndDeleted(UUID.fromString(lawyerid), DocType.RESUME, false);
         if (docs.isPresent()) {
             List<DocDTO> dtoList = new ArrayList<>();
             ListDocDTO listDocDTO = new ListDocDTO();
@@ -144,11 +142,7 @@ public class DocService {
         return Optional.empty();
     }
 
-    public Optional<DocDTO> findByIdWithoutData(String docId, String userid, String fileId) {
-        Optional<User> user = userService.findById(userid);
-        if (!user.isPresent())
-            return Optional.empty();
-
+    public Optional<DocDTO> findByIdWithoutData(String docId, String fileId) {
         Optional<Doc> doc = docRepo.findByUidAndFileUidAndDeleted(UUID.fromString(docId), UUID.fromString(fileId), false);
         if (doc.isPresent()) {
             if (doc.get().getFile().getUid().toString().equals(fileId)) {
@@ -182,11 +176,7 @@ public class DocService {
 
     }
 
-    public Optional<Doc> findById(String docId, String userid, String fileId) {
-        Optional<User> user = userService.findById(userid);
-        if (!user.isPresent())
-            return Optional.empty();
-
+    public Optional<Doc> findById(String docId, String fileId) {
         Optional<Doc> doc = docRepo.findByUidAndFileUidAndDeleted(UUID.fromString(docId), UUID.fromString(fileId), false);
         if (doc.isPresent())
             return doc;
@@ -195,11 +185,17 @@ public class DocService {
 
     }
 
-    public boolean deleteDoc(String docId, String userid, String fileId) {
-        Optional<User> user = userService.findById(userid);
-        if (!user.isPresent())
-            return false;
+    public boolean deleteLawyerDoc(String docId, String lawyerId) {
+        Optional<Doc> doc = docRepo.findByUidAndLawyerUidAndDeleted(UUID.fromString(docId), UUID.fromString(lawyerId), false);
+        if (doc.isPresent()) {
+            doc.get().setDeleted(true);
+            docRepo.save(doc.get());
+            return true;
+        }
+        return false;
+    }
 
+    public boolean deleteDoc(String docId, String fileId) {
         Optional<Doc> doc = docRepo.findByUidAndFileUidAndDeleted(UUID.fromString(docId), UUID.fromString(fileId), false);
         if (doc.isPresent()) {
             doc.get().setDeleted(true);

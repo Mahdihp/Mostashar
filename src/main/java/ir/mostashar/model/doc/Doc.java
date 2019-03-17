@@ -3,7 +3,7 @@ package ir.mostashar.model.doc;
 import ir.mostashar.model.activity.LawyerActivity;
 import ir.mostashar.model.call.Call;
 import ir.mostashar.model.file.File;
-import ir.mostashar.model.user.User;
+import ir.mostashar.model.lawyer.Lawyer;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -49,11 +49,11 @@ public class Doc {
     private boolean deleted = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userid")
+    @JoinColumn(name = "lawyerid")
     @EqualsAndHashCode.Exclude
-    private User user;
+    private Lawyer lawyer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "callid")
     private Call call;
 

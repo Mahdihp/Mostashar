@@ -13,11 +13,12 @@ import java.util.UUID;
 public interface DocRepo extends JpaRepository<Doc, Long> {
 
 
-    Optional<Doc> findByUidAndDeleted(UUID uuid, boolean isDelete);
+    Optional<Doc> findByUidAndLawyerUidAndDeleted(UUID uid, UUID lawyerUid, boolean isDelete);
     Optional<Doc> findByUid(UUID uuid);
-    Optional<Doc> findByUidAndFileUidAndDeleted(UUID uuid,UUID fileUid, boolean isDelete);
+
+    Optional<Doc> findByUidAndFileUidAndDeleted(UUID uid, UUID fileUid, boolean isDelete);
 
     Optional<List<Doc>> findAllByFileUidAndDeleted(UUID file,boolean isDelete);
 
-    Optional<List<Doc>> findAllByUserUidAndDocTypeAndDeleted(UUID lawyerUid, DocType docType, boolean isDelete);
+    Optional<List<Doc>> findAllByLawyerUidAndDocTypeAndDeleted(UUID lawyerUid, DocType docType, boolean isDelete);
 }

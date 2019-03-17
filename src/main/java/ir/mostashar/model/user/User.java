@@ -6,7 +6,6 @@ import ir.mostashar.model.assignDiscount.AssignDiscount;
 import ir.mostashar.model.billwallettransaction.BillWalletTransaction;
 import ir.mostashar.model.complain.Complain;
 import ir.mostashar.model.device.Device;
-import ir.mostashar.model.doc.Doc;
 import ir.mostashar.model.invitedUser.InvitedUser;
 import ir.mostashar.model.reminder.Reminder;
 import ir.mostashar.model.rightMessage.RightMessage;
@@ -110,10 +109,6 @@ public class User implements Serializable {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Wallet wallet;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    @EqualsAndHashCode.Exclude
-    private Set<Doc> docs = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     @EqualsAndHashCode.Exclude

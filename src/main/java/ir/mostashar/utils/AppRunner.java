@@ -14,6 +14,10 @@ import ir.mostashar.model.constant.Constant;
 import ir.mostashar.model.constant.repository.ConstantRepo;
 import ir.mostashar.model.discountPack.DiscountPack;
 import ir.mostashar.model.discountPack.repository.DiscountPackRepo;
+import ir.mostashar.model.doc.Doc;
+import ir.mostashar.model.doc.DocType;
+import ir.mostashar.model.doc.MimeType;
+import ir.mostashar.model.doc.repository.DocRepo;
 import ir.mostashar.model.feature.Feature;
 import ir.mostashar.model.file.File;
 import ir.mostashar.model.file.repository.FileRepo;
@@ -49,51 +53,38 @@ public class AppRunner implements ApplicationRunner {
 
     @Autowired
     private LawyerRepo lawyerRepo;
-
     @Autowired
     private ClientRepo clientRepo;
-
     @Autowired
     private RoleRepo roleRepo;
-
     @Autowired
     private FileRepo fileRepo;
-
     @Autowired
     private AdviceTypeRepo adviceTypeRepo;
-
     @Autowired
     private PackRepo packRepo;
-
     @Autowired
     private WalletRepo walletRepo;
-
     @Autowired
     private RequestRepo requestRepo;
-
     @Autowired
     private NotificationRepo nRepo;
-
     @Autowired
     private ReminderRepo reminderRepo;
-
     @Autowired
     private AcceptRequestRepo acceptRequestRepo;
-
     @Autowired
     private DiscountPackRepo discountPackRepo;
-
     @Autowired
     private AssignDiscountRepo assignDiscountRepo;
-
     @Autowired
     private CallRepo callRepo;
-
     @Autowired
     private ConstantRepo constantRepo;
-
     @Autowired
     private OrganizationRepo orgRepo;
+    @Autowired
+    private DocRepo docRepo;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -391,6 +382,14 @@ public class AppRunner implements ApplicationRunner {
 
         file3.setCreationDate(System.currentTimeMillis());
 
+        Doc doc1 = new Doc();
+        doc1.setUid(UUID.fromString("12102c33-b3a5-4401-a274-016bda28fdce"));
+        doc1.setCreationDate(System.currentTimeMillis());
+        doc1.setFile(file1);
+        doc1.setDocType(DocType.FILE);
+        doc1.setMimeType(MimeType.TEXT);
+
+
         Request request1=new Request();
         request1.setUid(UUID.fromString("b4482c13-b3a5-4401-a274-016bda28fdce"));
         request1.setRequestStatus(RequestStatus.SELECT_LAWYER);
@@ -583,6 +582,7 @@ public class AppRunner implements ApplicationRunner {
         constantRepo.save(constant2);
         constantRepo.save(constant3);
 
+        docRepo.save(doc1);
     }
 
 
