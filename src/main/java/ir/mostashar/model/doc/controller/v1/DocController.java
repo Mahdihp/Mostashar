@@ -45,17 +45,17 @@ public class DocController {
     @Autowired
     private RequestService requestService;
 
-    @ApiOperation(value = "Create Document Client", notes = "mimeType : 0=Audio, 1=Video, 2=PDF, 3=Picture, 4=Text, 5=ZipFile, 6=RARFile" + "\n" + "doctype=0,1 0=file & 1=resume" + "\n" + "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "Create Document Client", notes = "mimeType : 0=Audio, 1=Video, 2=PDF, 3=Picture, 4=Text, 5=ZipFile, 6=RARFile" + "\n" + "doctype 0=file & 1=resume" + "\n" + "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @Transactional
     @PostMapping(value = "/create", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> createDocument(@RequestParam("file") MultipartFile file, @RequestParam(value = "fileid") String fileUid, @RequestParam(value = "doctype") int docType, @RequestParam("mimetype") int mimeType, @RequestParam(value = "lawyerid") String lawyerUid) {
+    public ResponseEntity<?> createDocument(@RequestParam("file") MultipartFile file, @RequestParam(value = "fileid") String fileUid, @RequestParam(value = "doctype") int docType, @RequestParam("mimetype") int mimeType, @RequestParam(value = "userid") String userid) {
         Optional<File> fileByUid = fileService.findFileByUid(fileUid);
         if (fileByUid.isPresent()) {
             UUID docUid = docService.create(fileByUid.get(), mimeType, docType, file);
             if (docUid != null) {
-                if (!TextUtils.isEmpty(lawyerUid)) {
+                if (!TextUtils.isEmpty(userid)) {
                     LawyerActivityForm laForm = new LawyerActivityForm();
-                    laForm.setLawyerId(lawyerUid);
+                    laForm.setLawyerId(userid);
                     laForm.setTitle(Constants.KEYT_CREATE_DOC_SUCSSES);
                     laForm.setDescription(Constants.KEY_ADD_DOC_FROM_LAWYER);
                     laForm.setFileId(fileUid);
