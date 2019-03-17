@@ -41,7 +41,7 @@ public class FeedBackController {
     }
 
     @ApiOperation(value = "Find All Feedbacks", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    @PostMapping(value = "/request", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    @PostMapping(value = "/requests", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findAllFeedBackFile(@RequestParam("requestid") String requestid) {
         Optional<ListFeedBackDTO> list = feedbackService.findAllDTO(2, requestid);
         if (list.isPresent())

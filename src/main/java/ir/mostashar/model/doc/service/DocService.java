@@ -28,18 +28,18 @@ public class DocService {
 
 
     @Autowired
-    DocRepo docRepo;
+    private DocRepo docRepo;
 
     @Autowired
-    FileRepo fileRepo;
+    private FileRepo fileRepo;
 
     @Autowired
-    ClientRepo clientRepo;
+    private ClientRepo clientRepo;
 
     @Autowired
-    UserServiceImpl userService;
+    private UserServiceImpl userService;
 
-    public UUID createDoc(File file, int docType, MultipartFile multipartFile) {
+    public UUID create(File file, int mimeType, int docType, MultipartFile multipartFile) {
         Doc doc = new Doc();
         UUID uuid;
 
@@ -55,28 +55,37 @@ public class DocService {
         uuid = UUID.randomUUID();
         doc.setUid(uuid);
 //            doc.setChecksum(docForm.getChecksum());
-        switch (docType) {
+        switch (mimeType) {
             case 0:
-                doc.setMimeType(MimeType.Audio);
+                doc.setMimeType(MimeType.AUDIO);
                 break;
             case 1:
-                doc.setMimeType(MimeType.Video);
+                doc.setMimeType(MimeType.VIDEO);
                 break;
             case 2:
                 doc.setMimeType(MimeType.PDF);
                 break;
             case 3:
-                doc.setMimeType(MimeType.Picture);
+                doc.setMimeType(MimeType.PICTURE);
                 break;
             case 4:
-                doc.setMimeType(MimeType.Text);
+                doc.setMimeType(MimeType.TEXT);
                 break;
             case 5:
-                doc.setMimeType(MimeType.ZipFile);
+                doc.setMimeType(MimeType.ZIP_FILE);
                 break;
             case 6:
-                doc.setMimeType(MimeType.RARFile);
+                doc.setMimeType(MimeType.RAR_FILE);
                 break;
+        }
+        switch (docType) {
+            case 0:
+                doc.setDocType(DocType.FILE);
+                break;
+            case 1:
+                doc.setDocType(DocType.RESUME);
+                break;
+
         }
         doc.setFile(file);
         doc.setCreationDate(System.currentTimeMillis());
@@ -87,7 +96,7 @@ public class DocService {
             return null;
     }
 
-    public Optional<ListDocDTO> findAllByWithoutDataUid(String userId, String fileId) {
+    public Optional<ListDocDTO> findAllByIdWithoutData(String userId, String fileId) {
         Optional<File> file = fileRepo.findByUidAndClientUidAndDeleted(UUID.fromString(fileId), UUID.fromString(userId), false);
         if (file.isPresent()) {
             Optional<List<Doc>> docs = docRepo.findAllByFileUidAndDeleted(file.get().getUid(), false);
@@ -113,9 +122,9 @@ public class DocService {
         return Optional.empty();
     }
 
-    public Optional<ListDocDTO> findAllresumeBylawyerid(String lawyerid) {
+    public Optional<ListDocDTO> findAllResumeByLawyerId(String lawyerid) {
 
-        Optional<List<Doc>> docs = docRepo.findAllDocsBylawyerid(lawyerid, DocType.Resume);
+        Optional<List<Doc>> docs = docRepo.findAllByUserUidAndDocTypeAndDeleted(UUID.fromString(lawyerid), DocType.RESUME, false);
         if (docs.isPresent()) {
             List<DocDTO> dtoList = new ArrayList<>();
             ListDocDTO listDocDTO = new ListDocDTO();
@@ -137,7 +146,7 @@ public class DocService {
         return Optional.empty();
     }
 
-    public Optional<DocDTO> findByWithoutDataUid(String docId, String userid, String fileId) {
+    public Optional<DocDTO> findByIdWithoutData(String docId, String userid, String fileId) {
         Optional<User> user = userService.findById(userid);
         if (!user.isPresent())
             return Optional.empty();
@@ -166,7 +175,7 @@ public class DocService {
         return null;
     }
 
-    public Optional<Doc> findByUid(String docId) {
+    public Optional<Doc> findById(String docId) {
         Optional<Doc> doc = docRepo.findByUid(UUID.fromString(docId));
         if (doc.isPresent())
             return doc;
@@ -175,16 +184,7 @@ public class DocService {
 
     }
 
-    public Optional<Doc> findBylawyerid(String lawyerId) {
-        Optional<Doc> doc = docRepo.findByUid(UUID.fromString(lawyerId));
-        if (doc.isPresent())
-            return doc;
-        else
-            return Optional.empty();
-
-    }
-
-    public Optional<Doc> findByUid(String docId, String userid, String fileId) {
+    public Optional<Doc> findById(String docId, String userid, String fileId) {
         Optional<User> user = userService.findById(userid);
         if (!user.isPresent())
             return Optional.empty();

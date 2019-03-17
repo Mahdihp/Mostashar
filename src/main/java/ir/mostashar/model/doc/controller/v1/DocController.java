@@ -34,24 +34,24 @@ import java.util.UUID;
 public class DocController {
 
     @Autowired
-    DocService docService;
+    private DocService docService;
 
     @Autowired
-    FileService fileService;
+    private FileService fileService;
 
     @Autowired
-    LawyerActivityService laService;
+    private LawyerActivityService laService;
 
     @Autowired
-    RequestService requestService;
+    private RequestService requestService;
 
-    @ApiOperation(value = "Create Document Client", notes = "doctype : 0=Audio, 1=Video, 2=PDF, 3=Picture, 4=Text, 5=ZipFile, 6=RARFile" + "\n" + "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "Create Document Client", notes = "mimeType : 0=Audio, 1=Video, 2=PDF, 3=Picture, 4=Text, 5=ZipFile, 6=RARFile" + "\n" + "doctype=0,1 0=file & 1=resume" + "\n" + "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @Transactional
-    @PostMapping(value = "/createdoc", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> createDocument(@RequestParam("file") MultipartFile file, @RequestParam(value = "fileid") String fileUid, @RequestParam(value = "doctype") int docType, @RequestParam(value = "lawyerid") String lawyerUid) {
+    @PostMapping(value = "/create", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> createDocument(@RequestParam("file") MultipartFile file, @RequestParam(value = "fileid") String fileUid, @RequestParam(value = "doctype") int docType, @RequestParam("mimetype") int mimeType, @RequestParam(value = "lawyerid") String lawyerUid) {
         Optional<File> fileByUid = fileService.findFileByUid(fileUid);
         if (fileByUid.isPresent()) {
-            UUID docUid = docService.createDoc(fileByUid.get(), docType, file);
+            UUID docUid = docService.create(fileByUid.get(), mimeType, docType, file);
             if (docUid != null) {
                 if (!TextUtils.isEmpty(lawyerUid)) {
                     LawyerActivityForm laForm = new LawyerActivityForm();
@@ -71,8 +71,8 @@ public class DocController {
 
     @ApiOperation(value = "Find One Document Without Data", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/doc", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> findDocByUid(@RequestParam("docId") String docId, @RequestParam("userid") String userid, @RequestParam("fileid") String fileId) {
-        Optional<DocDTO> doc = docService.findByWithoutDataUid(docId, userid, fileId);
+    public ResponseEntity<?> findDocByUid(@RequestParam("docid") String docId, @RequestParam("userid") String userid, @RequestParam("fileid") String fileId) {
+        Optional<DocDTO> doc = docService.findByIdWithoutData(docId, userid, fileId);
         if (doc.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(doc.get());
         else
@@ -82,7 +82,7 @@ public class DocController {
     @ApiOperation(value = "Find All Document Without Data", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/docs", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findAllDocByUid(@RequestParam("userid") String userid, @RequestParam("fileid") String fileid) {
-        Optional<ListDocDTO> docs = docService.findAllByWithoutDataUid(userid, fileid);
+        Optional<ListDocDTO> docs = docService.findAllByIdWithoutData(userid, fileid);
         if (docs.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(docs.get());
         else
@@ -92,7 +92,7 @@ public class DocController {
 
     @PostMapping(value = "/resumedocs", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findAllDocBylawyerid(@RequestParam("lawyerid") String lawyerid) {
-        Optional<ListDocDTO> docs = docService.findAllresumeBylawyerid(lawyerid);
+        Optional<ListDocDTO> docs = docService.findAllResumeByLawyerId(lawyerid);
         if (docs.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(docs.get());
         else
@@ -102,16 +102,16 @@ public class DocController {
     @ApiOperation(value = "Download Data Document", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @Transactional
     @PostMapping(value = "/docdata", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-    public ResponseEntity<?> findDocDataByUid(@RequestParam("docId") String docUid, @RequestParam("userid") String userid, @RequestParam("fileid") String fileUid, @RequestParam(value = "lawyerid") String lawyerUid) {
-        Optional<Doc> doc = docService.findByUid(docUid, userid, fileUid);
+    public ResponseEntity<?> findDocDataByUid(@RequestParam("docid") String docId, @RequestParam("userid") String userid, @RequestParam("fileid") String fileId, @RequestParam(value = "lawyerid") String lawyerId) {
+        Optional<Doc> doc = docService.findById(docId, userid, fileId);
         if (doc.isPresent()) {
-            if (!TextUtils.isEmpty(lawyerUid)) {
+            if (!TextUtils.isEmpty(lawyerId)) {
                 LawyerActivityForm laForm = new LawyerActivityForm();
-                laForm.setLawyerId(lawyerUid);
+                laForm.setLawyerId(lawyerId);
                 laForm.setTitle(Constants.KEY_DOWNLOAD_DOC);
                 laForm.setDescription(Constants.KEY_DOWNLAOD_DOC_FROM_LAWYER);
-                laForm.setFileId(fileUid);
-                laForm.setDocid(docUid);
+                laForm.setFileId(fileId);
+                laForm.setDocid(docId);
                 laForm.setType(doc.get().getDocType().type);
                 laService.createLawyerActivity(laForm);
             }
@@ -126,19 +126,19 @@ public class DocController {
 
     @ApiOperation(value = "Delete Document", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/removedoc", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> removeDocByUid(@RequestParam("docId") String docUid, @RequestParam("userid") String userUid, @RequestParam("fileid") String fileUid, @RequestParam(value = "lawyerid") String lawyerUid) {
-        Optional<Request> request = requestService.findByFileId(fileUid);
+    public ResponseEntity<?> removeDocByUid(@RequestParam("docid") String docId, @RequestParam("userid") String userId, @RequestParam("fileid") String fileId, @RequestParam(value = "lawyerid") String lawyerUid) {
+        Optional<Request> request = requestService.findByFileId(fileId);
         if (request.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(new ListFileDTO(HttpStatus.OK.value(), Constants.KEY_NOT_UPDATE));
 
-        if (docService.deleteDoc(docUid, userUid, fileUid)) {
+        if (docService.deleteDoc(docId, userId, fileId)) {
             if (!TextUtils.isEmpty(lawyerUid)) {
                 LawyerActivityForm laForm = new LawyerActivityForm();
                 laForm.setLawyerId(lawyerUid);
                 laForm.setTitle(Constants.KEY_DOWNLOAD_DOC);
                 laForm.setDescription(Constants.KEY_DOWNLAOD_DOC_FROM_LAWYER);
-                laForm.setFileId(fileUid);
-                laForm.setDocid(docUid);
+                laForm.setFileId(fileId);
+                laForm.setDocid(docId);
                 laForm.setType(13);
                 laService.createLawyerActivity(laForm);
             }

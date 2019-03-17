@@ -137,9 +137,8 @@ public class FileController {
     }
 
     @PostMapping(value = "/requestfiles", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<?> findAllFileByRequestId(@RequestParam("requestid") String requestid,
-                                                    @RequestParam("clientid") String clientUid) {
-        Optional<ListFileDTO> allFileByUserId = fileService.findAllFileByRequestId(requestid,clientUid);
+    public ResponseEntity<?> findAllFileByRequestId(@RequestParam("clientid") String clientUid) {
+        Optional<ListFileDTO> allFileByUserId = fileService.findAllDTOByClientId(clientUid);
         if (allFileByUserId.isPresent())
             return ResponseEntity.status(HttpStatus.OK).body(allFileByUserId.get());
         else

@@ -7,6 +7,8 @@ import ir.mostashar.model.request.Request;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -51,10 +53,8 @@ public class Call {
     @JoinColumn(name = "requestid", nullable = false)
     private Request request;
 
-    @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "call")
-    private Doc doc;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "call")
+    private Set<Doc> docs = new HashSet<>();
 
 
     public Call() {

@@ -202,7 +202,7 @@ public class RequestService {
     }
 
     public boolean existsRequest(String requestId) {
-        Optional<Boolean> exists = requestRepo.existsByRequestUid(UUID.fromString(requestId));
+        Optional<Boolean> exists = requestRepo.existsByUid(UUID.fromString(requestId));
         if (exists.isPresent())
             return exists.get();
         else

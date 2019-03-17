@@ -8,10 +8,10 @@ package ir.mostashar.model.doc;
  * http://github.com/ghaseminya
  */
 public enum DocType {
-    File(0),
-    Resume(1);
-    public final int type;
+    FILE(0),
+    RESUME(1);
 
+    public final int type;
     DocType(int type) {
         this.type = type;
     }

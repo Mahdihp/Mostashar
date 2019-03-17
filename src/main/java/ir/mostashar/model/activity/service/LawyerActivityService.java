@@ -36,7 +36,7 @@ public class LawyerActivityService {
     public void createLawyerActivity(@Valid LawyerActivityForm laForm) {
         Optional<Lawyer> lawyer = lawyerService.findByUid(laForm.getLawyerId());
         Optional<File> file = fileService.findFileByUid(laForm.getFileId());
-        Optional<Doc> doc = docService.findByUid(laForm.getDocid());
+        Optional<Doc> doc = docService.findById(laForm.getDocid());
         if (lawyer.isPresent()) {
             LawyerActivity lawyerActivity = new LawyerActivity();
             lawyerActivity.setUid(UUID.randomUUID());

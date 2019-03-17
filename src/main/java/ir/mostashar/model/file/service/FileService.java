@@ -145,35 +145,8 @@ public class FileService {
         return Optional.empty();
     }
 
-    public Optional<ListFileDTO> findAllCleintFileByRequestId(String requestId,String clientUid) {
-        Optional<List<File>> fileList = fileRepo.findAllByRequestId(UUID.fromString(clientUid),requestId,false);
-        if (fileList.isPresent()) {
-
-            ListFileDTO listFileDTO = new ListFileDTO();
-            listFileDTO.setStatus(HttpStatus.OK.value());
-            listFileDTO.setMessage(Constants.KEY_SUCESSE);
-
-            List<FileDTO> dtoList = new ArrayList<>();
-            for (File file : fileList.get()) {
-                FileDTO fileDTO = new FileDTO();
-                fileDTO.setFileId(file.getUid().toString());
-                fileDTO.setTitle(file.getTitle());
-                fileDTO.setFileNumber(file.getFileNumber());
-                fileDTO.setDescription(file.getDescription());
-                fileDTO.setCreationDate(file.getCreationDate());
-//                fileDTO.setModificationDate(file.getModificationDate());
-                if (file.getClient() != null)
-                    fileDTO.setClientId(file.getClient().getUid().toString());
-
-                dtoList.add(fileDTO);
-            }
-            listFileDTO.setFiles(dtoList);
-            return Optional.of(listFileDTO);
-        }
-        return Optional.empty();
-    }
-    public Optional<ListFileDTO> findAllFileByRequestId(String requestId,String clientUid) {
-        Optional<List<File>> fileList = fileRepo.findAllByRequestId(UUID.fromString(clientUid),requestId,false);
+    public Optional<ListFileDTO> findAllDTOByClientId(String clientUid) {
+        Optional<List<File>> fileList = fileRepo.findAllByClientUidAndDeleted(UUID.fromString(clientUid), false);
         if (fileList.isPresent()) {
 
             ListFileDTO listFileDTO = new ListFileDTO();

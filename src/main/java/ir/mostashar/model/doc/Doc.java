@@ -3,7 +3,7 @@ package ir.mostashar.model.doc;
 import ir.mostashar.model.activity.LawyerActivity;
 import ir.mostashar.model.call.Call;
 import ir.mostashar.model.file.File;
-import ir.mostashar.model.lawyer.Lawyer;
+import ir.mostashar.model.user.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -32,11 +32,11 @@ public class Doc {
     @Column(name = "doctype")
     private DocType docType;
 
-    @Column(name = "hashcode")
-    private String hashCode;
-
     @Column(name = "mimetype")
     private MimeType mimeType;
+
+    @Column(name = "hashcode")
+    private String hashCode;
 
     @Lob
     @Column(name="data")
@@ -49,11 +49,11 @@ public class Doc {
     private boolean deleted = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lawyerid")
+    @JoinColumn(name = "userid")
     @EqualsAndHashCode.Exclude
-    private Lawyer lawyer;
+    private User user;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "callid")
     private Call call;
 
@@ -63,7 +63,7 @@ public class Doc {
     private Set<LawyerActivity> activities = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fileid", nullable = false)
+    @JoinColumn(name = "fileid")
     @EqualsAndHashCode.Exclude
     private File file;
 

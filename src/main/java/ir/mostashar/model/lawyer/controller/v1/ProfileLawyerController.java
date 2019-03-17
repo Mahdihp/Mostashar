@@ -75,8 +75,8 @@ public class ProfileLawyerController {
                                                @RequestParam("shababank") String shabaBank,
                                                @RequestParam("shabacode") String shabaCode) {
         Lawyer lawyer=lawyerService.findByUid(lawyerUid).get();
-        lawyer.setShabaBank(shabaBank);
-        lawyer.setShabaCode(shabaCode);
+//        lawyer.setShabaBank(shabaBank);
+//        lawyer.setShabaCode(shabaCode);
 
         if (lawyerService.updateLawyer(lawyer))
             return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_SUCESSE));

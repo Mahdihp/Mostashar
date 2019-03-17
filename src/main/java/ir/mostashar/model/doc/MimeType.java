@@ -1,16 +1,16 @@
 package ir.mostashar.model.doc;
 
 public enum MimeType {
-    Audio(0),
-    Video(1),
+    AUDIO(0),
+    VIDEO(1),
     PDF(2),
-    Picture(3),
-    Text(4),
-    ZipFile(5),
-    RARFile(6);
+    PICTURE(3),
+    TEXT(4),
+    ZIP_FILE(5),
+    RAR_FILE(6);
     public final int type;
 
-    private MimeType(int type) {
+    MimeType(int type) {
         this.type = type;
     }
 }

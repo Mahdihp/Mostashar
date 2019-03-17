@@ -6,7 +6,6 @@ import ir.mostashar.model.adminConfirmation.AdminConfirmation;
 import ir.mostashar.model.adviceType.AdviceType;
 import ir.mostashar.model.answer.Answer;
 import ir.mostashar.model.call.Call;
-import ir.mostashar.model.doc.Doc;
 import ir.mostashar.model.expertise.Expertise;
 import ir.mostashar.model.failRequest.FailRequest;
 import ir.mostashar.model.feedback.FeedBack;
@@ -83,9 +82,6 @@ public class Lawyer extends User {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
     private Set<Call> calls= new HashSet<>();
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
-    private Set<Doc> docs= new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lawyer")
     private Set<Answer> answers= new HashSet<>();

@@ -18,5 +18,6 @@ public interface DocRepo extends JpaRepository<Doc, Long> {
     Optional<Doc> findByUidAndFileUidAndDeleted(UUID uuid,UUID fileUid, boolean isDelete);
 
     Optional<List<Doc>> findAllByFileUidAndDeleted(UUID file,boolean isDelete);
-    Optional<List<Doc>> findAllDocsBylawyerid(String lawyerid,DocType docType);
+
+    Optional<List<Doc>> findAllByUserUidAndDocTypeAndDeleted(UUID lawyerUid, DocType docType, boolean isDelete);
 }

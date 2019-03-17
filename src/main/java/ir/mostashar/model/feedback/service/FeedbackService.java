@@ -102,7 +102,7 @@ public class FeedbackService {
     }
 
     public Optional<ListFeedBackDTO> findByLawyerUidAndRequestUid(String clientUid,String requestUid) {
-        Optional<List<FeedBack>> list = feedbackRepo.findByLawyerUidAndByRequestID(UUID.fromString(clientUid),
+        Optional<List<FeedBack>> list = feedbackRepo.findByLawyerUidAndRequestUid(UUID.fromString(clientUid),
                 UUID.fromString(requestUid));
         if (list.isPresent()) {
             ListFeedBackDTO lfbDTO = new ListFeedBackDTO();
