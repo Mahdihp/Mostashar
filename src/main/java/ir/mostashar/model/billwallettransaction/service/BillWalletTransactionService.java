@@ -29,7 +29,7 @@ import java.util.UUID;
  */
 
 @Service
-public class BillWalletTransactionservice {
+public class BillWalletTransactionService {
 
 
     @Autowired
