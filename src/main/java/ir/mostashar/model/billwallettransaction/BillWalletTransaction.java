@@ -54,7 +54,7 @@ public class BillWalletTransaction {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "requestid", nullable = false)
+    @JoinColumn(name = "requestid")
     private Request request;
 
 
