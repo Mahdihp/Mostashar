@@ -128,4 +128,5 @@ public class Constants {
     public static final String KEYS_Percent_Value_Added = "PercentValueAdded"; // درصد مالیات بر ارزش افزوده
 
 
+    public static final String KEY_NOT_FOUND_BWT = "تراکنشی پیدا نشد.";
 }

@@ -57,7 +57,7 @@ public class CallController {
     @Autowired
     private PackSnapshotService pssService;
 
-    @PostMapping(value = "/create", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    @PostMapping(value = "/create", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> createCall(@Valid @RequestBody CallForm callForm) {
         if (callService.create(callForm)) {
             Optional<Client> client = clientService.findUserByUid(callForm.getClientId());
