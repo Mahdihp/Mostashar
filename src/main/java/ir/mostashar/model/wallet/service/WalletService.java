@@ -33,7 +33,7 @@ public class WalletService {
     OrganizationRepo orgRepository;
 
     /**
-     * Find User Uid & later create & Save new Wallet Object
+     * Find User Uid & later createByReading & Save new Wallet Object
      *
      * @param walletForm
      * @return

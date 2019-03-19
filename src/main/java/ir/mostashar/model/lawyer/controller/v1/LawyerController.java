@@ -115,7 +115,7 @@ public class LawyerController {
      */
     @PostMapping(value = "/acceptrequest", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> acceptRequest(@Valid @RequestBody AcceptRequestForm arForm) {
-        if (arService.createAcceptRequest(arForm)) {
+        if (arService.createByReading(arForm)) {
             Optional<Notification> notify = nService.findByRequestUid(arForm.getRequestId());
             if (notify.isPresent()) {
                 reminderService.setReadReminder(notify.get().getUid().toString());

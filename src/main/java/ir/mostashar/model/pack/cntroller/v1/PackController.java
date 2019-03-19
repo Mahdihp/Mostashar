@@ -26,7 +26,7 @@ public class PackController {
 
     /**
      * find exist pack name
-     * create pack
+     * createByReading pack
      *
      * @param packForm
      * @return

@@ -32,7 +32,7 @@ public class AcceptRequestService {
     @Autowired
     RequestRepo requestRepo;
 
-    public boolean createAcceptRequest(AcceptRequestForm arForm) {
+    public boolean createByReading(AcceptRequestForm arForm) {
         Optional<Lawyer> lawyer = lawyerRepo.findByUid(UUID.fromString(arForm.getLawyerId()));
         Optional<Request> request = requestRepo.findByUidAndDeleted(UUID.fromString(arForm.getRequestId()), false);
         if (lawyer.isPresent() && request.isPresent()) {
@@ -41,9 +41,20 @@ public class AcceptRequestService {
             ar.setCreationDate(System.currentTimeMillis());
             ar.setFinishedTimeFile(null);
             ar.setVerified(null); // پرسیده شود.
+            ar.setReading(arForm.getReading());
             ar.setLawyer(lawyer.get());
             ar.setRequest(request.get());
             arRepository.save(ar);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean updateByAccept(String lawyerUid, String arId) {
+        Optional<AcceptRequest> acceptRequest = arRepository.findByUidAndLawyerUid(UUID.fromString(arId), UUID.fromString(lawyerUid));
+        if (acceptRequest.isPresent()) {
+            acceptRequest.get().setReading(false);
+            arRepository.save(acceptRequest.get());
             return true;
         }
         return false;

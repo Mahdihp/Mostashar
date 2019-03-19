@@ -46,7 +46,7 @@ public class RequestController {
             content += " شماره درخواست: " + requestId.toString() + "\n";
             NotificationForm nForm = new NotificationForm(content, System.currentTimeMillis(), requestId.toString());
 
-            System.out.println("Log---create--------------------:" + nForm.getRequestId());
+            System.out.println("Log---createByReading--------------------:" + nForm.getRequestId());
             notificationService.createNotification(nForm);
             return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_CREATE_REQUEST_SUCSSES, requestId.toString()));
         } else {

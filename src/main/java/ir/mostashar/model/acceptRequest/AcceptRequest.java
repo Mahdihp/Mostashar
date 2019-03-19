@@ -2,7 +2,6 @@ package ir.mostashar.model.acceptRequest;
 
 import ir.mostashar.model.lawyer.Lawyer;
 import ir.mostashar.model.request.Request;
-import ir.mostashar.model.request.RequestStatus;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -33,6 +32,9 @@ public class AcceptRequest {
 
     @Column(name = "acceptedbyclient")
     private boolean acceptedByClient;
+
+    @Column(name = "reading")
+    private boolean reading = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lawyerid",nullable = false)

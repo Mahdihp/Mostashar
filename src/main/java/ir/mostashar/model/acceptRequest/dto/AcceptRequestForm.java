@@ -14,6 +14,8 @@ public class AcceptRequestForm {
     @NotNull
     private String lawyerId;
 
+    private Boolean reading;
+
     @NotNull
     private String requestId;
 

@@ -4,11 +4,9 @@ import ir.mostashar.model.consumptionPack.ConsumptionPack;
 import ir.mostashar.model.consumptionPack.dto.ConsumptionPackForm;
 import ir.mostashar.model.consumptionPack.repository.ConsumptionPackRepo;
 import ir.mostashar.model.pack.Pack;
-import ir.mostashar.model.pack.repository.PackRepo;
 import ir.mostashar.model.pack.service.PackService;
 import ir.mostashar.model.request.Request;
 import ir.mostashar.model.request.repository.RequestRepo;
-import ir.mostashar.model.request.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +28,7 @@ public class ConsumptionPackService {
 
     /**
      * Find pack & request if this two object is present
-     * & create & save ConsumptionPack object
+     * & createByReading & save ConsumptionPack object
      *
      * @param cpForm
      * @return false & true
