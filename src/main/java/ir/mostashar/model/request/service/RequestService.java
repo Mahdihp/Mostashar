@@ -29,19 +29,14 @@ public class RequestService {
 
     @Autowired
     private RequestRepo requestRepo;
-
     @Autowired
     private ClientService clientService;
-
     @Autowired
     private AdviceTypeRepo adviceTypeRepo;
-
     @Autowired
     private FileRepo fileRepo;
-
     @Autowired
     private NotificationService notificationService;
-
     @Value("${mostashar.app.requestNumber}")
     private long requestNumber;
 
@@ -166,8 +161,9 @@ public class RequestService {
             requestDTO.setRequestId(request.get().getUid().toString());
             requestDTO.setRequestStatus(request.get().getRequestStatus().name());
             requestDTO.setRequestNumber(request.get().getRequestNumber());
-
-            requestDTO.setClientId(request.get().getClient().getUid().toString());
+            requestDTO.setFileTitle(request.get().getFile().getTitle());
+            requestDTO.setAdviceTitle(request.get().getAdvicetype().getName());
+//            requestDTO.setClientId(request.get().getClient().getUid().toString());
             requestDTO.setFileId(request.get().getFile().getUid().toString());
             requestDTO.setAdviceTypeId(request.get().getAdvicetype().getUid().toString());
 
@@ -186,8 +182,10 @@ public class RequestService {
                 requestDTO.setRequestId(request.getUid().toString());
                 requestDTO.setRequestStatus(request.getRequestStatus().name());
                 requestDTO.setRequestNumber(request.getRequestNumber());
+                requestDTO.setFileTitle(request.getFile().getTitle());
+                requestDTO.setAdviceTitle(request.getAdvicetype().getName());
 
-                requestDTO.setClientId(request.getClient().getUid().toString());
+//                requestDTO.setClientId(request.getClient().getUid().toString());
                 requestDTO.setFileId(request.getFile().getUid().toString());
                 requestDTO.setAdviceTypeId(request.getAdvicetype().getUid().toString());
                 dtoList.add(requestDTO);

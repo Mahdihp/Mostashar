@@ -31,7 +31,7 @@ public class ConsumptionPack {
     private long baseTime;
 
     @Column(name = "typeUser")
-    private short type;
+    private int type;
 
     @Column(name = "firstinstallmentdate")
     private Long firstInstallmentDate;

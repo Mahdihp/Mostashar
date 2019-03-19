@@ -102,19 +102,174 @@ public class AppRunner implements ApplicationRunner {
 
     private void insertToDb() {
 
-        // 1 = روانشناسی
-        // 2 = حقوق
-        AdviceType adviceType1 = new AdviceType();
-        adviceType1.setUid(UUID.fromString("11482c33-b3a5-4401-a274-016bda28fdce"));
-        adviceType1.setName("روانشناسی");
-        adviceType1.setType((short) 1);
-        adviceType1.setDescription("مشاوره روانشناسی");
+        AdviceType adviceTypeParent1 = new AdviceType();
+        adviceTypeParent1.setUid(UUID.fromString("12102c33-b3a5-4401-a274-016bda28fdce"));
+        adviceTypeParent1.setName("حقوق");
+        adviceTypeParent1.setType(1);
+        adviceTypeParent1.setDescription("مشاوره حقوقی");
 
-        AdviceType adviceType2 = new AdviceType();
-        adviceType2.setUid(UUID.fromString("12482c33-b3a5-4401-a274-016bda28fdce"));
-        adviceType1.setName("حقوق");
-        adviceType1.setType((short) 2);
-        adviceType1.setDescription("مشاوره حقوقی");
+        AdviceType adviceType1_1 = new AdviceType();
+        adviceType1_1.setUid(UUID.fromString("12282c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType1_1.setName("ثبت احوال");
+        adviceType1_1.setType(1);
+        adviceType1_1.setParent(adviceTypeParent1);
+        adviceType1_1.setDescription("مشاوره حقوقی ثبت احوال");
+
+        AdviceType adviceType1_2 = new AdviceType();
+        adviceType1_2.setUid(UUID.fromString("12382c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType1_2.setName("امور دولتی");
+        adviceType1_2.setType(1);
+        adviceType1_2.setParent(adviceTypeParent1);
+        adviceType1_2.setDescription("مشاوره حقوقی امور دولتی");
+
+        AdviceType adviceType1_3 = new AdviceType();
+        adviceType1_3.setUid(UUID.fromString("12482c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType1_3.setName("ثبت شرکت");
+        adviceType1_3.setType(1);
+        adviceType1_3.setParent(adviceTypeParent1);
+        adviceType1_3.setDescription("مشاوره حقوقی ثبت شرکت");
+
+        AdviceType adviceType1_4 = new AdviceType();
+        adviceType1_4.setUid(UUID.fromString("12582c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType1_4.setName("انحصار وراثت");
+        adviceType1_4.setType(1);
+        adviceType1_4.setParent(adviceTypeParent1);
+        adviceType1_4.setDescription("مشاوره حقوقی انحصار وراثت");
+
+        AdviceType adviceType1_5 = new AdviceType();
+        adviceType1_5.setUid(UUID.fromString("12682c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType1_5.setName("فناوری اطلاعات");
+        adviceType1_5.setType(1);
+        adviceType1_5.setParent(adviceTypeParent1);
+        adviceType1_5.setDescription("مشاوره حقوقی فناوری اطلاعات");
+
+        AdviceType adviceType1_6 = new AdviceType();
+        adviceType1_6.setUid(UUID.fromString("12782c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType1_6.setName("وصول مطالبات");
+        adviceType1_6.setType(1);
+        adviceType1_6.setParent(adviceTypeParent1);
+        adviceType1_6.setDescription("مشاوره حقوقی وصول مطالبات");
+
+        AdviceType adviceType1_7 = new AdviceType();
+        adviceType1_7.setUid(UUID.fromString("12882c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType1_7.setName("ملکی");
+        adviceType1_7.setType(1);
+        adviceType1_7.setParent(adviceTypeParent1);
+        adviceType1_7.setDescription("مشاوره حقوقی ملکی");
+
+        AdviceType adviceType1_8 = new AdviceType();
+        adviceType1_8.setUid(UUID.fromString("12982c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType1_8.setName("کیفری");
+        adviceType1_8.setType(1);
+        adviceType1_8.setParent(adviceTypeParent1);
+        adviceType1_8.setDescription("مشاوره حقوقی کیفری");
+
+        AdviceType adviceType1_9 = new AdviceType();
+        adviceType1_9.setUid(UUID.fromString("13082c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType1_9.setName("خانواده");
+        adviceType1_9.setType(1);
+        adviceType1_9.setParent(adviceTypeParent1);
+        adviceType1_9.setDescription("مشاوره حقوقی خانواده");
+
+        AdviceType adviceType1_10 = new AdviceType();
+        adviceType1_10.setUid(UUID.fromString("13182c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType1_10.setName("بین المللی");
+        adviceType1_10.setType(1);
+        adviceType1_10.setParent(adviceTypeParent1);
+        adviceType1_10.setDescription("مشاوره حقوقی بین المللی");
+
+        AdviceType adviceType1_11 = new AdviceType();
+        adviceType1_11.setUid(UUID.fromString("13282c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType1_11.setName("قرارداد ها");
+        adviceType1_11.setType(1);
+        adviceType1_11.setParent(adviceTypeParent1);
+        adviceType1_11.setDescription("مشاوره حقوقی قرارداد ها");
+
+        AdviceType adviceType1_12 = new AdviceType();
+        adviceType1_12.setUid(UUID.fromString("13382c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType1_12.setName("بانکی");
+        adviceType1_12.setType(1);
+        adviceType1_12.setParent(adviceTypeParent1);
+        adviceType1_12.setDescription("مشاوره حقوقی بانکی");
+
+        AdviceType adviceType1_13 = new AdviceType();
+        adviceType1_13.setUid(UUID.fromString("13482c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType1_13.setName("سایر");
+        adviceType1_13.setType(1);
+        adviceType1_13.setParent(adviceTypeParent1);
+        adviceType1_13.setDescription("مشاوره حقوقی سایر");
+
+
+        AdviceType adviceTypeParent2 = new AdviceType();
+        adviceTypeParent2.setUid(UUID.fromString("13582c33-b3a5-4401-a274-016bda28fdce"));
+        adviceTypeParent2.setName("روانشناسی");
+        adviceTypeParent2.setType(2);
+        adviceTypeParent2.setDescription("مشاوره روانشناسی");
+
+        AdviceType adviceType2_1 = new AdviceType();
+        adviceType2_1.setUid(UUID.fromString("13602c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType2_1.setName("بالینی");
+        adviceType2_1.setType(2);
+        adviceType2_1.setParent(adviceTypeParent2);
+        adviceType2_1.setDescription("مشاوره بالینی");
+
+        AdviceType adviceType2_2 = new AdviceType();
+        adviceType2_2.setUid(UUID.fromString("13702c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType2_2.setName("مشاوره و روان درمانی");
+        adviceType2_2.setType(2);
+        adviceType2_2.setParent(adviceTypeParent2);
+        adviceType2_2.setDescription("مشاوره و روان درمانی");
+
+        AdviceType adviceType2_3 = new AdviceType();
+        adviceType2_3.setUid(UUID.fromString("13802c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType2_3.setName("خانواده");
+        adviceType2_3.setType(2);
+        adviceType2_3.setParent(adviceTypeParent2);
+        adviceType2_3.setDescription("مشاوره خانواده");
+
+        AdviceType adviceType2_4 = new AdviceType();
+        adviceType2_4.setUid(UUID.fromString("13902c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType2_4.setName("تحصیلی");
+        adviceType2_4.setType(2);
+        adviceType2_4.setParent(adviceTypeParent2);
+        adviceType2_4.setDescription("مشاوره تحصیلی");
+
+        AdviceType adviceType2_5 = new AdviceType();
+        adviceType2_5.setUid(UUID.fromString("14002c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType2_5.setName("تربیتی");
+        adviceType2_5.setType(2);
+        adviceType2_5.setParent(adviceTypeParent2);
+        adviceType2_5.setDescription("مشاوره تربیتی");
+
+        AdviceType adviceType2_6 = new AdviceType();
+        adviceType2_6.setUid(UUID.fromString("14102c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType2_6.setName("شخصیت");
+        adviceType2_6.setType(2);
+        adviceType2_6.setParent(adviceTypeParent2);
+        adviceType2_6.setDescription("مشاوره شخصیت");
+
+        AdviceType adviceType2_7 = new AdviceType();
+        adviceType2_7.setUid(UUID.fromString("14202c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType2_7.setName("رشد");
+        adviceType2_7.setType(2);
+        adviceType2_7.setParent(adviceTypeParent2);
+        adviceType2_7.setDescription("مشاوره رشد");
+
+        AdviceType adviceType2_8 = new AdviceType();
+        adviceType2_8.setUid(UUID.fromString("14402c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType2_8.setName("اجتماعی");
+        adviceType2_8.setType(2);
+        adviceType2_8.setParent(adviceTypeParent2);
+        adviceType2_8.setDescription("مشاوره اجتماعی");
+
+        AdviceType adviceType2_9 = new AdviceType();
+        adviceType2_9.setUid(UUID.fromString("14502c33-b3a5-4401-a274-016bda28fdce"));
+        adviceType2_9.setName("سایر");
+        adviceType2_9.setType(2);
+        adviceType2_9.setParent(adviceTypeParent2);
+        adviceType2_9.setDescription("مشاوره سایر");
+
+
 
         Client client = new Client();
         client.setUid(UUID.fromString("13000000-1d44-4ae3-9dc0-c3b8213d45a6"));
@@ -179,7 +334,7 @@ public class AppRunner implements ApplicationRunner {
         lawyer1.setLevel(1); // 3 level Lawyer
         lawyer1.setScore(10);
         lawyer1.setOnline(true);
-        lawyer1.setAdvicetype(adviceType1);
+        lawyer1.setAdvicetype(adviceTypeParent1);
         lawyer1.setAvailable(true);
         lawyer1.setVerified(true);
         lawyer1.setMobileNumber(9144528901L);
@@ -193,7 +348,7 @@ public class AppRunner implements ApplicationRunner {
         lawyer2.setScore(10);
         lawyer2.setLevel(2); // 3 level Lawyer
         lawyer2.setOnline(true);
-        lawyer2.setAdvicetype(adviceType1);
+        lawyer2.setAdvicetype(adviceTypeParent1);
         lawyer2.setAvailable(true);
         lawyer2.setVerified(true);
         lawyer2.setMobileNumber(9154528901L);
@@ -206,7 +361,7 @@ public class AppRunner implements ApplicationRunner {
         lawyer3.setUid(UUID.fromString("9b64b9d0-3e56-11e9-b475-0800200c9a66"));
         lawyer3.setLevel(3); // 3 level Lawyer
         lawyer3.setScore(10);
-        lawyer3.setAdvicetype(adviceType1);
+        lawyer3.setAdvicetype(adviceTypeParent1);
         lawyer3.setAvailable(true);
         lawyer3.setVerified(true);
         lawyer3.setMobileNumber(9164528901L);
@@ -397,7 +552,7 @@ public class AppRunner implements ApplicationRunner {
         request1.setCreationDate(System.currentTimeMillis());
         request1.setClient(client);
         request1.setFile(file1);
-        request1.setAdvicetype(adviceType1);
+        request1.setAdvicetype(adviceTypeParent1);
 
         Call call1 = new Call();
         call1.setUid(UUID.fromString("12002c34-b3a5-4401-a274-016bda28fdce"));
@@ -419,35 +574,35 @@ public class AppRunner implements ApplicationRunner {
         pack1.setUid(UUID.fromString("13482c33-b3a5-4401-a274-016bda28fdce"));
         pack1.setMinute(0);
         pack1.setName("5 دقیقه مشاوره");
-        pack1.setAdvicetype(adviceType2);
+        pack1.setAdvicetype(adviceTypeParent2);
         pack1.setActive(true);
 
         Pack pack2 = new Pack();
         pack2.setUid(UUID.fromString("14482c33-b3a5-4401-a274-016bda28fdce"));
         pack2.setMinute(10);
         pack2.setName("10 دقیقه مشاوره");
-        pack2.setAdvicetype(adviceType2);
+        pack2.setAdvicetype(adviceTypeParent2);
         pack2.setActive(true);
 
         Pack pack3 = new Pack();
         pack3.setUid(UUID.fromString("15482c33-b3a5-4401-a274-016bda28fdce"));
         pack3.setMinute(15);
         pack3.setName("15 دقیقه مشاوره");
-        pack3.setAdvicetype(adviceType2);
+        pack3.setAdvicetype(adviceTypeParent2);
         pack3.setActive(true);
 
         Pack pack4 = new Pack();
         pack4.setUid(UUID.fromString("16482c33-b3a5-4401-a274-016bda28fdce"));
         pack4.setMinute(30);
         pack4.setName("30 دقیقه مشاوره");
-        pack4.setAdvicetype(adviceType2);
+        pack4.setAdvicetype(adviceTypeParent2);
         pack4.setActive(true);
 
         Pack pack5 = new Pack();
         pack5.setUid(UUID.fromString("17482c33-b3a5-4401-a274-016bda28fdce"));
         pack5.setMinute(45);
         pack5.setName("45 دقیقه مشاوره");
-        pack5.setAdvicetype(adviceType2);
+        pack5.setAdvicetype(adviceTypeParent2);
         pack5.setActive(true);
 
         Reminder reminder1=new Reminder()  ;
@@ -526,11 +681,38 @@ public class AppRunner implements ApplicationRunner {
         assignDiscount2.setUser(lawyer1);
         assignDiscount2.setDiscountpack(discountPack2);
 
+
+        adviceTypeRepo.save(adviceTypeParent1);
+        adviceTypeRepo.save(adviceTypeParent2);
+
+        adviceTypeRepo.save(adviceType1_1);
+        adviceTypeRepo.save(adviceType1_2);
+        adviceTypeRepo.save(adviceType1_3);
+        adviceTypeRepo.save(adviceType1_4);
+        adviceTypeRepo.save(adviceType1_5);
+        adviceTypeRepo.save(adviceType1_6);
+        adviceTypeRepo.save(adviceType1_7);
+        adviceTypeRepo.save(adviceType1_8);
+        adviceTypeRepo.save(adviceType1_9);
+        adviceTypeRepo.save(adviceType1_10);
+        adviceTypeRepo.save(adviceType1_11);
+        adviceTypeRepo.save(adviceType1_12);
+        adviceTypeRepo.save(adviceType1_13);
+
+        adviceTypeRepo.save(adviceType2_1);
+        adviceTypeRepo.save(adviceType2_2);
+        adviceTypeRepo.save(adviceType2_3);
+        adviceTypeRepo.save(adviceType2_4);
+        adviceTypeRepo.save(adviceType2_5);
+        adviceTypeRepo.save(adviceType2_6);
+        adviceTypeRepo.save(adviceType2_7);
+        adviceTypeRepo.save(adviceType2_8);
+        adviceTypeRepo.save(adviceType2_9);
+
         roleRepo.save(role1);
         roleRepo.save(role2);
         roleRepo.save(role3);
         roleRepo.save(role4);
-
 
         clientRepo.save(client);
         clientRepo.save(client2);
@@ -541,8 +723,7 @@ public class AppRunner implements ApplicationRunner {
         fileRepo.save(file2);
         fileRepo.save(file3);
 
-        adviceTypeRepo.save(adviceType1);
-        adviceTypeRepo.save(adviceType2);
+
         orgRepo.save(organization);
 
         requestRepo.save(request1);

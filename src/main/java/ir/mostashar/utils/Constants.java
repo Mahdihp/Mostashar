@@ -129,4 +129,5 @@ public class Constants {
 
 
     public static final String KEY_NOT_FOUND_BWT = "تراکنشی پیدا نشد.";
+    public static final String KEY_NOT_FOUND_ADVICE_TYPE = "حوزه ی مشاوره ای پیدا نشد.";
 }

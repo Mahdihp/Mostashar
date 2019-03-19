@@ -35,28 +35,20 @@ import java.util.Optional;
 @RequestMapping("/api/v1/lawyers")
 public class LawyerController {
 
-
     @Autowired
     private LawyerService lawyerService;
-
     @Autowired
     private AcceptRequestService arService;
-
     @Autowired
     private FailRequestService frService;
-
     @Autowired
     private NotificationService nService;
-
     @Autowired
     private ReminderService reminderService;
-
     @Autowired
     private BillService billService;
-
     @Autowired
     private FeedbackService feedbackService;
-
     @Autowired
     private RequestService requestService;
 

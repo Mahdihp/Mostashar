@@ -35,7 +35,7 @@ public class RequestController {
     @Autowired
     AcceptRequestService arService;
 
-    @ApiOperation(value = "Create Request", notes ="RequestBody :" + MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Create Request", notes = "RequestBody :" + MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Transactional
     @PostMapping(value = "/createrequest", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> createRequest(@Valid @RequestBody RequestForm requestForm) {
@@ -54,17 +54,17 @@ public class RequestController {
         }
     }
 
-    @ApiOperation(value = "Update Request", notes ="RequestBody :" + MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Update Request", notes = "RequestBody :" + MediaType.APPLICATION_JSON_UTF8_VALUE)
     @PostMapping(value = "/updaterequest", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> updateRequest(@Valid @RequestBody RequestForm requestForm) {
-        if (requestService.updateRequest(requestForm)) {
+        if (requestService.updateRequest(requestForm))
             return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_UPDATE_REQUEST_SUCSSES));
-        } else {
+        else
             return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_CLIENT_LAWYER_FILE));
-        }
+
     }
 
-    @ApiOperation(value = "Find One Request", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "Find One Request", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/request", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findRequestByClient(@RequestParam("clientId") String clientid, @RequestParam("requestid") String requestid) {
         Optional<RequestDTO> request = requestService.findByClientIdAndRequestId(clientid, requestid);
@@ -74,7 +74,7 @@ public class RequestController {
         return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
 
-    @ApiOperation(value = "Find All Request", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "Find All Request", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/requests", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findAllRequestByClient(@RequestParam("clientId") String clientid) {
         Optional<ListRequestDTO> allRequestClient = requestService.findAllRequestClient(clientid);
@@ -84,7 +84,7 @@ public class RequestController {
         return ResponseEntity.status(HttpStatus.OK).body(new RequestDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
 
-    @ApiOperation(value = "Delete Request", notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation(value = "Delete Request", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/removerequest", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> removeRequest(@RequestParam("requestid") String requestid) {
         Optional<Request> request = requestService.findById(requestid);

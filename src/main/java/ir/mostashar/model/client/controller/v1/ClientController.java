@@ -44,28 +44,20 @@ public class ClientController {
 
     @Autowired
     private LawyerRepo lawyerRepo;
-
     @Autowired
     private PackService packService;
-
     @Autowired
     private AcceptRequestService arService;
-
     @Autowired
     private RequestService requestService;
-
     @Autowired
     private ReminderService reminderService;
-
     @Autowired
     private NotificationService nService;
-
     @Autowired
     private BillService billService;
-
     @Autowired
     private ClientService clientService;
-
     @Autowired
     private CallService callService;
 

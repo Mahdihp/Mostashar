@@ -23,8 +23,8 @@ public class AdviceType {
     @Column(unique = true, nullable = false)
     private UUID uid;
 
-    @Column(name = "parent")
-    private Long parent;
+//    @Column(name = "parent")
+//    private Long parent;
 
     @Column(name = "name")
     private String name;
@@ -33,13 +33,14 @@ public class AdviceType {
     private String description;
 
     @Column(name = "typeUser")
-    private short type;
+    private int type;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "rootid")
-    private AdviceType root;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent")
+    private AdviceType parent;
 
-    @OneToMany(mappedBy = "root")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,
+            mappedBy = "parent")
     private Set<AdviceType> subordinates = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL,

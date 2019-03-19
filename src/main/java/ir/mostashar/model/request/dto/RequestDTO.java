@@ -11,8 +11,10 @@ public class RequestDTO extends BaseDTO {
     private String requestId;
     private Long requestNumber;
     private String requestStatus;
+    private String fileTitle;
+    private String adviceTitle;
 
-    private String clientId;
+    //    private String clientId;
     private String fileId;
     private String adviceTypeId;
 
