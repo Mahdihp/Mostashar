@@ -34,6 +34,7 @@ public class LawyerDTO extends BaseDTO {
     private List<ExpertiseDTO> expertiseList;
     private String organizationId;
     private String advicetypeId;
+    private String adviceTitle;
 
     public LawyerDTO() {
     }

@@ -189,6 +189,19 @@ public class LawyerController {
     }
 
 
+    @ApiOperation(value = "List Of Lawyer accept request or reading request", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/arlawyer", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE},
+            produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<?> addAcceptRequest(@RequestParam("requestid") String requestid,
+                                              @RequestParam("fileid") String fileId) {
+        Optional<ListLawyerDTO> list = lawyerService.findAllDTOAcceptReqLawyer(requestid, fileId);
+        if (list.isPresent())
+            return ResponseEntity.status(HttpStatus.OK).body(list.get());
+        else
+            return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_LAWYERS));
+    }
+
+
     @ApiOperation(value = "Delete Lawyer", notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/deletelawyer", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> deleteLawyer(@RequestParam("mobilenumber") String mobilenumber) {

@@ -109,6 +109,7 @@ public class AcceptRequestService {
             arDTO.setCreationDate(acceptRequest.get().getCreationDate());
             arDTO.setFinishedTimeFile(acceptRequest.get().getFinishedTimeFile());
             arDTO.setVerified(acceptRequest.get().getVerified());
+            arDTO.setReading(acceptRequest.get().isReading());
             arDTO.setRequestId(acceptRequest.get().getRequest().getUid().toString());
             arDTO.setLawyerId(acceptRequest.get().getLawyer().getUid().toString());
             return Optional.ofNullable(arDTO);
@@ -116,6 +117,20 @@ public class AcceptRequestService {
         return Optional.empty();
     }
 
+    public Optional<List<AcceptRequest>> findAll(String requestUid, String fileUid) {
+        Optional<List<AcceptRequest>> list = arRepository.findAllByRequestUid(UUID.fromString(requestUid));
+        if (list.isPresent()) {
+            List<AcceptRequest> dtoList = new ArrayList<>();
+            for (AcceptRequest ar : list.get()) {
+                File file = list.get().get(0).getRequest().getFile();
+                if (file.getUid().toString().equals(fileUid)) {
+                    dtoList.add(ar);
+                }
+            }
+            return Optional.ofNullable(dtoList);
+        }
+        return Optional.empty();
+    }
 
     public Optional<ListAcceptRequestDTO> findAllDTO(String requestUid, String fileUid) {
 
@@ -135,6 +150,7 @@ public class AcceptRequestService {
                     arDTO.setAcceptRequesId(ar.getUid().toString());
                     arDTO.setCreationDate(ar.getCreationDate());
                     arDTO.setFinishedTimeFile(ar.getFinishedTimeFile());
+                    arDTO.setReading(ar.isReading());
                     arDTO.setVerified(ar.getVerified());
                     arDTO.setRequestId(ar.getRequest().getUid().toString());
                     arDTO.setLawyerId(ar.getLawyer().getUid().toString());
@@ -171,6 +187,7 @@ public class AcceptRequestService {
                 arDTO.setCreationDate(ar.getCreationDate());
                 arDTO.setFinishedTimeFile(ar.getFinishedTimeFile());
                 arDTO.setVerified(ar.getVerified());
+                arDTO.setReading(ar.isReading());
                 arDTO.setRequestId(ar.getRequest().getUid().toString());
                 arDTO.setLawyerId(ar.getLawyer().getUid().toString());
                 dtoList.add(arDTO);

@@ -29,7 +29,7 @@ public class AcceptRequestController {
     private AcceptRequestService acceptRequestService;
 
     @ApiOperation(value = "list of accepted request by lawyer",
-            notes ="RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+            notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/projects", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE},
             produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> findAcceptedRequestLawyer(@RequestParam("lawyerid") String lawyerId) {
@@ -40,6 +40,8 @@ public class AcceptRequestController {
             return ResponseEntity.status(HttpStatus.OK).body(new ListAcceptRequestDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
 
+    @ApiOperation(value = "Update accepted request by lawyer from reading.",
+            notes = "RequestParam :" + MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PostMapping(value = "/", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE},
             produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> addAcceptRequest(@RequestParam("acceptrequestid") String acceptRequestId,
@@ -50,5 +52,6 @@ public class AcceptRequestController {
             return ResponseEntity.status(HttpStatus.OK).body(new BaseDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_REQUEST));
 
     }
+
 
 }

@@ -229,10 +229,11 @@ public class LawyerService {
     }
 
     public boolean updateLawyer(Lawyer lawyer) {
-        try{
+        try {
             lawyerRepo.save(lawyer);
             return true;
-        }catch (Exception s){}
+        } catch (Exception s) {
+        }
         return false;
     }
 
@@ -423,8 +424,52 @@ public class LawyerService {
         if (fileList != null && fileList.size() > 0) {
             return Optional.of(listFileDTO);
         }
-
         return Optional.empty();
     }
 
+    public Optional<ListLawyerDTO> findAllDTOAcceptReqLawyer(String requestid, String fileId) {
+        Optional<List<AcceptRequest>> list = arService.findAll(requestid, fileId);
+
+        if (list.isPresent()) {
+            ListLawyerDTO llDTO = new ListLawyerDTO();
+            List<LawyerDTO> dtoList = new ArrayList<>();
+            for (AcceptRequest datum : list.get()) {
+                dtoList.add(convertLawyerToDTO(datum.getLawyer()));
+            }
+            llDTO.setData(dtoList);
+            return Optional.ofNullable(llDTO);
+        }
+        return Optional.empty();
+    }
+
+    public static LawyerDTO convertLawyerToDTO(Lawyer lawyer) {
+        LawyerDTO lawyerDTO = new LawyerDTO();
+        lawyerDTO.setLawyerId(lawyer.getUid().toString());
+        lawyerDTO.setFirstName(lawyer.getFirstName());
+        lawyerDTO.setLastName(lawyer.getLastName());
+        lawyerDTO.setUsername(lawyer.getUsername());
+        lawyerDTO.setPassword(lawyer.getPassword());
+        lawyerDTO.setNationalId(lawyer.getNationalId());
+        lawyerDTO.setBirthDate(lawyer.getBirthDate());
+        lawyerDTO.setOnline(lawyer.getOnline());
+        lawyerDTO.setScore(lawyer.getScore());
+        lawyerDTO.setAvatarHashcode(lawyer.getAvatarHashcode());
+        lawyerDTO.setActive(lawyer.getActive());
+        lawyerDTO.setMobileNumber(lawyer.getMobileNumber());
+//            lawyerDTO.setVerificationCode(lawyer.getVerificationCode());
+        lawyerDTO.setCreationDate(lawyer.getCreationDate());
+//            lawyerDTO.setModificationDate(lawyer.getModificationDate());
+        lawyerDTO.setAvailable(lawyer.getAvailable());
+        lawyerDTO.setLevel(lawyer.getLevel());
+        lawyerDTO.setPricePerMinute(lawyer.getPricePerMinute());
+        lawyerDTO.setVerified(lawyer.getVerified());
+        lawyerDTO.setAdviceTitle(lawyer.getAdvicetype().getName());
+        List<ExpertiseDTO> expertelist = new ArrayList<>();
+        lawyer.getExpertises().stream()
+                .forEach(ex -> expertelist.add(new ExpertiseDTO(ex.getUid().toString(), ex.getName(), ex.getDescription())));
+        lawyerDTO.setExpertiseList(expertelist);
+        lawyerDTO.setOrganizationId(lawyer.getNationalId());
+        lawyerDTO.setAdvicetypeId(lawyer.getAdvicetype().getUid().toString());
+        return lawyerDTO;
+    }
 }
