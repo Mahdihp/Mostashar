@@ -10,7 +10,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ListRequestDTO extends BaseDTO {
 
-    private List<RequestDTO> requests;
+    private List<RequestDTO> data;
 
     public ListRequestDTO() {
         super();

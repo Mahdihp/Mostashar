@@ -1,16 +1,18 @@
 package ir.mostashar.model.request.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModel;
 import ir.mostashar.model.BaseDTO;
 import lombok.Data;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@ApiModel(value = "RequestDTO", description = "requestStatus=0,1,2,3,4,5,6")
 public class RequestDTO extends BaseDTO {
 
     private String requestId;
     private Long requestNumber;
-    private String requestStatus;
+    private int requestStatus;
     private String fileTitle;
     private String adviceTitle;
 

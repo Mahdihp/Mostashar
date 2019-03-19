@@ -159,7 +159,7 @@ public class RequestService {
             requestDTO.setStatus(HttpStatus.OK.value());
             requestDTO.setMessage(Constants.KEY_SUCESSE);
             requestDTO.setRequestId(request.get().getUid().toString());
-            requestDTO.setRequestStatus(request.get().getRequestStatus().name());
+            requestDTO.setRequestStatus(request.get().getRequestStatus().type);
             requestDTO.setRequestNumber(request.get().getRequestNumber());
             requestDTO.setFileTitle(request.get().getFile().getTitle());
             requestDTO.setAdviceTitle(request.get().getAdvicetype().getName());
@@ -180,7 +180,7 @@ public class RequestService {
             for (Request request : requestList.get()) {
                 RequestDTO requestDTO = new RequestDTO();
                 requestDTO.setRequestId(request.getUid().toString());
-                requestDTO.setRequestStatus(request.getRequestStatus().name());
+                requestDTO.setRequestStatus(request.getRequestStatus().type);
                 requestDTO.setRequestNumber(request.getRequestNumber());
                 requestDTO.setFileTitle(request.getFile().getTitle());
                 requestDTO.setAdviceTitle(request.getAdvicetype().getName());
@@ -193,7 +193,7 @@ public class RequestService {
 
             listRequestDTO.setStatus(HttpStatus.OK.value());
             listRequestDTO.setMessage(Constants.KEY_SUCESSE);
-            listRequestDTO.setRequests(dtoList);
+            listRequestDTO.setData(dtoList);
             return Optional.of(listRequestDTO);
         }
         return Optional.empty();
