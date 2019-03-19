@@ -18,6 +18,7 @@ import ir.mostashar.model.lawyer.repository.LawyerRepo;
 import ir.mostashar.model.organization.Organization;
 import ir.mostashar.model.organization.service.OrganizationService;
 import ir.mostashar.model.request.Request;
+import ir.mostashar.model.request.service.RequestService;
 import ir.mostashar.model.role.Role;
 import ir.mostashar.model.role.RoleName;
 import ir.mostashar.model.role.repository.RoleRepo;
@@ -64,6 +65,8 @@ public class LawyerService {
 
     @Autowired
     private OrganizationService orgService;
+    @Autowired
+    private RequestService requestService;
 
 
     public Optional<Lawyer> findLawyerUidAndActive(String userid, boolean active) {
@@ -429,13 +432,15 @@ public class LawyerService {
 
     public Optional<ListLawyerDTO> findAllDTOAcceptReqLawyer(String requestid, String fileId) {
         Optional<List<AcceptRequest>> list = arService.findAll(requestid, fileId);
+        ListLawyerDTO llDTO = new ListLawyerDTO();
 
         if (list.isPresent()) {
-            ListLawyerDTO llDTO = new ListLawyerDTO();
             List<LawyerDTO> dtoList = new ArrayList<>();
             for (AcceptRequest datum : list.get()) {
                 dtoList.add(convertLawyerToDTO(datum.getLawyer()));
             }
+
+
             llDTO.setData(dtoList);
             return Optional.ofNullable(llDTO);
         }

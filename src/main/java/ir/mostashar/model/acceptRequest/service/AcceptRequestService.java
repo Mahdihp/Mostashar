@@ -206,4 +206,9 @@ public class AcceptRequestService {
         }
         return false;
     }
+
+    public int getCountAR(String requestId) {
+        Optional<List<AcceptRequest>> list = arRepository.findAllByRequestUid(UUID.fromString(requestId));
+        return list.get().size();
+    }
 }

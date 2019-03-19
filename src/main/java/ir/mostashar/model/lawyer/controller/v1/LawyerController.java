@@ -19,6 +19,7 @@ import ir.mostashar.model.lawyer.service.LawyerService;
 import ir.mostashar.model.notification.Notification;
 import ir.mostashar.model.notification.service.NotificationService;
 import ir.mostashar.model.reminder.service.ReminderService;
+import ir.mostashar.model.request.RequestStatus;
 import ir.mostashar.model.request.service.RequestService;
 import ir.mostashar.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,10 +134,14 @@ public class LawyerController {
      */
     @PostMapping(value = "/failrequest", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity<?> failRequest(@Valid @RequestBody FailRequestForm frForm) {
-        if (frService.createFailRequest(frForm))
-            return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_ADD_FAIL_REQUEST));
-        else
-            return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_REQUEST));
+        if (frService.createFailRequest(frForm)) {
+            int count = arService.getCountAR(frForm.getRequestId());
+            if (count == 0) {
+                requestService.update(frForm.getRequestId(), RequestStatus.SELECT_LAWYER);
+                return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_ADD_FAIL_REQUEST));
+            }
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(new LawyerDTO(HttpStatus.OK.value(), Constants.KEY_NOT_FOUND_REQUEST));
     }
 
     /**
