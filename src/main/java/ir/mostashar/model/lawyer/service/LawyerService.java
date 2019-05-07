@@ -434,6 +434,8 @@ public class LawyerService {
         Optional<List<AcceptRequest>> list = arService.findAll(requestid, fileId);
         ListLawyerDTO llDTO = new ListLawyerDTO();
 
+        requestService.findAllRequestClient()
+
         if (list.isPresent()) {
             List<LawyerDTO> dtoList = new ArrayList<>();
             for (AcceptRequest datum : list.get()) {
